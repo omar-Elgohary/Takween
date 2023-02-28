@@ -17,19 +17,19 @@ freelancers
 <div class="products-page">
     <div class="container-fluid d-flex ">
         <div class="category-table">
-        <ul class="category">
-            <li><a href="">categories</a></li>
-            <li><a href="">categories</a></li>
-            <li><a href="">categories</a></li>
-            <li><a href="">categories</a></li>
+            <h5>Categories</h5>
+            @foreach (App\Models\Category::all() as $category)
+                <ul class="category">
+                    <li><a href="#">{{ $category->title_en }}</a></li>
+                </ul>
+            @endforeach
 
-        </ul>
             <ul class="subcategorys">
-            <li><a href="">categories</a></li>
-            <li><a href="">categories</a></li>
-            <li><a href="">categories</a></li>
-            <li><a href="">categories</a></li>
-        </ul>
+                <li><a href="">categories</a></li>
+                <li><a href="">categories</a></li>
+                <li><a href="">categories</a></li>
+                <li><a href="">categories</a></li>
+            </ul>
         </div>
 
         <div class="product-table" >
@@ -97,17 +97,17 @@ freelancers
             <div class="totals">
                 <div class="projects">
                     <i class="fa-solid fa-list-check"></i>
-                    <p>14<sub>projects</sub></p>
+                    <p>{{ App\Models\Requests::where('freelancer_id', $freelancer->id)->count() }}<sub>projects</sub></p>
                 </div>
 
                 <div class="productstotal">
                     <i class="fa-solid fa-dollar-sign"></i>
-                    <p>{{ Product::where('')->count }}<sub>products</sub></p>
+                    <p>{{ App\Models\Product::where('freelancer_id', $freelancer->id)->count() }}<sub>products</sub></p>
                 </div>
 
                 <div class="photos">
                     <i class="fa-solid fa-image"></i>
-                    <p>14  <sub>photos</sub></p>
+                    <p>{{ App\Models\Photo::where('freelancer_id', $freelancer->id)->count() }}<sub>photos</sub></p>
                 </div>
             </div>
         </a>
