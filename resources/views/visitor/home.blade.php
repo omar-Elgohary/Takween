@@ -75,113 +75,27 @@ home
     <div class="container py-3 scrollable-container">
         <div class="section-header">
             <h2>Top freelancers</h2>
-
             <a href="#">See all</a>
         </div>
 
-          <button class="pre-btn"></button>
+        <button class="pre-btn"></button>
         <button class="nxt-btn"></button>
+
         <div class="scrollable">
-            <div class="freelancer ">
-                <div class="image">
-                    <img src="{{asset("assets//images/vicky-hladynets-C8Ta0gwPbQg-unsplash.png")}}" alt="">
-                </div>
-                <div class="info">
-                    <div class="name text-capitalize">ahmed</div>
-                    <div class="rate">
-                        <i class="fa fa-star"></i>
-                        <div class="rate-precntage">3,4</div>
+            @foreach ($freelancers as $freelancer)
+                <div class="freelancer ">
+                    <div class="image">
+                        <img src="{{ asset("Admin3/assets/images/users/".$freelancer->profile_image) }}" alt="">
+                    </div>
+                    <div class="info">
+                        <div class="name text-capitalize">{{ $freelancer->name }}</div>
+                        <div class="rate">
+                            <i class="fa fa-star"></i>
+                            <div class="rate-precntage">3,4</div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="freelancer ">
-                <div class="image">
-                    <img src="{{asset("assets/images/vicky-hladynets-C8Ta0gwPbQg-unsplash.png")}}" alt="">
-                </div>
-                <div class="info">
-                    <div class="name text-capitalize">ahmed</div>
-                    <div class="rate">
-                        <i class="fa fa-star"></i>
-                        <div class="rate-precntage">3,4</div>
-                    </div>
-                </div>
-            </div>
-            <div class="freelancer ">
-                <div class="image">
-                    <img src="{{asset("assets/images/vicky-hladynets-C8Ta0gwPbQg-unsplash.png")}}" alt="">
-                </div>
-                <div class="info">
-                    <div class="name text-capitalize">ahmed</div>
-                    <div class="rate">
-                        <i class="fa fa-star"></i>
-                        <div class="rate-precntage">3,4</div>
-                    </div>
-                </div>
-            </div>
-            <div class="freelancer ">
-                <div class="image">
-                    <img src="{{asset("assets/images/vicky-hladynets-C8Ta0gwPbQg-unsplash.png")}}" alt="">
-                </div>
-                <div class="info">
-                    <div class="name text-capitalize">ahmed</div>
-                    <div class="rate">
-                        <i class="fa fa-star"></i>
-                        <div class="rate-precntage">3,4</div>
-                    </div>
-                </div>
-            </div>
-            <div class="freelancer ">
-                <div class="image">
-                    <img src="{{asset("assets/images/vicky-hladynets-C8Ta0gwPbQg-unsplash.png")}}" alt="">
-                </div>
-                <div class="info">
-                    <div class="name text-capitalize">ahmed</div>
-                    <div class="rate">
-                        <i class="fa fa-star"></i>
-                        <div class="rate-precntage">3,4</div>
-                    </div>
-                </div>
-            </div>
-            <div class="freelancer ">
-                <div class="image">
-                    <img src="{{asset("assets/images/vicky-hladynets-C8Ta0gwPbQg-unsplash.png")}}" alt="">
-                </div>
-                <div class="info">
-                    <div class="name text-capitalize">ahmed</div>
-                    <div class="rate">
-                        <i class="fa fa-star"></i>
-                        <div class="rate-precntage">3,4</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="freelancer ">
-                <div class="image">
-                    <img src="{{asset("assets/images/vicky-hladynets-C8Ta0gwPbQg-unsplash.png")}}" alt="">
-                </div>
-
-                <div class="info">
-                    <div class="name text-capitalize">ahmed</div>
-                    <div class="rate">
-                        <i class="fa fa-star"></i>
-                        <div class="rate-precntage">3,4</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="freelancer ">
-                <div class="image">
-                    <img src="{{asset("assets/images/vicky-hladynets-C8Ta0gwPbQg-unsplash.png")}}" alt="">
-                </div>
-
-                <div class="info">
-                    <div class="name text-capitalize">ahmed</div>
-                    <div class="rate">
-                        <i class="fa fa-star"></i>
-                        <div class="rate-precntage">3,4</div>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </div><!-- end freelnce -->
