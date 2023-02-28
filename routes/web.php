@@ -5,6 +5,14 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 
 
+
+
+
+Route::group(
+    [
+        'prefix' => LaravelLocalization::setLocale(),
+        'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
+    ], function(){
 Route::get('/', function () {
     return view('visitor.home');
 })->name("home");
@@ -99,7 +107,7 @@ Route::prefix("freelancer")->name("freelancer.")->group(function(){
         return view("freelancer.photo");
     })->name("photo");
 
-
+    Route::resource('product',ProductController::class);
     //profile
     Route::get("/files",function(){
         return view("freelancer.files");
@@ -174,12 +182,7 @@ Route::prefix("user")->name("user.")->group(function(){
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
-Route::group(
-[
-	'prefix' => LaravelLocalization::setLocale(),
-	'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
-], function(){
-     //...
+
 });
 
 Route::middleware('auth')->group(function () {

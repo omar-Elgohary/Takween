@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Photo;
+
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 
 class PhotoController extends Controller
@@ -14,7 +16,10 @@ class PhotoController extends Controller
      */
     public function index()
     {
-        //
+
+        $photos=Photo::where("freelancer_id",auth()->user()->id)->get();
+        
+        return view("freelancer.showphotos",compact("photos"));
     }
 
     /**
@@ -24,40 +29,61 @@ class PhotoController extends Controller
      */
     public function create()
     {
-        //
+        $photos=Photo::all();
+    return view("freelancer.addphoto", compact('photos'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+   
     public function store(Request $request)
     {
-        //
+
+        // dd($request);
+        $request->validate([
+         "photo"=>['required','image',"max:200"],
+         "name"=>['required'],
+         "description"=>['required'],
+         "camerabrand"=>['nullable'],
+         "lens"=>['nullable'],
+         "sizewidth"=>['required','numeric'],
+         "sizeheight"=>['required',"numeric"],
+         "sizetype"=>['required'],
+         "location"=>['nullable'],
+        ]);
+        
+     
+        $file_extention=$request->file("photo")->getCLientOriginalExtension();
+        $photo_name=time(). ".".$file_extention;
+        $request->file("photo")->move(public_path('front/upload/photo'),$photo_name);
+        $photo=Photo::create([
+            "name"=>$request->name,
+            "freelancer_id"=>auth()->user()->id,
+            "description"=>$request->description,
+            "camera_brand"=>$request->camerabrand,
+            "lens_type"=>$request->lens,
+            "size_width"=>$request->sizewidth,
+            "size_height"=>$request->sizeheight,
+            "size_type"=>$request->sizetype,
+            "location"=>$request->location,
+            "photo"=>$photo_name
+       
+        ]);
+
+
+        session()->flash('Create' , "created susseccfully");
+        return route('freelanc.photo.index');
+      
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Photo  $photo
-     * @return \Illuminate\Http\Response
-     */
+    
     public function show(Photo $photo)
     {
-        //
+        return view("freelancer.photo",compact('photo'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Photo  $photo
-     * @return \Illuminate\Http\Response
-     */
+  
     public function edit(Photo $photo)
     {
-        //
+       return view("freelancer.editphoto",compact("photo"));
     }
 
     /**
@@ -69,17 +95,55 @@ class PhotoController extends Controller
      */
     public function update(Request $request, Photo $photo)
     {
-        //
+       
+
+        $request->validate([
+            "photo"=>['nullable',"image","max:200"],
+            "name"=>['required'],
+            "description"=>['required'],
+            "camerabrand"=>['nullable'],
+            "lens"=>['nullable'],
+            "sizewidth"=>['required','numeric'],
+            "sizeheight"=>['required',"numeric"],
+            "sizetype"=>['required'],
+            "location"=>['nullable'],
+           ]);
+           $photo_name=$photo->photo;
+        if($request->hasFile("photo")) {
+          
+   
+            File::delete("front/upload/photo/".$photo->photo);
+            $file_extention=$request->file("photo")->getCLientOriginalExtension();
+            $photo_name=time(). ".".$file_extention;
+            $request->file("photo")->move(public_path('front/upload/photo/'),$photo_name);
+
+        }  
+       
+        $photo->update([
+            "name"=>$request->name,
+            "description"=>$request->description,
+            "camera_brand"=>$request->camerabrand,
+            "lens_type"=>$request->lens,
+            "size_width"=>$request->sizewidth,
+            "size_height"=>$request->sizeheight,
+            "size_type"=>$request->sizetype,
+            "location"=>$request->location,
+            "photo"=>$photo_name
+
+        ]);
+       
+        return redirect()->route("freelanc.photo.show",compact("photo"));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Photo  $photo
-     * @return \Illuminate\Http\Response
-     */
+    
     public function destroy(Photo $photo)
     {
-        //
+
+        File::delete("front/upload/photo/".$photo->photo);
+        $photo->delete();
+
+       session()->flash('Delete' , "deleted susseccfully");
+       return redirect()->route("freelanc.photo.index");
+
     }
 }
