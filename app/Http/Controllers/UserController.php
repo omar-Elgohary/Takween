@@ -38,5 +38,28 @@ class UserController extends Controller
 
         return back();
     }
+
+
+    public function updateFreelancerProfile(Request $request, $id)
+    {
+        // $this->validate($request, [
+        //     'profile_image' => 'sometimes|image|mimes:png,jpg',
+        //     'name' => 'required|string',
+        //     'phone' => 'required|unique:users',
+        //     'email' => 'required|unique:users',
+        //     'bio' => 'required',
+        //     'id_number' => 'required|unique:users',
+        //     'business_register' => 'required|unique:users',
+        // ]);
+
+        $data = $request->only('profile_image', 'name', 'phone', 'email', 'bio', 'id_number', 'business_register');
+        if($request->hasFile('profile_image')){
+            $data['profile_image'] = Storage::disk('public')->put('Admin3/assets/images/users', $request->file('profile_image'));
+        }
+        User::find($id)->update($data);
+
+        return back();
+    }
 }
+
 

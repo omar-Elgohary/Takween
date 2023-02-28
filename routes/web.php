@@ -32,7 +32,9 @@ Route::get("user/freelancers",function(){
 
 ########################################## Start Freelancer ##############################################
 
-Route::prefix("freelancer")->name("freelancer.")->group(function(){
+Route::prefix("freelancer")->name("freelanc.")->group(function(){
+
+    Route::post('updateFreelancerProfile/{id}', [UserController::class, 'updateFreelancerProfile'])->name('updateFreelancerProfile');
 
     Route::get("/product",function(){
         return view("freelancer.products");
