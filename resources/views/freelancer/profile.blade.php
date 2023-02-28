@@ -91,8 +91,8 @@ freelanser name
                     <div class="d-flex justify-content-baseline align-items-center  col-lg-6 col-sm-12 col-xs-12 chart-static">
                         <div class="text-center" dir="ltr">
                             <input class="knob" data-width="200" data-height="200" data-linecap=round
-                                    data-fgColor="#D4D949" value="12" data-skin="tron" data-angleOffset="100"
-                                    data-readOnly=true data-thickness=".1"/>
+                                data-fgColor="#D4D949" value="12" data-skin="tron" data-angleOffset="100"
+                                data-readOnly=true data-thickness=".1"/>
                         </div>
 
                         <div class="div px-3 static-info">

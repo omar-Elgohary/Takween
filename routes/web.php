@@ -1,11 +1,9 @@
 <?php
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
-
-
-
 
 
 Route::group(
@@ -13,9 +11,8 @@ Route::group(
         'prefix' => LaravelLocalization::setLocale(),
         'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
     ], function(){
-Route::get('/', function () {
-    return view('visitor.home');
-})->name("home");
+
+Route::get('/', [HomeController::class, 'index'])->name("home");
 
 
 Route::get('products', [ProductController::class, 'displayAllProducts'])->name('products');
@@ -107,7 +104,8 @@ Route::prefix("freelancer")->name("freelanc.")->group(function(){
         return view("freelancer.photo");
     })->name("photo");
 
-    Route::resource('product',ProductController::class);
+    Route::resource('photo',ProductController::class);
+
     //profile
     Route::get("/files",function(){
         return view("freelancer.files");
