@@ -23,12 +23,12 @@ freelanser name
 <a class="addrequesticon" href="#chooseservice" data-bs-toggle="modal">
   <i class="fa-solid fa-plus"></i>
   </a>
-  
+
   <div class="products-page py-5">
         <div class="container">
-         
+
             <section class="freelanc v2" >
-   
+
                 <div class="image">
                   <img src="{{asset("assets/images/vicky-hladynets-C8Ta0gwPbQg-unsplash.png")}}" alt="">
                 </div>
@@ -38,10 +38,10 @@ freelanser name
                         <div class="rate">
                           <i class="fa fa-star"></i>
                           <span>4,5</span>
-                        </div> 
+                        </div>
                   </div>
                   <div class="txt">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam velit alias ratione eaque dolores expedita ex repellat ducimus. Ratione quisquam molestiae iusto minima obcaecati tenetur delectus ex ipsam doloribus nulla.</div>
-                  
+
                 </div>
                 <div class="totals">
                  <div class="projects">
@@ -52,29 +52,29 @@ freelanser name
                   <i class="fa-solid fa-dollar-sign"></i>
                   <p>14  <sub>products</sub></p>
                  </div>
-                 <div class="photos"> 
+                 <div class="photos">
                   <i class="fa-solid fa-image"></i>
                   <p>14  <sub>photos</sub></p>
                  </div>
-              
+
                 </div>
-              
+
               </section>
 
-            
-           
 
-       
+
+
+
          </div>
-        
+
          <div class="categories pt-5 ms-3 ccs">
             <div class="container-fluid py-5  px-3 scrollable-container">
                 <div class="section-header">
                     <h2>products</h2>
-        
+
                 </div>
-               
-               
+
+
                 <div class="products productscroll">
                     <div class="card">
                       <div class="image-product">
@@ -98,7 +98,7 @@ freelanser name
                                       <i class="fa-solid fa-heart align-self-center"></i>
                                       <span>123</span>
                                   </div>
-                                
+
                                 </div>
                      </div>
                     <div class="card">
@@ -123,7 +123,7 @@ freelanser name
                                       <i class="fa-solid fa-heart align-self-center"></i>
                                       <span>123</span>
                                   </div>
-                                
+
                                 </div>
                      </div>
                     <div class="card">
@@ -148,7 +148,7 @@ freelanser name
                                       <i class="fa-solid fa-heart align-self-center"></i>
                                       <span>123</span>
                                   </div>
-                                
+
                                 </div>
                      </div>
                     <div class="card">
@@ -173,7 +173,7 @@ freelanser name
                                       <i class="fa-solid fa-heart align-self-center"></i>
                                       <span>123</span>
                                   </div>
-                                
+
                                 </div>
                      </div>
                     <div class="card">
@@ -198,7 +198,7 @@ freelanser name
                                       <i class="fa-solid fa-heart align-self-center"></i>
                                       <span>123</span>
                                   </div>
-                                
+
                                 </div>
                      </div>
                     <div class="card">
@@ -223,7 +223,7 @@ freelanser name
                                       <i class="fa-solid fa-heart align-self-center"></i>
                                       <span>123</span>
                                   </div>
-                                
+
                                 </div>
                      </div>
                     <div class="card">
@@ -248,7 +248,7 @@ freelanser name
                                       <i class="fa-solid fa-heart align-self-center"></i>
                                       <span>123</span>
                                   </div>
-                                
+
                                 </div>
                      </div>
               </div>
@@ -258,10 +258,10 @@ freelanser name
             <div class="container-fluid py-2 px-3 scrollable-container">
                 <div class="section-header">
                     <h2>photos</h2>
-        
+
                 </div>
-               
-               
+
+
                 <div class="products productscroll">
                     <div class="card">
                       <div class="image-product">
@@ -275,15 +275,15 @@ freelanser name
                         </div>
                                 <div class="card-body d-flex justify-content-between">
                                   <h5 class="card-title">product name</h5>
-                                 
+
                                   <div  class="prod-likes ">
                                       <i class="fa-solid fa-heart align-self-center"></i>
                                       <span>123</span>
                                   </div>
-                                
+
                                 </div>
                      </div>
-                     
+
               </div>
             </div>
         </div>
@@ -312,11 +312,11 @@ freelanser name
                           <i class="fa fa-star"></i>
                           <i class="fa fa-star"></i>
                           <i class="fa fa-star"></i>
-                         
-                        </div> 
+
+                        </div>
                   </div>
                   <div class="txt">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam velit alias ratione eaque dolores expedita ex repellat ducimus. Ratione quisquam molestiae iusto minima obcaecati tenetur delectus ex ipsam doloribus nulla.</div>
-                 
+
                 </div>
         </div>
         <div class="review freelanc ">
@@ -333,11 +333,11 @@ freelanser name
                           <i class="fa fa-star"></i>
                           <i class="fa fa-star"></i>
                           <i class="fa fa-star"></i>
-                         
-                        </div> 
+
+                        </div>
                   </div>
                   <div class="txt">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam velit alias ratione eaque dolores expedita ex repellat ducimus. Ratione quisquam molestiae iusto minima obcaecati tenetur delectus ex ipsam doloribus nulla.</div>
-                 
+
                 </div>
         </div>
         <div class="review freelanc ">
@@ -354,26 +354,26 @@ freelanser name
                           <i class="fa fa-star"></i>
                           <i class="fa fa-star"></i>
                           <i class="fa fa-star"></i>
-                         
-                        </div> 
+
+                        </div>
                   </div>
                   <div class="txt">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam velit alias ratione eaque dolores expedita ex repellat ducimus. Ratione quisquam molestiae iusto minima obcaecati tenetur delectus ex ipsam doloribus nulla.</div>
-                 
+
                 </div>
         </div>
         <a href="" class=" text-center showmore">show more</a>
     </div>
 </div>
-        
+
   </div>
 
-  
+
 <!-- Modal -->
 <div class="modal fade " id="chooseservice" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-              
+
                 <button type="button" class="btn-close" data-bs-dismiss="modal" arialabel="Close"></button>
             </div>
             <div class="modal-body">
@@ -389,34 +389,34 @@ freelanser name
         <label for="reservation">Booking for photo shot</label>
       </div>
 
-      
-     
 
 
-      
- 
+
+
+
+
       <div class="btn-contianer d-flex  justify-content-between  align-items-center my-3">
-          
+
           <button class="  btn-modal modal-color-text border-0" data-bs-dismiss="modal" type="button">move back</button>
           <button class=" btn-modal btn-model-primary  border-0" type="submit">apply</button>
-         
+
   </div>
- 
- 
 
 
- 
+
+
+
 </form>
 
             </div>
-        
+
         </div>
     </div>
 
         </div>
-  
 
-  
+
+
 
 
 
@@ -425,7 +425,7 @@ freelanser name
 @endsection
 
 @section("js")
-    
+
 @endsection
 
 

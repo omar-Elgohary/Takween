@@ -13,6 +13,14 @@ class UserController extends Controller
     }
 
 
+
+    public function allFreelancers()
+    {
+        $freelancers = User::where('type', 'freelancer')->get();
+        return view("visitor.freelancers", compact('freelancers'));
+    }
+
+
     public function destroy(Request $request, $id)
     {
         User::find($id)->delete();

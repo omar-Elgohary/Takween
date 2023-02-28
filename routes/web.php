@@ -25,9 +25,7 @@ Route::get('/freelancer', function () {
     return view('visitor.freelancer');
 })->name("freelancer");
 
-Route::get("user/freelancers",function(){
-    return view("visitor.freelancers");
-})->name("freelancers");
+Route::get("user/freelancers", [UserController::class, 'allFreelancers'])->name("freelancers");
 
 
 ########################################## Start Freelancer ##############################################
