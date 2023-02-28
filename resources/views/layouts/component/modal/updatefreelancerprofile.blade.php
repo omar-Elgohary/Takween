@@ -7,11 +7,12 @@
 
             <div class="modal-body">
                 <h1 class="modal-title fs-5" >Edit Profile</h1>
-                <form method="POST" action="" enctype="multipart/form-data">
+                <form action="{{ route('freelanc.updateFreelancerProfile', Auth::user()->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
+
                     <div class="form-outline imgcontainer mb-2" >
                     <label class="profileimage form-label text-center  rounded-circle" for="imageprofile">
-                        <img id="photoprofilefreelacer"  class="rounded-circle" name="profile_image" src="{{ asset("Admin3/assets/images/users/".Auth::user()->profile_image) }}" alt="">
+                        <img id="photoprofilefreelacer" name="profile_image" class="rounded-circle" name="profile_image" src="{{ asset("Admin3/assets/images/users/".Auth::user()->profile_image) }}" alt="">
                         <div class=" layout d-flex align-items-center justify-content-center">
                             <i class="fa-solid fa-camera"></i>
                         </div>
@@ -20,7 +21,7 @@
                     </div>
 
                     <div class="form-outline mb-2 halfwidthinput">
-                        <label class="form-label" for="fullname2">FullName</label>
+                        <label class="form-label" for="fullname2">Full Name</label>
                         <div class="input-icon">
                             <i class="fa-regular fa-user"></i>
                             <input type="text" id="fullname2" class="form-control" name="name" value="{{ Auth::user()->name }}"/>
