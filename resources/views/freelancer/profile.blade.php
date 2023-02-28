@@ -83,7 +83,7 @@ freelanser name
                         </div>
 
                         <div class="div px-3 static-info">
-                            <h3 class="bold">{{ App\Models\Product::where('id', Auth::user()->id)->count() }}</h3>
+                            <h3 class="bold">{{ \App\Models\Product::where('freelancer_id', Auth::user()->id)->count() }}</h3>
                             <p class="text-black-50">products</p>
                         </div>
                     </div>
@@ -96,7 +96,7 @@ freelanser name
                         </div>
 
                         <div class="div px-3 static-info">
-                            <h3 class="bold">{{ App\Models\Photo::where('id', Auth::user()->id)->count() }}</h3>
+                            <h3 class="bold">{{ App\Models\Photo::where('freelancer_id', Auth::user()->id)->count() }}</h3>
                             <p class="text-black-50">photos</p>
                         </div>
                     </div>
