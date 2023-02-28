@@ -83,7 +83,7 @@ class UserController extends Controller
         if($request->hasFile('profile_image')){
             if($photo_name!="default.png"){   
                 
-                dd("sadas");
+           
             File::delete('Admin3/assets/images/users/'.$photo_name);
             }
             $file_extention=$request->file('profile_image')->getCLientOriginalExtension();
