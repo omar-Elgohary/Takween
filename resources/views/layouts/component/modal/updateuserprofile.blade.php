@@ -12,12 +12,12 @@
 
                 <div class="form-outline imgcontainer mb-2">
                     <label class="profileimage form-label text-center" for="imageprofile">
-                        <img id="photoprofile" name="profile_image" src="{{ asset("Admin3/assets/images/users/".Auth::user()->profile_image) }}" alt="">
+                        <img id="photoprofile"  src="{{ asset("Admin3/assets/images/users/".Auth::user()->profile_image) }}" alt="">
                         <div class=" layout d-flex align-items-center justify-content-center">
                             <i class="fa-solid fa-camera"></i>
                         </div>
                     </label>
-                    <input type="file" id="imageprofile" onchange="document.getElementById('photoprofile').src = window.URL.createObjectURL(this.files[0])"/>
+                    <input type="file" name="profile_image" id="imageprofile" onchange="document.getElementById('photoprofile').src = window.URL.createObjectURL(this.files[0])"/>
                 </div>
 
                 <div class="form-outline mb-3 halfwidthinput">

@@ -35,17 +35,17 @@ freelanser name
                     <img src="{{ asset("Admin3/assets/images/users/".Auth::user()->profile_image) }}" alt="">
                 </div>
 
-                <div class="info">
+                <div class="info w-100">
                     <div class="name">
                         <span>{{ Auth::user()->name }}</span>
                             <div class="rate">
                             <i class="fa fa-star"></i>
                             <span>4,5</span>
                             </div>
-                            <a href="#editfreelancerprofile" data-bs-toggle="modal" style="display: flex; flex-grow: 1; align-items: center; justify-content: flex-end; padding: 0 33px; font-size: 18px;">
+                            <a href="#editfreelancerprofile" data-bs-toggle="modal" style="display: flex; flex-grow:1; align-items: center; justify-content:flex-end; padding: 0 33px; font-size: 18px;">
                                 <i class="fa fa-edit" style="color: #000;"></i>
                             </a>
-                    </div>
+                        </div>
 
                     <div class="txt">{{ Auth::user()->bio }}</div>
                 </div>
