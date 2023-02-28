@@ -1,10 +1,12 @@
 <?php
 namespace App\Http\Controllers;
+use App\Models\Like;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Service;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
@@ -92,9 +94,10 @@ class ProductController extends Controller
 
     public function displayAllProducts()
     {
-        $products = Product::all();
+        $products = Product::paginate(1);
         $categories = Category::all();
         $services = Service::all();
-        return view('visitor.products', compact('products', 'categories', 'services'));
+        $likes = Like::all();
+        return view('visitor.products', compact('products', 'categories', 'services', 'likes'));
     }
 }

@@ -23,13 +23,6 @@ freelancers
                     <li><a href="#">{{ $category->title_en }}</a></li>
                 </ul>
             @endforeach
-
-            <ul class="subcategorys">
-                <li><a href="">categories</a></li>
-                <li><a href="">categories</a></li>
-                <li><a href="">categories</a></li>
-                <li><a href="">categories</a></li>
-            </ul>
         </div>
 
         <div class="product-table" >

@@ -18,7 +18,7 @@ class PhotoController extends Controller
     {
 
         $photos=Photo::where("freelancer_id",auth()->user()->id)->get();
-        
+
         return view("freelancer.showphotos",compact("photos"));
     }
 
@@ -33,7 +33,7 @@ class PhotoController extends Controller
     return view("freelancer.addphoto", compact('photos'));
     }
 
-   
+
     public function store(Request $request)
     {
 
@@ -49,11 +49,11 @@ class PhotoController extends Controller
          "sizetype"=>['required'],
          "location"=>['nullable'],
         ]);
-        
-     
-        $file_extention=$request->file("photo")->getCLientOriginalExtension();
+
+
+        $file_extention = $request->file("photo")->getCLientOriginalExtension();
         $photo_name=time(). ".".$file_extention;
-        $request->file("photo")->move(public_path('front/upload/photo'),$photo_name);
+        $request->file("public")->move(public_path('assets/images/product'),$photo_name);
         $photo=Photo::create([
             "name"=>$request->name,
             "freelancer_id"=>auth()->user()->id,
@@ -65,22 +65,21 @@ class PhotoController extends Controller
             "size_type"=>$request->sizetype,
             "location"=>$request->location,
             "photo"=>$photo_name
-       
         ]);
 
 
         session()->flash('Create' , "created susseccfully");
         return route('freelanc.photo.index');
-      
+
     }
 
-    
+
     public function show(Photo $photo)
     {
         return view("freelancer.photo",compact('photo'));
     }
 
-  
+
     public function edit(Photo $photo)
     {
        return view("freelancer.editphoto",compact("photo"));
@@ -95,7 +94,7 @@ class PhotoController extends Controller
      */
     public function update(Request $request, Photo $photo)
     {
-       
+
 
         $request->validate([
             "photo"=>['nullable',"image","max:200"],
@@ -110,15 +109,15 @@ class PhotoController extends Controller
            ]);
            $photo_name=$photo->photo;
         if($request->hasFile("photo")) {
-          
-   
+
+
             File::delete("front/upload/photo/".$photo->photo);
             $file_extention=$request->file("photo")->getCLientOriginalExtension();
             $photo_name=time(). ".".$file_extention;
             $request->file("photo")->move(public_path('front/upload/photo/'),$photo_name);
 
-        }  
-       
+        }
+
         $photo->update([
             "name"=>$request->name,
             "description"=>$request->description,
@@ -131,11 +130,11 @@ class PhotoController extends Controller
             "photo"=>$photo_name
 
         ]);
-       
+
         return redirect()->route("freelanc.photo.show",compact("photo"));
     }
 
-    
+
     public function destroy(Photo $photo)
     {
 

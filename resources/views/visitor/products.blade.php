@@ -38,12 +38,12 @@
                     <i class="fa fa-arrow-left"></i>
                    </button></li>
             @foreach ($services as $service)
-                
+
                     <li><a href="#">{{ $service->service_en }}</a></li>
                 </ul>
             @endforeach
         </div>
-      
+
         <div class="product-table" >
             <div class="filtercontainer d-flex align-items-baseline justify-content-start mb-2">
                 <div class="filter d-flex align-items-baseline">
@@ -83,7 +83,7 @@
             @foreach ($products as $product)
                 <div class="card">
                     <div class="image-product">
-                        <img src="{{asset('front/upload/product/images/'.$product->img1) }}" class="card-img-top" alt="product image">
+                        <img src="{{asset('assets/images/product/'.$product->img1) }}" class="card-img-top" alt="product image">
                         <button class="hart"><i class="fa fa-heart"></i></button>
                         <button class="addtochart">add to cart</button>
                     </div>
@@ -92,20 +92,24 @@
                         <h5 class="card-title">{{ $product->name }}</h5>
                         <div class="freelancer-info d-flex align-items-center ">
                             <div class="image">
-                                <img src="{{ 'Admin3/assets/images/users/'.\App\Models\User::where('id', $product->freelancer_id)->first()->profile_image }}" alt="">
+                                <img src="{{ asset("Admin3/assets/images/users/".App\Models\User::where('id', $product->freelancer_id)->first()->profile_image) }}" alt="">
                             </div>
                             <p class="card-text">{{ \App\Models\User::where('id', $product->freelancer_id)->first()->name }}</p>
                         </div>
 
                         <div class="prod-likes">
                             <i class="fa-solid fa-heart align-self-center"></i>
-                            <span>{{$product->likes->count()}}</span>
+                            <span>{{ $product->likes->count() }}</span>
                         </div>
                     </div>
                 </div> <!-- card -->
-            @endforeach
+                @endforeach
             </div>
-        </div>
+
+            <div class="text-end p-4">
+                {{ $products->links() }}
+            </div>
+    </div>
     </div>
 </div>
 @endsection
