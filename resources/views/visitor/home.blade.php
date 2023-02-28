@@ -110,7 +110,7 @@ home
             <img src="{{asset("assets/images/Group 10818.png")}}" alt="">
 
             <div class="about-text ">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis a, pariatur tempora perspiciatis perferendis facilis porro illo exercitationem voluptatibus saepe quibusdam cumque ea quas dolor cum, velit in veniam voluptas. Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo veritatis, inventore quia quisquam dolorem illum molestias facere sint corrupti ullam dolores iusto! Pariatur sed laborum non earum nostrum. Recusandae, incidunt!
+                {{ App\Models\AboutUs::first()->paragraph }}
             </div>
         </div>
     </div>
