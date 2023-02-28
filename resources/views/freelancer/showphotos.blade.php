@@ -117,7 +117,7 @@ product
                  <a href="{{route("freelanc.photo.show",$photo->id)}}">
                  <div class="card">
                     <div class="image-product">
-                       <img src="{{asset("front/upload/photo/".$photo->photo)}}" class="card-img-top" alt="product image">
+                       <img src="{{asset("assets/images/photo/".$photo->photo)}}" class="card-img-top" alt="product image">
                        <a href="{{route("freelanc.photo.edit",$photo->id)}}"class="edit">
                           <i class="fa fa-pencil"></i>
                        </a>
