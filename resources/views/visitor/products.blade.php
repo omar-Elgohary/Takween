@@ -83,7 +83,7 @@
             @foreach ($products as $product)
                 <div class="card">
                     <div class="image-product">
-                        <img src="{{ 'assets/images/product/'.$product->img1 }}" class="card-img-top" alt="product image">
+                        <img src="{{asset('front/upload/product/images/'.$product->img1) }}" class="card-img-top" alt="product image">
                         <button class="hart"><i class="fa fa-heart"></i></button>
                         <button class="addtochart">add to cart</button>
                     </div>
@@ -99,7 +99,7 @@
 
                         <div class="prod-likes">
                             <i class="fa-solid fa-heart align-self-center"></i>
-                            <span>123</span>
+                            <span>{{$product->likes->count()}}</span>
                         </div>
                     </div>
                 </div> <!-- card -->

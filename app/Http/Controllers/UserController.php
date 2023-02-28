@@ -31,18 +31,28 @@ class UserController extends Controller
 
     public function updateUserProfile(Request $request, $id)
     {
-        // $this->validate($request, [
-        //     'profile_image' => 'sometimes|image|mimes:png,jpg',
-        //     'name' => 'required|string',
-        //     'phone' => 'required|unique:users',
-        //     'email' => 'required|unique:users',
-        // ]);
-
+        $request->validate([
+            'profile_image' => 'image',
+            'name' => 'required|string',
+            'phone' => 'required|unique:users',
+            'email' => 'required|unique:users',
+        ]);
+dd($request);
         $data = $request->only('profile_image', 'name', 'phone', 'email');
+        $photo_name=User::findOrFail($id)->profile_image;
         if($request->hasFile('profile_image')){
-            $data['profile_image'] = Storage::disk('public')->put('Admin3/assets/images/users', $request->file('profile_image'));
+
+            File::delete('Admin3/assets/images/users'.$photo_name);
+            $file_extention=$request->file('profile_image')->getCLientOriginalExtension();
+            $photo_name=time(). ".".$file_extention;
+            $request->file('profile_image')->move(public_path('Admin3/assets/images/users'),$photo_name);
         }
-        User::find($id)->update($data);
+        User::find($id)->update([
+            "name"=>$request->name,
+            "phone"=>$request->phone,
+            "email"=>$request->email,
+            "profile_image"=>$photo_name,
+        ]);
 
         return back();
     }
