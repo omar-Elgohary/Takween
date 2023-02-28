@@ -33,13 +33,17 @@
             @endforeach
 
             <h4>Services</h4>
+            <ul class="subcategorys">
+                <li class="d-flex"><button type="button" id="closesubcategory">
+                    <i class="fa fa-arrow-left"></i>
+                   </button></li>
             @foreach ($services as $service)
-                <ul class="subcategorys">
+                
                     <li><a href="#">{{ $service->service_en }}</a></li>
                 </ul>
             @endforeach
         </div>
-
+      
         <div class="product-table" >
             <div class="filtercontainer d-flex align-items-baseline justify-content-start mb-2">
                 <div class="filter d-flex align-items-baseline">

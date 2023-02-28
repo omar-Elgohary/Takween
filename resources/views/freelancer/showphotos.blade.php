@@ -49,6 +49,34 @@ product
 
 
 @section("content")
+
+@if (session()->has('Add'))
+    <div class="alert alert-success alert-dismissible fade show d-flex justify-content-between" role="alert">
+        <strong>{{ session()->get('Add') }}</strong>
+        <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+@endif
+
+@if (session()->has('Edit'))
+    <div class="alert alert-success alert-dismissible fade show d-flex justify-content-between" role="alert">
+        <strong>{{ session()->get('Edit') }}</strong>
+        <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+@endif
+
+@if (session()->has('Delete'))
+    <div class="alert alert-danger alert-dismissible fade show d-flex justify-content-between" role="alert">
+        <strong>{{ session()->get('Delete') }}</strong>
+        <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+@endif
+
 <a class="addrequesticon" href="#">
 <i class="fa-solid fa-plus"></i>
 </a>
@@ -62,7 +90,7 @@ product
              
                <div class="products">
 
-                <a class="card" href="{{route("freelanc.addphoto")}}"> 
+                <a class="card" href="{{route("freelanc.photo.create")}}"> 
                     <div class="image-product " style="
                     display: flex;
                     justify-content: center;
@@ -84,23 +112,33 @@ product
                                
                             </div>
                  </a>
-                <div class="card">
-                  <div class="image-product">
-                     <img src="https://media.architecturaldigest.com/photos/57c7003fdc03716f7c8289dd/master/pass/IMG%20Worlds%20of%20Adventure%20-%201.jpg" class="card-img-top" alt="product image">
-                     <a href="{{route("freelanc.editphoto")}}"class="edit">
-                        <i class="fa fa-pencil"></i>
-                     </a>
-                    </div>
-                            <div class="card-body d-flex justify-content-between">
-                              <h5 class="card-title">product name</h5>
-                             
-                              <div  class="prod-likes ">
-                                  <i class="fa-solid fa-heart align-self-center"></i>
-                                  <span>123</span>
+
+                 @forelse ($photos as $photo )
+                 <a href="{{route("freelanc.photo.show",$photo->id)}}">
+                 <div class="card">
+                    <div class="image-product">
+                       <img src="{{asset("front/upload/photo/".$photo->photo)}}" class="card-img-top" alt="product image">
+                       <a href="{{route("freelanc.photo.edit",$photo->id)}}"class="edit">
+                          <i class="fa fa-pencil"></i>
+                       </a>
+                      </div>
+                              <div class="card-body d-flex justify-content-between">
+                                <h5 class="card-title">{{$photo->name}}</h5>
+                               
+                                <div  class="prod-likes ">
+                                    <i class="fa-solid fa-heart align-self-center"></i>
+                                    <span>
+                                       {{ $photo->likes->count()}}
+                                    </span>
+                                </div>
+                              
                               </div>
-                            
-                            </div>
-                 </div>
+                   </div>
+                </a>
+                 @empty
+                        
+                 @endforelse
+              
 
              
           </div>

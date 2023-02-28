@@ -76,67 +76,113 @@ label span{
     <div class="section-header">
             <h2>edit photo</h2>
         </div>
-    <form action="" method="">
-     
-        <div class="mb-4 hlafwidth">
+    <form action="{{route("freelanc.photo.update",$photo->id)}}" method="POST"enctype="multipart/form-data">
+     @csrf
+     @method("PUT")
+     <div class="mb-4 hlafwidth">
 
-            <h5  class="form-label pd-2">upload photo</h5>
-            <div class="d-flex flex-column flex-nowrap ">
-              <span class="py-4">Maximun upload 200 kB</span>
-          <div class="d-flex">
-              <label for="attachment" class="download"> 
-          <i class="fa-solid fa-arrow-down"></i></label>
-            <input type="file" class="form-control" id="attachment" name="attachment" placeholder="persentation title">
-          </div>
-            
-            </div>
-            
-          </div>
-       <div class="mb-4 hlafwidth">
-  <label for="prodname" class="form-label pd-2">photo name</label>
-  <input type="text" class="form-control" id="photoname"  name="productname"placeholder="e.g wedding card">
+      <h5  class="form-label pd-2">upload photo</h5>
+      <div class="d-flex flex-column flex-nowrap ">
+        <span class="py-4">Maximun upload 200 kB</span>
+    <div class="d-flex">
+        <label for="attachment" class="download"> 
+    <i class="fa-solid fa-arrow-down"></i></label>
+      <input type="file" class="form-control" id="attachment" name="photo" placeholder="persentation title" ">
+    </div>
+         @error("photo")
+             <span class="error-message">{{$message}}</span>
+         @enderror
+      </div>
+      
+    </div>
+ <div class="mb-4 hlafwidth">
+<label for="prodname" class="form-label pd-2">photo name</label>
+<input type="text" class="form-control" id="photoname" value="{{$photo->name}}" name="name" placeholder="e.g wedding card">
+@error("name")
+             <span class="error-message">{{$message}}</span>
+@enderror
 </div>
 
 <div class="mb-4 fullwidth">
-    <label for="description" class="form-label mb-3">description</label>
-    <input  class="form-control " id="description" placeholder="Write photo description"  name="discription">
-  </div> 
+<label for="description" class="form-label mb-3">description</label>
+<input  class="form-control " id="description" placeholder="Write photo description"  name="description" value="{{$photo->description}}">
+@error("description")
+             <span class="error-message">{{$message}}</span>
+@enderror
+</div> 
 
-  <div class="mb-4 hlafwidth">
-    <label for="camera" class="form-label pd-2">camera brand<span>(optional)</span></label>
-    <input type="text" class="form-control" id="camera"  name="camera"placeholder="e.g wedding card">
+<div class="mb-4 hlafwidth">
+<label for="camera" class="form-label pd-2">camera brand<span>(optional)</span></label>
+<input type="text" class="form-control" id="camera_brand"  name="camerabrand" placeholder="e.g wedding card" value="{{$photo->camera_brand}}">
+@error("camerabrand")
+             <span class="error-message">{{$message}}</span>
+@enderror
+</div>
+<div class="mb-4 hlafwidth">
+<label for="lens" class="form-label mb-3 " id>lens type <span>(optional)</span></label>
+<input  class="form-control " id="lens" placeholder="e.g 70-200 mm"  name="lens"
+value="{{$photo->lens_type}}">
+@error("lens")
+<span class="error-message">{{$message}}</span>
+@enderror
+</div> 
+<div class="mb-4 hlafwidth">
+<label for="lens" class="form-label mb-3 " >size</label>
+<div class="d-flex justify-content-between">
+<div>
+  <input  class="form-control w-100" id="sizewidth" placeholder="width"  name="sizewidth"
+  value="{{$photo->size_width}}">
+  @error("sizewidth")
+  <span class="error-message">{{$message}}</span>
+@enderror
+</div>
+  <div>
+    <input  class="form-control w-100" id="sizeheight" placeholder="height"  name="sizeheight" value="{{$photo->size_height}}">
+    @error("sizeheight")
+    <span class="error-message">{{$message}}</span>
+    @enderror
+
   </div>
-<div class="mb-4 hlafwidth">
-    <label for="lens" class="form-label mb-3 " id>lens type <span>(optional)</span></label>
-    <input  class="form-control " id="lens" placeholder="e.g 70-200 mm"  name="lens">
-  </div> 
-<div class="mb-4 hlafwidth">
-    <label for="lens" class="form-label mb-3 " id>size</label>
-    <div class="d-flex justify-content-between">
-        <input  class="form-control w-25" id="lenswidth" placeholder="width"  name="lens">
-        <input  class="form-control w-25" id="lensheight" placeholder="height"  name="lens">
-        
-    </div>
-  </div> 
-  <div class="mb-4 hlafwidth">
-    <label for="category">size type </label>
-     <select name="sizetype" id="sizetype"class="form-select" aria-label="Default select example">
-         <option value=""></option>
-         <option value=""></option>
-         <option value=""></option>
-     </select>
-    </div>
+  
+  
+</div>
 
-    <div class="mb-4 hlafwidth">
-        <label for="lens" class="form-label mb-3 " id>location<span>(optional)</span></label>
-        <div class="location" >
-            <input  class="form-control " id="lens" placeholder="Search"  name="lens">
-            <button class="search">
-                <i class="fa fa-search"
-                ></i>
-            </button>
-        </div>
-      </div>
+</div> 
+<div class="mb-4 hlafwidth">
+<label for="category">size type </label>
+<select name="sizetype" id="sizetype"class="form-select" aria-label="Default select example">
+   <option value="px" @if ($photo->size_type=='px')
+     selected
+   @else
+     
+   @endif>px</option>
+   <option value="inch"@if (($photo->size_type=='inch'))
+   selected
+ @else
+   
+ @endif>inch</option>
+   <option value="cm"@if (($photo->size_type=='cm'))
+   selected
+ @else
+   
+ @endif>cm</option>
+</select>
+</div>
+
+<div class="mb-4 hlafwidth">
+  <label for="lens" class="form-label mb-3 " id>location<span>(optional)</span></label>
+  <div class="location" >
+      <input  class="form-control " id="lens" placeholder="Search"  name="location"value="{{$photo->location}}" >
+      <button class="search" type="button">
+          <i class="fa fa-search"
+          ></i>
+      </button>
+
+      @error("location")
+      <span class="error-message">{{$message}}</span>
+  @enderror
+  </div>
+</div>
 
 
       <div class="d-flex justify-content-center align-items-center flex-column ">
@@ -162,11 +208,13 @@ label span{
   <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-              
+             
                 <button type="button" class="btn-close" data-bs-dismiss="modal" arialabel="Close"></button>
             </div>
             <div class="modal-body">
-    <form>
+              <form action="{{route('freelanc.photo.destroy',$photo->id)}}"  method="POST">
+                @csrf
+                @method("DELETE")
       <h1 class="modal-title fs-5" >are you sure from delete this photo</h1>
 
       
@@ -178,7 +226,7 @@ label span{
       <div class="btn-contianer d-flex  justify-content-between  align-items-center my-3">
             
         <button class="btn  btn-modal modal-color-text border-0">move back</button>
-        <button class="btn  btn-modal btn-model-primary" type="button"   >delete</button>
+        <button class="btn  btn-modal btn-model-primary" type="submit">delete</button>
        
 </div>
 
