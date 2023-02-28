@@ -26,7 +26,7 @@ class UserController extends Controller
         // $this->validate($request, [
         //     'profile_image' => 'sometimes|image|mimes:png,jpg',
         //     'name' => 'required|string',
-        //     'phone' => 'required|unique:users',////////////
+        //     'phone' => 'required|unique:users',
         //     'email' => 'required|unique:users',
         // ]);
 
@@ -40,4 +40,3 @@ class UserController extends Controller
     }
 }
 
-////////////
