@@ -41,7 +41,7 @@ class RequestController extends Controller
             // $data['attachment'] = Storage::disk('public')->put('attachments', $request->file('attachment'));
         }
         Requests::create($data);
-        return back();
+        return redirect()->route('showpublicrequest');
     }
 
 
@@ -49,5 +49,12 @@ class RequestController extends Controller
     {
         $services = DB::table("services")->where("category_id" , $id)->pluck("service_en" , "id");
         return json_encode($services);
+    }
+
+
+    public function publicRequests()
+    {
+        $requests = Requests::where('type', 'public')->get();
+        return view('user.showpublicrequest', compact('requests'));
     }
 }
