@@ -35,12 +35,34 @@ $(document).ready(function () {
 //})
 
 
-$(".hart").click(function(){
+// $(".hart").click(function(e){
 
-  $(this).toggleClass("active");
+//   // var id=$(".hart").data('id');
+//   // $(this).toggleClass("active");
+// var id =$(".hart").attr('data-id');
+// // var  type =$(".hart").attr('data-type');
+
+// $.ajax({
+//     url: "{{ URL('user/addorremovelikes') }}/" + id,
+//     type: "GET",
+//     // data:{'type':type},
+//     dataType: "json",
+//     success: function(data) {
+//       if(data){
+//         console.log(data);
+//         $(this).toggleClass("active");
+//       }else{
+        
+        
+//       }
+//     }
   
+//     });
+  
+  
+// });
 
-});
+
 $(".visaicon").addClass("active");
 $(".apayicon").removeClass("active");
 $(".walleticon").removeClass("active");

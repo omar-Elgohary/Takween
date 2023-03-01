@@ -95,7 +95,7 @@ class ProductController extends Controller
 
     public function displayAllProducts()
     {
-        $products = Product::paginate(1);
+        $products = Product::paginate(30);
         $categories = Category::all();
         $services = Service::all();
         $likes = Like::all();

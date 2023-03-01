@@ -171,6 +171,8 @@ Route::prefix("user")->name("user.")->group(function(){
     Route::get('/requestprivate', function () {
         return view('user.requestprivateservice');
     })->name("requestprivate");
+// add or delete likes
+    Route::get('/addorremovelikes/{id}',[UserController::class,'addorremovelikes']);
 
 });
 

@@ -79,8 +79,12 @@ class PhotoController extends Controller
         return view("freelancer.editphoto",compact("photo"));
     }
 
+<<<<<<< HEAD
+    
+=======
 
 
+>>>>>>> cad3a248d925a5f0d060f9dbc819b96c976b787c
     public function update(Request $request, Photo $photo)
     {
         $request->validate([
@@ -125,8 +129,15 @@ class PhotoController extends Controller
     {
         File::delete("assets/images/photo/".$photo->photo);
         $photo->delete();
+<<<<<<< HEAD
+        
+       session()->flash('Delete' , "deleted susseccfully");
+       return redirect()->route("freelanc.photo.index");
+
+=======
 
         session()->flash('Delete' , "deleted susseccfully");
         return redirect()->route("freelanc.photo.index");
+>>>>>>> cad3a248d925a5f0d060f9dbc819b96c976b787c
     }
 }

@@ -84,8 +84,18 @@
                 <div class="card">
                     <div class="image-product">
                         <img src="{{asset('assets/images/product/'.$product->img1) }}" class="card-img-top" alt="product image">
-                        <button class="hart"><i class="fa fa-heart"></i></button>
-                        <button class="addtochart">add to cart</button>
+                              @auth
+                        <button type="button" data-type="product" data-id="{{$product->id}}"
+                            data-name="{{$product->name}}" onclick="likes(this)"
+                        class="hart   @if ($product->likes->where("user_id",auth()->user()->id)->count())
+                                active
+                            @endif"><i class="fa fa-heart"></i></button>
+                               @else
+                               <button  class="hart" type="button" data-bs-target="" data-bs-toggle="modal"><i class="fa fa-heart"></i></button>
+                              @endauth
+                            <button class="addtochart" >add to cart</button>
+                       
+                       
                     </div>
 
                     <div class="card-body">
@@ -117,7 +127,39 @@
 @section("js")
     <script>
         $(".filter-button").click(function(){
+
+        
             $(".filter-items").toggle();
         });
+
+
+
+function likes(e){
+// $(this).toggleClass("active");
+var id =$(e).attr('data-id');
+ var  type =$(e).attr('data-type');
+var token= $('meta[name="csrf_token"]').attr('content');
+$.ajax({
+ type: "GET",
+  url: "{{ URL::to('user/addorremovelikes')}}/" + id,
+  data:{'type':type},
+  headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+  dataType: "json",
+  success: function(data) {
+    if(data['action']=="add"){
+        $(e).addClass("active");
+    }else if(data['action']=="delete"){
+        $(e).removeClass("active");
+      
+    }
+  }
+
+  });
+
+
+}
+
+
+    
     </script>
 @endsection
