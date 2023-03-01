@@ -1,8 +1,10 @@
 <?php
 namespace App\Http\Controllers;
 use App\Models\User;
-use Illuminate\Http\Request;
+use App\Models\Photo;
 
+use App\Models\Product;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
@@ -23,6 +25,15 @@ class UserController extends Controller
     }
 
 
+    public function FreelancerProfile(Request $request, $id)
+    {
+        $freelancer = User::find($id);
+        $products = Product::where('freelancer_id' , $id)->get();
+        $photos = Photo::where('freelancer_id' , $id)->get();
+        return view('visitor.freelancer', compact('freelancer', 'products', 'photos'));
+    }
+
+
     public function destroy(Request $request, $id)
     {
         User::find($id)->delete();
@@ -36,13 +47,13 @@ class UserController extends Controller
         $request->validate([
             'profile_image' => 'image',
             'name' => 'required|string',
-             'phone' => ['required','min:10', \Illuminate\Validation\Rule::unique('users')->ignore(auth()->user()->id)],
-        'email'=> ['required', 'string', 'email', 'max:255', \Illuminate\Validation\Rule::unique('users')->ignore(auth()->user()->id)],
+            'phone' => ['required','min:10', \Illuminate\Validation\Rule::unique('users')->ignore(auth()->user()->id)],
+            'email'=> ['required', 'string', 'email', 'max:255', \Illuminate\Validation\Rule::unique('users')->ignore(auth()->user()->id)],
         ]);
 
         $photo_name=User::findOrFail($id)->profile_image;
         if($request->hasFile('profile_image')){
-            if($photo_name!="default.png"){     
+            if($photo_name!="default.png"){
             File::delete('Admin3/assets/images/users/'.$photo_name);
             }
             $file_extention=$request->file('profile_image')->getCLientOriginalExtension();
@@ -50,7 +61,6 @@ class UserController extends Controller
             $request->file('profile_image')->move(public_path('Admin3/assets/images/users'),$photo_name);
         }
 
-      
         User::find($id)->update([
             "name"=>$request->name,
             "phone"=>$request->phone,
@@ -64,33 +74,27 @@ class UserController extends Controller
 
     public function updateFreelancerProfile(Request $request, $id)
     {
-      
         $request->validate([
             'profile_image' => 'image',
             'name' => 'required|string',
-             'phone' => ['required','min:10', \Illuminate\Validation\Rule::unique('users')->ignore(auth()->user()->id)],
-        'email'=> ['required', 'string', 'email', 'max:255', \Illuminate\Validation\Rule::unique('users')->ignore(auth()->user()->id)],
-        'bio' => 'required',
-        'id_number' => ['required', \Illuminate\Validation\Rule::unique('users')->ignore(auth()->user()->id)],
-
-       'business_register' => ['required', \Illuminate\Validation\Rule::unique('users')->ignore(auth()->user()->id)],
-
+            'phone' => ['required','min:10', \Illuminate\Validation\Rule::unique('users')->ignore(auth()->user()->id)],
+            'email'=> ['required', 'string', 'email', 'max:255', \Illuminate\Validation\Rule::unique('users')->ignore(auth()->user()->id)],
+            'bio' => 'required',
+            'id_number' => ['required', \Illuminate\Validation\Rule::unique('users')->ignore(auth()->user()->id)],
+            'business_register' => ['required', \Illuminate\Validation\Rule::unique('users')->ignore(auth()->user()->id)],
         ]);
-
-
 
         $photo_name=User::findOrFail($id)->profile_image;
         if($request->hasFile('profile_image')){
-            if($photo_name!="default.png"){   
-                
-           
-            File::delete('Admin3/assets/images/users/'.$photo_name);
+            if($photo_name!="default.png"){
+                File::delete('Admin3/assets/images/users/'.$photo_name);
             }
             $file_extention=$request->file('profile_image')->getCLientOriginalExtension();
             $photo_name=time(). ".".$file_extention;
             $request->file('profile_image')->move(public_path('Admin3/assets/images/users'),$photo_name);
         }
-       $user= User::find($id)->update([
+
+        $user= User::find($id)->update([
             "name"=>$request->name,
             "phone"=>$request->phone,
             "email"=>$request->email,
@@ -99,8 +103,6 @@ class UserController extends Controller
             "bio"=>$request->bio,
             "business_register"=>$request->business_register,
         ]);
-
-      
 
         return redirect()->back()->with("message","profile update sucessfully");
     }

@@ -32,8 +32,7 @@ freelancers
                 <i class="fa-solid fa-arrow-up-wide-short"></i>
                 <span >sort by:</span>
             </button>
-
-            <span class=" px-2">All</span>
+            <span class="px-2">All</span>
             </div>
 
             <div class="filter-items">
@@ -44,19 +43,19 @@ freelancers
                 </div>
 
                 <div>
-                    <input type="checkbox" name="productsearch" value="moreproject"id="moreproject" >
-                    <label for="moreproject"class="bold" >more project</label>
+                    <input type="checkbox" name = "productsearch" value="moreproject" id="moreproject" >
+                    <label for="moreproject"class="bold">more project</label>
                 </div>
 
                 <div class="btn-contianer d-flex justify-content-center align-items-center">
-                    <button type="submit" class=" border-0 btn-modal  my-3 btn-model-primary ">apply</button>
+                    <button type="submit" class=" border-0 btn-modal  my-3 btn-model-primary">apply</button>
                 </div>
             </form>
             </div>
         </div>
 
     @foreach ($freelancers as $freelancer)
-        <a class="freelanc" href="{{route("freelancer")}}">
+        <a class="freelanc" href="{{ route("freelancer", $freelancer->id) }}">
             <div class="image">
                 <img src="{{ asset("Admin3/assets/images/users/".$freelancer->profile_image) }}" alt="">
             </div>
@@ -73,17 +72,7 @@ freelancers
                 <div class="txt">{{ $freelancer->bio }}</div>
                 <div class="service">
                     <p>service :</p>
-                    <ul>
-                    <li>
-                        logo
-                    </li>
-                    <li>
-                        logo
-                    </li>
-                    <li>
-                        logo
-                    </li>
-                    </ul>
+                    <p>{{ $freelancer->service_en }}</p>
                 </div>
             </div>
 

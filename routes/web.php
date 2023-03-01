@@ -28,9 +28,8 @@ Route::get('/photo', function () {
     return view('visitor.photo');
 })->name("photo");
 
-Route::get('/freelancer', function () {
-    return view('visitor.freelancer');
-})->name("freelancer");
+Route::get('/freelancer/{id}', [UserController::class, 'FreelancerProfile'])->name("freelancer");
+
 
 Route::get("user/freelancers", [UserController::class, 'allFreelancers'])->name("freelancers");
 
