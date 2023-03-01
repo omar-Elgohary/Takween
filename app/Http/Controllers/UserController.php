@@ -108,8 +108,8 @@ class UserController extends Controller
 
 
     public function addorremovelikes($id){
-    
-      $type=request("type"); 
+
+      $type=request("type");
       $flag=false;
       $action="append";
          if($type=="product"){
@@ -124,7 +124,7 @@ class UserController extends Controller
             $product->likes()->where("user_id",auth()->user()->id)->delete();
             $action="delete";
             }
-      
+
         $flag=true;
 
          }elseif($type=="photo"){
@@ -142,7 +142,7 @@ class UserController extends Controller
               }
           $flag=true;
          }
-        
+
         return json_encode(["status"=>$flag,"action"=>$action],true);
     }
 

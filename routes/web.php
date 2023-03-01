@@ -150,9 +150,8 @@ Route::prefix("user")->name("user.")->group(function(){
 
     Route::get('/showpublicrequest', [RequestController::class, 'publicRequests'])->name("showpublicrequest");
 
-    Route::get('/showprivaterequest', function () {
-        return view('user.showprivaterequest');
-    })->name("showprivaterequest");
+    Route::get('/showprivaterequest', [RequestController::class, 'privateRequests'])->name("showprivaterequest");
+
 
     Route::get('/showreservation', function () {
         return view('user.showreservation');

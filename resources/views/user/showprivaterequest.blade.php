@@ -38,15 +38,15 @@ notification
     <div class="container">
         <div class="filtercontainer d-flex align-items-baseline justify-content-start">
             <div class="filter d-flex align-items-baseline">
-              <button class=" filter-button btn d-flex align-items-center justify-content-between">
+                <button class=" filter-button btn d-flex align-items-center justify-content-between">
                     <i class="fa-solid fa-filter px-2 fs-3"></i>
-                            <span >filter by:</span>
-                        </button>
-                        <span class=" px-2">All</span>
-             </div>
-                
+                    <span >filter by:</span>
+                </button>
+                <span class=" px-2">All</span>
+            </div>
+
                <div class="filter-items">
-                <form action=""> 
+                <form action="">
                  <div>
                    <input type="checkbox" name="productsearch" value="all" id="all">
                    <label for="all" class="bold" >all</label>
@@ -67,12 +67,12 @@ notification
                    <input type="checkbox" name="productsearch" value="completed"id="completed" >
                    <label for="completed"class="bold" >completed</label>
                  </div>
- 
+
                  <div class="btn-contianer d-flex justify-content-center align-items-center">
                    <button type="submit" class=" border-0 btn-modal  my-3 btn-model-primary ">apply</button>
-                  
+
                     </div>
-                 
+
                 </form>
                 </div>
         </div>
@@ -85,199 +85,55 @@ notification
 
 
 
-       <div class="requesties d-flx flex-column pt-4">
-          
+    <div class="requesties d-flx flex-column pt-4">
+        @foreach ($requests as $request)
+            <a data-bs-toggle="modal" href="#penddingcancel" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
+                <div class="d-flex justify-content-between align-items-baseline">
+                    <div class="frelacereq d-flex ">
+                        <img src="{{asset("assets/images/vicky-hladynets-C8Ta0gwPbQg-unsplash.png")}}" class="img-fluid rounded-top" alt="">
 
-    <a data-bs-toggle="modal" href="#penddingcancel" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
-     
-            <div class="d-flex justify-content-between align-items-baseline">
-              <div class="frelacereq d-flex ">
-                <img src="{{asset("assets/images/vicky-hladynets-C8Ta0gwPbQg-unsplash.png")}}" class="img-fluid rounded-top" alt="">
-                  <div class="freelanereq mx-2">
-                  <h3 class="fw-600">freelancer name</h3>
-                    <span class="text-black-50">#123123</span>
-                  </div>
-              </div>
-              <p class="status gray" data-color="C4C3C3">pending<i class="fa-solid fa-circle px-2 "></i></p>
-            </div>
-            <div class="d-flex ">
-                <div class="d-flex flex-column px-2">
-                   <p class="m-0">req.date</p>
-                    <span>20/09/2010</span>
-                </div>
-                <div class=" d-flex flex-column px-2">
-                    <p class="m-0">Due date</p>
-                    <span>20/09/2010</span>
-                <div>
-            </div>
+                        <div class="freelanereq mx-2">
+                            <h3 class="fw-600">{{ App\Models\User::where('id', $request->freelancer_id)->first()->name }}</h3>
+                            <span class="text-black-50">#123123</span>
+                        </div>
+                    </div>
 
-                </div>
-             </div>
+                        @if($request->status == 'Pending')
+                            <p class="status gray" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
+                        @elseif($request->status == 'In Process')
+                            <p class="status gray text-warning" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
+                        @elseif($request->status == 'Finished')
+                            <p class="status gray" style="color: rgb(214, 214, 42);" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
+                        @elseif($request->status == 'Completed')
+                            <p class="status gray text-black" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
+                        @endif
+                    </div>
 
-             
-    </a>
-    <a data-bs-toggle="modal" href="#penddingacceptoreject" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
-     
-            <div class="d-flex justify-content-between align-items-baseline">
-              <div class="frelacereq d-flex ">
-                <img src="{{asset("assets/images/vicky-hladynets-C8Ta0gwPbQg-unsplash.png")}}" class="img-fluid rounded-top" alt="">
-                  <div class="freelanereq mx-2">
-                  <h3 class="fw-600">freelancer name</h3>
-                    <span class="text-black-50">#123123</span>
-                  </div>
-              </div>
-              <p class="status gray" data-color="C4C3C3">pending<i class="fa-solid fa-circle px-2 "></i></p>
-            </div>
-            <div class="d-flex ">
-                <div class="d-flex flex-column px-2">
-                   <p class="m-0">req.date</p>
-                    <span>20/09/2010</span>
-                </div>
-                <div class=" d-flex flex-column px-2">
-                    <p class="m-0">Due date</p>
-                    <span>20/09/2010</span>
-                <div>
-            </div>
-
-                </div>
-             </div>
-
-             
-    </a>
-
-    <a data-bs-toggle="modal" href="#inprogress" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
-            <div class="d-flex justify-content-between align-items-baseline">
-              <div class="frelacereq d-flex ">
-                <img src="{{asset("assets/images/vicky-hladynets-C8Ta0gwPbQg-unsplash.png")}}" class="img-fluid rounded-top" alt="">
-                  <div class="freelanereq mx-2">
-                    <h3 class="fw-600">freelancer name</h3>
-                    <span class="text-black-50">#123123</span>
-                  </div>
-              </div>
-              <p class="status orange" data-color="C4C3C3">in progress<i class="fa-solid fa-circle px-2 "></i></p>
-            </div>
-            <div class="d-flex ">
-                <div class="d-flex flex-column px-2">
-                   <p class="m-0">req.date</p>
-                    <span>20/09/2010</span>
-                </div>
-                <div class=" d-flex flex-column px-2">
-                    <p class="m-0">Due date</p>
-                    <span>20/09/2010</span>
-                </div>
-                <div class=" d-flex flex-column px-2">
-                    <p class="m-0">price</p>
-                    <span>1211 SR</span>
-                </div>
-             </div>
-
-             
-    </a>
-    <a data-bs-toggle="modal" href="#inprogressenddue" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
-            <div class="d-flex justify-content-between align-items-baseline">
-              <div class="frelacereq d-flex ">
-                <img src="{{asset("assets/images/vicky-hladynets-C8Ta0gwPbQg-unsplash.png")}}" class="img-fluid rounded-top" alt="">
-                  <div class="freelanereq mx-2">
-                    <h3 class="fw-600">freelancer name</h3>
-                    <span class="text-black-50">#123123</span>
-                  </div>
-              </div>
-              <p class="status orange" data-color="C4C3C3">in progress<i class="fa-solid fa-circle px-2 "></i></p>
-            </div>
-            <div class="d-flex ">
-                <div class="d-flex flex-column px-2">
-                   <p class="m-0">req.date</p>
-                    <span>20/09/2010</span>
-                </div>
-                <div class=" d-flex flex-column px-2">
-                    <p class="m-0">Due date</p>
-                    <span class="deadline">20/09/2010</span>
-                </div>
-                <div class=" d-flex flex-column px-2">
-                    <p class="m-0">price</p>
-                    <span>1211 SR</span>
-                </div>
-             </div>
-
-             
-    </a>
-    <a data-bs-toggle="modal" href="#finish" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
-            <div class="d-flex justify-content-between align-items-baseline">
-              <div class="frelacereq d-flex ">
-                <img src="{{asset("assets/images/vicky-hladynets-C8Ta0gwPbQg-unsplash.png")}}" class="img-fluid rounded-top" alt="">
-                  <div class="freelanereq mx-2">
-                    <h3 class="fw-600">freelancer name</h3>
-                    <span class="text-black-50">#123123</span>
-                  </div>
-              </div>
-              <p class="status finish" data-color="C4C3C3">finish<i class="fa-solid fa-circle px-2 finish "></i></p>
-            </div>
-            <div class="d-flex ">
-                <div class="d-flex flex-column px-2">
-                   <p class="m-0">req.date</p>
-                    <span>20/09/2010</span>
-                </div>
-                <div class=" d-flex flex-column px-2">
-                    <p class="m-0">Due date</p>
-                    <span>20/09/2010</span>
-                </div>
-                <div class=" d-flex flex-column px-2">
-                    <p class="m-0">price</p>
-                    <span>1211 SR</span>
-                </div>
-             </div>
-
-             
-    </a>
-    <a data-bs-toggle="modal" href="#complete" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
-            <div class="d-flex justify-content-between align-items-baseline">
-              <div class="frelacereq d-flex ">
-                <img src="{{asset("assets/images/vicky-hladynets-C8Ta0gwPbQg-unsplash.png")}}" class="img-fluid rounded-top" alt="">
-                  <div class="freelanereq mx-2">
-                    <h3 class="fw-600">freelancer name</h3>
-                    <span class="text-black-50">#123123</span>
-                  </div>
-              </div>
-              <p class="status text-black" data-color="C4C3C3">complete<i class="fa-solid fa-circle px-2 text-black "></i></p>
-            </div>
-            <div class="d-flex ">
-                <div class="d-flex flex-column px-2">
-                   <p class="m-0">req.date</p>
-                    <span>20/09/2010</span>
-                </div>
-                <div class=" d-flex flex-column px-2">
-                    <p class="m-0">Due date</p>
-                    <span>20/09/2010</span>
-                </div>
-                <div class=" d-flex flex-column px-2">
-                    <p class="m-0">price</p>
-                    <span>1211 SR</span>
-                </div>
-             </div>
-
-             
-    </a>
-
-       </div>
+                    <div class="d-flex ">
+                        <div class="d-flex flex-column px-2">
+                        <p class="m-0">req.date</p>
+                            <span>20/09/2010</span>
+                        </div>
+                        <div class=" d-flex flex-column px-2">
+                            <p class="m-0">Due date</p>
+                            <span>{{ $request->due_date }}</span>
+                            <div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            @endforeach
+        </div>
+    </div>
 </div>
-</div>
-
-
 @endsection
 
 @section("js")
-<script>
-
-$(".filter-button").click(function(){
-   
-   $(".filter-items").toggle();
- 
- });
- 
-</script>
-
-
-<script src="{{asset('assets/libs/jquery-bar-rating/jquery.barrating.min.js')}}"></script>
-
-<script src="{{asset('assets/js/pages/rating-init.js')}}"></script> 
+    <script>
+        $(".filter-button").click(function(){
+            $(".filter-items").toggle();
+        });
+    </script>
+    <script src="{{asset('assets/libs/jquery-bar-rating/jquery.barrating.min.js')}}"></script>
+    <script src="{{asset('assets/js/pages/rating-init.js')}}"></script>
 @endsection

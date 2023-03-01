@@ -37,44 +37,45 @@ notification
     <div class="container">
         <div class="filtercontainer d-flex align-items-baseline justify-content-start">
             <div class="filter d-flex align-items-baseline">
-              <button class="filter-button btn d-flex align-items-center justify-content-between">
+                <button class="filter-button btn d-flex align-items-center justify-content-between">
                     <i class="fa-solid fa-filter px-2 fs-3"></i>
-                            <span >filter by:</span>
-                        </button>
-                        <span class=" px-2">All</span>
-             </div>
+                    <span >filter by:</span>
+                </button>
+                <span class=" px-2">All</span>
+            </div>
 
-             <div class="filter-items">
-              <form action="">
-               <div>
-                 <input type="checkbox" name="productsearch" value="all" id="all">
-                 <label for="all" class="bold" >all</label>
-               </div>
-               <div>
-                 <input type="checkbox" name="productsearch" value="datadesending" id="datadesending">
-                 <label for="datadesending"class="bold" >data desending</label>
-               </div>
-               <div>
-                 <input type="checkbox" name="productsearch" value="pendding"id="pendding" >
-                 <label for="pendding"class="bold" >pendding</label>
-               </div>
-               <div>
-                 <input type="checkbox" name="productsearch" value="active"id="active" >
-                 <label for="active"class="bold" >active</label>
-               </div>
-               <div>
-                 <input type="checkbox" name="productsearch" value="completed"id="completed" >
-                 <label for="completed"class="bold" >completed</label>
-               </div>
+            <div class="filter-items">
+            <form action="">
+                <div>
+                    <input type="checkbox" name="productsearch" value="all" id="all">
+                    <label for="all" class="bold" >all</label>
+                </div>
 
-               <div class="btn-contianer d-flex justify-content-center align-items-center">
-                 <button type="submit" class=" border-0 btn-modal  my-3 btn-model-primary ">apply</button>
+                <div>
+                    <input type="checkbox" name="productsearch" value="datadesending" id="datadesending">
+                    <label for="datadesending"class="bold" >data desending</label>
+                </div>
 
-                  </div>
+                <div>
+                    <input type="checkbox" name="productsearch" value="pendding"id="pendding" >
+                    <label for="pendding"class="bold" >pendding</label>
+                </div>
 
-              </form>
-              </div>
+                <div>
+                    <input type="checkbox" name="productsearch" value="active"id="active" >
+                    <label for="active"class="bold" >active</label>
+                </div>
 
+                <div>
+                    <input type="checkbox" name="productsearch" value="completed"id="completed" >
+                    <label for="completed"class="bold" >completed</label>
+                </div>
+
+                <div class="btn-contianer d-flex justify-content-center align-items-center">
+                    <button type="submit" class=" border-0 btn-modal  my-3 btn-model-primary ">apply</button>
+                </div>
+            </form>
+            </div>
         </div>
 
 
