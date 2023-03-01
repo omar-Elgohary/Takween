@@ -1,14 +1,8 @@
 <?php
 namespace App\Http\Controllers;
 use App\Models\User;
-<<<<<<< HEAD
 use App\Models\Product;
-
-=======
 use App\Models\Photo;
-
-use App\Models\Product;
->>>>>>> cad3a248d925a5f0d060f9dbc819b96c976b787c
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -114,8 +108,8 @@ class UserController extends Controller
 
 
     public function addorremovelikes($id){
-    
-      $type=request("type"); 
+
+      $type=request("type");
       $flag=false;
       $action="append";
          if($type=="product"){
@@ -130,7 +124,7 @@ class UserController extends Controller
             $product->likes()->delete();
             $action="delete";
             }
-      
+
         $flag=true;
 
          }elseif($type=="photo"){
@@ -148,7 +142,7 @@ class UserController extends Controller
               }
           $flag=true;
          }
-        
+
         return json_encode(["status"=>$flag,"action"=>$action],true);
     }
 
