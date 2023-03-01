@@ -32,24 +32,28 @@ home
 
                 <div class="mb-4">
                     <label for="inputName">Category</label>
-                    <select name="category_id" id="category_id" class="form-control SlectBox" onclick="console.log($(this).val())"
+                    <select name="category_id" id="category_id" class="form-control SlectBox @error('category_id') is-invalid @enderror" onclick="console.log($(this).val())"
                         onchange="console.log('change is firing')">
                         <option value="" selected disabled>Choose Category</option>
                         @foreach ($categories as $category)
                             <option value="{{ $category->id }}"> {{ $category->title_en }}</option>
                         @endforeach
                     </select>
+                    @error('category_id')<div class="alert alert-danger fs-small">{{ $message }}</div>@enderror
                 </div>
 
                 <div class="mb-4">
                     <label for="inputName" class="pb-2">Service</label>
-                    <select name="service_id" id="service_id" class="form-control">
+                    <select name="service_id" id="service_id" class="form-control @error('service_id') is-invalid @enderror">
+
                     </select>
+                    @error('service_id')<div class="alert alert-danger">{{ $message }}</div>@enderror
                 </div>
 
                 <div class="mb-4">
                     <label for="title" class="form-label pd-2">title</label>
-                    <input type="text" class="form-control" id="title" name="title" placeholder="persentation title">
+                    <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" placeholder="persentation title">
+                    @error('title')<div class="alert alert-danger">{{ $message }}</div>@enderror
                 </div>
 
                 <div class="mb-4">
@@ -60,19 +64,22 @@ home
                             <label for="attachment" class="download">
                                 <i class="fa-solid fa-arrow-down"></i>
                             </label>
-                            <input type="file" class="form-control" id="attachment" name="attachment" placeholder="persentation title">
+                            <input type="file" name="attachment" class="form-control @error('attachment') is-invalid @enderror" id="attachment">
+                            @error('attachment')<div class="alert alert-danger">{{ $message }}</div>@enderror
                         </div>
                     </div>
                 </div>
 
                 <div class="mb-4">
-                    <label for="description" class="form-label mb-3">description</label>
-                    <textarea class="form-control w-100" id="description" placeholder="descripe" rows="3" name="discription"></textarea>
+                    <label class="form-label mb-3">description</label>
+                    <textarea name="description" class="form-control w-100 @error('description') is-invalid @enderror" rows="3" placeholder="Descripe"></textarea>
+                    @error('description')<div class="alert alert-danger">{{ $message }}</div>@enderror
                 </div>
 
                 <div class="mb-4">
                     <label for="date" class="form-label mb-3">due date</label>
-                    <input type="date" class="form-control" id="due_date" name="due_date">
+                    <input type="date" class="form-control @error('due_date') is-invalid @enderror" id="due_date" name="due_date">
+                    @error('due_date')<div class="alert alert-danger">{{ $message }}</div>@enderror
                 </div>
 
                 <button type="submit" class="btn btn-modal my-3 px-5 btn-model-primary ">request</button>
@@ -96,7 +103,7 @@ home
                         $('#service_id').empty();
                         $.each(data, function(key, value) {
                             $('#service_id').append('<option value="' +
-                                value + '">' + value + '</option>');
+                                key + '">' + value + '</option>');
                         });
                     },
                 });

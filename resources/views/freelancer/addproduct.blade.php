@@ -135,35 +135,35 @@ edit product
 
 @section("js")
 <script >
-$(document).ready(function() {
-    $('#category_id').on('change', function() {
-        var catId = $(this).val();
-        if (catId) {
-            $.ajax({
-                url: "{{ URL::to('freelancer/getservice') }}/" + catId,
-                type: "GET",
-                dataType: "json",
-                success: function(data) {
-                    if(data){
-                    $('#service_id').removeAttr("disabled");
-                    console.log($('select[name="service_id"]'))
-                    $('#service_id').empty();
-                    $.each(data, function(key, value) {
-                        $('#service_id').append('<option value="' +
-                            key + '">' + value + '</option>');
-                    });
-                    }else{
-                        $('#service_id').append("<option value''>no service</option>")
-                        $('#service_id').attr("disabled","disabled");
-                    }
+    $(document).ready(function() {
+        $('#category_id').on('change', function() {
+            var catId = $(this).val();
+            if (catId) {
+                $.ajax({
+                    url: "{{ URL::to('freelancer/category') }}/" + catId,
+                    type: "GET",
+                    dataType: "json",
+                    success: function(data) {
+                        if(data){
+                        $('#service_id').removeAttr("disabled");
+                        console.log($('select[name="service_id"]'))
+                        $('#service_id').empty();
+                        $.each(data, function(key, value) {
+                            $('#service_id').append('<option value="' +
+                                key + '">' + value + '</option>');
+                        });
+                        }else{
+                            $('#service_id').append("<option value''>no service</option>")
+                            $('#service_id').attr("disabled","disabled");
+                        }
 
-                },
-            });
-        } else {
-            console.log('AJAX load did not work');
-        }
+                    },
+                });
+            } else {
+                console.log('AJAX load did not work');
+            }
+        });
     });
-});
 </script>
 
 

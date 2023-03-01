@@ -78,9 +78,9 @@ Route::prefix("freelancer")->name("freelanc.")->group(function(){
 
     Route::resource('product',ProductController::class);
 
-// ajax
-    route::get("/getservice/{id}",[ProductController::class,'getservice']);
-// end ajax
+    // get all services of one category
+    Route::get('category/{id}', [ProductController::class, 'getCategoryServices'])->name('getCategoryServices');
+
 
 
     Route::get("/reservation",function(){
