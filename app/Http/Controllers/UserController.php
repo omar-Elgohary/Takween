@@ -16,7 +16,6 @@ class UserController extends Controller
     }
 
 
-
     public function allFreelancers()
     {
         $freelancers = User::where('type', 'freelancer')->get();
@@ -31,6 +30,13 @@ class UserController extends Controller
         $photos = Photo::where('freelancer_id' , $id)->get();
         // return view('visitor.freelancer', compact('freelancer', 'products', 'photos'));
         return view('freelancer.profile', compact('freelancer', 'products', 'photos'));
+    }
+
+
+    public function FreelancerFiles($id)
+    {
+        $freelancer = User::find($id);
+        return view("freelancer.files", compact('freelancer'));
     }
 
 
@@ -148,7 +154,7 @@ class UserController extends Controller
     }
 
     public function addcart($id){
-    
+
 
     }
 

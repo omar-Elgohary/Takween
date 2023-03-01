@@ -107,9 +107,7 @@ Route::prefix("freelancer")->name("freelanc.")->group(function(){
     Route::resource('photo',PhotoController::class);
 
     //profile
-    Route::get("/files",function(){
-        return view("freelancer.files");
-    })->name("files");
+    Route::get("/files/{id}", [UserController::class, 'FreelancerFiles'])->name("files");
 
     Route::get("/wallet",function(){
         return view("freelancer.wallet");
