@@ -1,35 +1,20 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Models\Photo;
-
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 
 class PhotoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $photos=Photo::where("freelancer_id",auth()->user()->id)->get();
-
         return view("freelancer.showphotos",compact("photos"));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-
-    return view("freelancer.addphoto");
+        return view("freelancer.addphoto");
     }
 
 
@@ -79,12 +64,6 @@ class PhotoController extends Controller
         return view("freelancer.editphoto",compact("photo"));
     }
 
-<<<<<<< HEAD
-    
-=======
-
-
->>>>>>> cad3a248d925a5f0d060f9dbc819b96c976b787c
     public function update(Request $request, Photo $photo)
     {
         $request->validate([
@@ -129,15 +108,7 @@ class PhotoController extends Controller
     {
         File::delete("assets/images/photo/".$photo->photo);
         $photo->delete();
-<<<<<<< HEAD
-        
-       session()->flash('Delete' , "deleted susseccfully");
-       return redirect()->route("freelanc.photo.index");
-
-=======
-
         session()->flash('Delete' , "deleted susseccfully");
         return redirect()->route("freelanc.photo.index");
->>>>>>> cad3a248d925a5f0d060f9dbc819b96c976b787c
     }
 }

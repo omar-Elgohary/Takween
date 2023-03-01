@@ -47,19 +47,21 @@ freelanser name
                             </a>
                         </div>
 
-                    <div class="txt">{{ Auth::user()->bio }}</div>
+                    <di class="txt">{{ Auth::user()->bio }}</di>
                 </div>
 
 
             <div class="totals">
-                <a class="projects" href=" {{route("freelanc.wallet")}}">
-                <p>Wallet</p>
+                <a class="projects" href=" {{ route("freelanc.wallet") }}">
+                    <p>Wallet</p>
                 </a>
-                <a class="productstotal" href="{{ route('freelanc.files') }}">
-                <p>My files</p>
+
+                <a class="productstotal" href="{{ route('freelanc.files', 'test') }}">
+                    <p>My files</p>
                 </a>
-                <a class="photos" href="{{route("freelanc.reviews")}}">
-                <p>Reviews </p>
+
+                <a class="photos" href="{{ route("freelanc.reviews") }}">
+                    <p>Reviews </p>
                 </a>
             </div>
         </section>
