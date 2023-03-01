@@ -21,7 +21,7 @@ freelanser name
 
 <div class="products-page py-5">
     <div class="container">
-        <section class="freelanc v2" >
+        <section class="freelanc v2">
             <div class="image">
                 <img src="{{ asset("Admin3/assets/images/users/".$freelancer->profile_image) }}" alt="">
             </div>
