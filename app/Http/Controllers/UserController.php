@@ -1,8 +1,9 @@
 <?php
 namespace App\Http\Controllers;
 use App\Models\User;
-use Illuminate\Http\Request;
+use App\Models\Product;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
@@ -104,6 +105,49 @@ class UserController extends Controller
 
         return redirect()->back()->with("message","profile update sucessfully");
     }
+
+
+    public function addorremovelikes($id){
+    
+      $type=request("type"); 
+      $flag=false;
+      $action="append";
+         if($type=="product"){
+          $product =Product::findOrFail($id);
+          if($product->likes->count()==0){
+            $product->likes()->create([
+                "user_id" => auth()->user()->id,
+                "type"=> $type,
+            ]);
+            $action="add";
+        }else{
+            $product->likes()->delete();
+            $action="delete";
+            }
+      
+        $flag=true;
+
+         }elseif($type=="photo"){
+
+            $photo =Photo::findOrFail($id);
+            if($photo->likes->count()==0){
+              $photo->likes()->create([
+                  "user_id" => auth()->user()->id,
+                  "type"=> $type,
+              ]);
+              $action="add";
+          }else{
+              $photo->likes()->delete();
+              $action="delete";
+              }
+          $flag=true;
+         }
+        
+        return json_encode(["status"=>$flag,"action"=>$action],true);
+    }
+
+
+
 }
 
 

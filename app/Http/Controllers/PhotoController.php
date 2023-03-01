@@ -84,17 +84,9 @@ class PhotoController extends Controller
        return view("freelancer.editphoto",compact("photo"));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Photo  $photo
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(Request $request, Photo $photo)
     {
-
-
         $request->validate([
             "photo"=>['nullable',"image","max:200"],
             "name"=>['required'],
@@ -138,10 +130,9 @@ class PhotoController extends Controller
 
     public function destroy(Photo $photo)
     {
-
         File::delete("assets/images/photo/".$photo->photo);
         $photo->delete();
-
+        
        session()->flash('Delete' , "deleted susseccfully");
        return redirect()->route("freelanc.photo.index");
 
