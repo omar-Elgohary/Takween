@@ -148,10 +148,7 @@ Route::prefix("user")->name("user.")->group(function(){
         return view("user.freelancerprofile");
     })->name("freelancer");
 
-
-    Route::get('/showpublicrequest', function () {
-        return view('user.showpublicrequest');
-    })->name("showpublicrequest");
+    Route::get('/showpublicrequest', [RequestController::class, 'publicRequests'])->name("showpublicrequest");
 
     Route::get('/showprivaterequest', function () {
         return view('user.showprivaterequest');
