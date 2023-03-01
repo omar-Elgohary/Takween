@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RequestController;
 
 
 Route::group(
@@ -164,9 +165,11 @@ Route::prefix("user")->name("user.")->group(function(){
         return view('user.requestreservation');
     })->name("requestreservation");
 
-    Route::get('/requestpublic', function () {
-        return view('user.requestpublicservice');
-    })->name("requestpublic");
+    Route::get('/requestpublic', [RequestController::class, 'index'])->name("requestpublic");
+    Route::post('StoreRequest', [RequestController::class, 'store'])->name("request.store");
+    // get all services of one category
+    Route::get('category/{id}', [RequestController::class, 'getCategoryServices'])->name('getCategoryServices');
+
 
     Route::get('/requestprivate', function () {
         return view('user.requestprivateservice');
