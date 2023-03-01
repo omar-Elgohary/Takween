@@ -50,6 +50,7 @@ body {
     font-weight: 600;
     font-size: 16px;
     line-height: 28px;
+    /* overflow-x: hidden; */
     /* background-color: var(--section-color); */
 
 }
@@ -162,6 +163,7 @@ box-shadow: 1px 2px 14px 14px #04040463;
     margin-bottom: 15px;
     display: flex;
     align-items: baseline;
+    width: 100%;
 }
 
 .section-header h2 {
@@ -854,6 +856,7 @@ font-size: 60px;
         }
         .static-info p{
             font-size: 30px;
+            white-space: nowrap;
         }
         .card-body-bar {
 
@@ -863,6 +866,9 @@ font-size: 60px;
         @media (min-width:767px) {
             .chart-static{
            width: 50%;
+           flex-direction: column;
+    align-items: center !important;
+    justify-content: center;
             }
         }
         @media (max-width:767px) {
@@ -1137,10 +1143,10 @@ text-align: center;
            }
 }
 
-.products-page .container-fluid .product-table {
+.products-page  .product-table {
     width:80%;
 }
-.products-page .container-fluid .product-table .products{
+.products-page  .product-table .products{
     width: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -1160,21 +1166,21 @@ text-align: center;
 
     }
 
-    .products-page .container-fluid .category-table {
+    .products-page .category-table {
         width: 100%;
 
     }
 
-    .products-page .container-fluid .product-table {
+    .products-page .product-table {
         width: 100%;
 
     }
 
-    .products-page .container-fluid .product-table .products{
+    .products-page .product-table .products{
         align-content:center ;
     }
 }
-.products-page .container-fluid .product-table .card-container{
+.products-page  .product-table .card-container{
     margin-bottom: 10px;
 }
 
@@ -1590,10 +1596,14 @@ font-size: 1rem;
 }
 .freelanc .info{
     padding-top: 10px;
+    flex-grow: 1;
 }
 .freelanc .info .name{
     display: flex;
    
+}
+.freelanc .info .rate{
+    white-space:nowrap ;
 }
 .freelanc .info .name span:first-child{
     font-weight: 900;
@@ -1656,9 +1666,13 @@ font-size: 1rem;
 .freelanc .totals div{
     display: flex;
     align-items: baseline;
+    white-space: nowrap;
+    gap: 18px;
 }
 .freelanc .totals div p{
-    font-size:24px;
+    font-size: 28px;
+    font-weight: 300;
+    color: black;
 
 }
 .freelanc .totals div i{
@@ -1677,6 +1691,8 @@ font-size: 1rem;
 .freelanc .totals div p sub{
     font-size: 16px;
     color:#777;
+    font-weight: 300;
+    padding: 0 7px;
 
 }
 @media(max-width:767px){
@@ -1687,12 +1703,20 @@ font-size: 1rem;
     } 
     .freelanc .totals{
         width: 100%;
-        flex-direction: row;
+        flex-direction: column;
+        align-items: center;
         padding:  27px 10px;
+        border-radius: 0 0 17px 17px ;
 
     }
     .freelanc .info{
         padding: 0 10px;
+    }
+
+    .freelanc .image img {
+       
+        top: -9px;
+        left: -24px;
     }
 }
 
@@ -1707,7 +1731,7 @@ font-size: 1rem;
     left: 1px;
     width: 100%;
     height: 71px;
-    flex-direction: row !important;
+    flex-direction: row ;
     background-color: #fff;
     color:#fff;
     padding: 0;
@@ -1738,6 +1762,7 @@ font-size: 1rem;
 .freelanc.v2 .totals  a  p{
     margin-bottom: 0;
     font-size: 24px;
+    white-space: nowrap;
 }
 .freelanc.v2 .totals  div i{
     color:#fff;
@@ -1745,6 +1770,15 @@ font-size: 1rem;
 }
 .freelanc.v2 .totals  div sub{
     color:#fff;
+}
+
+@media(max-width:767px){
+    .freelanc.v2 .totals a{
+        height: 100%;
+    }
+    .freelanc.v2 .totals a p{
+        font-size: 17px;
+    }
 }
 .products-page .productscroll{
     display: flex;
@@ -1755,8 +1789,15 @@ font-size: 1rem;
 .products-page .productscroll .card{
    width: 300px;
    max-width: 100%;
+   min-width:300px;
 }
+/* .card-plus{
 
+}
+.card-plus .image-product{
+    width: 250px;
+    height:290px;
+} */
 
 .productscroll::-webkit-scrollbar{
     display: none;

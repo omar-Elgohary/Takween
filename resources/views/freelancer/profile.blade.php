@@ -28,7 +28,7 @@ freelanser name
     <i class="fa-solid fa-plus"></i>
 </a>
 
-<div class="products-page py-5">
+<div class="products-page py-5 px-md-4">
         <div class="container">
             <section class="freelanc v2">
                 <div class="image">
@@ -42,7 +42,7 @@ freelanser name
                             <i class="fa fa-star"></i>
                             <span>4,5</span>
                             </div>
-                            <a href="#editfreelancerprofile" data-bs-toggle="modal" style="display: flex; flex-grow:1; align-items: center; justify-content:flex-end; padding: 0 33px; font-size: 18px;">
+                            <a href="#editfreelancerprofile" data-bs-toggle="modal" style="display: flex;flex-grow:1;align-items: center;justify-content:flex-end;padding: 0 33px;font-size: 18px;position: absolute;top: 48px;right: -5px;">
                                 <i class="fa fa-edit" style="color: #000;"></i>
                             </a>
                         </div>
@@ -167,13 +167,16 @@ freelanser name
                     </div>
                 </div>
 
+
+                <div class="container-fluid py-2 px-3 ">   
         <div class="section-header">
             <h2>products</h2>
             <a href="{{route("freelanc.product.index")}}" class="flex-1">See all</a>
         </div>
-
+                </div>
+                <div class="container-fluid py-2 px-3 ">   
         <div class="products productscroll">
-            <a class="card" href="{{route("freelanc.product.create")}}">
+            <a class="card card-plus" href="{{route("freelanc.product.create")}}">
                 <div class="image-product " style="display: flex; justify-content: center; align-items: center; color: #CDCDCD; background-color: #F8F8F8; border-radius: 18px; display: flex; flex-direction: column;">
                     <i class="fa fa-add " style="font-size: 70px;"></i>
                     <p>add New product</p>
@@ -200,7 +203,7 @@ freelanser name
                 </div>
             @endforeach
         </div>
-
+                </div>
         <div class="categories ccs ms-3 ">
             <div class="container-fluid py-2 px-3 ">
                 <div class="section-header">
@@ -209,8 +212,9 @@ freelanser name
                 </div>
             </div>
 
+            <div class="container-fluid py-2 px-3 ">
             <div class="products productscroll">
-                <a class="card" href="{{route("freelanc.photo.create")}}">
+                <a class="card card-plus" href="{{route("freelanc.photo.create")}}">
                     <div class="image-product" style="display: flex; justify-content: center; align-items: center; color: #CDCDCD; background-color: #F8F8F8; border-radius: 18px; display: flex; flex-direction: column;">
                         <i class="fa fa-add " style="font-size: 70px;"></i>
                         <p>add new photo</p>
@@ -235,6 +239,7 @@ freelanser name
                     </div>
                 </div>
             @endforeach
+            </div>
             </div>
         </div>
     </div>

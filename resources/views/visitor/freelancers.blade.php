@@ -60,7 +60,7 @@ freelancers
                 <img src="{{ asset("Admin3/assets/images/users/".$freelancer->profile_image) }}" alt="">
             </div>
 
-            <div class="info">
+            <div class="info ">
                 <div class="name">
                     <span>{{ $freelancer->name }}</span>
                     <div class="rate">
