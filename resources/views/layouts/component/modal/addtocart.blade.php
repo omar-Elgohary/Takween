@@ -24,7 +24,7 @@
             </div>
         
       
-  
+
     <!-- Submit button -->
     <div class="btn-contianer d-flex  flex-column justify-content-center align-items-center">
    <a href="{{route('user.cart')}}" class="btn btn-modal  my-3 btn-model-primary ">checkout</a>
@@ -43,4 +43,4 @@
   
  </div>
     
-  
+ {{-- <button data-bs-toggle="modal" data-bs-target="#addcart">  add chart</button> --}}

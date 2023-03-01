@@ -223,11 +223,11 @@ freelanser name
             <div class="container-fluid py-2 px-3 ">
                 <div class="section-header">
                     <h2>photos</h2>
-                    <a href="{{route("freelanc.showphotos")}}" class="flex-1">See all</a>
+                    <a href="{{route("freelanc.photo.index")}}" class="flex-1">See all</a>
                 </div>
             </div>
                 <div class="products productscroll">
-                    <a class="card" href="{{route("freelanc.addphoto")}}">
+                    <a class="card" href="{{route("freelanc.photo.create")}}">
                         <div class="image-product " style="
                         display: flex;
                         justify-content: center;

@@ -2,6 +2,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RequestController;
@@ -59,21 +60,21 @@ Route::prefix("freelancer")->name("freelanc.")->group(function(){
     })->name("neworder");
 
 
-    Route::get("/showproducts",function(){
-        return view("freelancer.showproducts");
-    })->name("showproducts");
+    // Route::get("/showproducts",function(){
+    //     return view("freelancer.showproducts");
+    // })->name("showproducts");
 
-    Route::get("/addproduct",function(){
-        return view("freelancer.addproduct");
-    })->name("addproduct");
+    // Route::get("/addproduct",function(){
+    //     return view("freelancer.addproduct");
+    // })->name("addproduct");
 
-    Route::get("/editproduct",function(){
-        return view("freelancer.editproduct");
-    })->name("editproduct");
+    // Route::get("/editproduct",function(){
+    //     return view("freelancer.editproduct");
+    // })->name("editproduct");
 
-    Route::get("/product",function(){
-        return view("freelancer.product");
-        })->name("product");
+    // Route::get("/product",function(){
+    //     return view("freelancer.product");
+    //     })->name("product");
 
     Route::resource('product',ProductController::class);
 
@@ -89,23 +90,23 @@ Route::prefix("freelancer")->name("freelanc.")->group(function(){
 
 
 // start photo
-    Route::get("/showphotos",function(){
-        return view("freelancer.showphotos");
-    })->name("showphotos");
+    // Route::get("/showphotos",function(){
+    //     return view("freelancer.showphotos");
+    // })->name("showphotos");
 
-    Route::get("/addphoto",function(){
-        return view("freelancer.addphoto");
-        })->name("addphoto");
+    // Route::get("/addphoto",function(){
+    //     return view("freelancer.addphoto");
+    //     })->name("addphoto");
 
-    Route::get("/editphoto",function(){
-    return view("freelancer.editphoto");
-    })->name("editphoto");
+    // Route::get("/editphoto",function(){
+    // return view("freelancer.editphoto");
+    // })->name("editphoto");
 
-    Route::get("/photo",function(){
-        return view("freelancer.photo");
-    })->name("photo");
+    // Route::get("/photo",function(){
+    //     return view("freelancer.photo");
+    // })->name("photo");
 
-    Route::resource('photo',ProductController::class);
+    Route::resource('photo',PhotoController::class);
 
     //profile
     Route::get("/files",function(){

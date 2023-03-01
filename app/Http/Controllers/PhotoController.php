@@ -16,7 +16,6 @@ class PhotoController extends Controller
      */
     public function index()
     {
-
         $photos=Photo::where("freelancer_id",auth()->user()->id)->get();
 
         return view("freelancer.showphotos",compact("photos"));
@@ -29,15 +28,15 @@ class PhotoController extends Controller
      */
     public function create()
     {
-        $photos=Photo::all();
-    return view("freelancer.addphoto", compact('photos'));
+      
+    return view("freelancer.addphoto");
     }
 
 
     public function store(Request $request)
     {
 
-        // dd($request);
+
         $request->validate([
          "photo"=>['required','image',"max:200"],
          "name"=>['required'],
@@ -53,7 +52,7 @@ class PhotoController extends Controller
 
         $file_extention = $request->file("photo")->getCLientOriginalExtension();
         $photo_name=time(). ".".$file_extention;
-        $request->file("public")->move(public_path('assets/images/product'),$photo_name);
+        $request->file("photo")->move(public_path('assets/images/photo/'),$photo_name);
         $photo=Photo::create([
             "name"=>$request->name,
             "freelancer_id"=>auth()->user()->id,
@@ -110,11 +109,13 @@ class PhotoController extends Controller
            $photo_name=$photo->photo;
         if($request->hasFile("photo")) {
 
-
-            File::delete("front/upload/photo/".$photo->photo);
+           if($photo->photo!=null){
+            File::delete("assets/images/photo/".$photo->photo);
+           }
+         
             $file_extention=$request->file("photo")->getCLientOriginalExtension();
             $photo_name=time(). ".".$file_extention;
-            $request->file("photo")->move(public_path('front/upload/photo/'),$photo_name);
+            $request->file("photo")->move(public_path('assets/images/photo/'),$photo_name);
 
         }
 
@@ -138,7 +139,7 @@ class PhotoController extends Controller
     public function destroy(Photo $photo)
     {
 
-        File::delete("front/upload/photo/".$photo->photo);
+        File::delete("assets/images/photo/".$photo->photo);
         $photo->delete();
 
        session()->flash('Delete' , "deleted susseccfully");
