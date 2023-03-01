@@ -147,7 +147,10 @@ class UserController extends Controller
         return json_encode(["status"=>$flag,"action"=>$action],true);
     }
 
+    public function addcart($id){
+    
 
+    }
 
 }
 

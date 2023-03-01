@@ -91,9 +91,17 @@
                                 active
                             @endif"><i class="fa fa-heart"></i></button>
                                @else
-                               <button  class="hart" type="button" data-bs-target="" data-bs-toggle="modal"><i class="fa fa-heart"></i></button>
+                               <button  class="hart" type="button" data-bs-target="#login" data-bs-toggle="modal"><i class="fa fa-heart"></i></button>
                               @endauth
-                            <button class="addtochart" >add to cart</button>
+
+
+                              @auth
+                                  
+                              <button class="addtochart"  data-id="{{$product->id}}" onclick="addcart(this)">add to cart</button>
+                              @else
+                              <button class="addtochart" >add to cart</button>
+                              @endauth
+                          
                        
                        
                     </div>
@@ -159,7 +167,25 @@ $.ajax({
 
 }
 
+function addcart(e){
+    var id =$(e).attr('data-id');
+    var token= $('meta[name="csrf_token"]').attr('content');
+    $.ajax({
+ type: "GET",
+  url: "{{ URL::to('user/addcart')}}/" + id,
+  data:{'type':type},
+  headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+  dataType: "json",
+  success: function(data) {
+    if(data['action']=="add"){
+        $(e).addClass("active");
+    }else if(data['action']=="delete"){
+        $(e).removeClass("active");
+    }
+  }
 
+  });
+}
     
     </script>
 @endsection

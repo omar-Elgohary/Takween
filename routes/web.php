@@ -170,7 +170,10 @@ Route::prefix("user")->name("user.")->group(function(){
         return view('user.requestprivateservice');
     })->name("requestprivate");
 // add or delete likes
-    Route::get('/addorremovelikes/{id}',[UserController::class,'addorremovelikes']);
+Route::get('/addorremovelikes/{id}',[UserController::class,'addorremovelikes']);
+
+// add cart
+Route::get('/addcart/{id}',[UserController::class,'addcart']);
 
 });
 
