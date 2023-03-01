@@ -121,7 +121,7 @@ class UserController extends Controller
             ]);
             $action="add";
         }else{
-            $product->likes()->delete();
+            $product->likes()->where("user_id",auth()->user()->id)->delete();
             $action="delete";
             }
 
@@ -137,7 +137,7 @@ class UserController extends Controller
               ]);
               $action="add";
           }else{
-              $photo->likes()->delete();
+              $photo->likes()->where("user_id",auth()->user()->id)->delete();
               $action="delete";
               }
           $flag=true;
