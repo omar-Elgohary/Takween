@@ -86,8 +86,9 @@ class ProductController extends Controller
     }
 
 
-    public function getservice($id){
-        $services=Category::find($id)->service->pluck('title_en' , 'id');
+    public function getCategoryServices($id)
+    {
+        $services = DB::table("services")->where("category_id" , $id)->pluck("service_en" , "id");
         return json_encode($services);
     }
 

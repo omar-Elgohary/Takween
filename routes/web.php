@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RequestController;
 
 
 Route::group(
@@ -27,9 +28,8 @@ Route::get('/photo', function () {
     return view('visitor.photo');
 })->name("photo");
 
-Route::get('/freelancer', function () {
-    return view('visitor.freelancer');
-})->name("freelancer");
+Route::get('/freelancer/{id}', [UserController::class, 'FreelancerProfile'])->name("freelancer");
+
 
 Route::get("user/freelancers", [UserController::class, 'allFreelancers'])->name("freelancers");
 
@@ -77,9 +77,9 @@ Route::prefix("freelancer")->name("freelanc.")->group(function(){
 
     Route::resource('product',ProductController::class);
 
-// ajax
-    route::get("/getservice/{id}",[ProductController::class,'getservice']);
-// end ajax
+    // get all services of one category
+    Route::get('category/{id}', [ProductController::class, 'getCategoryServices'])->name('getCategoryServices');
+
 
 
     Route::get("/reservation",function(){
@@ -165,9 +165,11 @@ Route::prefix("user")->name("user.")->group(function(){
         return view('user.requestreservation');
     })->name("requestreservation");
 
-    Route::get('/requestpublic', function () {
-        return view('user.requestpublicservice');
-    })->name("requestpublic");
+    Route::get('/requestpublic', [RequestController::class, 'index'])->name("requestpublic");
+    Route::post('StoreRequest', [RequestController::class, 'store'])->name("request.store");
+    // get all services of one category
+    Route::get('category/{id}', [RequestController::class, 'getCategoryServices'])->name('getCategoryServices');
+
 
     Route::get('/requestprivate', function () {
         return view('user.requestprivateservice');

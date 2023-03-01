@@ -28,27 +28,24 @@ class PhotoController extends Controller
      */
     public function create()
     {
-      
+
     return view("freelancer.addphoto");
     }
 
 
     public function store(Request $request)
     {
-
-
         $request->validate([
-         "photo"=>['required','image',"max:200"],
-         "name"=>['required'],
-         "description"=>['required'],
-         "camerabrand"=>['nullable'],
-         "lens"=>['nullable'],
-         "sizewidth"=>['required','numeric'],
-         "sizeheight"=>['required',"numeric"],
-         "sizetype"=>['required'],
-         "location"=>['nullable'],
+            "photo"=>['required','image',"max:200"],
+            "name"=>['required'],
+            "description"=>['required'],
+            "camerabrand"=>['nullable'],
+            "lens"=>['nullable'],
+            "sizewidth"=>['required','numeric'],
+            "sizeheight"=>['required',"numeric"],
+            "sizetype"=>['required'],
+            "location"=>['nullable'],
         ]);
-
 
         $file_extention = $request->file("photo")->getCLientOriginalExtension();
         $photo_name=time(). ".".$file_extention;
@@ -66,10 +63,8 @@ class PhotoController extends Controller
             "photo"=>$photo_name
         ]);
 
-
         session()->flash('Create' , "created susseccfully");
         return route('freelanc.photo.index');
-
     }
 
 
@@ -81,10 +76,15 @@ class PhotoController extends Controller
 
     public function edit(Photo $photo)
     {
-       return view("freelancer.editphoto",compact("photo"));
+        return view("freelancer.editphoto",compact("photo"));
     }
 
+<<<<<<< HEAD
     
+=======
+
+
+>>>>>>> cad3a248d925a5f0d060f9dbc819b96c976b787c
     public function update(Request $request, Photo $photo)
     {
         $request->validate([
@@ -97,18 +97,17 @@ class PhotoController extends Controller
             "sizeheight"=>['required',"numeric"],
             "sizetype"=>['required'],
             "location"=>['nullable'],
-           ]);
-           $photo_name=$photo->photo;
-        if($request->hasFile("photo")) {
+        ]);
 
-           if($photo->photo!=null){
-            File::delete("assets/images/photo/".$photo->photo);
-           }
-         
+        $photo_name=$photo->photo;
+        if($request->hasFile("photo")) {
+            if($photo->photo!=null){
+                File::delete("assets/images/photo/".$photo->photo);
+            }
+
             $file_extention=$request->file("photo")->getCLientOriginalExtension();
             $photo_name=time(). ".".$file_extention;
             $request->file("photo")->move(public_path('assets/images/photo/'),$photo_name);
-
         }
 
         $photo->update([
@@ -121,9 +120,7 @@ class PhotoController extends Controller
             "size_type"=>$request->sizetype,
             "location"=>$request->location,
             "photo"=>$photo_name
-
         ]);
-
         return redirect()->route("freelanc.photo.show",compact("photo"));
     }
 
@@ -132,9 +129,15 @@ class PhotoController extends Controller
     {
         File::delete("assets/images/photo/".$photo->photo);
         $photo->delete();
+<<<<<<< HEAD
         
        session()->flash('Delete' , "deleted susseccfully");
        return redirect()->route("freelanc.photo.index");
 
+=======
+
+        session()->flash('Delete' , "deleted susseccfully");
+        return redirect()->route("freelanc.photo.index");
+>>>>>>> cad3a248d925a5f0d060f9dbc819b96c976b787c
     }
 }
