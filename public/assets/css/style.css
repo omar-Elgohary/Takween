@@ -663,6 +663,31 @@ a.dropdown-item:last-child, a.dropdown-item:last-child i{
     border-radius: 19px;
 }
 
+
+.search-form.search-nav{
+    display: none !important;
+}
+
+@media (max-width:992px){
+    .navbar{
+        border-radius: 0 0 26px 26px;
+    }
+}
+@media (max-width:767px) {
+   
+    .search-form.search-nav{
+        display: flex !important;
+    }
+    .search-form.search-nav input{
+        height:35px;
+    }
+    .search-form.search-nav  button{
+        height:35px;
+    }
+    .search-form.can-hide{
+        display: none !important;
+    }
+}
 .btn-switchtofreelanc{
     background-color: #F5F5F5;
     color: #4AB0D9;
