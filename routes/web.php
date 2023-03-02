@@ -29,7 +29,7 @@ Route::get('/photo', function () {
 })->name("photo");
 
 
-Route::get('/freelancer/{id}', [UserController::class, 'FreelancerProfile'])->name("freelancer");
+// Route::get('/freelancer/{id}', [UserController::class, 'FreelancerProfile'])->name("freelancer");
 Route::get("user/freelancers", [UserController::class, 'allFreelancers'])->name("freelancers");
 
 
