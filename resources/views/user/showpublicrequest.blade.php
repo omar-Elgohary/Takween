@@ -78,12 +78,10 @@ notification
             </div>
         </div>
 
-
         <div class="requestlink py-4 d-flex justify-content-evenly align-items-center">
             <a href="{{route('user.showpublicrequest')}}" class="active fs-4  ">public request</a>
             <a href="{{route('user.showprivaterequest')}}" class="text-black-50 fs-4">private request</a>
         </div>
-
 
 <div class="requesties d-flx flex-column pt-4">
     @foreach ($requests as $request)
@@ -116,7 +114,7 @@ notification
         </div>
     @else
 
-    @if($request->due_date < now())
+@if($request->due_date < now())
     <a href="#inprogressenddue" data-bs-toggle="modal" class="request d-flex flex-column px-3 py-3 position-relative mb-5">
             <div class="d-flex justify-content-between align-items-baseline">
                 <div class="frelacereq d-flex ">
@@ -162,8 +160,102 @@ notification
                     @endif
             </div>
         </a>
-    @else
+
+    @elseif ($request->status == 'In Process')
         <a href="#inprogress{{ $request->id }}" data-bs-toggle="modal" class="request d-flex flex-column px-3 py-3 position-relative mb-5">
+            <div class="d-flex justify-content-between align-items-baseline">
+                <div class="frelacereq d-flex ">
+                    <img src="{{ asset('Admin3/assets/images/users/'.App\Models\User::where('id', $request->freelancer_id)->first()->profile_image) }}" class="img-fluid rounded-top" alt="">
+
+                    <div class="freelanereq mx-2">
+                        <h3 class="fw-600">{{ App\Models\User::where('id', $request->freelancer_id)->first()->name }}</h3>
+                        <span class="text-black-50">#123123</span>
+                    </div>
+                </div>
+
+                @if($request->status == 'Pending')
+                    <p class="status gray" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
+                @elseif($request->status == 'In Process')
+                    <p class="status gray text-warning" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
+                @elseif($request->status == 'Finished')
+                    <p class="status gray" style="color: rgb(214, 214, 42);" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
+                @elseif($request->status == 'Completed')
+                    <p class="status gray text-black" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
+                @endif
+            </div>
+
+            <div class="d-flex ">
+                <div class="d-flex flex-column px-2">
+                    <p class="m-0">req.date</p>
+                    <span>20/09/2010</span>
+                </div>
+                    @if($request->due_date < now()->toDateString())
+                        <div class="d-flex flex-column px-2">
+                            <p class="m-0">Due date</p>
+                            <span class="text-danger">{{ $request->due_date }}</span>
+                            <div>
+                            </div>
+                        </div>
+                    @else
+                        <div class="d-flex flex-column px-2">
+                            <p class="m-0">Due date</p>
+                            <span>{{ $request->due_date }}</span>
+                            <div>
+                            </div>
+                        </div>
+                    @endif
+            </div>
+        </a>
+
+    @elseif ($request->status == 'Finished')
+        <a href="#finish{{ $request->id }}" data-bs-toggle="modal" class="request d-flex flex-column px-3 py-3 position-relative mb-5">
+            <div class="d-flex justify-content-between align-items-baseline">
+                <div class="frelacereq d-flex ">
+                    <img src="{{ asset('Admin3/assets/images/users/'.App\Models\User::where('id', $request->freelancer_id)->first()->profile_image) }}" class="img-fluid rounded-top" alt="">
+
+                    <div class="freelanereq mx-2">
+                        <h3 class="fw-600">{{ App\Models\User::where('id', $request->freelancer_id)->first()->name }}</h3>
+                        <span class="text-black-50">#123123</span>
+                    </div>
+                </div>
+
+                @if($request->status == 'Pending')
+                    <p class="status gray" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
+                @elseif($request->status == 'In Process')
+                    <p class="status gray text-warning" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
+                @elseif($request->status == 'Finished')
+                    <p class="status gray" style="color: rgb(54, 34, 23);" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
+                @elseif($request->status == 'Completed')
+                    <p class="status gray text-black" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
+                @endif
+            </div>
+
+            <div class="d-flex ">
+                <div class="d-flex flex-column px-2">
+                    <p class="m-0">req.date</p>
+                    <span>20/09/2010</span>
+                </div>
+                    {{-- @if($request->due_date < now()) --}}
+                    @if($request->due_date < now()->toDateString())
+                        <div class="d-flex flex-column px-2">
+                            <p class="m-0">Due date</p>
+                            <span class="text-danger">{{ $request->due_date }}</span>
+                            <div>
+                            </div>
+                        </div>
+                    @else
+                        <div class="d-flex flex-column px-2">
+                            <p class="m-0">Due date</p>
+                            <span>{{ $request->due_date }}</span>
+                            <div>
+                            </div>
+                        </div>
+                    @endif
+            </div>
+        </a>
+
+    @elseif ($request->status == 'Completed')
+        <a href="#complete{{ $request->id }}" data-bs-toggle="modal" class="request d-flex flex-column px-3 py-3 position-relative mb-5">
             <div class="d-flex justify-content-between align-items-baseline">
                 <div class="frelacereq d-flex ">
                     <img src="{{ asset('Admin3/assets/images/users/'.App\Models\User::where('id', $request->freelancer_id)->first()->profile_image) }}" class="img-fluid rounded-top" alt="">
@@ -206,10 +298,10 @@ notification
                             </div>
                         </div>
                     @endif
-            </div>
-        </a>
+                </div>
+            </a>
+        @endif
     @endif
-
 
 {{-- offerPending modal --}}
 <div id="offerPending{{ $request->id }}" class="modal offers fade"  aria-hidden="true" aria-labelledby="offerPendingLabel" tabindex="-1">
@@ -267,9 +359,7 @@ notification
                             <div class="info">
                                 <p class="mb-0">{{ $request->attachment }}</p>
 
-                                <div class="size">
-                                    521kB .WORD
-                                </div>
+                                <div class="size">521kB .WORD</div>
                             </div>
                         </div>
                     </div>
@@ -286,84 +376,6 @@ notification
     </div>
 </div>
 </div><!-- end offerPending modal -->
-
-
-{{-- in pregress modal --}}
-<div id="inprogress{{ $request->id }}" class="modal offers fade" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header ">
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-
-            <div class="modal-body">
-                <div class="div d-flex justify-content-start px-4">
-                    <div class="d-flex flex-column">
-                        <h3 class="mb-0 font-bold">#324234</h3>
-                        <span class="inprogress text-warning">{{ $request->status }}</span>
-                    </div>
-
-                    <div class="align-slef-end" style="flex-grow: 1; display: flex; align-items: center; justify-content: end;">
-                        <a  href="#" data-bs-toggle="offcanvas" data-bs-target="#chat" aria-controls="offcanvasRight">
-                            <i class="uil-comments-alt"  style="font-size:20px;"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="d-flex flex-column px-5">
-                    <div class="d-flex justify-content-between">
-                        <p class=" mb-0" >category</p>
-                    <p class="fw-900 mb-0">{{ App\Models\Category::where('id', $request->category_id)->first()->title_en }}</p>
-                    </div>
-
-                    <div class="d-flex justify-content-between">
-                        <p class=" mb-0">service</p>
-                    <p class="fw-900 mb-0">{{ App\Models\Service::where('id', $request->service_id)->first()->service_en }}</p>
-                    </div>
-
-                    <div class="d-flex justify-content-between">
-                        <p class="mb-0">title</p>
-                        <p class="fw-900 mb-0">{{ $request->title }}</p>
-                    </div>
-
-                    <div class="d-flex justify-content-between">
-                        <p class=" mb-0">due date</p>
-                        <p class="fw-900 mb-0">{{ $request->due_date }}</p>
-                    </div>
-                </div>
-
-                <div class="d-flex flex-column px-3 bg-blue ">
-                    <span class="flex-grow-1 fs-5 font-bold ">description</span>
-                    <p class="flex-grow-1">{{ $request->description }}</p>
-                </div>
-
-                <div class="d-flex flex-column px-3 ">
-                    <p class="fs-5 font-bold">attachment</p>
-                    @foreach (App\Models\Requests::where('freelancer_id', $request->freelancer_id)->get() as $request)
-                    <div class="d-flex flex-column px-2 ">
-                        <div class="file d-flex mb-2">
-                            <div class="details d-flex ">
-                                <div class="img"><i class="fa-regular fa-file-word"></i></div>
-                                <div class="info">
-                                <p class=" mb-0">{{ $request->attachment }}</p>
-                                    <div class="size">
-                                        521kB .word
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-    </div>
-</div>
-
-    <div  style="position:fixed ; bottom:0;right:0; font-size:30px">
-        <button class="addrequesticon" type="button" data-bs-toggle="offcanvas" data-bs-target="#chat" aria-controls="offcanvasRight"><i class="uil-comments-alt"></i></button>
-    </div>
-</div>
-
 
 {{-- end due date modal --}}
 <div id="inprogressenddue" class="modal offers fade" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="inprogressenddueLabel" tabindex="-1">
@@ -453,8 +465,236 @@ notification
     </div>
 </div> <!-- end due date modal -->
 
+{{-- in pregress modal --}}
+<div id="inprogress{{ $request->id }}" class="modal offers fade" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header ">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
 
-@endif
+            <div class="modal-body">
+                <div class="div d-flex justify-content-start px-4">
+                    <div class="d-flex flex-column">
+                        <h3 class="mb-0 font-bold">#324234</h3>
+                        <span class="inprogress text-warning">{{ $request->status }}</span>
+                    </div>
+
+                    <div class="align-slef-end" style="flex-grow: 1; display: flex; align-items: center; justify-content: end;">
+                        <a  href="#" data-bs-toggle="offcanvas" data-bs-target="#chat" aria-controls="offcanvasRight">
+                            <i class="uil-comments-alt"  style="font-size:20px;"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-column px-5">
+                    <div class="d-flex justify-content-between">
+                        <p class=" mb-0" >category</p>
+                        <p class="fw-900 mb-0">{{ App\Models\Category::where('id', $request->category_id)->first()->title_en }}</p>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <p class=" mb-0">service</p>
+                        <p class="fw-900 mb-0">{{ App\Models\Service::where('id', $request->service_id)->first()->service_en }}</p>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <p class="mb-0">title</p>
+                        <p class="fw-900 mb-0">{{ $request->title }}</p>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <p class=" mb-0">due date</p>
+                        <p class="fw-900 mb-0">{{ $request->due_date }}</p>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-column px-3 bg-blue ">
+                    <span class="flex-grow-1 fs-5 font-bold ">description</span>
+                    <p class="flex-grow-1">{{ $request->description }}</p>
+                </div>
+
+                <div class="d-flex flex-column px-3 ">
+                    <p class="fs-5 font-bold">attachment</p>
+                        @foreach (App\Models\Requests::where('freelancer_id', $request->freelancer_id)->get() as $request)
+                        <div class="d-flex flex-column px-2 ">
+                            <div class="file d-flex mb-2">
+                                <div class="details d-flex ">
+                                    <div class="img"><i class="fa-regular fa-file-word"></i></div>
+                                    <div class="info">
+                                    <p class=" mb-0">{{ $request->attachment }}</p>
+                                        <div class="size">
+                                            521kB .word
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div  style="position:fixed ; bottom:0;right:0; font-size:30px">
+        <button class="addrequesticon" type="button" data-bs-toggle="offcanvas" data-bs-target="#chat" aria-controls="offcanvasRight"><i class="uil-comments-alt"></i></button>
+    </div>
+</div>
+
+
+{{-- COMPELETE MODAL --}}
+<div id="complete{{ $request->id }}" class="modal offers fade"  aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header ">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="div d-flex justify-content-start px-4">
+                    <div class="d-flex flex-column">
+                        <h3 class="mb-0 font-bold">#324234</h3>
+                        <span class="text-black">{{ $request->status }}</span>
+                    </div>
+
+                    <div class="align-slef-end" style="flex-grow: 1; display: flex; align-items: center; justify-content: end;">
+                        <a  href="#" data-bs-toggle="offcanvas" data-bs-target="#chat" aria-controls="offcanvasRight">
+                            <i class="uil-comments-alt"  style="font-size:20px;"></i>
+                        </a>
+                    </div>
+                </div>
+
+            <div class="d-flex flex-column px-5">
+                <div class="d-flex justify-content-between">
+                    <p class=" mb-0" >category</p>
+                    <p class="fw-900 mb-0">{{ App\Models\Category::where('id', $request->category_id)->first()->title_en }}</p>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <p class=" mb-0">service</p>
+                        <p class="fw-900 mb-0">{{ App\Models\Service::where('id', $request->service_id)->first()->service_en }}</p>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <p class=" mb-0" >title</p>
+                    <p class="fw-900 mb-0">{{ $request->title }}</p>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <p class=" mb-0">due date</p>
+                    <p class="fw-900 mb-0">{{ $request->due_date }}</p>
+                </div>
+            </div>
+
+            <div class="d-flex flex-column px-3 bg-blue ">
+                <span class="flex-grow-1 fs-5 font-bold ">description</span>
+                <p class="flex-grow-1">{{ $request->description }}</p>
+            </div>
+
+            <div class="d-flex flex-column px-3 ">
+                <p class="fs-5 font-bold">attachment</p>
+                    @foreach (App\Models\Requests::where('freelancer_id', $request->freelancer_id)->get() as $request)
+                        <div class="d-flex flex-column px-2 ">
+                            <div class="file d-flex mb-2">
+                                <div class="details d-flex ">
+                                    <div class="img"><i class="fa-regular fa-file-word"></i></div>
+                                    <div class="info">
+                                    <p class=" mb-0">{{ $request->attachment }}</p>
+                                        <div class="size">521kB .word</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div> <!-- end compelete modal -->
+
+
+{{-- finish modal --}}
+<div id="finish{{ $request->id }}" class="modal offers fade" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header ">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="div d-flex justify-content-start px-4">
+                    <div class="d-flex flex-column">
+                        <h3 class="mb-0 font-bold">#324234</h3>
+                        <span class="inprogress">{{ $request->status }}</span>
+                    </div>
+
+                    <div class="align-slef-end" style="flex-grow: 1; display: flex; align-items: center; justify-content: end;">
+                        <a  href="#" data-bs-toggle="offcanvas" data-bs-target="#chat" aria-controls="offcanvasRight">
+                            <i class="uil-comments-alt"  style="font-size:20px;"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-column px-5">
+                    <div class="d-flex justify-content-between">
+                        <p class=" mb-0" >category</p>
+                        <p class="fw-900 mb-0">{{ App\Models\Category::where('id', $request->category_id)->first()->title_en }}</p>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <p class=" mb-0">service</p>
+                        <p class="fw-900 mb-0">{{ App\Models\Service::where('id', $request->service_id)->first()->service_en }}</p>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <p class=" mb-0" >title</p>
+                        <p class="fw-900 mb-0">{{ $request->title }}</p>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <p class=" mb-0">due date</p>
+                        <p class="fw-900 mb-0 ">{{ $request->due_date }}</p>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-column px-3 bg-blue ">
+                    <span class="flex-grow-1 fs-5 font-bold ">description</span>
+                    <p class="flex-grow-1 ">{{ $request->description }}</p>
+                </div>
+
+                <div class="d-flex flex-column px-3 ">
+                    <p class="fs-5 font-bold">attachment</p>
+                    @foreach (App\Models\Requests::where('freelancer_id', $request->freelancer_id)->get() as $request)
+                        <div class="d-flex flex-column px-2 ">
+                            <div class="file d-flex mb-2">
+                                <div class="details d-flex ">
+                                    <div class="img"><i class="fa-regular fa-file-word"></i></div>
+                                    <div class="info">
+                                    <p class=" mb-0">{{ $request->attachment }}</p>
+                                        <div class="size">
+                                            521kB .word
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+                <div class="btn-contianer d-flex flex-column justify-between align-items-center my-3">
+                    <button class="btn  btn-modal btn-model-primary" type="button" data-bs-toggle="modal" data-bs-target="#review"  >complete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="position:fixed ; bottom:0;right:0; font-size:30px">
+        <button class="addrequesticon" type="button" data-bs-toggle="offcanvas" data-bs-target="#chat" aria-controls="offcanvasRight"><i class="uil-comments-alt"></i></button>
+    </div>
+</div> <!-- end finish modal -->
+
 @endforeach
 </div>
 </div>
@@ -491,5 +731,4 @@ notification
             modal.find('.modal-body #attachment').val(attachment);
         })
     </script>
-
 @endsection
