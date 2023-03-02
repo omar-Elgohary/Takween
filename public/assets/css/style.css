@@ -1457,6 +1457,7 @@ align-self: baseline;
 .proprity ul{
 list-style-type: none;
 color:var(--gray-color);
+padding-left:0;
 
 }
 .similar{
