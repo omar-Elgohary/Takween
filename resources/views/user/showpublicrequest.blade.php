@@ -48,31 +48,31 @@ notification
             <form action="">
                 <div>
                     <input type="checkbox" name="productsearch" value="all" id="all">
-                    <label for="all" class="bold" >all</label>
+                    <label for="all" class="bold">all</label>
                 </div>
 
                 <div>
                     <input type="checkbox" name="productsearch" value="datadesending" id="datadesending">
-                    <label for="datadesending"class="bold" >data desending</label>
+                    <label for="datadesending" class="bold">data desending</label>
                 </div>
 
                 <div>
                     <input type="checkbox" name="productsearch" value="pendding"id="pendding" >
-                    <label for="pendding"class="bold" >pendding</label>
+                    <label for="pendding" class="bold">pendding</label>
                 </div>
 
                 <div>
                     <input type="checkbox" name="productsearch" value="active"id="active" >
-                    <label for="active"class="bold" >active</label>
+                    <label for="active" class="bold">active</label>
                 </div>
 
                 <div>
                     <input type="checkbox" name="productsearch" value="completed"id="completed" >
-                    <label for="completed"class="bold" >completed</label>
+                    <label for="completed" class="bold">completed</label>
                 </div>
 
                 <div class="btn-contianer d-flex justify-content-center align-items-center">
-                    <button type="submit" class=" border-0 btn-modal  my-3 btn-model-primary ">apply</button>
+                    <button type="submit" class="border-0 btn-modal  my-3 btn-model-primary">apply</button>
                 </div>
             </form>
             </div>
@@ -89,9 +89,7 @@ notification
     @foreach ($requests as $request)
     @if(!$request->freelancer_id)
         <div class="request offer d-flex flex-column px-3 py-3 position-relative mb-5">
-
             <a href="#offerPending{{ $request->id }}" data-bs-toggle="modal" role="button">
-
                 <div class="d-flex justify-content-between align-items-baseline">
                     <h3>#3412312</h3>
                     <p class="status gray"data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
@@ -104,7 +102,7 @@ notification
                     </div>
 
                     <div class="d-flex flex-column px-2">
-                        <p class="m-0">Due date</p>
+                        <p class="m-0 text-danger">Due date</p>
                         <span>{{ $request->due_date }}</span>
                         <div>
                         </div>
@@ -116,9 +114,55 @@ notification
                 offer
             </button>
         </div>
-
     @else
 
+    @if($request->due_date < now())
+    <a href="#inprogressenddue" data-bs-toggle="modal" class="request d-flex flex-column px-3 py-3 position-relative mb-5">
+            <div class="d-flex justify-content-between align-items-baseline">
+                <div class="frelacereq d-flex ">
+                    <img src="{{ asset('Admin3/assets/images/users/'.App\Models\User::where('id', $request->freelancer_id)->first()->profile_image) }}" class="img-fluid rounded-top" alt="">
+
+                    <div class="freelanereq mx-2">
+                        <h3 class="fw-600">{{ App\Models\User::where('id', $request->freelancer_id)->first()->name }}</h3>
+                        <span class="text-black-50">#123123</span>
+                    </div>
+                </div>
+
+                @if($request->status == 'Pending')
+                    <p class="status gray" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
+                @elseif($request->status == 'In Process')
+                    <p class="status gray text-warning" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
+                @elseif($request->status == 'Finished')
+                    <p class="status gray" style="color: rgb(214, 214, 42);" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
+                @elseif($request->status == 'Completed')
+                    <p class="status gray text-black" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
+                @endif
+            </div>
+
+            <div class="d-flex ">
+                <div class="d-flex flex-column px-2">
+                    <p class="m-0">req.date</p>
+                    <span>20/09/2010</span>
+                </div>
+                    {{-- @if($request->due_date < now()) --}}
+                    @if($request->due_date < now()->toDateString())
+                        <div class="d-flex flex-column px-2">
+                            <p class="m-0">Due date</p>
+                            <span class="text-danger">{{ $request->due_date }}</span>
+                            <div>
+                            </div>
+                        </div>
+                    @else
+                        <div class="d-flex flex-column px-2">
+                            <p class="m-0">Due date</p>
+                            <span>{{ $request->due_date }}</span>
+                            <div>
+                            </div>
+                        </div>
+                    @endif
+            </div>
+        </a>
+    @else
         <a href="#inprogress{{ $request->id }}" data-bs-toggle="modal" class="request d-flex flex-column px-3 py-3 position-relative mb-5">
             <div class="d-flex justify-content-between align-items-baseline">
                 <div class="frelacereq d-flex ">
@@ -146,11 +190,22 @@ notification
                     <p class="m-0">req.date</p>
                     <span>20/09/2010</span>
                 </div>
-
-                <div class=" d-flex flex-column px-2">
-                    <p class="m-0">Due date</p>
-                    <span>{{ $request->due_date }}</span>
-                </div>
+                    {{-- @if($request->due_date < now()) --}}
+                    @if($request->due_date < now()->toDateString())
+                        <div class="d-flex flex-column px-2">
+                            <p class="m-0">Due date</p>
+                            <span class="text-danger">{{ $request->due_date }}</span>
+                            <div>
+                            </div>
+                        </div>
+                    @else
+                        <div class="d-flex flex-column px-2">
+                            <p class="m-0">Due date</p>
+                            <span>{{ $request->due_date }}</span>
+                            <div>
+                            </div>
+                        </div>
+                    @endif
             </div>
         </a>
     @endif
@@ -199,29 +254,29 @@ notification
                 <p class="flex-grow-1">{{ $request->description }}</p>
             </div>
 
-@foreach (App\Models\Requests::where('id', $request->id)->get() as $request)
-    <div class="d-flex flex-column px-3">
-    <p class="fs-5 font-bold">attachment</p>
-    <div class="d-flex flex-column px-2 ">
-        <div class="file d-flex mb-2">
-            <div class="details d-flex ">
-                <div class="img">
-                    <i class="fa-regular fa-file-word"></i>
-                </div>
+            @foreach (App\Models\Requests::where('id', $request->id)->get() as $request)
+                <div class="d-flex flex-column px-3">
+                <p class="fs-5 font-bold">attachment</p>
+                <div class="d-flex flex-column px-2 ">
+                    <div class="file d-flex mb-2">
+                        <div class="details d-flex ">
+                            <div class="img">
+                                <i class="fa-regular fa-file-word"></i>
+                            </div>
 
-                <div class="info">
-                    <p class="mb-0">{{ $request->attachment }}</p>
+                            <div class="info">
+                                <p class="mb-0">{{ $request->attachment }}</p>
 
-                    <div class="size">
-                        521kB .WORD
+                                <div class="size">
+                                    521kB .WORD
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+            @endforeach
         </div>
-    </div>
-</div> <!-- end offerPending modal -->
-    @endforeach
-    </div>
 
         <div class="modal-footer">
             <button class="btn  btn-modal  my-3 btn-model-primary" data-bs-target="#freelaceroffers"
@@ -230,7 +285,7 @@ notification
         </div>
     </div>
 </div>
-</div>
+</div><!-- end offerPending modal -->
 
 
 {{-- in pregress modal --}}
@@ -305,10 +360,101 @@ notification
 </div>
 
     <div  style="position:fixed ; bottom:0;right:0; font-size:30px">
-            <button class="addrequesticon" type="button" data-bs-toggle="offcanvas" data-bs-target="#chat" aria-controls="offcanvasRight"><i class="uil-comments-alt"></i></button>
+        <button class="addrequesticon" type="button" data-bs-toggle="offcanvas" data-bs-target="#chat" aria-controls="offcanvasRight"><i class="uil-comments-alt"></i></button>
     </div>
 </div>
 
+
+{{-- end due date modal --}}
+<div id="inprogressenddue" class="modal offers fade" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="inprogressenddueLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+            <div class="div d-flex justify-content-start px-4">
+                <div class="d-flex flex-column">
+                    <h3 class="mb-0 font-bold">#324234</h3>
+                    <span class="text-warning">In Process</span>
+                </div>
+
+                <div class="align-slef-end" style="flex-grow: 1; display: flex; align-items: center; justify-content: end;">
+                    <a  href="#" data-bs-toggle="offcanvas" data-bs-target="#chat" aria-controls="offcanvasRight">
+                        <i class="uil-comments-alt" style="font-size:20px;"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="d-flex flex-column px-5">
+                <div class="d-flex justify-content-between">
+                    <p class=" mb-0" >category</p>
+                    <p class="fw-900 mb-0">
+                        {{ App\Models\Requests::where('due_date' ,'<', now())->first()->category->title_en}}
+                    </p>
+
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <p class=" mb-0">service</p>
+                        {{ App\Models\Requests::where('due_date' ,'<', now())->first()->service->service_en}}
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <p class="mb-0">title</p>
+                    <p class="fw-900 mb-0">{{ App\Models\Requests::where('due_date' ,'<', now())->first()->title}}</p>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <p class=" mb-0">due date</p>
+                    <p class="fw-900 mb-0 deadline">{{ App\Models\Requests::where('due_date', '<' , now())->first()->due_date }}</p>
+                </div>
+            </div>
+
+            <div class="d-flex flex-column px-3 bg-blue ">
+                <span class="flex-grow-1 fs-5 font-bold ">description</span>
+                <p class="flex-grow-1">{{ App\Models\Requests::where('due_date', '<' , now())->first()->description }}</p>
+            </div>
+
+            @foreach (App\Models\Requests::where('id', $request->id)->get() as $request)
+                <div class="d-flex flex-column px-3">
+                    <p class="fs-5 font-bold">attachment</p>
+                    <div class="d-flex flex-column px-2 ">
+                        <div class="file d-flex mb-2">
+                            <div class="details d-flex ">
+                                <div class="img">
+                                    <i class="fa-regular fa-file-word"></i>
+                                </div>
+
+                                <div class="info">
+                                    <p class="mb-0">{{ App\Models\Requests::where('due_date', '<' , now())->first()->attachment }}</p>
+
+                                    <div class="size">
+                                        521kB .WORD
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- end offerPending modal -->
+                    </div>
+                </div>
+            @endforeach
+
+                <div class="btn-contianer d-flex flex-column justify-between align-items-center my-3">
+                    <button class="btn  btn-modal btn-model-primary" type="button" data-bs-toggle="modal" data-bs-target="#review"  >search new offer</button>
+                    <button class="btn text-black-50 border-0"type="button" data-bs-toggle="modal" data-bs-target="#suredelete"  >cancel this service</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="position:fixed ; bottom:0;right:0; font-size:30px">
+        <button class="addrequesticon" type="button" data-bs-toggle="offcanvas" data-bs-target="#chat" aria-controls="offcanvasRight"><i class="uil-comments-alt"></i></button>
+    </div>
+</div> <!-- end due date modal -->
+
+
+@endif
 @endforeach
 </div>
 </div>

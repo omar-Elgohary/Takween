@@ -45,52 +45,51 @@ notification
                 <span class=" px-2">All</span>
             </div>
 
-               <div class="filter-items">
+            <div class="filter-items">
                 <form action="">
-                 <div>
-                   <input type="checkbox" name="productsearch" value="all" id="all">
-                   <label for="all" class="bold" >all</label>
-                 </div>
-                 <div>
-                   <input type="checkbox" name="productsearch" value="datadesending" id="datadesending">
-                   <label for="datadesending"class="bold" >data desending</label>
-                 </div>
-                 <div>
-                   <input type="checkbox" name="productsearch" value="pendding"id="pendding" >
-                   <label for="pendding"class="bold" >pendding</label>
-                 </div>
-                 <div>
-                   <input type="checkbox" name="productsearch" value="active"id="active" >
-                   <label for="active"class="bold" >active</label>
-                 </div>
-                 <div>
-                   <input type="checkbox" name="productsearch" value="completed"id="completed" >
-                   <label for="completed"class="bold" >completed</label>
-                 </div>
-
-                 <div class="btn-contianer d-flex justify-content-center align-items-center">
-                   <button type="submit" class=" border-0 btn-modal  my-3 btn-model-primary ">apply</button>
-
+                    <div>
+                        <input type="checkbox" name="productsearch" value="all" id="all">
+                        <label for="all" class="bold" >all</label>
                     </div>
 
-                </form>
-                </div>
-        </div>
+                    <div>
+                        <input type="checkbox" name="productsearch" value="datadesending" id="datadesending">
+                        <label for="datadesending"class="bold" >data desending</label>
+                    </div>
 
+                    <div>
+                        <input type="checkbox" name="productsearch" value="pendding"id="pendding" >
+                        <label for="pendding"class="bold" >pendding</label>
+                    </div>
+
+                    <div>
+                        <input type="checkbox" name="productsearch" value="active"id="active" >
+                        <label for="active"class="bold" >active</label>
+                    </div>
+
+                    <div>
+                        <input type="checkbox" name="productsearch" value="completed"id="completed" >
+                        <label for="completed"class="bold" >completed</label>
+                    </div>
+
+                    <div class="btn-contianer d-flex justify-content-center align-items-center">
+                        <button type="submit" class=" border-0 btn-modal  my-3 btn-model-primary ">apply</button>
+                    </div>
+                </form>
+            </div>
+        </div>
 
         <div class="requestlink py-4 d-flex justify-content-evenly align-items-center">
             <a href="{{route('user.showpublicrequest')}}" class=" fs-4 text-black-50 ">public request</a>
             <a href="{{route('user.showprivaterequest')}}" class="active  fs-4">private request</a>
         </div>
 
-
-
     <div class="requesties d-flx flex-column pt-4">
         @foreach ($requests as $request)
             <a data-bs-toggle="modal" href="#penddingcancel" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
                 <div class="d-flex justify-content-between align-items-baseline">
                     <div class="frelacereq d-flex ">
-                        <img src="{{asset("assets/images/vicky-hladynets-C8Ta0gwPbQg-unsplash.png")}}" class="img-fluid rounded-top" alt="">
+                        <img src="{{ asset("Admin3/assets/images/users/".App\Models\User::where('id', $request->freelancer_id)->first()->profile_image) }}" class="img-fluid rounded-top" alt="">
 
                         <div class="freelanereq mx-2">
                             <h3 class="fw-600">{{ App\Models\User::where('id', $request->freelancer_id)->first()->name }}</h3>
