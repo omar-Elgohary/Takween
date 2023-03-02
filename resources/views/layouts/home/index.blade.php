@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en"
-{{-- dir="rtl" --}}
+
+@if ( App::getLocale() =="ar")
+  dir="rtl"  
+
+  @else
+  dir="ltr"  
+
+@endif
+
 >
 <head>
 
