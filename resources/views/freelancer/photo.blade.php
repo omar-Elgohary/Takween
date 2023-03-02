@@ -95,9 +95,9 @@ photo
                         <div class="row">
 
                             <div class="col-12">
-                                <a href="{{asset('front/upload/photo/'.$photo->photo)}}" title="$photo->name">
+                                <a href="{{asset('assets/images/photo/'.$photo->photo)}}" title="$photo->name">
                                     <div class="img-fluid photo-place d-flex justify-content-end">
-                                        <img src="{{asset('front/upload/photo/'.$photo->photo)}}" alt="" class="img-fluid d-block">
+                                        <img src="{{asset('assets/images/photo/'.$photo->photo)}}" alt="" class="img-fluid d-block">
                                     </div>
                                 </a>
                             </div>
