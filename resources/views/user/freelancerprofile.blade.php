@@ -64,45 +64,49 @@ freelanser name
 
        
          </div>
-        
+
          <div class="categories pt-5 ms-3 ccs">
-            <div class="container-fluid py-5  px-3 ">
+          <div class="container-fluid pt-5  px-3 ">
+              <div class="servicex">
+                  <div class="serv">
+                      <div class="logo">
+                          <i class="fa-solid fa-newspaper"></i>
+                      </div>
+                      <div class="txt">
+                          Bannars
+                      </div>
+                  </div>
+                  <div class="serv">
+                      <div class="logo">
+                          <i class="fa-solid fa-newspaper"></i>
+                      </div>
+                      <div class="txt">
+                          Bannars
+                      </div>
+                  </div>
+                  <div class="serv">
+                      <div class="logo">
+                          <i class="fa-solid fa-newspaper"></i>
+                      </div>
+                      <div class="txt">
+                          Bannars
+                      </div>
+                  </div>
+                  <div class="serv">
+                      <div class="logo">
+                          <i class="fa-solid fa-newspaper"></i>
+                      </div>
+                      <div class="txt">
+                          Bannars
+                      </div>
+                  </div>
+              </div>
+          </div>
+         </div>
+         <div class="categories pt-3 ms-3 ccs">
+            <div class="container-fluid py-5  px-3 position-relative ">
 
 
-                <div class="servicex">
-                    <div class="serv">
-                        <div class="logo">
-                            <i class="fa-solid fa-newspaper"></i>
-                        </div>
-                        <div class="txt">
-                            Bannars
-                        </div>
-                    </div>
-                    <div class="serv">
-                        <div class="logo">
-                            <i class="fa-solid fa-newspaper"></i>
-                        </div>
-                        <div class="txt">
-                            Bannars
-                        </div>
-                    </div>
-                    <div class="serv">
-                        <div class="logo">
-                            <i class="fa-solid fa-newspaper"></i>
-                        </div>
-                        <div class="txt">
-                            Bannars
-                        </div>
-                    </div>
-                    <div class="serv">
-                        <div class="logo">
-                            <i class="fa-solid fa-newspaper"></i>
-                        </div>
-                        <div class="txt">
-                            Bannars
-                        </div>
-                    </div>
-                </div>
                 <div class="section-header">
                     <h2>products</h2>
         
@@ -292,7 +296,7 @@ freelanser name
             </div>
         </div>
          <div class="categories ccs ms-3 ">
-            <div class="container-fluid py-2 px-3 scrollable-container">
+            <div class="container-fluid py-2 px-3 scrollable-container position-relative">
                 <div class="section-header">
                     <h2>photos</h2>
         

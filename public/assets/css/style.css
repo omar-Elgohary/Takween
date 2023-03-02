@@ -202,7 +202,7 @@ box-shadow: 1px 2px 14px 14px #04040463;
     position: absolute;
     /* bottom: calc(50% - 199px); */
     top: 50%;
-    /* transform: translateY(-50%); */
+    transform: translateY(-50%);
     align-items: center;
     background: linear-gradient(90deg, rgb(255 255 255 / 0%) 0%, var(--bs-border-color) 100%);
     cursor: pointer;
