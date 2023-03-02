@@ -115,7 +115,7 @@ notification
     @else
 
 @if($request->due_date < now())
-    <a href="#inprogressenddue" data-bs-toggle="modal" class="request d-flex flex-column px-3 py-3 position-relative mb-5">
+    <a href="#inprogressenddue{{ $request->id }}" data-bs-toggle="modal" class="request d-flex flex-column px-3 py-3 position-relative mb-5">
             <div class="d-flex justify-content-between align-items-baseline">
                 <div class="frelacereq d-flex ">
                     <img src="{{ asset('Admin3/assets/images/users/'.App\Models\User::where('id', $request->freelancer_id)->first()->profile_image) }}" class="img-fluid rounded-top" alt="">
@@ -378,7 +378,7 @@ notification
 </div><!-- end offerPending modal -->
 
 {{-- end due date modal --}}
-<div id="inprogressenddue" class="modal offers fade" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="inprogressenddueLabel" tabindex="-1">
+<div id="inprogressenddue{{ $request->id }}" class="modal offers fade" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="inprogressenddueLabel" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
         <div class="modal-header">
@@ -389,7 +389,7 @@ notification
             <div class="div d-flex justify-content-start px-4">
                 <div class="d-flex flex-column">
                     <h3 class="mb-0 font-bold">#324234</h3>
-                    <span class="text-warning">In Process</span>
+                    <span class="text-warning">{{ $request->status }}</span>
                 </div>
 
                 <div class="align-slef-end" style="flex-grow: 1; display: flex; align-items: center; justify-content: end;">
@@ -403,14 +403,14 @@ notification
                 <div class="d-flex justify-content-between">
                     <p class=" mb-0" >category</p>
                     <p class="fw-900 mb-0">
-                        {{ App\Models\Requests::where('due_date' ,'<', now())->first()->category->title_en}}
+                        {{ App\Models\Category::where('id' , $request->category_id)->first()->title_en}}
                     </p>
 
                 </div>
 
                 <div class="d-flex justify-content-between">
                     <p class=" mb-0">service</p>
-                        {{ App\Models\Requests::where('due_date' ,'<', now())->first()->service->service_en}}
+                        {{ App\Models\Service::where('id' , $request->service_id)->first()->service_en}}
                 </div>
 
                 <div class="d-flex justify-content-between">
@@ -420,13 +420,13 @@ notification
 
                 <div class="d-flex justify-content-between">
                     <p class=" mb-0">due date</p>
-                    <p class="fw-900 mb-0 deadline">{{ App\Models\Requests::where('due_date', '<' , now())->first()->due_date }}</p>
+                    <p class="fw-900 mb-0 deadline">{{ $request->due_date }}</p>
                 </div>
             </div>
 
             <div class="d-flex flex-column px-3 bg-blue ">
                 <span class="flex-grow-1 fs-5 font-bold ">description</span>
-                <p class="flex-grow-1">{{ App\Models\Requests::where('due_date', '<' , now())->first()->description }}</p>
+                <p class="flex-grow-1">{{ $request->description }}</p>
             </div>
 
             @foreach (App\Models\Requests::where('id', $request->id)->get() as $request)
@@ -440,11 +440,8 @@ notification
                                 </div>
 
                                 <div class="info">
-                                    <p class="mb-0">{{ App\Models\Requests::where('due_date', '<' , now())->first()->attachment }}</p>
-
-                                    <div class="size">
-                                        521kB .WORD
-                                    </div>
+                                    <p class="mb-0">{{ $request->attachment }}</p>
+                                    <div class="size">521kB .WORD</div>
                                 </div>
                             </div>
                         </div> <!-- end offerPending modal -->
@@ -607,11 +604,13 @@ notification
                         </div>
                     @endforeach
                 </div>
+
+                <div class="btn-contianer d-flex flex-column justify-between align-items-center my-3">
+                    <button class="btn btn-modal btn-model-primary" type="button" data-bs-toggle="modal" data-bs-target="#review">Rate</button>
+                </div>
             </div>
         </div>
     </div>
-
-
 </div> <!-- end compelete modal -->
 
 
