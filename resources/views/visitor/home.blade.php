@@ -57,8 +57,10 @@ home
             <a href="#">See all</a>
         </div>
 
-        <button class="pre-btn"></button>
-        <button class="nxt-btn"></button>
+        <button class="pre-btn">
+            <i class="fa fa-arrow-left"></i>
+        </button>
+        <button class="nxt-btn"><i class="fa fa-arrow-right"></i></button>
 
         <div class="scrollable d-flex" >
             @foreach ($categories as $category)
@@ -78,8 +80,10 @@ home
             <a href="#">See all</a>
         </div>
 
-        <button class="pre-btn"></button>
-        <button class="nxt-btn"></button>
+        <button class="pre-btn">
+            <i class="fa fa-arrow-left"></i>
+        </button>
+        <button class="nxt-btn"><i class="fa fa-arrow-right"></i></button>
 
         <div class="scrollable">
             @foreach ($freelancers as $freelancer)

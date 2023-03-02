@@ -11,28 +11,28 @@ $(document).ready(function () {
 
  
   
-//  const productContainers = [...document.querySelectorAll('.scrollable')];
-//const nxtBtn = [...document.querySelectorAll('.nxt-btn')];
-//const preBtn = [...document.querySelectorAll('.pre-btn')];
-//
-//productContainers.forEach((item, i) => {
-//    let containerDimensions = item.getBoundingClientRect();
-//    let containerWidth = containerDimensions.width;
-//
-//    nxtBtn[i].addEventListener('click', () => {
-//      item.scrollLeft += containerWidth;
-//     
-//      console.log("after"+item.scrollLeft);
-//    })
-//
-//    preBtn[i].addEventListener('click', () => {
-//      item.scrollLeft -= containerWidth;
-//    
-//      console.log("pre"+item.scrollLeft);
-//
-//    })
-//    console.log("all width"+containerWidth);
-//})
+ const productContainers = [...document.querySelectorAll('.scrollable')];
+const nxtBtn = [...document.querySelectorAll('.nxt-btn')];
+const preBtn = [...document.querySelectorAll('.pre-btn')];
+
+productContainers.forEach((item, i) => {
+   let containerDimensions = item.getBoundingClientRect();
+   let containerWidth = containerDimensions.width;
+
+   nxtBtn[i].addEventListener('click', () => {
+     item.scrollLeft += containerWidth;
+    
+     console.log("after"+item.scrollLeft);
+   })
+
+   preBtn[i].addEventListener('click', () => {
+     item.scrollLeft -= containerWidth;
+   
+     console.log("pre"+item.scrollLeft);
+
+   })
+   console.log("all width"+containerWidth);
+})
 
 
 // $(".hart").click(function(e){

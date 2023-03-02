@@ -196,15 +196,17 @@ box-shadow: 1px 2px 14px 14px #04040463;
 .pre-btn,
 .nxt-btn {
     border: none;
-        height: 180px;
-        width: 99px;
-        position: absolute;
-        bottom: calc(50% - 199px);
-        transform: translateY(-50%);
-        align-items: center;
-        background: linear-gradient(90deg, rgb(255 255 255 / 0%) 0%, #ffffff 100%);
-        cursor: pointer;
-        z-index: 8;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    /* bottom: calc(50% - 199px); */
+    top: 50%;
+    /* transform: translateY(-50%); */
+    align-items: center;
+    background: linear-gradient(90deg, rgb(255 255 255 / 0%) 0%, var(--bs-border-color) 100%);
+    cursor: pointer;
+    z-index: 8;
 
 }
 
@@ -1762,6 +1764,8 @@ font-size: 1rem;
 }
 .freelanc.v2 .totals  div p{
     margin-bottom: 0;
+    color: #fff;
+    font-weight: 500;
 }
 .freelanc.v2 .totals  a  p{
     margin-bottom: 0;
@@ -1777,7 +1781,13 @@ font-size: 1rem;
 }
 
 @media(max-width:767px){
-    .freelanc.v2 .totals a{
+    .freelanc.v2 .totals div{
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0;
+    }
+    .freelanc.v2 .totals a, .freelanc.v2 .totals div{
         height: 100%;
     }
     .freelanc.v2 .totals a p{

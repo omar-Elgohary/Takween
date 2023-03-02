@@ -107,9 +107,12 @@ freelanser name
                     <h2>products</h2>
         
                 </div>
+                <button class="pre-btn">
+                  <i class="fa fa-arrow-left"></i>
+              </button>
+              <button class="nxt-btn"><i class="fa fa-arrow-right"></i></button>
                
-               
-                <div class="products productscroll">
+                <div class="products productscroll scrollable">
                     <div class="card">
                       <div class="image-product">
                          <img src="https://media.architecturaldigest.com/photos/57c7003fdc03716f7c8289dd/master/pass/IMG%20Worlds%20of%20Adventure%20-%201.jpg" class="card-img-top" alt="product image">
@@ -295,8 +298,11 @@ freelanser name
         
                 </div>
                
-               
-                <div class="products productscroll">
+                <button class="pre-btn">
+                  <i class="fa fa-arrow-left"></i>
+              </button>
+              <button class="nxt-btn"><i class="fa fa-arrow-right"></i></button>
+                <div class="products productscroll  scrollable">
                     <div class="card">
                       <div class="image-product">
                          <img src="https://media.architecturaldigest.com/photos/57c7003fdc03716f7c8289dd/master/pass/IMG%20Worlds%20of%20Adventure%20-%201.jpg" class="card-img-top" alt="product image">
