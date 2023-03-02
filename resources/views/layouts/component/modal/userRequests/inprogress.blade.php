@@ -1,4 +1,4 @@
-<div class="modal offers fade" id="inprogress" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" tabindex="-1">
+{{-- <div class="modal offers fade" id="inprogress" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header ">
@@ -14,7 +14,7 @@
               </div>
               <div class="align-slef-end" style="
     flex-grow: 1;
-    display: flex;  
+    display: flex;
     align-items: center;
     justify-content: end;
 ">
@@ -109,4 +109,4 @@
 
 
 
-
+ --}}
