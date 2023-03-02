@@ -178,6 +178,7 @@ box-shadow: 1px 2px 14px 14px #04040463;
     font-size: 20px;
     color: var(--gray-color);
     cursor: pointer;
+    white-space: nowrap;
 }
 
 /* start slider */
@@ -953,6 +954,8 @@ font-size: 60px;
     margin: 5px auto;
     border-radius: 12px;
     padding: 10px 100px;
+    display: flex;
+    border: none;
 
 
 }
@@ -1178,6 +1181,7 @@ text-align: center;
 
     .products-page .product-table .products{
         align-content:center ;
+        justify-content: center;
     }
 }
 .products-page  .product-table .card-container{

@@ -86,7 +86,8 @@
                         <img src="{{asset('assets/images/product/'.$product->img1) }}" class="card-img-top" alt="product image">
                               @auth
                         <button type="button" data-type="product" data-id="{{$product->id}}"
-                            data-name="{{$product->name}}" onclick="likes(this)"
+                            
+                            onclick="likes(this)"
                         class="hart   @if ($product->likes->where("user_id",auth()->user()->id)->count())
                                 active
                             @endif"><i class="fa fa-heart"></i></button>
@@ -154,6 +155,7 @@ $.ajax({
   headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
   dataType: "json",
   success: function(data) {
+    console.log(data);
     if(data['action']=="add"){
         $(e).addClass("active");
     }else if(data['action']=="delete"){
@@ -177,6 +179,7 @@ function addcart(e){
   headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
   dataType: "json",
   success: function(data) {
+    console.log(data);
     if(data['action']=="add"){
         $(e).addClass("active");
     }else if(data['action']=="delete"){

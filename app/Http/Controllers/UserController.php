@@ -121,7 +121,7 @@ class UserController extends Controller
       $action="append";
          if($type=="product"){
           $product =Product::findOrFail($id);
-          if($product->likes->count()==0){
+          if($product->likes->where("user_id",auth()->user()->id)->count()==0){
             $product->likes()->create([
                 "user_id" => auth()->user()->id,
                 "type"=> $type,
@@ -137,7 +137,7 @@ class UserController extends Controller
          }elseif($type=="photo"){
 
             $photo =Photo::findOrFail($id);
-            if($photo->likes->count()==0){
+            if($photo->likes->where("user_id",auth()->user()->id)->count()==0){
               $photo->likes()->create([
                   "user_id" => auth()->user()->id,
                   "type"=> $type,
