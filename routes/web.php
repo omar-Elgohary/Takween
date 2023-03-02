@@ -37,7 +37,7 @@ Route::get("user/freelancers", [UserController::class, 'allFreelancers'])->name(
 
 ########################################## Start Freelancer ##############################################
 
-Route::prefix("freelancer")->name("freelanc.")->group(function(){
+Route::prefix("freelancer")->name("freelanc.")->middleware('auth','is_freelancer')->group(function(){
 
     Route::post('updateFreelancerProfile/{id}', [UserController::class, 'updateFreelancerProfile'])->name('updateFreelancerProfile');
 
@@ -127,7 +127,7 @@ Route::prefix("freelancer")->name("freelanc.")->group(function(){
 
 ########################################## Start Customer ##############################################
 
-Route::prefix("user")->name("user.")->group(function(){
+Route::prefix("user")->name("user.")->middleware('auth')->group(function(){
 
     Route::get("/profile",function(){
         return view("user.userprofile");
