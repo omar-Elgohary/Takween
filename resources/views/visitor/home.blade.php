@@ -63,12 +63,15 @@ home
         <button class="nxt-btn"><i class="fa fa-arrow-right"></i></button>
 
         <div class="scrollable d-flex" >
-            @foreach ($categories as $category)
+            @forelse  ($categories as $category)
                 <div class="category ">
                     <div class="image"><i class="fa {{ $category->icon }}"></i></div>
                     <p>{{ $category->title_en }}</p>
                 </div>
-            @endforeach
+                @empty
+
+                <p class=" w-100  text-center " style="height: 150px"> no freelancer</p>
+                @endforelse
         </div>
     </div>
 </div> <!-- End Category Section -->
@@ -86,7 +89,7 @@ home
         <button class="nxt-btn"><i class="fa fa-arrow-right"></i></button>
 
         <div class="scrollable">
-            @foreach ($freelancers as $freelancer)
+            @forelse ($freelancers as $freelancer)
                 <div class="freelancer ">
                     <div class="image">
                         <img src="{{ asset("Admin3/assets/images/users/".$freelancer->profile_image) }}" alt="">
@@ -99,7 +102,11 @@ home
                         </div>
                     </div>
                 </div>
-            @endforeach
+                @empty
+
+                <p class=" w-100  text-center " style="height: 150px"> no freelancer</p>
+                @endforelse
+            
         </div>
     </div>
 </div><!-- end freelnce -->
