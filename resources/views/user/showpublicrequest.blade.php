@@ -89,34 +89,37 @@ notification
     @foreach ($requests as $request)
     @if(!$request->freelancer_id)
         <div class="request offer d-flex flex-column px-3 py-3 position-relative mb-5">
-            <a data-bs-toggle="modal" href="#offer" role="button">
-            <div class="d-flex justify-content-between align-items-baseline">
-                <h3>#3412312</h3>
-                <p class="status gray"data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
-            </div>
 
-            <div class="d-flex ">
-                <div class="d-flex flex-column px-2">
-                    <p class="m-0">req.date</p>
-                    <span>20/09/2010</span>
+            <a href="#offerPending{{ $request->id }}" data-bs-toggle="modal" role="button">
+
+                <div class="d-flex justify-content-between align-items-baseline">
+                    <h3>#3412312</h3>
+                    <p class="status gray"data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
                 </div>
 
-                <div class="d-flex flex-column px-2">
-                    <p class="m-0">Due date</p>
-                    <span>{{ $request->due_date }}</span>
-                    <div>
+                <div class="d-flex ">
+                    <div class="d-flex flex-column px-2">
+                        <p class="m-0">req.date</p>
+                        <span>20/09/2010</span>
+                    </div>
+
+                    <div class="d-flex flex-column px-2">
+                        <p class="m-0">Due date</p>
+                        <span>{{ $request->due_date }}</span>
+                        <div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </a>
-        <button class="w-100 by-2 btn-noborder position-absolute " data-bs-target="#freelaceroffers" data-bs-toggle="modal"  role="button">
-            offer
-        </button>
-    </div>
+            </a>
+
+            <button class="w-100 by-2 btn-noborder position-absolute " data-bs-target="#freelaceroffers" data-bs-toggle="modal"  role="button">
+                offer
+            </button>
+        </div>
 
     @else
 
-        <a href="#"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
+        <a href="#inprogress" data-bs-toggle="modal" class="request d-flex flex-column px-3 py-3 position-relative mb-5">
             <div class="d-flex justify-content-between align-items-baseline">
                 <div class="frelacereq d-flex ">
                     <img src="{{asset("assets/images/vicky-hladynets-C8Ta0gwPbQg-unsplash.png")}}" class="img-fluid rounded-top" alt="">
@@ -150,8 +153,84 @@ notification
             </div>
         </a>
     @endif
-@endforeach
 
+
+{{-- offerPending modal --}}
+<div id="offerPending{{ $request->id }}" class="modal offers fade"  aria-hidden="true" aria-labelledby="offerPendingLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-header ">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+            <div class="div d-flex justify-content-start px-4">
+                <div class="d-flex flex-column">
+                    <h3 class="mb-0 font-bold">#324234</h3>
+                    <span class="text-black-50">Pending</span>
+                </div>
+            </div>
+
+            <div class="d-flex flex-column px-5">
+                <div class="d-flex justify-content-between">
+                    <p class="mb-0">category</p>
+                    <p class="fw-900 mb-0">{{ App\Models\Category::where('id', $request->category_id)->first()->title_en }}</p>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <p class=" mb-0">service</p>
+                    <p class="fw-900 mb-0">{{ App\Models\Service::where('id', $request->service_id)->first()->service_en }}</p>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <p class=" mb-0" >title</p>
+                    <p class="fw-900 mb-0">{{ $request->title }}</p>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <p class=" mb-0">due date</p>
+                    <p class="fw-900 mb-0">{{ $request->due_date }}</p>
+                </div>
+            </div>
+
+            <div class="d-flex flex-column px-3 bg-blue">
+                <span class="flex-grow-1 fs-5 font-bold">description</span>
+                <p class="flex-grow-1">{{ $request->description }}</p>
+            </div>
+
+        @foreach (App\Models\Requests::where('id', $request->id)->get() as $request)
+            <div class="d-flex flex-column px-3">
+                <p class="fs-5 font-bold">attachment</p>
+                <div class="d-flex flex-column px-2 ">
+                    <div class="file d-flex mb-2">
+                        <div class="details d-flex ">
+                            <div class="img">
+                                <i class="fa-regular fa-file-word"></i>
+                            </div>
+
+                            <div class="info">
+                                <p class="mb-0">{{ $request->attachment }}</p>
+
+                                <div class="size">
+                                    521kB .WORD
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    </div>
+
+        <div class="modal-footer">
+            <button class="btn  btn-modal  my-3 btn-model-primary" data-bs-target="#freelaceroffers"
+                data-bs-toggle="modal" data-bs-dismiss="modal">offers
+            </button>
+        </div>
+    </div>
+</div>
+</div>
+@endforeach
 </div>
 </div>
 </div>
@@ -166,4 +245,27 @@ notification
     </script>
     <script src="{{asset('assets/libs/jquery-bar-rating/jquery.barrating.min.js')}}"></script>
     <script src="{{asset('assets/js/pages/rating-init.js')}}"></script>
+
+    <script>
+        $('#offerPending').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget)
+            console.log(button)
+            var id = button.data('id')
+            var category_id = button.data('category_id')
+            var service_id = button.data('service_id')
+            var title = button.data('title')
+            var due_date = button.data('due_date')
+            var description = button.data('description')
+            var attachment = button.data('attachment')
+            var modal = $(this)
+            modal.find('.modal-body #id').val(id);
+            modal.find('.modal-body #category_id').val(category_id);
+            modal.find('.modal-body #service_id').val(service_id);
+            modal.find('.modal-body #title').val(title);
+            modal.find('.modal-body #due_date').val(due_date);
+            modal.find('.modal-body #description').val(description);
+            modal.find('.modal-body #attachment').val(attachment);
+        })
+    </script>
+
 @endsection
