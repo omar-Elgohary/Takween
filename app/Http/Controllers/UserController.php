@@ -23,13 +23,12 @@ class UserController extends Controller
     }
 
 
-    public function FreelancerProfile(Request $request, $id)
+    public function showFreelancerDetails(Request $request, $id)
     {
         $freelancer = User::find($id);
         $products = Product::where('freelancer_id' , $id)->get();
         $photos = Photo::where('freelancer_id' , $id)->get();
-        // return view('visitor.freelancer', compact('freelancer', 'products', 'photos'));
-        return view('user.freelancerprofile', compact('freelancer', 'products', 'photos'));
+        return view('visitor.freelancer', compact('freelancer', 'products', 'photos'));
     }
 
 

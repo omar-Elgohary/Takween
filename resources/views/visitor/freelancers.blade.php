@@ -55,7 +55,7 @@ freelancers
         </div>
 
     @foreach ($freelancers as $freelancer)
-        <a class="freelanc" href="{{ route("freelancer", $freelancer->id) }}">
+        <a class="freelanc" href="{{ route('showFreelancerDetails', $freelancer->id) }}">
             <div class="image">
                 <img src="{{ asset("Admin3/assets/images/users/".$freelancer->profile_image) }}" alt="">
             </div>
@@ -94,7 +94,6 @@ freelancers
             </div>
         </a>
     @endforeach
-
         </div>
     </div>
 </div>
