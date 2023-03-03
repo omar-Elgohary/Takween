@@ -105,7 +105,7 @@ profile page
         </div>
 
  <div class="files d-flex">
-            <div class="section-header  p-2">
+            <div class="section-header width-0 p-2">
             <h2>Files </h2>
             </div>
 
