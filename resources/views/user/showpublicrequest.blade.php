@@ -118,7 +118,7 @@ notification
 
     @if($request->due_date < now())
     <a href="#inprogressenddue" data-bs-toggle="modal" class="request d-flex flex-column px-3 py-3 position-relative mb-5">
-            <div class="d-flex justify-content-between align-items-baseline">
+            <div class="d-flex justify-content-between align-items-baseline show-phone">
                 <div class="frelacereq d-flex ">
                     <img src="{{ asset('Admin3/assets/images/users/'.App\Models\User::where('id', $request->freelancer_id)->first()->profile_image) }}" class="img-fluid rounded-top" alt="">
 
@@ -164,7 +164,7 @@ notification
         </a>
     @else
         <a href="#inprogress{{ $request->id }}" data-bs-toggle="modal" class="request d-flex flex-column px-3 py-3 position-relative mb-5">
-            <div class="d-flex justify-content-between align-items-baseline">
+            <div class=" d-flex justify-content-between align-items-baseline  show-phone ">
                 <div class="frelacereq d-flex ">
                     <img src="{{ asset('Admin3/assets/images/users/'.App\Models\User::where('id', $request->freelancer_id)->first()->profile_image) }}" class="img-fluid rounded-top" alt="">
 
@@ -194,7 +194,7 @@ notification
                     @if($request->due_date < now()->toDateString())
                         <div class="d-flex flex-column px-2">
                             <p class="m-0">Due date</p>
-                            <span class="text-danger">{{ $request->due_date }}</span>
+                            <span class="text-danger">{{$request->due_date }}</span>
                             <div>
                             </div>
                         </div>
@@ -230,7 +230,7 @@ notification
             <div class="d-flex flex-column px-5">
                 <div class="d-flex justify-content-between">
                     <p class="mb-0">category</p>
-                    <p class="fw-900 mb-0">{{ App\Models\Category::where('id', $request->category_id)->first()->title_en }}</p>
+                    <p class="fw-900 mb-0">{{App\Models\Category::where('id', $request->category_id)->first()->title_en }}</p>
                 </div>
 
                 <div class="d-flex justify-content-between">
@@ -242,6 +242,7 @@ notification
                     <p class=" mb-0" >title</p>
                     <p class="fw-900 mb-0">{{ $request->title }}</p>
                 </div>
+    
 
                 <div class="d-flex justify-content-between">
                     <p class=" mb-0">due date</p>
