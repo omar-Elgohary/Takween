@@ -7,8 +7,9 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" arialabel="Close"></button>
               </div>
               <div class="modal-body">
-      <form  action="{{route('user.request.review', $request->id)}}">
-        <h1 class="modal-title fs-5" >review{{App\Models\User::where('id', $request->freelancer_id)->first()->name}}</h1>
+      <form  action="{{route('user.request.review', $request->id)}}" method="POST">
+        @csrf
+        <h1 class="modal-title fs-5" >review {{App\Models\User::where('id', $request->freelancer_id)->first()->name}}</h1>
   
         <div>
             <div class="br-wrapper br-theme-fontawesome-stars"><select id="example-rating" name="rate" style="display: none;">
@@ -24,7 +25,7 @@
   
         <div class="my-3" >
             <h5 class="font-size-15 mb-3">reivew</h5>
-            <textarea required="" class="form-control" rows="5" name="pragraph"> write review</textarea>
+            <textarea required="" class="form-control" rows="5" name="pragraph" value="write review"></textarea>
         </div>
     
     <div class="btn-contianer d-flex justify-between align-items-center">

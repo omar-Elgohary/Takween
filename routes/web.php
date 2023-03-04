@@ -165,7 +165,7 @@ Route::prefix("user")->name("user.")->middleware('auth')->group(function(){
     Route::get('/requestpublic', [RequestController::class, 'index'])->name("requestpublic");
     Route::post('/StoreRequest', [RequestController::class, 'store'])->name("request.store");
     Route::post('/cancelRequest/{id}', [RequestController::class, 'cancel'])->name("request.cancel");
-    Route::post('/reviewRequest/{id}', [RequestController::class, 'cancel'])->name("request.review");
+    Route::post('/reviewRequest/{id}', [RequestController::class, 'review'])->name("request.review");
     // get all services of one category
     Route::get('category/{id}', [RequestController::class, 'getCategoryServices'])->name('getCategoryServices');
 

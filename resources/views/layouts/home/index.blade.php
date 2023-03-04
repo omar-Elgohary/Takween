@@ -35,13 +35,15 @@
     <div class="content">
     <div class="layout"></div>
     @yield("content")
-    @include("layouts.component.footer")
+   
     </div>
-
-    @include("layouts.component.script")
-    @yield("js")
+    @include("layouts.component.footer")
+    
 
 </div>
+
+@include("layouts.component.script")
+    @yield("js")
 </body>
 
 </html>

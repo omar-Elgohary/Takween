@@ -104,10 +104,12 @@ notification
         <a  href="#inprogress{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
         @elseif($request->status=='Finished' )
         <a  href="#finish{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
-        @elseif($request->status== 'Completed'  &&  empty($request->review))
-        <a  href="#finish{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
-        @elseif($request->status== 'Completed' )
+        @elseif($request->status== 'Completed'  )
         <a  href="#complete{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
+
+        @else
+
+   <a  href="#"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
 
        @endif
             {{-- <a  href="#penddingcancel{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" > --}}
