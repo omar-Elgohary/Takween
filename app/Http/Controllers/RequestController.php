@@ -77,14 +77,8 @@ class RequestController extends Controller
        return redirect()->back()->with(['state'=>"cancel","id"=>$id]);
     }
     public function review($id)
-    {
-
-        $request=Requests::find($id);
-       $s= $request->update([
-        'status'=>"Cancel by customer"
-        ]);
-
-       return redirect()->back()->with(['state'=>"cancel","id"=>$id]);
-    }
+    {  
+        
+      }
 
 }

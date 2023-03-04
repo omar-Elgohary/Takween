@@ -7,7 +7,7 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" arialabel="Close"></button>
               </div>
               <div class="modal-body">
-      <form  action="{{route('user.request.review', $request->id)}}" method="POST">
+      <form  method="POST"  action="{{route('user.request.review',$request->id)}}">
         @csrf
         <h1 class="modal-title fs-5" >review {{App\Models\User::where('id', $request->freelancer_id)->first()->name}}</h1>
   
