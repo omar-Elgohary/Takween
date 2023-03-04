@@ -9,7 +9,7 @@ return new class extends Migration
     {
         Schema::create('offers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('request_id')->constrained('requests')->cascadeOnDelete();
+            $table->foreignId('requests_id')->constrained('requests')->cascadeOnDelete();
             $table->double('price');
             $table->timestamps();
         });

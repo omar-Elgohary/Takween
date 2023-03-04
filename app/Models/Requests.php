@@ -1,6 +1,8 @@
 <?php
 namespace App\Models;
 use App\Models\User;
+use App\Models\Offer;
+use App\Models\Review;
 use App\Models\Payment;
 use App\Models\Service;
 use App\Models\Category;
@@ -33,5 +35,13 @@ class Requests extends Model
     public function service()
     {
         return $this->belongsTo(Service::class);
+    }
+    public function offer()
+    {
+        return $this->hasMany(Offer::class);
+    }
+    public function review()
+    {
+        return $this->hasMany(Review::class);
     }
 }

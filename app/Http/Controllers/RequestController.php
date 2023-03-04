@@ -22,7 +22,7 @@ class RequestController extends Controller
             'category_id' => 'required',
             'service_id' => 'required',
             'title' => 'required|string',
-            'attachment' => 'required|mimes:pdf',
+            'attachment' => 'required|mimes:pdf,word',
             'description' => 'required',
             'due_date' => 'required|date',
         ],[
@@ -63,6 +63,18 @@ class RequestController extends Controller
     {
         $requests = Requests::where('type', 'private')->get();
         return view('user.showprivaterequest', compact('requests'));
+    }
+
+
+    public function cancel($id)
+    {
+
+        $request=Requests::find($id);
+       $s= $request->update([
+        'status'=>"Cancel by customer"
+        ]);
+
+       return redirect()->back()->with(['state'=>"cancel","id"=>$id]);
     }
 
 }

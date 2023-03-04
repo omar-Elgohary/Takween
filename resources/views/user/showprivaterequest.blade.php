@@ -23,15 +23,15 @@ notification
 
 @section("content")
 @include("layouts.component.modal.userRequests.payment")
-@include("layouts.component.modal.userprivaterequest.penddingacceptorreject")
-@include("layouts.component.modal.userprivaterequest.penddingcancel")
-@include("layouts.component.modal.userRequests.inprogress")
-@include("layouts.component.modal.userRequests.inprogressenddue")
-@include("layouts.component.modal.userRequests.chat")
-@include("layouts.component.modal.userRequests.review")
-@include("layouts.component.modal.userRequests.suredelete")
-@include("layouts.component.modal.userRequests.finish")
-@include("layouts.component.modal.userRequests.complete")
+{{-- @include("layouts.component.modal.userprivaterequest.penddingacceptorreject") --}}
+{{-- @include("layouts.component.modal.userprivaterequest.penddingcancel") --}}
+{{-- @include("layouts.component.modal.userRequests.inprogress")
+@include("layouts.component.modal.userRequests.inprogressenddue") --}}
+{{-- @include("layouts.component.modal.userRequests.chat") --}}
+{{-- @include("layouts.component.modal.userRequests.review") --}}
+{{-- @include("layouts.component.modal.userRequests.suredelete") --}}
+{{-- @include("layouts.component.modal.userRequests.finish")
+@include("layouts.component.modal.userRequests.complete") --}}
 
 
 <div class="showrequest">
@@ -80,19 +80,43 @@ notification
         </div>
 
         <div class="requestlink py-4 d-flex justify-content-evenly align-items-center">
-            <a href="{{route('user.showpublicrequest')}}" class=" fs-4 text-black-50 ">public request</a>
-            <a href="{{route('user.showprivaterequest')}}" class="active  fs-4">private request</a>
+            <a href="{{route('user.showpublicrequest')}}" class=" fs-4 text-black-50 ">{{__('request.public request')}}</a>
+            <a href="{{route('user.showprivaterequest')}}" class="active  fs-4">{{__('request.private request')}}</a>
         </div>
-
+{{Session::get("state")}}
     <div class="requesties d-flx flex-column pt-4">
         @foreach ($requests as $request)
-            <a data-bs-toggle="modal" href="#penddingcancel" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
-                <div class="d-flex justify-content-between align-items-baseline">
+ 
+
+       @if ($request->status=="Pending" && $request->offer->first())
+       <a  href="#penddingacceptoreject{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
+
+        @elseif($request->status=="Pending")
+        <a  href="#penddingcancel{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
+
+        @elseif($request->status=='In Process' && $request->due_date < now()->toDateString())
+        <a  href="#inprogressenddueprivate{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
+
+        @elseif($request->status=='In Process' )
+        <a  href="#inprogress{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
+
+        @elseif($request->status=='Cancel by customer' )
+        <a  href="#inprogress{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
+        @elseif($request->status=='Finished' )
+        <a  href="#finish{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
+        @elseif($request->status== 'Completed'  &&  empty($request->review))
+        <a  href="#finish{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
+        @elseif($request->status== 'Completed' )
+        <a  href="#complete{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
+
+       @endif
+            {{-- <a  href="#penddingcancel{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" > --}}
+                <div class="d-flex justify-content-between align-items-baseline show-phone">
                     <div class="frelacereq d-flex ">
                         <img src="{{ asset("Admin3/assets/images/users/".App\Models\User::where('id', $request->freelancer_id)->first()->profile_image) }}" class="img-fluid rounded-top" alt="">
 
                         <div class="freelanereq mx-2">
-                            <h3 class="fw-600">{{ App\Models\User::where('id', $request->freelancer_id)->first()->name }}</h3>
+                            <h3 class="fw-600">{{App\Models\User::where('id', $request->freelancer_id)->first()->name }}</h3>
                             <span class="text-black-50">#123123</span>
                         </div>
                     </div>
@@ -105,34 +129,101 @@ notification
                             <p class="status gray" style="color: rgb(214, 214, 42);" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
                         @elseif($request->status == 'Completed')
                             <p class="status gray text-black" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
+                        @elseif($request->status == 'Cancel by customer')
+                            <p class="status text-danger" >{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
                         @endif
                     </div>
 
+
+
                     <div class="d-flex ">
                         <div class="d-flex flex-column px-2">
+                          
                         <p class="m-0">req.date</p>
-                            <span>20/09/2010</span>
+                            <span>{{ date_format($request->created_at,"Y-m-d") }}</span>
                         </div>
-                        <div class=" d-flex flex-column px-2">
-                            <p class="m-0">Due date</p>
-                            <span>{{ $request->due_date }}</span>
-                            <div>
-                            </div>
+                        
+                    @if($request->due_date < now()->toDateString())
+                    <div class="d-flex flex-column px-2">
+                        <p class="m-0">Due date</p>
+                        <span class="text-danger">{{$request->due_date }}</span>
+                        <div>
                         </div>
                     </div>
+                @else
+                    <div class="d-flex flex-column px-2">
+                        <p class="m-0">Due date</p>
+                        <span>{{ $request->due_date }}</span>
+                        <div>
+                        </div>
+                    </div>
+                @endif
+                
+                @if($request->offer->first() !=null)
+                <div class="d-flex flex-column px-2">
+                    <p class="m-0">price</p>
+                    <span >{{$request->offer->first()->price }}</span>
+                    <div>
+                    </div>
+                </div>
+            @else
+               
+            @endif
+                    </div>
+
+                    
                 </a>
+
+                @include("layouts.component.modal.userprivaterequest.penddingcancel")
+                @include("layouts.component.modal.userprivaterequest.penddingacceptorreject")
+                @include("layouts.component.modal.userRequests.inprogress")
+                @include("layouts.component.modal.userprivaterequest.inprogressudedateprivate")
+                @include("layouts.component.modal.userRequests.chat")
+                @include("layouts.component.modal.userRequests.finish")
+                @include("layouts.component.modal.userRequests.complete")
+                
+                @include("layouts.component.modal.userRequests.review")
+                
+                
+                @include("layouts.component.modal.userRequests.suredelete")
+                  {{-- end model --}}
             @endforeach
         </div>
     </div>
 </div>
+
+
+
 @endsection
 
 @section("js")
+   
+    <script src="{{asset('assets/libs/jquery-bar-rating/jquery.barrating.min.js')}}"></script>
+    <script src="{{asset('assets/js/pages/rating-init.js')}}"></script>
+
     <script>
         $(".filter-button").click(function(){
             $(".filter-items").toggle();
         });
+
+        function getdata(e){
+            var id=  $(e).attr('data-id');
+            var category_id=  $(e).attr('data-category-id');
+         var modal= $(e).attr('href');
+         $(modal).modal("show");
+         $(modal+' '+'#get').attr("value",id);
+         $(modal+' '+'#category_id').attr("value",category_id);
+
+
+        }
+
+        @if(Session::get("state")=='cancel')
+        console.log('#review'+{{Session::get("id")}});
+
+        $(document).ready(function($) {
+
+            $('#review{{Session::get("id")}}').modal('show'); 
+        });
+        @endif
     </script>
-    <script src="{{asset('assets/libs/jquery-bar-rating/jquery.barrating.min.js')}}"></script>
-    <script src="{{asset('assets/js/pages/rating-init.js')}}"></script>
 @endsection
