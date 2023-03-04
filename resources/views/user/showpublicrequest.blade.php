@@ -23,14 +23,14 @@ notification
 @section("nosearch","none !important")
 @section("content")
 @include("layouts.component.modal.userRequests.payment")
-@include("layouts.component.modal.userRequests.offer")
+{{-- @include("layouts.component.modal.userRequests.offer")
 @include("layouts.component.modal.userRequests.inprogress")
 @include("layouts.component.modal.userRequests.inprogressenddue")
 @include("layouts.component.modal.userRequests.chat")
 @include("layouts.component.modal.userRequests.review")
 @include("layouts.component.modal.userRequests.suredelete")
 @include("layouts.component.modal.userRequests.finish")
-@include("layouts.component.modal.userRequests.complete")
+@include("layouts.component.modal.userRequests.complete") --}}
 
 
 <div class="showrequest">
