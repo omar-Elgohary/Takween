@@ -9,10 +9,16 @@
               <div class="modal-body">
       <form  method="POST"  action="{{route('user.request.review',$request->id)}}">
         @csrf
-        <h1 class="modal-title fs-5" >review {{App\Models\User::where('id', $request->freelancer_id)->first()->name}}</h1>
+        <h1 class="modal-title fs-5" >review 
+            
+            @if(empty(App\Models\Requests::find($request->id)->user->first()->name))
+            {{App\Models\Requests::find($request->id)->user->first()->name}}
+            @endif
+        </h1>
   
         <div>
-            <div class="br-wrapper br-theme-fontawesome-stars"><select id="example-rating" name="rate" style="display: none;">
+            <div class="br-wrapper br-theme-fontawesome-stars">
+                <select id="example-rating" class="example-rating" name="rate" style="display: none;">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
