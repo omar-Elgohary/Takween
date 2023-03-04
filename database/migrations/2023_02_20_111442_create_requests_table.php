@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('description');
             $table->date('due_date');
             $table->enum('type', ['public', 'private'])->default('public');
-            $table->enum('status', ['Pending', 'In Process', 'Finished', 'Completed'])->default('Pending');
+            $table->enum('status', ['Pending', 'In Process', 'Finished', 'Completed','Cancel by customer'])->default('Pending');
             $table->timestamps();
         });
     }
