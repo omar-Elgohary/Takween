@@ -88,7 +88,7 @@ notification
     @if(!$request->freelancer_id)
         <div class="request offer d-flex flex-column px-3 py-3 position-relative mb-5">
             <a href="#offerPending{{ $request->id }}" data-bs-toggle="modal" role="button">
-                <div class="d-flex justify-content-between align-items-baseline">
+                <div class="d-flex justify-content-between align-items-baseline show-phone">
                     <h3>#3412312</h3>
                     <p class="status gray"data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
                 </div>
@@ -116,7 +116,7 @@ notification
 
     @if($request->due_date < now())
     <a href="#inprogressenddue" data-bs-toggle="modal" class="request d-flex flex-column px-3 py-3 position-relative mb-5">
-            <div class="d-flex justify-content-between align-items-baseline">
+            <div class="d-flex justify-content-between align-items-baseline show-phone">
                 <div class="frelacereq d-flex ">
                     <img src="{{ asset('Admin3/assets/images/users/'.App\Models\User::where('id', $request->freelancer_id)->first()->profile_image) }}" class="img-fluid rounded-top" alt="">
 
@@ -209,7 +209,7 @@ notification
 
     @elseif ($request->status == 'Finished')
         <a href="#finish{{ $request->id }}" data-bs-toggle="modal" class="request d-flex flex-column px-3 py-3 position-relative mb-5">
-            <div class="d-flex justify-content-between align-items-baseline">
+            <div class="d-flex justify-content-between align-items-baseline show-phone">
                 <div class="frelacereq d-flex ">
                     <img src="{{ asset('Admin3/assets/images/users/'.App\Models\User::where('id', $request->freelancer_id)->first()->profile_image) }}" class="img-fluid rounded-top" alt="">
 
@@ -256,7 +256,7 @@ notification
 
     @elseif ($request->status == 'Completed')
         <a href="#complete{{ $request->id }}" data-bs-toggle="modal" class="request d-flex flex-column px-3 py-3 position-relative mb-5">
-            <div class="d-flex justify-content-between align-items-baseline">
+            <div class="d-flex justify-content-between align-items-baseline show-phone">
                 <div class="frelacereq d-flex ">
                     <img src="{{ asset('Admin3/assets/images/users/'.App\Models\User::where('id', $request->freelancer_id)->first()->profile_image) }}" class="img-fluid rounded-top" alt="">
 
