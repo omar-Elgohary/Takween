@@ -235,6 +235,7 @@ notification
                     <p class="m-0">req.date</p>
                     <span>20/09/2010</span>
                 </div>
+                
                     {{-- @if($request->due_date < now()) --}}
                     @if($request->due_date < now()->toDateString())
                         <div class="d-flex flex-column px-2">
