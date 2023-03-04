@@ -84,7 +84,8 @@ class RequestController extends Controller
         'status'=>"Cancel by customer"
         ]);
 
-        return redirect()->back()->with(['state'=>"cancel","id"=>$id]);
+       return redirect()->back()->with(['state'=>"cancel","id"=>$id]);
     }
+
 }
 
