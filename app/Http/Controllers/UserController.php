@@ -108,19 +108,18 @@ class UserController extends Controller
             "bio"=>$request->bio,
             "business_register"=>$request->business_register,
         ]);
-
         return redirect()->back()->with("message","profile update sucessfully");
     }
 
 
-    public function addorremovelikes($id){
-
-      $type=request("type");
-      $flag=false;
-      $action="append";
-         if($type=="product"){
-          $product =Product::findOrFail($id);
-          if($product->likes->where("user_id",auth()->user()->id)->count()==0){
+    public function addorremovelikes($id)
+    {
+        $type=request("type");
+        $flag=false;
+        $action="append";
+        if($type=="product"){
+            $product =Product::findOrFail($id);
+        if($product->likes->where("user_id",auth()->user()->id)->count()==0){
             $product->likes()->create([
                 "user_id" => auth()->user()->id,
                 "type"=> $type,
@@ -133,22 +132,20 @@ class UserController extends Controller
 
         $flag=true;
 
-         }elseif($type=="photo"){
-
+        }elseif($type=="photo"){
             $photo =Photo::findOrFail($id);
             if($photo->likes->where("user_id",auth()->user()->id)->count()==0){
-              $photo->likes()->create([
-                  "user_id" => auth()->user()->id,
-                  "type"=> $type,
-              ]);
-              $action="add";
-          }else{
-              $photo->likes()->where("user_id",auth()->user()->id)->delete();
-              $action="delete";
-              }
-          $flag=true;
-         }
-
+                $photo->likes()->create([
+                    "user_id" => auth()->user()->id,
+                    "type"=> $type,
+                ]);
+                $action="add";
+            }else{
+                $photo->likes()->where("user_id",auth()->user()->id)->delete();
+                $action="delete";
+                }
+            $flag=true;
+            }
         return json_encode(["status"=>$flag,"action"=>$action],true);
     }
 

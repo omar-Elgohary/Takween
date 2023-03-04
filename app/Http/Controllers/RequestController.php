@@ -58,7 +58,7 @@ class RequestController extends Controller
         return view('user.showpublicrequest', compact('requests'));
     }
 
-    
+
     public function privateRequests()
     {
         $requests = Requests::where('type', 'private')->where("user_id",auth()->user()->id)->get();
@@ -84,7 +84,7 @@ class RequestController extends Controller
         'status'=>"Cancel by customer"
         ]);
 
-       return redirect()->back()->with(['state'=>"cancel","id"=>$id]);
+        return redirect()->back()->with(['state'=>"cancel","id"=>$id]);
     }
-
 }
+

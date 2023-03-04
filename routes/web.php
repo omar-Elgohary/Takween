@@ -6,6 +6,7 @@ use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RequestController;
+use App\Http\Controllers\ReservationController;
 
 
 Route::group(
@@ -106,7 +107,7 @@ Route::prefix("freelancer")->name("freelanc.")->middleware('auth','is_freelancer
     //     return view("freelancer.photo");
     // })->name("photo");
 
-    Route::resource('photo',PhotoController::class);
+    Route::resource('photo', PhotoController::class);
 
     //profile
     Route::get("/files/{id}", [UserController::class, 'FreelancerFiles'])->name("files");
@@ -147,21 +148,18 @@ Route::prefix("user")->name("user.")->middleware('auth')->group(function(){
         return view("user.freelancerprofile");
     })->name("freelancer");
 
-    Route::get('/showpublicrequest', [RequestController::class, 'publicRequests'])->name("showpublicrequest");
 
+    // Reservations
+    // Route::resource('requestreservation', ReservationController::class);
+    Route::get('/requestreservation/{freelancer_id}', [ReservationController::class, 'index'])->name('requestreservation');
+    Route::post('/requestreservation/store/{freelancer_id}', [ReservationController::class, 'store'])->name('requestreservation.store');
+
+
+    Route::get('/showpublicrequest', [RequestController::class, 'publicRequests'])->name("showpublicrequest");
     Route::get('/showprivaterequest', [RequestController::class, 'privateRequests'])->name("showprivaterequest");
 
 
-    Route::get('/showreservation', function () {
-        return view('user.showreservation');
-    })->name("showreservation");
-
-    Route::get('/requestreservation', function () {
-        return view('user.requestreservation');
-    })->name("requestreservation");
-
 // request route
-
     Route::get('/requestpublic', [RequestController::class, 'index'])->name("requestpublic");
     Route::post('/StoreRequest', [RequestController::class, 'store'])->name("request.store");
     Route::post('/cancelRequest/{id}', [RequestController::class, 'cancel'])->name("request.cancel");
@@ -169,10 +167,10 @@ Route::prefix("user")->name("user.")->middleware('auth')->group(function(){
     // get all services of one category
     Route::get('category/{id}', [RequestController::class, 'getCategoryServices'])->name('getCategoryServices');
 
-
     Route::get('/requestprivate', function () {
         return view('user.requestprivateservice');
     })->name("requestprivate");
+
 
     // add or delete likes
     Route::get('/addorremovelikes/{id}',[UserController::class,'addorremovelikes']);

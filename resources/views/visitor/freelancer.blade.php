@@ -15,9 +15,15 @@ freelanser name
 
 @section("content")
 
-<a class="addrequesticon" href="#chooseservice" data-bs-toggle="modal">
-    <i class="fa-solid fa-plus"></i>
-</a>
+@if($freelancer->is_photographer == 0)
+    <a href="{{ route('user.requestprivate') }}" class="addrequesticon">
+        <i class="fa-solid fa-plus"></i>
+    </a>
+@else
+    <a class="addrequesticon" href="#chooseservice" data-bs-toggle="modal">
+        <i class="fa-solid fa-plus"></i>
+    </a>
+@endif
 
 <div class="products-page py-5">
     <div class="container">
@@ -209,23 +215,23 @@ freelanser name
             <a href="" class=" text-center showmore">show more</a>
 </div>
 </div>
-</div>
 
-<!-- Modal -->
-<div class="modal fade " id="chooseservice" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+<!-- chooseservice -->
+<div id="chooseservice" class="modal fade p-5"  aria-hidden="true" aria-labelledby="chooseserviceLabel2" tabindex="-1">
 <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="btn-close" data-bs-dismiss="modal" arialabel="Close"></button>
         </div>
 
-        <div class="modal-body">
-            <form id="form-chooserequest">
-                <h1 class="modal-title fs-5" >Request service</h1>
+        <div class="modal-body text-center">
+            <form action="#" id="form-chooserequest" method="POST">
+                @csrf
+                <h1 class="modal-title fs-5">Request service</h1>
 
                 <div>
                     <input type="radio" value="private" id="private" name="requesttype">
-                    <label for="private">Request new service </label>
+                    <label for="private">Request new service</label>
                 </div>
 
                 <div>
@@ -233,10 +239,14 @@ freelanser name
                     <label for="reservation">Booking for photo shot</label>
                 </div>
 
-                <div class="btn-contianer d-flex  justify-content-between  align-items-center my-3">
-                    <button class="  btn-modal modal-color-text border-0" data-bs-dismiss="modal" type="button">move back</button>
-                    <button class=" btn-modal btn-model-primary  border-0" type="submit">apply</button>
-                </div>
+                <div class="btn-contianer d-flex justify-content-between align-items-center my-3">
+                    <button class="btn-modal modal-color-text border-0" data-bs-dismiss="modal" type="button">move back</button>
+                    @if($_POST['name="requesttype"'] = 'private')
+                        <a href="{{ route('user.requestprivate') }}" class="btn-modal btn-model-primary border-0" name="submit" type="submit">apply</a>
+                    @else
+                        <a href="{{ route('user.requestreservation') }}" class="btn-modal btn-model-primary border-0" name="submit" type="submit">apply</a>
+                    @endif
+                    </div>
             </form>
         </div>
     </div>
