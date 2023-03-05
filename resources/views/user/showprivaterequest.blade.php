@@ -186,9 +186,9 @@ notification
                 
                 @include("layouts.component.modal.userRequests.review")
                 
-                
                 @include("layouts.component.modal.userRequests.suredelete")
                   {{-- end model --}}
+                  
             @endforeach
         </div>
     </div>
@@ -200,7 +200,7 @@ notification
 
 @section("js")
    
-    <script src="{{asset('assets/libs/jquery-bar-rating/jquery.barrating.min.js')}}"></script>
+<script src="{{asset('assets/libs/jquery-bar-rating/jquery.barrating.min.js')}}"></script>
     <script src="{{asset('assets/js/pages/rating-init.js')}}"></script>
 
     <script>
@@ -227,5 +227,8 @@ notification
             $('#review{{Session::get("id")}}').modal('show'); 
         });
         @endif
+
+
+        
     </script>
 @endsection

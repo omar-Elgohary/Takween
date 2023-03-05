@@ -1,12 +1,56 @@
-<div class="offcanvas offcanvas-end" tabindex="-1" id="chat" aria-labelledby="offcanvasRightLabel">
+<div class="offcanvas offcanvas-end chat" tabindex="-1" id="chat{{$request->id}}" aria-labelledby="offcanvasRightLabel" data-id={{$request->id}}  data-type='
+    @if(isset($request->type) && in_array($request->type,['public','private' ]))
+   request 
+    @else
+   reservation 
+    @endif
+    '
+    data-to="
+    @if(auth()->user()->id ==$request->user_id)
+    {{$request->freelancer_id}}
+
+    @else
+    {{$request->user_id}}
+    @endif
+    "
+    >
     <div class="offcanvas-header d-flex">
       <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             <div class="d-flex flex-row-reverse chat-head">
-                <img src="{{asset('assets/images/users/avatar-1.jpg')}}" alt="" class="rounded-circle avatar-sm">
+                @if(auth()->user()->id ==$request->user_id) 
+
+
+                <img src="{{asset("Admin3/assets/images/users/".App\Models\User::where('id', $request->freelancer_id)->first()->profile_image)}}" alt="" class="rounded-circle avatar-sm">
                 <div class="d-flex flex-column">
-                    <h5 class=""><a href="#" class="text-dark">saad</a></h5>
-                    <p class="">inprogress</p>
+                    <h5 class=""><a href="#" class="text-dark">
+                       {{App\Models\User::where('id',$request->freelancer_id)->first()->name}}
+                  
+                        
+                    @else
+                    
+                    <img src="{{asset('assets/images/users/'.App\Models\User::find($request->user_id)->first()->profile_image)}}" alt="" class="rounded-circle avatar-sm">
+                    <div class="d-flex flex-column">
+                        <h5 class=""><a href="#" class="text-dark">
+                    
+                            {{App\Models\User::where('id',$request->user_id)->first()->name}}
+                    @endif
+                    
+                    
+                    </a>
+                </h5>
+                    
+
+                    @if($request->status == 'Pending')
+                    <p class="status gray" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
+                @elseif($request->status == 'In Process')
+                    <p class="status gray text-warning" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
+                @elseif($request->status == 'Finished')
+                    <p class="status gray" style="color: rgb(214, 214, 42);" data-color="C4C3C3">{{ $request->status}}<i class="fa-solid fa-circle px-2 "></i></p>
+                @elseif($request->status== 'Completed')
+                    <p class="status gray text-black" data-color="C4C3C3">{{$request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
+                @endif
                 </div>
+
             </div>
         
         
@@ -19,7 +63,7 @@
       
 
   <div class="conversation">
-    <div class="rightcont">
+    {{-- <div class="rightcont">
         <div class="chat-txt rightside">
             <p>
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sed eum officia at, nulla qui sequi vitae adipisci quibusdam assumenda ea ad voluptatibus sapiente aliquam 
@@ -35,7 +79,7 @@
         </p>
         <span>5:30</span>
     </div>
- </div>
+ </div> --}}
    
   </div>
        
@@ -51,9 +95,17 @@
 
     </div>
     
-    <form action="">
-       <input type="text" class="rounded-pill">
-        <button class="rounded-circle sendtext">
+    <form class="sendmessage" onsubmit="event.preventDefault(); return sendmessage(this);">
+        @csrf
+        <input type="hidden" value="{{$request->id}}" name="request_id">
+        <input type="hidden" value="request" name="type">
+        <input type="hidden" value="@if(auth()->user()->id ==$request->user_id)
+        {{$request->freelancer_id}}
+        @else
+        {{$request->user_id}}
+        @endif" name="to">
+       <input type="text" class="rounded-pill" name="message">
+        <button class="rounded-circle sendtext" type="submit">
             <i class="fa-solid fa-paper-plane"></i>
         </button>
     </form>

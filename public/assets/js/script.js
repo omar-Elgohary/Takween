@@ -59,6 +59,49 @@ productContainers.forEach((item, i) => {
 // });
 
 
+// chat  
+// $('.chat').on('show.bs.offcanvas',function(){
+
+//       var id= $(this).attr('data-id');
+//       var type= $(this).attr('data-type');
+//       var mesageto= $(this).attr('data-to');
+//       type=type.trim();
+//       mesageto=mesageto.trim();
+//  console.log(type);
+//  console.log(mesageto);
+
+//  setInterval(getmessage,1000);
+//  function getmessage() { 
+//   $.ajax({
+//     url: "{{URL::to('user/chat')}}/"+ id,
+// type: "GET",
+// data:{'type':type,'messageto':mesageto},
+// dataType: "json",
+// success: function(data) {
+//  if(data){
+//        console.log(data);
+//  }else{
+   
+   
+//  }
+// }
+
+// });
+//   }
+     
+      
+      
+//      });
+  // console.log( $('.chat'));
+  //    var myOffcanvas = document.querySelector('.chat');
+  //    console.log(myOffcanvas);
+  // myOffcanvas.foreach(addEventListener('show.bs.offcanvas', function () {
+  // console.log(adfas);
+  // }));
+
+
+    
+
 $(".visaicon").addClass("active");
 $(".apayicon").removeClass("active");
 $(".walleticon").removeClass("active");

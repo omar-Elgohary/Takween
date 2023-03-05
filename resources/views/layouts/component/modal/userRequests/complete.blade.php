@@ -157,7 +157,7 @@
 
             <div class="d-flex flex-column px-3 ">
                 <p class="fs-5 font-bold">attachment</p>
-                    @foreach (App\Models\Requests::where('freelancer_id', $request->freelancer_id)->get() as $request)
+                   
                         <div class="d-flex flex-column px-2 ">
                             <div class="file d-flex mb-2">
                                 <div class="details d-flex ">
@@ -169,10 +169,10 @@
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                   
                 </div>
 
-                @if(empty(App\Models\Requests::find($request->id)->review->first()))
+                @if(empty($request->review->first()))
                 <div class="btn-contianer d-flex flex-column justify-between align-items-center my-3">
                     <button class="btn btn-modal btn-model-primary" type="button" data-bs-toggle="modal" data-bs-target="#review{{$request->id}}">Rate</button>
                 </div>
@@ -184,7 +184,7 @@
                         <div class="d-flex flex-grow-1 justify-content-end align-items-center">
 
                             @for ( $i=5 ;$i>0; $i-- )
-                            @if(App\Models\Requests::find($request->id)->review->first()->rate-- )
+                            @if($request->review->first()->rate-- )
                             <i class="fa fa-star active"></i>
                             @else
                             <i class="fa fa-star"></i>
@@ -201,6 +201,10 @@
 
          @endif
 
+
+         <div style="position:fixed ; bottom:0;right:0; font-size:30px">
+            <button class="addrequesticon" type="button" data-bs-toggle="offcanvas" data-bs-target="#chat{{$request->id}}" aria-controls="offcanvasRight"><i class="uil-comments-alt"></i></button>
+        </div>
             </div>
         </div>
     </div>

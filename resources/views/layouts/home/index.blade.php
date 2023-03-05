@@ -43,7 +43,7 @@
 </div>
 
 @include("layouts.component.script")
-    @yield("js")
+   @yield("js")
 </body>
 
 </html>

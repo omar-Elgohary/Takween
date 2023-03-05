@@ -15,7 +15,7 @@ class RequestController extends Controller
         return view('user.requestpublicservice', compact('categories'));
     }
 
-
+    
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -78,7 +78,7 @@ class RequestController extends Controller
     }
     public function review($id)
     {  
-        
+
       }
 
 }

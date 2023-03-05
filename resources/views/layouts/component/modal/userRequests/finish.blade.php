@@ -92,10 +92,7 @@
 
 
  --}}
-
-
-
- <div id="finish{{ $request->id }}" class="modal offers fade" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" tabindex="-1">
+ <div id="finish{{$request->id}}" class="modal offers fade" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header ">
@@ -145,7 +142,7 @@
 
                 <div class="d-flex flex-column px-3 ">
                     <p class="fs-5 font-bold">attachment</p>
-                    @foreach (App\Models\Requests::where('freelancer_id', $request->freelancer_id)->get() as $request)
+                   
                         <div class="d-flex flex-column px-2 ">
                             <div class="file d-flex mb-2">
                                 <div class="details d-flex ">
@@ -153,23 +150,24 @@
                                     <div class="info">
                                     <p class=" mb-0">{{ $request->attachment }}</p>
                                         <div class="size">
+                                            
                                             521kB .word
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                  
                 </div>
-
+                
                 <div class="btn-contianer d-flex flex-column justify-between align-items-center my-3">
                     <button class="btn  btn-modal btn-model-primary" type="button" data-bs-toggle="modal" data-bs-target="#review"  >complete</button>
                 </div>
             </div>
         </div>
     </div>
-
+   
     <div style="position:fixed ; bottom:0;right:0; font-size:30px">
-        <button class="addrequesticon" type="button" data-bs-toggle="offcanvas" data-bs-target="#chat" aria-controls="offcanvasRight"><i class="uil-comments-alt"></i></button>
+        <button class="addrequesticon" type="button" data-bs-toggle="offcanvas" data-bs-target="#chat{{$request->id}}" aria-controls="offcanvasRight"><i class="uil-comments-alt"></i></button>
     </div>
 </div> <!-- end finish modal -->

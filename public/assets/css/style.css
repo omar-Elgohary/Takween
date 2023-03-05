@@ -2663,47 +2663,50 @@ span.inprogress{
     color:var(--primary-color);
 }
 
-#chat {
+.chat {
     z-index: 2000;
     overflow: hidden;
     border-radius: 27px;
+    bottom: 0 !important;
+    right: 20px !important;
+    top: unset !important;
     
 }
-#chat .offcanvas-header .btn-close {
+.chat .offcanvas-header .btn-close {
 font-size: 14px;
 }
-#chat .chat-head{
+.chat .chat-head{
     display: flex;
     justify-content: baseline;
 }
-#chat .chat-head img{
+.chat .chat-head img{
 margin: 0 5px;
 }
-#chat .chat-head h5{
+.chat .chat-head h5{
 font-size:18px ;
 color:#000;
 margin-bottom:0;
 }
-#chat .chat-head p{
+.chat .chat-head p{
 font-size:14px ;
 color:var(--orange-color);
 }
 
-#chat .offcanvas-body{
+.chat .offcanvas-body{
     overflow: hidden;
     position: relative;
-    height: 200px;
+    height: 200px !important;
 }
 
-#chat .conversation{
+.chat .conversation{
     overflow-y: auto;
-    height: calc(100% - 70px);
+    height: calc(100% - 70px) !important;
 }
-#chat .conversation::-webkit-scrollbar-thumb{
+.chat .conversation::-webkit-scrollbar-thumb{
     width:1px;
 
 }
-#chat .conversation .chat-txt {
+.chat .conversation .chat-txt {
     margin-bottom: 12px;
     margin-left: 10px;
     margin-right: 10px;
@@ -2711,24 +2714,24 @@ color:var(--orange-color);
 
 
 }
-#chat .conversation .leftcont{
+.chat .conversation .leftcont{
     width: 100%;
     display: flex;
-    justify-content:start;
+    justify-content:start ;
     padding: 0 10px;
 }
-#chat .conversation .rightcont{
+.chat .conversation .rightcont{
     width: 100%;
     display: flex;
-    justify-content:end;
+    justify-content:end !important;
     padding: 0 10px;
 }
-#chat .conversation .chat-txt p{
+.chat .conversation .chat-txt p{
 font-size: 14px;
 word-break: break-all;
 
 }
-#chat .conversation .rightside{
+.chat .conversation .rightside{
 background-color: #F7AA7E;
 border-radius: 35px 35px 0 35px;
 padding: 12px;
@@ -2736,22 +2739,22 @@ color:#000;
 
 }
 
-#chat .conversation .leftside{
+.chat .conversation .leftside{
 background-color: #F4F4F4;
 border-radius: 35px 35px  35px 0;
 padding: 12px;
 color:#000;
 }
-#chat .conversation .chat-txt span{
+.chat .conversation .chat-txt span{
     font-size: 12px;
     color:#fff;
 }
-#chat .conversation .leftside span{
+.chat .conversation .leftside span{
     font-size: 12px;
     color:#777;
 }
 
-#chat .offcanvas-body .control{
+.chat .offcanvas-body .control{
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -2762,38 +2765,38 @@ color:#000;
     justify-content: space-around;
     background-color:#b4e5f594;
 }
-#chat .offcanvas-body .control .sendfile{
+.chat .offcanvas-body .control .sendfile{
     color:var(--section-color);
     border: 0;
     background-color: transparent;
 }
-#chat .offcanvas-body .control .sendtext {
+.chat .offcanvas-body .control .sendtext {
     background-color:var(--section-color);
     color:#fff;
     border: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-     width:40px;
-     height: 40px;
+     width:40px !important;
+     height: 40px !important;
 }
-#chat .offcanvas-body .control form{
+.chat .offcanvas-body .control form{
     display: flex;
 }
-#chat .offcanvas-body .control form input[type="text"]{
+.chat .offcanvas-body .control form input[type="text"]{
 border: 0;
 margin: 0 10px;
 width: 275px;
 }
-#chat .offcanvas-body .control .sendtext i{
+.chat .offcanvas-body .control .sendtext i{
 font-size: 19px;
 }
 @media(min-width:767px){
-    #chat{
+    .chat{
         position: fixed;
         top: unset;
-        bottom: 20px;
-        right: 20px;
+        bottom: 20px !important;
+        right: 20px !important;
         height: 599px;
     }
 }

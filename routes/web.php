@@ -1,5 +1,7 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PhotoController;
@@ -179,6 +181,9 @@ Route::prefix("user")->name("user.")->middleware('auth')->group(function(){
 
     // add cart
     Route::get('/addcart/{id}',[UserController::class,'addcart']);
+
+    Route::resource('/chat',ChatController::class);
+   
 });
 
 ########################################## End Customer ##############################################

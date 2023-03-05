@@ -1,5 +1,6 @@
 <?php
 namespace App\Models;
+use App\Models\Chat;
 use App\Models\User;
 use App\Models\Offer;
 use App\Models\Review;
@@ -43,5 +44,9 @@ class Requests extends Model
     public function review()
     {
         return $this->hasMany(Review::class);
+    }
+    public function chats()
+    {
+        return $this->morphMany(Chat::class,'chatsable');
     }
 }
