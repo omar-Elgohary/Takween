@@ -1,14 +1,14 @@
 var preload = document.getElementById("preloading");
 window.addEventListener('load', function () {
-  
- 
+
+
   $("#preloading").fadeOut();
-  
-  
+
+
 })
 
 $(document).ready(function () {
- 
+
  const productContainers = [...document.querySelectorAll('.scrollable')];
 const nxtBtn = [...document.querySelectorAll('.nxt-btn')];
 const preBtn = [...document.querySelectorAll('.pre-btn')];
@@ -16,10 +16,10 @@ const preBtn = [...document.querySelectorAll('.pre-btn')];
 productContainers.forEach((item, i) => {
    let containerDimensions = item.getBoundingClientRect();
    let containerWidth = containerDimensions.width;
-   
+
    nxtBtn[i].addEventListener('click', () => {
      item.scrollLeft += containerWidth;
-     
+
    })
 
    preBtn[i].addEventListener('click', () => {
@@ -27,7 +27,7 @@ productContainers.forEach((item, i) => {
 
 
    })
-   
+
 })
 
 
@@ -48,14 +48,14 @@ productContainers.forEach((item, i) => {
 //         console.log(data);
 //         $(this).toggleClass("active");
 //       }else{
-        
-        
+
+
 //       }
 //     }
-  
+
 //     });
-  
-  
+
+
 // });
 
 
@@ -142,17 +142,16 @@ $(".walleticon").click(function (){
 // code of choose private request or reservation
 
 
-$('#form-chooserequest').on('submit',function(e){
-  e.preventDefault();
-      var value=$("input[name=requesttype]:checked").val();
+// $('#form-chooserequest').on('submit',function(e){
+//     e.preventDefault();
+//     var value=$("input[name=requesttype]:checked").val();
 
-      console.log(value);
-    switch(value){
-      case "private":  location.href='user/requestpublic'; break;
-    case "reservation":  location.href='user/requestreservation'; break;
-   
-    }
-  });
+//     console.log(value);
+//     switch(value){
+//     case "private":  location.href='requestprivate'; break;
+//     case "reservation":  location.href='reservation'; break;
+//     }
+// });
 
 
 
@@ -160,13 +159,13 @@ $('#form-chooserequest').on('submit',function(e){
 
 
 
-  
+
   function OTPInput() {
 const inputs = document.querySelectorAll('#otpinupts  *[id]');
-for (let i = 0; i < inputs.length; i++) { inputs[i].addEventListener('keydown', function(event) { if (event.key==="Backspace" ) { inputs[i].value='' ; if (i !==0) inputs[i - 1].focus(); } else { if (i===inputs.length - 1 && inputs[i].value !=='' ) { return true; } else if (event.keyCode> 47 && event.keyCode < 58) { inputs[i].value=event.key; if (i !==inputs.length - 1) inputs[i + 1].focus(); event.preventDefault(); } else if (event.keyCode> 64 && event.keyCode < 91) { inputs[i].value=String.fromCharCode(event.keyCode); if (i !==inputs.length - 1) inputs[i + 1].focus(); event.preventDefault(); } } }); } } 
+for (let i = 0; i < inputs.length; i++) { inputs[i].addEventListener('keydown', function(event) { if (event.key==="Backspace" ) { inputs[i].value='' ; if (i !==0) inputs[i - 1].focus(); } else { if (i===inputs.length - 1 && inputs[i].value !=='' ) { return true; } else if (event.keyCode> 47 && event.keyCode < 58) { inputs[i].value=event.key; if (i !==inputs.length - 1) inputs[i + 1].focus(); event.preventDefault(); } else if (event.keyCode> 64 && event.keyCode < 91) { inputs[i].value=String.fromCharCode(event.keyCode); if (i !==inputs.length - 1) inputs[i + 1].focus(); event.preventDefault(); } } }); } }
 OTPInput();
 
-    
+
 
 
 //const imgs = document.querySelectorAll('.img-select a');

@@ -17,17 +17,14 @@ notification
 <link href="{{asset('assets/libs/jquery-bar-rating/themes/css-stars.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('assets/libs/jquery-bar-rating/themes/fontawesome-stars-o.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('assets/libs/jquery-bar-rating/themes/fontawesome-stars.css')}}" rel="stylesheet" type="text/css" />
-
 <link href="{{asset('assets/libs/@fullcalendar/core/main.min.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('assets/libs/@fullcalendar/daygrid/main.min.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('assets/libs/@fullcalendar/bootstrap/main.min.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('assets/libs/@fullcalendar/timegrid/main.min.css')}}" rel="stylesheet" type="text/css" />
-
+<link href="{{asset('assets/libs/@fullcalendar/daygrid/main.min.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('assets/libs/@fullcalendar/bootstrap/main.min.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('assets/libs/@fullcalendar/timegrid/main.min.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
-
 @section("content")
-        
+
 @include("layouts.component.modal.freelancerreservation.PendingAcceptOrReject")
 @include("layouts.component.modal.freelancerreservation.offer")
 @include("layouts.component.modal.freelancerreservation.pendingcancancel")
@@ -43,15 +40,12 @@ notification
 
 <div class="showrequest">
     <div class="container">
-        
         <div class="section-header ">
             <h2>reservations </h2>
         </div>
 
-
         <div class="row">
             <div class="col-12">
-               
                 <div class="row">
                     <div class="col-lg-3">
                         <div class="card">
@@ -60,11 +54,11 @@ notification
                                     <button class="btn font-16 btn-primary" id="btn-new-event"><i class="mdi mdi-plus-circle-outline"></i> Create
                                         New Event</button>
                                 </div>
-                            
+
                                 <div class="row justify-content-center mt-5">
                                     <img src="assets/images/coming-soon-img.png" alt="" class="img-fluid d-block">
                                 </div>
-                                
+
                                 <div id="external-events" class="mt-2">
                                     <br>
                                     <p class="text-muted">Drag and drop your event or click in the calendar</p>
@@ -81,7 +75,7 @@ notification
                                         <i class="mdi mdi-checkbox-blank-circle font-size-11 me-2"></i>Create New theme
                                     </div>
                                 </div>
-                            
+
                                 <ol class="activity-feed mb-0 ps-2 mt-4 ms-1">
                                     <li class="feed-item">
                                         <p class="mb-0">Andrei Coman magna sed porta finibus, risus
@@ -105,22 +99,18 @@ notification
                             </div>
                         </div>
                     </div> <!-- end col -->
-
-                </div> 
+                </div>
 
                 <div style='clear:both'></div>
-
-
                 <!-- Add New Event MODAL -->
                 <div class="modal fade" id="event-modal" tabindex="-1">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header py-3 px-4 border-bottom-0">
                                 <h5 class="modal-title" id="modal-title">Event</h5>
-
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
-
                             </div>
+
                             <div class="modal-body p-4">
                                 <form class="needs-validation" name="event-form" id="form-event" novalidate>
                                     <div class="row">
@@ -168,47 +158,43 @@ notification
         </div>
 
         <div class="section-header ">
-            <h3 class="text-black">reservation list </h3>
+            <h3 class="text-black">Reservation List</h3>
         </div>
 
-       <div class="requesties d-flx flex-column pt-4">
-          
-      
+    <div class="requesties d-flx flex-column pt-4">
 
 
-    <a data-bs-toggle="modal" href="#feelancerReservationPendingAceptOrReject" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
-      
-            <div class="d-flex justify-content-between align-items-baseline " style="margin-bottom: 35px;">
-                <div class="d-flex justify-content-between align-items-baseline">
-                    <h3 class="reservation-id">#3412312</h3>
-                    
-                  </div>
-              <p class="status gray" data-color="C4C3C3">pending<i class="fa-solid fa-circle px-2 "></i></p>
+
+
+<a href="#feelancerReservationPendingAceptOrReject" data-bs-toggle="modal" role="button" class="request d-flex flex-column px-3 py-3 position-relative mb-5">
+        <div class="d-flex justify-content-between align-items-baseline" style="margin-bottom: 35px;">
+            <div class="d-flex justify-content-between align-items-baseline">
+                <h3 class="reservation-id">#3412312</h3>
             </div>
-            <div class="d-flex ">
-                
-                <div class=" d-flex flex-column px-2">
-                    <p class="m-0 text-black-50">reservation date</p>
-                    <span>20/09/2010</span>
-                <div>
+            <p class="status gray" data-color="C4C3C3">pending<i class="fa-solid fa-circle px-2 "></i></p>
+        </div>
+
+        <div class="d-flex ">
+            <div class=" d-flex flex-column px-2">
+                <p class="m-0 text-black-50">reservation date</p>
+                <span>20/09/2010</span>
+
             </div>
+        </div>
 
-                </div>
-             </div>
 
-             
     </a>
     <a data-bs-toggle="modal" href="#feelancerReservationPendingcancancel" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
-      
+
             <div class="d-flex justify-content-between align-items-baseline " style="margin-bottom: 35px;">
                 <div class="d-flex justify-content-between align-items-baseline">
                     <h3 class="reservation-id">#3412312</h3>
-                    
+
                   </div>
               <p class="status gray" data-color="C4C3C3">pending<i class="fa-solid fa-circle px-2 "></i></p>
             </div>
             <div class="d-flex ">
-                
+
                 <div class=" d-flex flex-column px-2">
                     <p class="m-0 text-black-50">reservation date</p>
                     <span>20/09/2010</span>
@@ -220,7 +206,7 @@ notification
                 </div>
              </div>
 
-             
+
     </a>
 
     <a data-bs-toggle="modal" href="#waitingwithrequest" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
@@ -228,7 +214,7 @@ notification
             <div class="d-flex justify-content-between align-items-baseline">
                 <h3 class="reservation-id">#3412312</h3>
               </div>
-              
+
               <p class="status orange" data-color="C4C3C3">waiting<i class="fa-solid fa-circle px-2 "></i></p>
             </div>
             <div class="d-flex ">
@@ -242,30 +228,30 @@ notification
                 </div>
              </div>
 
-             
+
     </a>
     <a data-bs-toggle="modal" href="#waitingonly" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
         <div class="d-flex justify-content-between align-items-baseline " style="margin-bottom: 35px;">
             <div class="d-flex justify-content-between align-items-baseline">
                 <h3 class="reservation-id">#3412312</h3>
               </div>
-              
+
               <p class="status orange" data-color="C4C3C3">waiting<i class="fa-solid fa-circle px-2 "></i></p>
             </div>
-           
+
             <div class="d-flex ">
                 <div class="d-flex flex-column px-2">
                    <p class="m-0">req.date</p>
                     <span>20/09/2010</span>
                 </div>
-               
+
                 <div class=" d-flex flex-column px-2">
                     <p class="m-0">price</p>
                     <span>1211 SR</span>
                 </div>
              </div>
 
-             
+
     </a>
 
     <a data-bs-toggle="modal" href="#frelancerreservationinprogress" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
@@ -273,10 +259,10 @@ notification
             <div class="d-flex justify-content-between align-items-baseline">
                 <h3 class="reservation-id">#3412312</h3>
               </div>
-              
+
               <p class="status orange" data-color="C4C3C3">in progress<i class="fa-solid fa-circle px-2 "></i></p>
             </div>
-           
+
             <div class="d-flex ">
                 <div class="d-flex flex-column px-2">
                    <p class="m-0">req.date</p>
@@ -292,16 +278,16 @@ notification
                 </div>
              </div>
 
-             
+
     </a>
     <a data-bs-toggle="modal" href="#freelancerreservationfinished" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
         <div class="d-flex justify-content-between align-items-baseline " style="margin-bottom: 35px;">
             <div class="d-flex justify-content-between align-items-baseline">
                 <h3 class="reservation-id">#3412312</h3>
               </div>
-              
+
               <p class="status finish" data-color="C4C3C3">finish<i class="fa-solid fa-circle px-2 finish "></i></p>
-              
+
             </div>
             <div class="d-flex ">
                 <div class="d-flex flex-column px-2">
@@ -318,14 +304,14 @@ notification
                 </div>
              </div>
 
-             
+
     </a>
     <a data-bs-toggle="modal" href="#freelancerreservationcompleted" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
         <div class="d-flex justify-content-between align-items-baseline " style="margin-bottom: 35px;">
             <div class="d-flex justify-content-between align-items-baseline">
                 <h3 class="reservation-id">#3412312</h3>
               </div>
-              
+
               <p class="status text-black" data-color="C4C3C3">complete<i class="fa-solid fa-circle px-2 text-black "></i></p>
             </div>
             <div class="d-flex ">
@@ -333,12 +319,12 @@ notification
                    <p class="m-0">req.date</p>
                     <span>20/09/2010</span>
                 </div>
-             
+
                 <div class=" d-flex flex-column px-2">
                     <p class="m-0">price</p>
                     <span>1211 SR</span>
                 </div>
-             </div>   
+             </div>
     </a>
 
        </div>
@@ -351,7 +337,7 @@ notification
 @section("js")
 <script src="{{asset('assets/libs/jquery-bar-rating/jquery.barrating.min.js')}}"></script>
 
-<script src="{{asset('assets/js/pages/rating-init.js')}}"></script> 
+<script src="{{asset('assets/js/pages/rating-init.js')}}"></script>
 
 
 
