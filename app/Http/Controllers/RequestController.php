@@ -74,13 +74,6 @@ class RequestController extends Controller
         ]);
         return redirect()->back()->with(['state'=>"cancel","id"=>$id]);
     }
-<<<<<<< HEAD
-    public function review($id)
-    {  
-
-      }
-=======
->>>>>>> 16bddb2e2d132c51b8cf3a10d108924a704df2ac
 
 
     public function review($id)
