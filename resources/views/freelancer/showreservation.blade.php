@@ -17,14 +17,11 @@ notification
 <link href="{{asset('assets/libs/jquery-bar-rating/themes/css-stars.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('assets/libs/jquery-bar-rating/themes/fontawesome-stars-o.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('assets/libs/jquery-bar-rating/themes/fontawesome-stars.css')}}" rel="stylesheet" type="text/css" />
-
 <link href="{{asset('assets/libs/@fullcalendar/core/main.min.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('assets/libs/@fullcalendar/daygrid/main.min.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('assets/libs/@fullcalendar/bootstrap/main.min.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('assets/libs/@fullcalendar/timegrid/main.min.css')}}" rel="stylesheet" type="text/css" />
-
+<link href="{{asset('assets/libs/@fullcalendar/daygrid/main.min.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('assets/libs/@fullcalendar/bootstrap/main.min.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('assets/libs/@fullcalendar/timegrid/main.min.css')}}" rel="stylesheet" type="text/css" />
 @endsection
-
 
 @section("content")
 
@@ -43,7 +40,6 @@ notification
 
 <div class="showrequest">
     <div class="container">
-
         <div class="section-header ">
             <h2>reservations </h2>
         </div>
@@ -103,22 +99,18 @@ notification
                             </div>
                         </div>
                     </div> <!-- end col -->
-
                 </div>
 
                 <div style='clear:both'></div>
-
-
                 <!-- Add New Event MODAL -->
                 <div class="modal fade" id="event-modal" tabindex="-1">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header py-3 px-4 border-bottom-0">
                                 <h5 class="modal-title" id="modal-title">Event</h5>
-
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
-
                             </div>
+
                             <div class="modal-body p-4">
                                 <form class="needs-validation" name="event-form" id="form-event" novalidate>
                                     <div class="row">
@@ -166,33 +158,29 @@ notification
         </div>
 
         <div class="section-header ">
-            <h3 class="text-black">reservation list </h3>
+            <h3 class="text-black">Reservation List</h3>
         </div>
 
-       <div class="requesties d-flx flex-column pt-4">
+    <div class="requesties d-flx flex-column pt-4">
 
 
 
 
-    <a data-bs-toggle="modal" href="#feelancerReservationPendingAceptOrReject" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
-
-            <div class="d-flex justify-content-between align-items-baseline " style="margin-bottom: 35px;">
-                <div class="d-flex justify-content-between align-items-baseline">
-                    <h3 class="reservation-id">#3412312</h3>
-
-                  </div>
-              <p class="status gray" data-color="C4C3C3">pending<i class="fa-solid fa-circle px-2 "></i></p>
+<a href="#feelancerReservationPendingAceptOrReject" data-bs-toggle="modal" role="button" class="request d-flex flex-column px-3 py-3 position-relative mb-5">
+        <div class="d-flex justify-content-between align-items-baseline" style="margin-bottom: 35px;">
+            <div class="d-flex justify-content-between align-items-baseline">
+                <h3 class="reservation-id">#3412312</h3>
             </div>
-            <div class="d-flex ">
+            <p class="status gray" data-color="C4C3C3">pending<i class="fa-solid fa-circle px-2 "></i></p>
+        </div>
 
-                <div class=" d-flex flex-column px-2">
-                    <p class="m-0 text-black-50">reservation date</p>
-                    <span>20/09/2010</span>
-                <div>
+        <div class="d-flex ">
+            <div class=" d-flex flex-column px-2">
+                <p class="m-0 text-black-50">reservation date</p>
+                <span>20/09/2010</span>
+
             </div>
-
-                </div>
-             </div>
+        </div>
 
 
     </a>

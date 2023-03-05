@@ -32,4 +32,11 @@ class ReservationController extends Controller
         return back();
     }
 
+
+
+    public function show(Request $request)
+    {
+        $reservations = Reservation::all();
+        return view('user.showreservation', compact('reservations'));
+    }
 }

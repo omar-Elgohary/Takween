@@ -27,32 +27,26 @@ notification
 
 @section("nosearch","none !important")
 @section("content")
-{{-- @include("layouts.component.modal.userRequests.payment")
-@include("layouts.component.modal.userresrvationrequest.reservpending")
-@include("layouts.component.modal.userresrvationrequest.surdeletereservation")
-@include("layouts.component.modal.userresrvationrequest.offeracceptorreject")
-@include("layouts.component.modal.userresrvationrequest.rejectoffer")
-@include("layouts.component.modal.userresrvationrequest.requestdelay")
-@include("layouts.component.modal.userresrvationrequest.waitwithcancel")
-@include("layouts.component.modal.userresrvationrequest.waitandinprogress")
-@include("layouts.component.modal.userresrvationrequest.finished")
-@include("layouts.component.modal.userresrvationrequest.completed")
-@include("layouts.component.modal.userRequests.chat")
-@include("layouts.component.modal.userRequests.review") --}}
 
+{{-- @include("layouts.component.modal.userresrvationrequest.surdeletereservation") --}}
+{{-- @include("layouts.component.modal.userresrvationrequest.rejectoffer") --}}
+{{-- @include("layouts.component.modal.userresrvationrequest.requestdelay") --}}
+{{-- @include("layouts.component.modal.userresrvationrequest.waitwithcancel") --}}
+{{-- @include("layouts.component.modal.userresrvationrequest.waitandinprogress") --}}
+{{-- @include("layouts.component.modal.userresrvationrequest.finished") --}}
+{{-- @include("layouts.component.modal.userresrvationrequest.completed") --}}
+{{-- @include("layouts.component.modal.userRequests.chat") --}}
+{{-- @include("layouts.component.modal.userRequests.review") --}}
 
 
 <div class="showrequest">
     <div class="container">
-
         <div class="section-header ">
             <h2>reservations </h2>
         </div>
 
-
         <div class="row">
             <div class="col-12">
-
                 <div class="row">
                     <div class="col-lg-3">
                         <div class="card">
@@ -106,13 +100,9 @@ notification
                             </div>
                         </div>
                     </div> <!-- end col -->
-
                 </div>
 
                 <div style='clear:both'></div>
-
-
-                <!-- Add New Event MODAL -->
                 <div class="modal fade" id="event-modal" tabindex="-1">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
@@ -162,199 +152,189 @@ notification
                             </div>
                         </div> <!-- end modal-content-->
                     </div> <!-- end modal dialog-->
-                </div>
-                <!-- end modal-->
-
+                </div><!-- end modal-->
             </div>
         </div>
 
-        <div class="section-header ">
-            <h3 class="text-black">reservation list </h3>
+
+<div class="section-header ">
+    <h3 class="text-black">Reservation List</h3>
+</div>
+
+@foreach ($reservations as $reservation)
+<div class="requesties d-flx flex-column pt-4">
+
+
+@if($reservation->status == 'Pending')
+    <a href="#reservpending{{ $reservation->id }}" data-bs-toggle="modal" role="button"class="request d-flex flex-column px-3 py-3 position-relative mb-5">
+        <div class="d-flex justify-content-between align-items-baseline" style="margin-bottom: 35px;">
+            <div class="d-flex justify-content-between align-items-baseline">
+                <h3 class="reservation-id">#3412312</h3>
+            </div>
+            <p class="status gray" data-color="C4C3C3">{{ $reservation->status }}<i class="fa-solid fa-circle px-2 "></i></p>
         </div>
 
-       <div class="requesties d-flx flex-column pt-4">
-
-
-
-
-    <a data-bs-toggle="modal" href="#reservpending" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
-
-            <div class="d-flex justify-content-between align-items-baseline " style="margin-bottom: 35px;">
-                <div class="d-flex justify-content-between align-items-baseline">
-                    <h3 class="reservation-id">#3412312</h3>
-
-                  </div>
-              <p class="status gray" data-color="C4C3C3">pending<i class="fa-solid fa-circle px-2 "></i></p>
+        <div class="d-flex ">
+            <div class=" d-flex flex-column px-2">
+                <p class="m-0 text-black-50">reservation date</p>
+                <span>{{ $reservation->date_time }}</span>
             </div>
-            <div class="d-flex ">
-
-                <div class=" d-flex flex-column px-2">
-                    <p class="m-0 text-black-50">reservation date</p>
-                    <span>20/09/2010</span>
-                <div>
-            </div>
-
-                </div>
-             </div>
-
-
+        </div>
     </a>
-    <a data-bs-toggle="modal" href="#userReservationPendingAceptOrReject" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
+@endif
 
-            <div class="d-flex justify-content-between align-items-baseline " style="margin-bottom: 35px;">
-                <div class="d-flex justify-content-between align-items-baseline">
-                    <h3 class="reservation-id">#3412312</h3>
 
-                  </div>
-              <p class="status gray" data-color="C4C3C3">pending<i class="fa-solid fa-circle px-2 "></i></p>
+
+
+    <a href="#userReservationPendingAceptOrReject{{ $reservation->id }}" data-bs-toggle="modal" role="button"class="request d-flex flex-column px-3 py-3 position-relative mb-5">
+        <div class="d-flex justify-content-between align-items-baseline " style="margin-bottom: 35px;">
+            <div class="d-flex justify-content-between align-items-baseline">
+                <h3 class="reservation-id">#3412312</h3>
             </div>
-            <div class="d-flex ">
+            <p class="status gray" data-color="C4C3C3">{{ $reservation->status }}<i class="fa-solid fa-circle px-2 "></i></p>
+        </div>
 
-                <div class=" d-flex flex-column px-2">
-                    <p class="m-0 text-black-50">reservation date</p>
-                    <span>20/09/2010</span>
-                </div>
+        <div class="d-flex ">
+            <div class=" d-flex flex-column px-2">
+                <p class="m-0 text-black-50">Reservation Date</p>
+                <span>{{ $reservation->date_time }}</span>
+            </div>
 
-                <div class=" d-flex flex-column px-2">
-                    <p class="m-0 text-black-50">price</p>
-                    <span>1211 SR</span>
-                </div>
-             </div>
-
-
+            <div class=" d-flex flex-column px-2">
+                <p class="m-0 text-black-50">Price</p>
+                <span>1211 SR</span>
+            </div>
+        </div>
     </a>
 
     <a data-bs-toggle="modal" href="#userreseravrtionwaitingwithcancel" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
         <div class="d-flex justify-content-between align-items-baseline " style="margin-bottom: 35px;">
             <div class="d-flex justify-content-between align-items-baseline">
                 <h3 class="reservation-id">#3412312</h3>
-              </div>
-
-              <p class="status orange" data-color="C4C3C3">waiting<i class="fa-solid fa-circle px-2 "></i></p>
             </div>
-            <div class="d-flex ">
-                <div class=" d-flex flex-column px-2">
-                    <p class="m-0 text-black-50">reservation date</p>
-                    <span>20/09/2010</span>
-                </div>
-                <div class=" d-flex flex-column px-2">
-                    <p class="m-0 text-black-50">price</p>
-                    <span>1211 SR</span>
-                </div>
-             </div>
+            <p class="status orange" data-color="C4C3C3">waiting<i class="fa-solid fa-circle px-2 "></i></p>
+        </div>
 
-
-    </a>
-    <a data-bs-toggle="modal" href="#userreservationwaitandinprogress" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
-        <div class="d-flex justify-content-between align-items-baseline " style="margin-bottom: 35px;">
-            <div class="d-flex justify-content-between align-items-baseline">
-                <h3 class="reservation-id">#3412312</h3>
-              </div>
-
-              <p class="status orange" data-color="C4C3C3">waiting<i class="fa-solid fa-circle px-2 "></i></p>
+        <div class="d-flex ">
+            <div class=" d-flex flex-column px-2">
+                <p class="m-0 text-black-50">reservation date</p>
+                <span>20/09/2010</span>
             </div>
 
-            <div class="d-flex ">
-                <div class="d-flex flex-column px-2">
-                   <p class="m-0">req.date</p>
-                    <span>20/09/2010</span>
-                </div>
-
-                <div class=" d-flex flex-column px-2">
-                    <p class="m-0">price</p>
-                    <span>1211 SR</span>
-                </div>
-             </div>
-
-
+            <div class=" d-flex flex-column px-2">
+                <p class="m-0 text-black-50">price</p>
+                <span>1211 SR</span>
+            </div>
+        </div>
     </a>
 
     <a data-bs-toggle="modal" href="#userreservationwaitandinprogress" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
         <div class="d-flex justify-content-between align-items-baseline " style="margin-bottom: 35px;">
             <div class="d-flex justify-content-between align-items-baseline">
                 <h3 class="reservation-id">#3412312</h3>
-              </div>
+            </div>
+            <p class="status orange" data-color="C4C3C3">waiting<i class="fa-solid fa-circle px-2 "></i></p>
+        </div>
 
-              <p class="status orange" data-color="C4C3C3">in progress<i class="fa-solid fa-circle px-2 "></i></p>
+        <div class="d-flex ">
+            <div class="d-flex flex-column px-2">
+                <p class="m-0">req.date</p>
+                <span>20/09/2010</span>
             </div>
 
-            <div class="d-flex ">
-                <div class="d-flex flex-column px-2">
-                   <p class="m-0">req.date</p>
-                    <span>20/09/2010</span>
-                </div>
-                {{-- <div class=" d-flex flex-column px-2">
-                    <p class="m-0">Due date</p>
-                    <span class="deadline">20/09/2010</span>
-                </div> --}}
-                <div class=" d-flex flex-column px-2">
-                    <p class="m-0">price</p>
-                    <span>1211 SR</span>
-                </div>
-             </div>
-
-
+            <div class=" d-flex flex-column px-2">
+                <p class="m-0">price</p>
+                <span>1211 SR</span>
+            </div>
+        </div>
     </a>
+
+    <a data-bs-toggle="modal" href="#userreservationwaitandinprogress" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
+        <div class="d-flex justify-content-between align-items-baseline " style="margin-bottom: 35px;">
+            <div class="d-flex justify-content-between align-items-baseline">
+                <h3 class="reservation-id">#3412312</h3>
+            </div>
+            <p class="status orange" data-color="C4C3C3">in progress<i class="fa-solid fa-circle px-2 "></i></p>
+        </div>
+
+        <div class="d-flex ">
+            <div class="d-flex flex-column px-2">
+                <p class="m-0">req.date</p>
+                <span>20/09/2010</span>
+            </div>
+
+            {{-- <div class=" d-flex flex-column px-2">
+                <p class="m-0">Due date</p>
+                <span class="deadline">20/09/2010</span>
+            </div> --}}
+
+            <div class=" d-flex flex-column px-2">
+                <p class="m-0">price</p>
+                <span>1211 SR</span>
+            </div>
+        </div>
+    </a>
+
     <a data-bs-toggle="modal" href="#userfinishedreservation" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
         <div class="d-flex justify-content-between align-items-baseline " style="margin-bottom: 35px;">
             <div class="d-flex justify-content-between align-items-baseline">
                 <h3 class="reservation-id">#3412312</h3>
-              </div>
-
-              <p class="status finish" data-color="C4C3C3">finish<i class="fa-solid fa-circle px-2 finish "></i></p>
-
             </div>
-            <div class="d-flex ">
-                <div class="d-flex flex-column px-2">
-                   <p class="m-0">req.date</p>
-                    <span>20/09/2010</span>
-                </div>
-                {{-- <div class=" d-flex flex-column px-2">
-                    <p class="m-0">Due date</p>
-                    <span>20/09/2010</span>
-                </div> --}}
-                <div class=" d-flex flex-column px-2">
-                    <p class="m-0">price</p>
-                    <span>1211 SR</span>
-                </div>
-             </div>
+            <p class="status finish" data-color="C4C3C3">finish<i class="fa-solid fa-circle px-2 finish "></i></p>
+        </div>
 
+        <div class="d-flex ">
+            <div class="d-flex flex-column px-2">
+                <p class="m-0">req.date</p>
+                <span>20/09/2010</span>
+            </div>
 
+            {{-- <div class=" d-flex flex-column px-2">
+                <p class="m-0">Due date</p>
+                <span>20/09/2010</span>
+            </div> --}}
+
+            <div class=" d-flex flex-column px-2">
+                <p class="m-0">price</p>
+                <span>1211 SR</span>
+            </div>
+        </div>
     </a>
+
     <a data-bs-toggle="modal" href="#usercompletedreservation" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
         <div class="d-flex justify-content-between align-items-baseline " style="margin-bottom: 35px;">
             <div class="d-flex justify-content-between align-items-baseline">
                 <h3 class="reservation-id">#3412312</h3>
-              </div>
-
-              <p class="status text-black" data-color="C4C3C3">complete<i class="fa-solid fa-circle px-2 text-black "></i></p>
             </div>
-            <div class="d-flex ">
-                <div class="d-flex flex-column px-2">
-                   <p class="m-0">req.date</p>
-                    <span>20/09/2010</span>
-                </div>
+            <p class="status text-black" data-color="C4C3C3">complete<i class="fa-solid fa-circle px-2 text-black "></i></p>
+        </div>
 
-                <div class=" d-flex flex-column px-2">
-                    <p class="m-0">price</p>
-                    <span>1211 SR</span>
-                </div>
-             </div>
+        <div class="d-flex ">
+            <div class="d-flex flex-column px-2">
+                <p class="m-0">req.date</p>
+                <span>20/09/2010</span>
+            </div>
+
+            <div class=" d-flex flex-column px-2">
+                <p class="m-0">price</p>
+                <span>1211 SR</span>
+            </div>
+        </div>
     </a>
-
-       </div>
 </div>
 </div>
+</div>
 
+@include("layouts.component.modal.userRequests.payment")
+@include("layouts.component.modal.userresrvationrequest.reservpending")
+@include("layouts.component.modal.userresrvationrequest.offeracceptorreject")
 
+@endforeach
 @endsection
 
 @section("js")
 <script src="{{asset('assets/libs/jquery-bar-rating/jquery.barrating.min.js')}}"></script>
-
 <script src="{{asset('assets/js/pages/rating-init.js')}}"></script>
-
-
 <script src="{{asset('assets/libs/jquery/jquery.min.js')}}"></script>
 <script src="{{asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <script src="{{asset('assets/libs/metismenu/metisMenu.min.js')}}"></script>
@@ -370,7 +350,6 @@ notification
 <script src="{{asset('assets/libs/@fullcalendar/daygrid/main.min.js')}}"></script>
 <script src="{{asset('assets/libs/@fullcalendar/timegrid/main.min.js')}}"></script>
 <script src="{{asset('assets/libs/@fullcalendar/interaction/main.min.js')}}"></script>
-
 <!-- Calendar init -->
 <script src="{{asset('assets/js/pages/calendar.init.js')}}"></script>
 @endsection

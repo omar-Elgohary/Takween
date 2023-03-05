@@ -54,38 +54,35 @@ class RequestController extends Controller
 
     public function publicRequests()
     {
-        $requests = Requests::where('type', 'public')->where("user_id",auth()->user()->id)->get();
+        $requests = Requests::where('type', 'public')->where("user_id", auth()->user()->id)->get();
         return view('user.showpublicrequest', compact('requests'));
     }
 
 
     public function privateRequests()
     {
-        $requests = Requests::where('type', 'private')->where("user_id",auth()->user()->id)->get();
+        $requests = Requests::where('type', 'private')->where("user_id", auth()->user()->id)->get();
         return view('user.showprivaterequest', compact('requests'));
     }
 
 
     public function cancel($id)
     {
-
         $request=Requests::find($id);
-       $s= $request->update([
-        'status'=>"Cancel by customer"
+        $s= $request->update([
+            'status'=>"Cancel by customer"
         ]);
-
-       return redirect()->back()->with(['state'=>"cancel","id"=>$id]);
+        return redirect()->back()->with(['state'=>"cancel","id"=>$id]);
     }
+
+
     public function review($id)
     {
-
         $request=Requests::find($id);
-       $s= $request->update([
-        'status'=>"Cancel by customer"
+        $s= $request->update([
+            'status'=>"Cancel by customer"
         ]);
-
-       return redirect()->back()->with(['state'=>"cancel","id"=>$id]);
+        return redirect()->back()->with(['state'=>"cancel","id"=>$id]);
     }
-
 }
 

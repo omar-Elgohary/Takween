@@ -150,9 +150,9 @@ Route::prefix("user")->name("user.")->middleware('auth')->group(function(){
 
 
     // Reservations
-    // Route::resource('requestreservation', ReservationController::class);
     Route::get('/requestreservation/{freelancer_id}', [ReservationController::class, 'index'])->name('requestreservation');
     Route::post('/requestreservation/store/{freelancer_id}', [ReservationController::class, 'store'])->name('requestreservation.store');
+    Route::get('reservations', [ReservationController::class, 'show'])->name('reservations');
 
 
     Route::get('/showpublicrequest', [RequestController::class, 'publicRequests'])->name("showpublicrequest");
