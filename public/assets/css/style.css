@@ -37,7 +37,7 @@ p{
 }
 
 a:hover {
-   
+
      color: #000;
 }
 .btn-noborder{
@@ -122,7 +122,7 @@ z-index: 1000;
 }
 .modal-uk form .halfwidthinput{
  width:60%;
- 
+
 }
 .addrequesticon{
     background-color: #f26b1de8;
@@ -215,7 +215,7 @@ box-shadow: 1px 2px 14px 14px #04040463;
 
 .pre-btn {
     left: 0;
-   
+
 }
 
 .nxt-btn {
@@ -265,7 +265,7 @@ font-size: 30px;
 }
 .modal .modal-body .input-icon{
     position: relative;
-   
+
 }
 .modal-color-text{
     color:var(--primary-color);
@@ -296,7 +296,7 @@ font-size: 30px;
 }
 .form-control{
     /* padding-top: 0; */
-   
+
 }
 .input-icon{
     display:flex;
@@ -350,7 +350,7 @@ display: flex;
     justify-content: center;
     font-size: 16px;
 
-    
+
 }
 
 .btn-model-primary,.btn-model-primary:hover,
@@ -453,7 +453,7 @@ nav .container-fluid {
         top: 11px;
         left: 21%;
         width: 512px;
-    
+
 } */
 .search-form input {
     border-radius: 40px 0 0 40px;
@@ -530,7 +530,7 @@ nav .container-fluid {
 .head .navbar-header{
     display:flex;
     justify-content: end;
-    
+
 }
 .head .logo img{
     margin: 0px 81px;
@@ -577,7 +577,7 @@ nav .container-fluid {
    height: 100%;
     background-color: #ffffffd9;
     z-index: 2;
-    
+
 }
 
 #page-topbar .navbar-header,#page-topbar2 .navbar-header{
@@ -595,11 +595,11 @@ a.dropdown-item {
 }
 a.dropdown-item i{
     font-size: 28px !important;
-    
+
 }
 a.dropdown-item:not(:last-child) {
     border-bottom: 1px solid #7773;
-   
+
 }
 
 a.dropdown-item:last-child, a.dropdown-item:last-child i{
@@ -654,7 +654,7 @@ a.dropdown-item:last-child, a.dropdown-item:last-child i{
 .header-profile-user {
     height: 45px;
     width: 45px;
-   
+
 }
 .dropdown-menu.dropdown-menu-end.show {
     position: absolute;
@@ -676,7 +676,7 @@ a.dropdown-item:last-child, a.dropdown-item:last-child i{
     }
 }
 @media (max-width:767px) {
-   
+
     .search-form.search-nav{
         display: flex !important;
     }
@@ -720,7 +720,7 @@ a.dropdown-item:last-child, a.dropdown-item:last-child i{
 
     /* top:-48px; */
 }
-                
+
 /* .layout {
     height: 167px;
     position: absolute;
@@ -736,7 +736,7 @@ a.dropdown-item:last-child, a.dropdown-item:last-child i{
         background-color: #fff;
         border-radius: 30px 30px 0 0;
         position: relative;
-        
+
         z-index: 2;
     }
 } */
@@ -846,13 +846,13 @@ border-radius: 50%;
     max-width: 100%;}
 
     .mfp-figure:after {
-      
+
         width: 100% !important;
         }
 
         img.mfp-img {
             width: 100% !important;
-            
+
         }
 
 
@@ -1077,7 +1077,7 @@ display: flex;
 
 .ccs .container-fluid{
     flex-direction: column;
-    
+
 }
 
 .products-page .container-fluid .category-table{
@@ -1098,7 +1098,7 @@ text-align: center;
 
 .category-table{
     position:relative;
-    
+
 
 }
 .category-table a{
@@ -1121,7 +1121,7 @@ text-align: center;
     height: 100%;
     background-color: #FBFBFB;
 
-    
+
 }
 /* .category-table .category{
     position: relative;
@@ -1154,24 +1154,24 @@ text-align: center;
         margin-bottom: 47px;
         text-align: center;
         overflow-x: auto;
-        
+
     }
     .products-page .container-fluid .category-table .category > li  a  {
          padding:6px 15px ;
          width:150px;
         display: block;
-         
+
         }
 
         .products-page .container-fluid .category-table .subcategorys  {
-             
+
             top:100%;
             left:0;
             width: 100%;
             background-color: #FBFBFB;
             display: flex;
             flex-direction: column;
-           
+
            }
 }
 
@@ -1189,8 +1189,8 @@ text-align: center;
 @media(max-width:767px) {
     .products-page .container-fluid {
             padding-top: 30px;
-           
-    
+
+
         }
     .products-page .container-fluid {
         flex-direction: column;
@@ -1231,7 +1231,7 @@ text-align: center;
     margin: 0 auto;
     height: 250px;
     position: relative;
-    
+
 }
 
 .card .image-product button{
@@ -1260,11 +1260,11 @@ text-align: center;
    height: 46px;
    display: none;
 
-    
+
 }
 
 .card .image-product  .hart.active{
-border:1px solid var(--orange-color); 
+border:1px solid var(--orange-color);
 background-color: transparent;
 display: flex;
 align-items: center;
@@ -1273,7 +1273,7 @@ justify-content: center;
 }
 .card .image-product  .hart  i{
  font-size: 20px;
- color:#777;   
+ color:#777;
 }
 .card .image-product  .hart.active  i{
  color:var(--orange-color);
@@ -1283,7 +1283,7 @@ justify-content: center;
 
 .card:hover .addtochart {
     display: block;
- 
+
    }
    .card:hover .hart {
     display: flex;
@@ -1351,7 +1351,7 @@ padding: 0 5px;
 
 .product-page .header {
     display:flex ;
-   
+
 }
 
 .product-page .title{
@@ -1395,7 +1395,7 @@ align-self: baseline;
     padding-top: 30px;
   }
 .card-wrapper {
-   
+
     margin: 0 auto;
 }
 .card{
@@ -1413,12 +1413,12 @@ align-self: baseline;
     overflow-y: hidden;
     width: 100%;
     margin-bottom: 120px;
-    
+
 }
 .products-page .servicex .serv {
     margin-left: 10px;
     margin-right: 20px;
-   
+
 }
 .products-page .servicex .serv .logo{
     width: 143px;
@@ -1428,7 +1428,7 @@ align-self: baseline;
     justify-content: center;
     align-items: center;
     border-radius: 12px;
-    
+
     margin-bottom: 10px;
 }
 
@@ -1439,7 +1439,7 @@ align-self: baseline;
 .products-page .servicex .serv .logo i{
     font-size: 73px;
     font-weight: 300;
-    
+
 }
 .img-display {
     overflow: hidden;
@@ -1463,7 +1463,7 @@ align-self: baseline;
 
 .img-item {
     margin: 0.3rem;
-    
+
 }
 
 .img-item img{
@@ -1516,7 +1516,7 @@ padding-left:0;
     width: 100%;
 }
 .requestservice .container .form form.requestservice .container .form form{
-    
+
     max-width:100%;
 }
 .requestservice label{
@@ -1610,14 +1610,14 @@ font-size: 1rem;
     width: calc(100% - 50px);
     margin-left:40px;
     margin-right:68px;
-    
+
 }
 
 .freelanc .image{
     width:100px;
     position: relative;
-    
-    
+
+
 }
 
 .freelanc .image img{
@@ -1634,7 +1634,7 @@ font-size: 1rem;
 }
 .freelanc .info .name{
     display: flex;
-   
+
 }
 .freelanc .info .rate{
     white-space:nowrap ;
@@ -1734,7 +1734,7 @@ font-size: 1rem;
         flex-direction: column;
         margin: 0 30px;
         margin-top: 40px;
-    } 
+    }
     .freelanc .totals{
         width: 100%;
         flex-direction: column;
@@ -1748,7 +1748,7 @@ font-size: 1rem;
     }
 
     .freelanc .image img {
-       
+
         top: -9px;
         left: -24px;
     }
@@ -1779,9 +1779,9 @@ font-size: 1rem;
    flex-grow: 1;
    justify-content: center;
    align-items: center;
-  
+
    color: #fff !important;
-    
+
 }
 
 .freelanc.v2 .totals a{
@@ -1802,7 +1802,7 @@ font-size: 1rem;
 }
 .freelanc.v2 .totals  div i{
     color:#fff;
-  
+
 }
 .freelanc.v2 .totals  div sub{
     color:#fff;
@@ -1847,14 +1847,14 @@ font-size: 1rem;
 
 .freelanc.v2 .totals  .projects{
     background-color: var(--primary-color);
-    
+
 }
 .freelanc.v2 .totals  .productstotal{
     background-color: var(--orange-color);
 }
 .freelanc.v2 .totals  .photos{
     background-color: var(--section-color);
-   
+
 }
 
 .frelancer {
@@ -1876,7 +1876,7 @@ box-shadow: 0 5px 15px -8px;
 }
 
 .frelancer .proparitis i.projects{
-    
+
     color:var(--primary-color);
 }
 .frelancer .proparitis i.products{
@@ -2050,7 +2050,7 @@ flex-direction: column;
     justify-content: space-around;
 }
 .charts .chartcheckout {
-    height: fit-content; 
+    height: fit-content;
 }
 .charts .chartcheckout h3{
     font-weight: 900;
@@ -2068,7 +2068,7 @@ flex-direction: column;
 .charts .chartcheckout{
     position: relative;
     top: -193px;
-   
+
     padding-top: 220px;
     width: 500px;
 }
@@ -2089,10 +2089,10 @@ flex-direction: column;
         justify-content: space-between;
 }
 .charts .chartcheckout .details .price .number{
-   
+
     font-weight: 900;
     font-size: 24px;
-    
+
 }
 .charts .chartcheckout .details .price span{
     font-size: 14px;
@@ -2105,8 +2105,8 @@ flex-direction: column;
 
 margin: 0 auto;
 max-width: 100%;
-  
-    
+
+
 }
 .linkemptycart{
     color:var(--section-color);
@@ -2206,7 +2206,7 @@ font-size: 20px;
 
 }
 .hest .accordion .accordion-item{
-    background-color:#00000029 !important; 
+    background-color:#00000029 !important;
 }
  .hest .accordion,  .hest .accordion .accordion-body{
 width: 100%;
@@ -2217,8 +2217,8 @@ width: 100%;
     padding: 5px 6px;
 }
 .accordion-button{
-    
-    background-color:#00000000 !important; 
+
+    background-color:#00000000 !important;
     box-shadow: none;
     border:0;
 
@@ -2242,7 +2242,7 @@ button .number{
     font-weight: 600;
     padding-left: 16px;
     padding-right: 16px;
-  
+
 }
 
 @media(min-width:767px){
@@ -2252,7 +2252,7 @@ button .number{
         .cash {
             max-width: 50%;
         }
-         
+
 }
 
 @media(max-width:767px) {
@@ -2260,7 +2260,7 @@ button .number{
         flex-wrap: wrap;
     }
 
-    
+
 
 }
 
@@ -2286,7 +2286,7 @@ button .number{
     .files{
     flex-direction:column;
     }
- 
+
 }
 
 
@@ -2319,11 +2319,11 @@ button .number{
 }
 .file .details .info {
     flex-grow: 1;
-    padding:  0 10px;    
+    padding:  0 10px;
 
 }
 .file .details .info .size{
-    
+
     font-size: 13px;
     color:var(--gray-color);
 
@@ -2401,7 +2401,7 @@ border-radius: 12px;
     background-color: #eee;
     font-weight:600;
     border-radius: 12px;
-    
+
 }
 .filtercontainer{
     position: relative;
@@ -2451,7 +2451,7 @@ position: relative;
     width: 105%;
     left: -3%;
 }
-   
+
 }
 
 .request{
@@ -2471,7 +2471,7 @@ color:#333;
 
 @media (max-width:767px) {
     .request p.status{
-        
+
         align-self: flex-end;
     }
 
@@ -2505,7 +2505,7 @@ font-size: 8px;
     border-radius: 0 0 12px 12px;
     padding-top: 5px;
     padding-bottom: 5px;
-    
+
 }
 .request.offer{
     border-radius:12px 12px 0 0 ;
@@ -2514,7 +2514,7 @@ font-size: 8px;
 .request .frelacereq img{
      width: 100px;
      height: 100px ;
-     
+
 }
 
 
@@ -2542,9 +2542,9 @@ margin-bottom: 0px;
     justify-content: center;
 }
 #freelaceroffers{
-   
+
     padding:5px 10px;
-    
+
 }
 #freelaceroffers .modal-dialog {
     overflow-y: initial !important
@@ -2572,7 +2572,7 @@ margin-bottom: 84px;
 .freelanceroffer .img img{
     width: 100%;
     height: 85px;
-    
+
     position: absolute;
     border-radius: 12px;
     top: -19px;
@@ -2670,7 +2670,7 @@ span.inprogress{
     bottom: 0 !important;
     right: 20px !important;
     top: unset !important;
-    
+
 }
 .chat .offcanvas-header .btn-close {
 font-size: 14px;
@@ -2877,7 +2877,7 @@ color:#F9B893;
 .checkemowhite i{
     color: var(--orange-color);
     font-size: 66px;
-    
+
 }
 #switchtofreelancer h1,#switchtofreelancersignup h1{
 font-size: 30px;
@@ -2917,7 +2917,7 @@ padding: 20px;
 }
 #switchtofreelancer .row{
     margin-bottom: 23px;
-    
+
 }
 #pay h1{
 font-size: 30px;
@@ -2932,8 +2932,8 @@ margin-bottom: 10px;
 
 .privateorders{
     background-color: #F8F8F8
-    
-    
+
+
 }
 
 
@@ -2949,3 +2949,75 @@ margin-bottom: 10px;
     height: 100%;
 }
 /* end freelancer photo page */
+
+
+
+#calendar{
+  margin-left: auto;
+  margin-right: auto;
+  width: 320px;
+  font-family: 'Lato', sans-serif;
+}
+#calendar_weekdays div{
+  display:inline-block;
+  vertical-align:top;
+}
+#calendar_content, #calendar_weekdays, #calendar_header{
+  position: relative;
+  width: 320px;
+  overflow: hidden;
+  float: left;
+  z-index: 10;
+}
+#calendar_weekdays div, #calendar_content div{
+  width:40px;
+  height: 40px;
+  overflow: hidden;
+  text-align: center;
+  background-color: #FFFFFF;
+  color: #787878;
+}
+#calendar_content{
+  -webkit-border-radius: 0px 0px 12px 12px;
+  -moz-border-radius: 0px 0px 12px 12px;
+  border-radius: 0px 0px 12px 12px;
+}
+#calendar_content div{
+  float: left;
+}
+#calendar_content div:hover{
+  background-color: #F8F8F8;
+}
+#calendar_content div.blank{
+  background-color: #E8E8E8;
+}
+#calendar_header, #calendar_content div.today{
+  zoom: 1;
+  filter: alpha(opacity=70);
+  opacity: 0.7;
+}
+#calendar_content div.today{
+  color: #FFFFFF;
+}
+#calendar_header{
+  width: 100%;
+  height: 20px;
+  text-align: center;
+  background-color: #F26B1D;
+  padding: 18px 0;
+  -webkit-border-radius: 12px 12px 0px 0px;
+  -moz-border-radius: 12px 12px 0px 0px;
+  border-radius: 12px 12px 0px 0px;
+}
+#calendar_header h1{
+  font-size: 1.5em;
+  color: #FFFFFF;
+  float:left;
+  width:70%;
+}
+i[class^=icon-chevron]{
+  color: #FFFFFF;
+  float: left;
+  width:15%;
+  border-radius: 50%;
+}

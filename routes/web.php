@@ -84,11 +84,8 @@ Route::prefix("freelancer")->name("freelanc.")->middleware('auth','is_freelancer
     // get all services of one category
     Route::get('category/{id}', [ProductController::class, 'getCategoryServices'])->name('getCategoryServices');
 
-
-
-    Route::get("/reservation",function(){
-        return view("freelancer.showreservation");
-    })->name("reservation");
+    Route::get("/reservation", [ReservationController::class, 'freelancerReservations'])->name("reservation");
+    Route::post('/reservation/status/{id}', [ReservationController::class, 'changeStatus'])->name('reservations.status');
 
 
 
@@ -181,7 +178,7 @@ Route::prefix("user")->name("user.")->middleware('auth')->group(function(){
     Route::get('/addcart/{id}',[UserController::class,'addcart']);
 
     Route::resource('/chat',ChatController::class);
-   
+
 });
 
 ########################################## End Customer ##############################################
