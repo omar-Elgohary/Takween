@@ -269,8 +269,8 @@ var olddata =0;
 type=type.trim();
 
 mesageto=mesageto.trim();
-
-var getmes =setInterval(getmessage,1000);
+setTimeout(getmessage, 0);
+var getmes =setInterval(getmessage,5000);
 
 function getmessage() { 
 $.ajax({

@@ -66,7 +66,7 @@ class ChatController extends Controller
             $order= Requests::findorfail($request->request_id);
             $order->chats()->create([
               'text'=>$request->message,
-              'type'=>$request->type,
+              'type'=>trim($request->type),
               'from'=>auth()->user()->id,
               'to'=>$request->to,
             ]);

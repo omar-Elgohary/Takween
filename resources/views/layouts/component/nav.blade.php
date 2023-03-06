@@ -54,7 +54,15 @@
                     </button>
 
                     <a class="dropdown-item" href="{{ route('user.profile') }}"><i class="uil uil-user-circle font-size-18 align-middle text-muted me-1"></i> <span class="align-middle">Profile</span></a>
-                    <a class="dropdown-item" href="#"><i class="fa-solid fa-solid fa-earth-americas font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">language</span></a>
+                    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                    
+                    @if($localeCode!=app()->getLocale())
+                        <a class="dropdown-item" rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}"
+                        <i class="fa-solid fa-solid fa-earth-americas font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">language ({{ $properties['native'] }})</span></a>
+                    
+                       
+                   @endif
+                @endforeach
                     <a class="dropdown-item d-block" href="{{route("user.notification")}}"><i class="uil-bell font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">notification</span> <span class="badge  rounded-pill mt-1 ms-2">03</span></a>
                     <a class="dropdown-item" href="{{route("user.showpublicrequest")}}"><i class="fa-regular fa-calendar font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">reservation</span></a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

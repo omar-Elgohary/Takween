@@ -10,4 +10,8 @@ class Offer extends Model
     use HasFactory;
 
  protected $guarded=[];
+
+ public function offersable(){
+    return $this->morphTo();
+ }
 }
