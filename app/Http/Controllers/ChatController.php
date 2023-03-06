@@ -49,7 +49,7 @@ class ChatController extends Controller
     
     public function store(Request $request)
     {
-      
+
         $flag=false;
         $request->validate([
             'request_id'=>'required',

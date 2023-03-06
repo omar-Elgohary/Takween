@@ -62,6 +62,7 @@ class RequestController extends Controller
     public function privateRequests()
     {
         $requests = Requests::where('type', 'private')->where("user_id", auth()->user()->id)->get();
+        
         return view('user.showprivaterequest', compact('requests'));
     }
 

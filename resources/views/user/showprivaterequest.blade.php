@@ -231,4 +231,150 @@ notification
 
         
     </script>
+
+
+<script>
+    // $('#offerPending').on('show.bs.modal', function(event) {
+    //     var button = $(event.relatedTarget)
+    //     console.log(button)
+    //     var id = button.data('id')
+    //     var category_id = button.data('category_id')
+    //     var service_id = button.data('service_id')
+    //     var title = button.data('title')
+    //     var due_date = button.data('due_date')
+    //     var description = button.data('description')
+    //     var attachment = button.data('attachment')
+    //     var modal = $(this)
+    //     modal.find('.modal-body #id').val(id);
+    //     modal.find('.modal-body #category_id').val(category_id);
+    //     modal.find('.modal-body #service_id').val(service_id);
+    //     modal.find('.modal-body #title').val(title);
+    //     modal.find('.modal-body #due_date').val(due_date);
+    //     modal.find('.modal-body #description').val(description);
+    //     modal.find('.modal-body #attachment').val(attachment);
+    // })
+
+
+// get message 
+
+$(document).ready(function () {
+$('.chat').on('show.bs.offcanvas',function(){
+
+var request_id= $(this).attr('data-id');
+var type= $(this).attr('data-type');
+var mesageto= $(this).attr('data-to');
+var conversation =$(this).find('.conversation')
+// console.log(.append("asdsdas"));
+var olddata =0;
+type=type.trim();
+
+mesageto=mesageto.trim();
+
+var getmes =setInterval(getmessage,1000);
+
+function getmessage() { 
+$.ajax({
+url: "{{URL::to('user/chat')}}",
+type: "GET",
+headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+data:{'type':type,'messageto':mesageto ,'request_id':request_id},
+dataType: "json",
+success: function(data) {
+if(data){
+
+conversation.html(" ");
+$.each(data,  function (index, el) {  
+    if(el.from !={{auth()->user()->id}}){
+
+let message= " ";
+message=  '<div class="rightcont"> <div class="chat-txt rightside"> <p>'+
+el.text
+       +' </p> <span>'+
+        new Date(el.created_at).toLocaleTimeString() 
+       +
+        '</span> </div> </div>';
+
+        conversation.append(message);
+   
+
+    }else{
+
+        let message2= " ";
+message2=  '<div class="leftcont"> <div class="chat-txt leftside"> <p>'+
+el.text
+       +' </p> <span>'+
+        new Date(el.created_at).toLocaleTimeString() +
+        '</span> </div> </div>';
+
+        conversation.append(message2);
+     
+    }
+
+
+    
+
+
+});
+
+
+
+if( Object.keys(data).length >olddata){
+
+$('.conversation').scrollTop($('.conversation')[0].scrollHeight);
+olddata=Object.keys(data).length;
+}
+$('.chat').on('hide.bs.offcanvas',function(){
+clearInterval(getmes);
+});
+
+
+}else{
+
+
+}
+}
+
+});
+
+
+}
+
+});
+
+});
+// end get message
+
+
+
+function sendmessage(e){
+
+//     var x=$(e);
+// $('.messageinput').html(' ');
+    $.ajax({
+       
+        url: "{{route('user.chat.store')}}",
+        type: "POST",
+        data:$(e).serialize(),
+        dataType: "json",
+        success: function(data) {
+        if(data){
+            console.log(data);
+            getmessage();
+            $('.messageinput').html(' ');
+
+        }else{
+            
+            
+        }
+        }
+    
+        });
+    
+
+
+
+
+}
+
+</script>
 @endsection

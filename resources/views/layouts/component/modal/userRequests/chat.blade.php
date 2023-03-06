@@ -104,7 +104,7 @@
         @else
         {{$request->user_id}}
         @endif" name="to">
-       <input type="text" class="rounded-pill" name="message">
+       <input type="text" class="rounded-pill" class="messageinput" name="message">
         <button class="rounded-circle sendtext" type="submit">
             <i class="fa-solid fa-paper-plane"></i>
         </button>
