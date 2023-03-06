@@ -23,12 +23,12 @@ notification
 @section("content")
 
 
-@include("layouts.component.modal.freelancerRequests.pendingwithsendoffer")
+{{-- @include("layouts.component.modal.freelancerRequests.pendingwithsendoffer") --}}
 @include("layouts.component.modal.freelancerRequests.inprogress")
-@include("layouts.component.modal.freelancerRequests.offer")
+{{-- @include("layouts.component.modal.freelancerRequests.offer") --}}
 
 
-@include("layouts.component.modal.userRequests.chat")
+{{-- @include("layouts.component.modal.userRequests.chat") --}}
 
 
 

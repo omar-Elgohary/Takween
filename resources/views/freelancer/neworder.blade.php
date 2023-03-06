@@ -60,7 +60,7 @@ new orders
             <a data-bs-toggle="modal" href="#freelancerorderpeindingwithoffer{{$request->id}}" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
             @else
 
-            <a data-bs-toggle="modal" href="#penddingacceptoreject{{$request->id}}" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
+            <a data-bs-toggle="modal" href="#feelancerrequstPendingcancancel{{$request->id}}" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
 
 
 
@@ -110,7 +110,8 @@ new orders
       @include("layouts.component.modal.freelancerRequests.offer")
       @include("layouts.component.modal.userRequests.chat")
       @else
-      @include("layouts.component.modal.userprivaterequest.penddingacceptorreject")
+      @include("layouts.component.modal.freelancerRequests.pendingwithcancel")
+
       @include("layouts.component.modal.userRequests.chat")
       @endif
 
@@ -122,12 +123,71 @@ new orders
 
         @foreach ($publics  as $request )
 
+        @if($request->offer->where('freelancer_id',auth()->user()->id)->first()==null)
 
-        {{$request->id}}
+        <a data-bs-toggle="modal" href="#freelancerorderpeindingwithoffer{{$request->id}}" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
+
+
+        @else
+
+        <a data-bs-toggle="modal" href="#feelancerrequstPendingcancancel{{$request->id}}" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
+
+
+
+        @endif
+          <div class="d-flex justify-content-between align-items-baseline">
+            <div class="frelacereq d-flex ">
+              <img src="{{ asset("Admin3/assets/images/users/".App\Models\User::where('id',$request->user_id)->first()->profile_image) }}" class="img-fluid rounded-top" alt="">
+                <div class="freelanereq mx-2">
+                <h3 class="fw-600">{{App\Models\User::find($request->user_id)->name}}</h3>
+                  <span class="text-black-50">#123123</span>
+                </div>
+            </div>
+            <p class="status gray" data-color="C4C3C3">{{$request->status}}<i class="fa-solid fa-circle px-2 "></i></p>
+          </div>
+          <div class="d-flex ">
+              <div class="d-flex flex-column px-2">
+                 <p class="m-0">req.date</p>
+                  <span>{{date_format($request->created_at,"Y-m-d") }}</span>
+              </div>
+              <div class=" d-flex flex-column px-2">
+                  <p class="m-0">Due date</p>
+                  <span>{{ $request->due_date }}</span>
+              <div>
+          </div>
+
+              </div>
+
+              
+          @if($request->offer->where('freelancer_id',auth()->user()->id)->first()!=null )
+          <div class="d-flex flex-column px-2">
+              <p class="m-0">price</p>
+              <span >{{$request->offer->where('freelancer_id',auth()->user()->id)->first()->price }}</span>
+              <div>
+              </div>
+          </div>
+      @endif
+
+           </div>
+
+           
+  </a>
+
+  
+  @if(empty($request->offer->where('freelancer_id',auth()->user()->id)->first()) )
+
+  @include("layouts.component.modal.freelancerRequests.pendingwithsendoffer")
+  @include("layouts.component.modal.freelancerRequests.offer")
+
+  @else
+  @include("layouts.component.modal.freelancerRequests.pendingwithcancel")
+  
+  @endif
+     
           
         @endforeach
 
-        <a data-bs-toggle="modal" href="#penddingacceptoreject" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
+        {{-- <a data-bs-toggle="modal" href="#penddingacceptoreject" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
      
           <div class="d-flex justify-content-between align-items-baseline">
             <div class="frelacereq d-flex ">
@@ -156,7 +216,7 @@ new orders
 
            
   </a>
-    
+     --}}
 
        </div>
 </div>

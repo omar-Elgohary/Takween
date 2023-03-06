@@ -13,6 +13,7 @@ return [
    'attachment' => 'attachment',
     'private request' => 'private request',
     'public request' => 'public  request',
+    'customer name' => 'customer name',
     'user' => "We can't find a user with that email address.",
 
 ];
