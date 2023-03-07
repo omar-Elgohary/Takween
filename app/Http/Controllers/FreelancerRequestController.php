@@ -91,7 +91,7 @@ if($flag){
         //     $q->where('status','Pending')->orWhere('status','In process')->orWhere('status','Finished')->orWhere('status','Completed');
         //             })->get();
 
-         dd($privates);
+        //  dd($privates);
         return view('freelancer.mywork',compact('privates'));
     }
 }
