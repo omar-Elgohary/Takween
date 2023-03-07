@@ -23,12 +23,12 @@ notification
 @section("content")
 
 
-@include("layouts.component.modal.freelancerRequests.pendingwithsendoffer")
+{{-- @include("layouts.component.modal.freelancerRequests.pendingwithsendoffer") --}}
 @include("layouts.component.modal.freelancerRequests.inprogress")
-@include("layouts.component.modal.freelancerRequests.offer")
+{{-- @include("layouts.component.modal.freelancerRequests.offer") --}}
 
 
-@include("layouts.component.modal.userRequests.chat")
+{{-- @include("layouts.component.modal.userRequests.chat") --}}
 
 
 
@@ -59,7 +59,9 @@ notification
           
       
 
-
+@foreach ( $privates as $request)
+{{$request->id}}-
+@endforeach
     
 
     <a data-bs-toggle="modal" href="#freelancerorderinprogress" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">

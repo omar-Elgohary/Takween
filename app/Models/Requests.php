@@ -37,10 +37,7 @@ class Requests extends Model
     {
         return $this->belongsTo(Service::class);
     }
-    public function offer()
-    {
-        return $this->hasMany(Offer::class);
-    }
+
     public function review()
     {
         return $this->hasMany(Review::class);
@@ -48,5 +45,9 @@ class Requests extends Model
     public function chats()
     {
         return $this->morphMany(Chat::class,'chatsable');
+    }
+    public function offer()
+    {
+        return $this->morphMany(Offer::class,'offersable');
     }
 }

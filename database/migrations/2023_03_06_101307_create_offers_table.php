@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,10 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('offers', function (Blueprint $table) {
+        Schema::create('offers', function (Blueprint $table) {
+            $table->id();
             $table->foreignId("freelancer_id")->references('id')->on('users')->cascadeOnDelete();
+            $table->double('price');
+            $table->morphs("offersable");
+            $table->string("type");
             $table->enum('status',['pending','active','reject'])->default('pending');
-            
+            $table->timestamps();
         });
     }
 
@@ -26,9 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('offers', function (Blueprint $table) {
-            Schema::dropColumn('freelancer_id');
-            Schema::dropColumn('status');
-        });
+        Schema::dropIfExists('offers');
     }
 };

@@ -8,6 +8,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\FreelancerRequestController;
 
 
 Route::group(
@@ -57,9 +58,11 @@ Route::prefix("freelancer")->name("freelanc.")->middleware('auth','is_freelancer
     })->name("mywork");
 
 
-    Route::get("/neworder",function(){
-        return view("freelancer.neworder");
-    })->name("neworder");
+    Route::get("/neworder",[FreelancerRequestController::class,'getneworder'])->name("neworder");
+    Route::get("/mywork",[FreelancerRequestController::class,'getmywork'])->name("mywork");
+
+    Route::post('/sendoffer/{id}',[FreelancerRequestController::class,'sendoffer'])->name("sendoffer");
+
 
 
     // Route::get("/showproducts",function(){
@@ -118,6 +121,8 @@ Route::prefix("freelancer")->name("freelanc.")->middleware('auth','is_freelancer
     Route::get("/reviews",function(){
         return view("freelancer.reviews");
     })->name("reviews");
+
+
 });
 ########################################## End Freelancer ##############################################
 

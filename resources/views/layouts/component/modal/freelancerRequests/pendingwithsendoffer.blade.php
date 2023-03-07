@@ -1,4 +1,4 @@
-<div class="modal offers fade" id="freelancerorderpeindingwithoffer" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" tabindex="-1">
+<div class="modal offers fade" id="freelancerorderpeindingwithoffer{{$request->id}}" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header ">
@@ -26,27 +26,44 @@
               </div>
           </div>
           <div class="d-flex flex-column px-5">
-          <div class="d-flex justify-content-between">
-              <p class=" mb-0" >category</p>
-              <p class="fw-900 mb-0">category</p>
-          </div>
-          <div class="d-flex justify-content-between">
-              <p class=" mb-0">service</p>
-              <p class="fw-900 mb-0">service</p>
-          </div>
-          <div class="d-flex justify-content-between">
-              <p class=" mb-0" >title</p>
-              <p class="fw-900 mb-0">title</p>
-          </div>
-          <div class="d-flex justify-content-between">
-              <p class=" mb-0">due date</p>
-              <p class="fw-900 mb-0 ">0000/00/00</p>
-          </div>
-          </div>
+            <div class="d-flex justify-content-between">
+                <p class=" mb-0" >{{__('request.category')}}</p>
+                <p class="fw-900 mb-0">
+               @if (App::getLocale() =="ar")
+               {{App\Models\Category::where('id', $request->category_id)->first()->title_ar }}</p>
+               @else
+               {{App\Models\Category::where('id', $request->category_id)->first()->title_en }}</p>
+               @endif
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <p class=" mb-0">{{__('request.service')}}</p>
+                <p class="fw-900 mb-0">
+                  @if (App::getLocale() =="ar")
+                  {{ App\Models\Service::where('id', $request->service_id)->first()->service_ar }}</p>
+                  @else
+                  {{ App\Models\Service::where('id', $request->service_id)->first()->service_en }}</p>
+                  @endif
+  
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <p class=" mb-0" >{{__('request.title')}}</p>
+                <p class="fw-900 mb-0">{{ $request->title }}</p>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <p class=" mb-0">{{__('request.due date')}}</p>
+                <p class="fw-900 mb-0 ">{{ $request->due_date }}</p>
+            </div>
+        </div>
+
+          
           <div class="d-flex flex-column px-3 bg-blue ">
             <span class="flex-grow-1 fs-5 font-bold ">description</span>
-             <p class="flex-grow-1 ">Lorem ipsum dolor sit amet consectetur .</p>
-          </div>
+            <p class="flex-grow-1">{{ $request->description }}</p>
+        </div>
+
   
           <div class="d-flex flex-column px-3 ">
               <p class="fs-5 font-bold">attachment</p>
@@ -92,7 +109,7 @@
   
           </div>
           <div class="btn-contianer d-flex flex-column justify-between align-items-center my-3">
-            <button class="btn  btn-modal btn-model-primary" type="button" data-bs-toggle="modal" data-bs-target="#sendofferforrequest"  >offer</button>
+            <button class="btn  btn-modal btn-model-primary" type="button" data-bs-toggle="modal" data-bs-target="#sendofferforrequest{{$request->id}}"  >offer</button>
             
            
              </div>
@@ -104,13 +121,15 @@
       </div>
       
     </div>
+
+    @if($request->type=='private')
 <div  style="position:fixed ; bottom:0;right:0; font-size:30px">
    
-        <button class="addrequesticon" type="button" data-bs-toggle="offcanvas" data-bs-target="#chat" aria-controls="offcanvasRight"><i class="uil-comments-alt"></i></button>
+        <button class="addrequesticon" type="button" data-bs-toggle="offcanvas" data-bs-target="#chat{{$request->id}}" aria-controls="offcanvasRight"><i class="uil-comments-alt"></i></button>
         
-                
- 
+            
 </div>
+@endif
     
   </div>
 
