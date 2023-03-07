@@ -60,6 +60,7 @@ Route::prefix("freelancer")->name("freelanc.")->middleware('auth','is_freelancer
 
 
     Route::get("/neworder",[FreelancerRequestController::class,'getneworder'])->name("neworder");
+    Route::get("/mywork",[FreelancerRequestController::class,'getmywork'])->name("mywork");
 
     Route::post('/sendoffer/{id}',[FreelancerRequestController::class,'sendoffer'])->name("sendoffer");
 

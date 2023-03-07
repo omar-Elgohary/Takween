@@ -125,7 +125,7 @@
 </div>
 
 
-  
+@if($request->offer->where('freelancer_id',auth()->user()->id)->first()!=null)
          
           <div class="btn-contianer d-flex flex-column justify-content-center align-items-center my-3">
           
@@ -133,6 +133,8 @@
            
            
              </div>
+
+             @endif
         </div>
        
       </div>

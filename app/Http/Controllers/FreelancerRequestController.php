@@ -58,4 +58,40 @@ if($flag){
 
 
     }
+
+
+
+
+
+    public function getmywork(){
+        $user_id=auth()->user()->id; 
+
+        $privates= Requests::where();
+
+        // $privates= $privatesw->offer->get();
+//         $privates = Requests::where('type','private')->where(function($q){
+// $q->where('status','Pending')->orWhere('status','In process')->orWhere('status','Finished')->orWhere('status','Completed');
+//         })->where('freelancer_id',$user_id)->offer->chunck();
+
+// $privates = Requests::select('requests.*')->leftJoin('offers', function($q) use($user_id) {
+//     $q->on('offers.offersable_id', '=', 'requests.id');
+//     $q->where('offers.offersable_type', '=', 'App\Models\Requests');
+//     // $q->where('offers.status','=','pending');
+//     // $q->orWhere('offers.status','=','active');
+//     $q->where('requests.status','=','public');
+//     // $q->orWhere('requests.status','=','private');
+//     // $q->where('requests.freelancer_id','=',$user_id);
+//     // $q->orWhere('requests.freelancer_id','=','null');
+    
+// })->get();
+
+
+
+        // $publics=Requests::where('type','public')->where(function($q){
+        //     $q->where('status','Pending')->orWhere('status','In process')->orWhere('status','Finished')->orWhere('status','Completed');
+        //             })->get();
+
+         dd($privates);
+        return view('freelancer.mywork',compact('privates'));
+    }
 }
