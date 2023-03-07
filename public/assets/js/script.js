@@ -141,18 +141,16 @@ $(".walleticon").click(function (){
 
 // code of choose private request or reservation
 
+$('#form-chooserequest').on('submit',function(e){
+    e.preventDefault();
+    var value=$("input[name=requesttype]:checked").val();
 
-// $('#form-chooserequest').on('submit',function(e){
-//     e.preventDefault();
-//     var value=$("input[name=requesttype]:checked").val();
-
-//     console.log(value);
-//     switch(value){
-//     case "private":  location.href='requestprivate'; break;
-//     case "reservation":  location.href='reservation'; break;
-//     }
-// });
-
+    console.log(value);
+    switch(value){
+    case "private":  location.href='requestprivate'; break;
+    case "reservation":  location.href='reservation'; break;
+    }
+});
 
 });
 

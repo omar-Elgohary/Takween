@@ -6,7 +6,7 @@
 @section("og-image")
 @endsection
 @section("title")
-freelanser name
+    Freelancer Profile
 @endsection
 @section("header")
 @endsection
@@ -16,7 +16,7 @@ freelanser name
 @section("content")
 
 @if($freelancer->is_photographer == 0)
-    <a href="{{ route('user.requestprivate') }}" class="addrequesticon">
+    <a href="{{ route('user.requestprivate', $freelancer->id) }}" class="addrequesticon">
         <i class="fa-solid fa-plus"></i>
     </a>
 @else
@@ -241,12 +241,8 @@ freelanser name
 
                 <div class="btn-contianer d-flex justify-content-between align-items-center my-3">
                     <button class="btn-modal modal-color-text border-0" data-bs-dismiss="modal" type="button">move back</button>
-                    @if($_POST['name="requesttype"'] = 'private')
-                        <a href="{{ route('user.requestprivate') }}" class="btn-modal btn-model-primary border-0" name="submit" type="submit">apply</a>
-                    @else
-                        <a href="{{ route('user.requestreservation') }}" class="btn-modal btn-model-primary border-0" name="submit" type="submit">apply</a>
-                    @endif
-                    </div>
+                    <button class="btn-modal btn-model-primary border-0" name="submit" type="submit">apply</button>
+                </div>
             </form>
         </div>
     </div>

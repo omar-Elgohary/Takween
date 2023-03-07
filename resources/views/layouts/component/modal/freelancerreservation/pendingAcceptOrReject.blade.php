@@ -51,14 +51,13 @@
                     </div>
                 </div>
 
-                <div class="btn-contianer d-flex flex-row justify-content-center align-items-center my-3">
+                <div class="btn-contianer d-flex flex-row justify-content-evenly align-items-center my-3">
                     <form action="{{ route('freelanc.reservations.status', $reservation->id) }}" method="post">
                         @csrf
                         <td><input type="submit" name="status" value="Accepted" class="btn btn-accept border-0 btn-modal rounded-pill mx-2" data-bs-toggle="modal" data-bs-target="#sendofferforreservation"></td>
                         <td><input type="submit" name="status" value="Rejected" class="btn btn-reject border-0 btn-modal rounded-pill mx-2" data-bs-toggle="modal" data-bs-target="#suredelete"></td>
                     </form>
                 </div>
-
             </div>
         </div>
     </div>

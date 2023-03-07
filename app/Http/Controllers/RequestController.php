@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+use App\Models\User;
 use App\Models\Category;
 use App\Models\Requests;
 use Illuminate\Http\Request;
@@ -15,7 +16,16 @@ class RequestController extends Controller
         return view('user.requestpublicservice', compact('categories'));
     }
 
-    
+
+
+    public function requestUserToFreelancer($id)
+    {
+        $freelancer = User::find($id);
+        return view('user.requestprivateservice', compact('freelancer'));
+    }
+
+
+
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -62,7 +72,7 @@ class RequestController extends Controller
     public function privateRequests()
     {
         $requests = Requests::where('type', 'private')->where("user_id", auth()->user()->id)->get();
-        
+
         return view('user.showprivaterequest', compact('requests'));
     }
 

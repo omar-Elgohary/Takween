@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\HomeController;
@@ -166,9 +165,8 @@ Route::prefix("user")->name("user.")->middleware('auth')->group(function(){
     // get all services of one category
     Route::get('category/{id}', [RequestController::class, 'getCategoryServices'])->name('getCategoryServices');
 
-    Route::get('/requestprivate', function () {
-        return view('user.requestprivateservice');
-    })->name("requestprivate");
+
+    Route::get('/requestprivate/{id}', [RequestController::class, 'requestUserToFreelancer'])->name("requestprivate");
 
 
     // add or delete likes
