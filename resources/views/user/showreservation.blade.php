@@ -17,12 +17,10 @@ notification
 <link href="{{asset('assets/libs/jquery-bar-rating/themes/css-stars.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('assets/libs/jquery-bar-rating/themes/fontawesome-stars-o.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('assets/libs/jquery-bar-rating/themes/fontawesome-stars.css')}}" rel="stylesheet" type="text/css" />
-
 <link href="{{asset('assets/libs/@fullcalendar/core/main.min.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('assets/libs/@fullcalendar/daygrid/main.min.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('assets/libs/@fullcalendar/bootstrap/main.min.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('assets/libs/@fullcalendar/timegrid/main.min.css')}}" rel="stylesheet" type="text/css" />
-
+<link href="{{asset('assets/libs/@fullcalendar/daygrid/main.min.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('assets/libs/@fullcalendar/bootstrap/main.min.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('assets/libs/@fullcalendar/timegrid/main.min.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section("nosearch","none !important")
@@ -31,17 +29,13 @@ notification
 {{-- @include("layouts.component.modal.userresrvationrequest.surdeletereservation") --}}
 {{-- @include("layouts.component.modal.userresrvationrequest.rejectoffer") --}}
 {{-- @include("layouts.component.modal.userresrvationrequest.requestdelay") --}}
-{{-- @include("layouts.component.modal.userresrvationrequest.waitwithcancel") --}}
-{{-- @include("layouts.component.modal.userresrvationrequest.waitandinprogress") --}}
-{{-- @include("layouts.component.modal.userresrvationrequest.finished") --}}
-{{-- @include("layouts.component.modal.userresrvationrequest.completed") --}}
 {{-- @include("layouts.component.modal.userRequests.chat") --}}
 {{-- @include("layouts.component.modal.userRequests.review") --}}
 
 
 <div class="showrequest">
     <div class="container">
-        <div class="section-header ">
+        {{-- <div class="section-header ">
             <h2>reservations </h2>
         </div>
 
@@ -106,12 +100,12 @@ notification
                 <div class="modal fade" id="event-modal" tabindex="-1">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
+
                             <div class="modal-header py-3 px-4 border-bottom-0">
                                 <h5 class="modal-title" id="modal-title">Event</h5>
-
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
-
                             </div>
+
                             <div class="modal-body p-4">
                                 <form class="needs-validation" name="event-form" id="form-event" novalidate>
                                     <div class="row">
@@ -123,6 +117,7 @@ notification
                                                 <div class="invalid-feedback">Please provide a valid event name</div>
                                             </div>
                                         </div>
+
                                         <div class="col-12">
                                             <div class="mb-3">
                                                 <label class="form-label">Category</label>
@@ -154,16 +149,25 @@ notification
                     </div> <!-- end modal dialog-->
                 </div><!-- end modal-->
             </div>
-        </div>
+        </div> --}}
 
 
-<div class="section-header ">
-    <h3 class="text-black">Reservation List</h3>
+<div id="calendar">
+    <div id="calendar_header"><i class="icon-chevron-left"></i>
+        <h1></h1><i class="icon-chevron-right"></i>
+    </div>
+    
+    <div id="calendar_weekdays"></div>
+    <div id="calendar_content"></div>
 </div>
+
+
+    <div class="section-header ">
+        <h3 class="text-black">Reservation List</h3>
+    </div>
 
 @foreach ($reservations as $reservation)
 <div class="requesties d-flx flex-column pt-4">
-
 
 @if($reservation->status == 'Pending')
     <a href="#reservpending{{ $reservation->id }}" data-bs-toggle="modal" role="button"class="request d-flex flex-column px-3 py-3 position-relative mb-5">
@@ -174,9 +178,9 @@ notification
             <p class="status gray" data-color="C4C3C3">{{ $reservation->status }}<i class="fa-solid fa-circle px-2 "></i></p>
         </div>
 
-        <div class="d-flex ">
+        <div class="d-flex">
             <div class=" d-flex flex-column px-2">
-                <p class="m-0 text-black-50">reservation date</p>
+                <p class="m-0 text-black-50">Reservation Date</p>
                 <span>{{ $reservation->date_time }}</span>
             </div>
         </div>
@@ -185,16 +189,16 @@ notification
 
 
 
-
+@if ($reservation->status == 'Pending')
     <a href="#userReservationPendingAceptOrReject{{ $reservation->id }}" data-bs-toggle="modal" role="button"class="request d-flex flex-column px-3 py-3 position-relative mb-5">
-        <div class="d-flex justify-content-between align-items-baseline " style="margin-bottom: 35px;">
+        <div class="d-flex justify-content-between align-items-baseline" style="margin-bottom: 35px;">
             <div class="d-flex justify-content-between align-items-baseline">
                 <h3 class="reservation-id">#3412312</h3>
             </div>
             <p class="status gray" data-color="C4C3C3">{{ $reservation->status }}<i class="fa-solid fa-circle px-2 "></i></p>
         </div>
 
-        <div class="d-flex ">
+        <div class="d-flex">
             <div class=" d-flex flex-column px-2">
                 <p class="m-0 text-black-50">Reservation Date</p>
                 <span>{{ $reservation->date_time }}</span>
@@ -206,19 +210,23 @@ notification
             </div>
         </div>
     </a>
+@endif
 
-    <a data-bs-toggle="modal" href="#userreseravrtionwaitingwithcancel" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
+
+
+@if($reservation->status == 'Waiting')
+    <a href="#userreseravrtionwaitingwithcancel{{ $reservation->id }}" data-bs-toggle="modal" role="button"class="request d-flex flex-column px-3 py-3 position-relative mb-5">
         <div class="d-flex justify-content-between align-items-baseline " style="margin-bottom: 35px;">
             <div class="d-flex justify-content-between align-items-baseline">
                 <h3 class="reservation-id">#3412312</h3>
             </div>
-            <p class="status orange" data-color="C4C3C3">waiting<i class="fa-solid fa-circle px-2 "></i></p>
+            <p class="status orange" data-color="C4C3C3">{{ $reservation->status }}<i class="fa-solid fa-circle px-2 "></i></p>
         </div>
 
         <div class="d-flex ">
             <div class=" d-flex flex-column px-2">
-                <p class="m-0 text-black-50">reservation date</p>
-                <span>20/09/2010</span>
+                <p class="m-0 text-black-50">Reservation Date</p>
+                <span>{{ $reservation->date_time }}</span>
             </div>
 
             <div class=" d-flex flex-column px-2">
@@ -227,7 +235,11 @@ notification
             </div>
         </div>
     </a>
+@endif
 
+
+
+@if($reservation->status == 'Waiting')
     <a data-bs-toggle="modal" href="#userreservationwaitandinprogress" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
         <div class="d-flex justify-content-between align-items-baseline " style="margin-bottom: 35px;">
             <div class="d-flex justify-content-between align-items-baseline">
@@ -242,22 +254,26 @@ notification
                 <span>20/09/2010</span>
             </div>
 
-            <div class=" d-flex flex-column px-2">
+            <div class="d-flex flex-column px-2">
                 <p class="m-0">price</p>
                 <span>1211 SR</span>
             </div>
         </div>
     </a>
+@endif
 
-    <a data-bs-toggle="modal" href="#userreservationwaitandinprogress" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
+
+
+@if ($reservation->status == 'In Process')
+    <a href="#userreservationwaitandinprogress{{ $reservation->id }}" data-bs-toggle="modal" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
         <div class="d-flex justify-content-between align-items-baseline " style="margin-bottom: 35px;">
             <div class="d-flex justify-content-between align-items-baseline">
                 <h3 class="reservation-id">#3412312</h3>
             </div>
-            <p class="status orange" data-color="C4C3C3">in progress<i class="fa-solid fa-circle px-2 "></i></p>
+            <p class="status orange" data-color="C4C3C3">{{ $reservation->status }}<i class="fa-solid fa-circle px-2 "></i></p>
         </div>
 
-        <div class="d-flex ">
+        <div class="d-flex">
             <div class="d-flex flex-column px-2">
                 <p class="m-0">req.date</p>
                 <span>20/09/2010</span>
@@ -269,18 +285,23 @@ notification
             </div> --}}
 
             <div class=" d-flex flex-column px-2">
-                <p class="m-0">price</p>
+                <p class="m-0">Price</p>
                 <span>1211 SR</span>
             </div>
         </div>
     </a>
+@endif
 
-    <a data-bs-toggle="modal" href="#userfinishedreservation" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
+
+
+
+@if($reservation->status == 'Finished')
+    <a href="#userfinishedreservation{{ $reservation->id }}" data-bs-toggle="modal" role="button"class="request d-flex flex-column px-3 py-3 position-relative mb-5">
         <div class="d-flex justify-content-between align-items-baseline " style="margin-bottom: 35px;">
             <div class="d-flex justify-content-between align-items-baseline">
                 <h3 class="reservation-id">#3412312</h3>
             </div>
-            <p class="status finish" data-color="C4C3C3">finish<i class="fa-solid fa-circle px-2 finish "></i></p>
+            <p class="status finish" data-color="C4C3C3">{{ $reservation->status }}<i class="fa-solid fa-circle px-2 finish "></i></p>
         </div>
 
         <div class="d-flex ">
@@ -295,32 +316,39 @@ notification
             </div> --}}
 
             <div class=" d-flex flex-column px-2">
-                <p class="m-0">price</p>
+                <p class="m-0">Price</p>
                 <span>1211 SR</span>
             </div>
         </div>
     </a>
+@endif
 
+
+
+
+@if ($reservation->status == 'Completed')
     <a data-bs-toggle="modal" href="#usercompletedreservation" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
         <div class="d-flex justify-content-between align-items-baseline " style="margin-bottom: 35px;">
             <div class="d-flex justify-content-between align-items-baseline">
                 <h3 class="reservation-id">#3412312</h3>
             </div>
-            <p class="status text-black" data-color="C4C3C3">complete<i class="fa-solid fa-circle px-2 text-black "></i></p>
+            <p class="status text-black" data-color="C4C3C3">{{ $reservation->status }}<i class="fa-solid fa-circle px-2 text-black "></i></p>
         </div>
 
-        <div class="d-flex ">
+        <div class="d-flex">
             <div class="d-flex flex-column px-2">
                 <p class="m-0">req.date</p>
                 <span>20/09/2010</span>
             </div>
 
             <div class=" d-flex flex-column px-2">
-                <p class="m-0">price</p>
+                <p class="m-0">Price</p>
                 <span>1211 SR</span>
             </div>
         </div>
     </a>
+    @endif
+
 </div>
 </div>
 </div>
@@ -328,6 +356,11 @@ notification
 @include("layouts.component.modal.userRequests.payment")
 @include("layouts.component.modal.userresrvationrequest.reservpending")
 @include("layouts.component.modal.userresrvationrequest.offeracceptorreject")
+@include("layouts.component.modal.userresrvationrequest.waitwithcancel")
+@include("layouts.component.modal.userresrvationrequest.finished")
+@include("layouts.component.modal.userresrvationrequest.waitandinprogress")
+@include("layouts.component.modal.userresrvationrequest.completed")
+
 
 @endforeach
 @endsection

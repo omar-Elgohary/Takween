@@ -36,7 +36,26 @@ class ReservationController extends Controller
 
     public function show(Request $request)
     {
-        $reservations = Reservation::all();
+        $user_id = auth()->user()->id;
+        $reservations = Reservation::where('user_id', $user_id)->get();
         return view('user.showreservation', compact('reservations'));
+    }
+
+
+
+    public function freelancerReservations(Request $request)
+    {
+        $freelancer_id = auth()->user()->id;
+        $reservations = Reservation::where('freelancer_id', $freelancer_id)->get();
+        return view("freelancer.showreservation", compact('reservations'));
+    }
+
+
+    
+    public function changeStatus(Request $request , $id)
+    {
+        $reservation = Reservation::find($id);
+        Reservation::where('id' , $id)->update(['status' => $request->status]);
+        return back();
     }
 }
