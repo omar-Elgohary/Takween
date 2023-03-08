@@ -7,7 +7,7 @@
 @section("og-image")
 @endsection
 @section("title")
-home
+request public service
 @endsection
 @section("header")
 @endsection
@@ -36,7 +36,13 @@ home
                         onchange="console.log('change is firing')">
                         <option value="" selected disabled>Choose Category</option>
                         @foreach ($categories as $category)
+                        @if(app()->getLocale()=='ar')
+                            <option value="{{ $category->id }}"> {{ $category->title_ar }}</option>
+
+                            @else
                             <option value="{{ $category->id }}"> {{ $category->title_en }}</option>
+
+                            @endif
                         @endforeach
                     </select>
                     @error('category_id')<div class="alert alert-danger fs-small">{{ $message }}</div>@enderror
@@ -81,7 +87,7 @@ home
                     <input type="date" class="form-control @error('due_date') is-invalid @enderror" id="due_date" name="due_date">
                     @error('due_date')<div class="alert alert-danger">{{ $message }}</div>@enderror
                 </div>
-
+                   <input type="hidden"  name="type" value="public">
                 <button type="submit" class="btn btn-modal my-3 px-5 btn-model-primary ">request</button>
             </form>
         </div>

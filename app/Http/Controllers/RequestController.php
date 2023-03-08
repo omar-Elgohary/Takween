@@ -4,6 +4,7 @@ use App\Models\User;
 use App\Models\Category;
 use App\Models\Requests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -12,8 +13,8 @@ class RequestController extends Controller
 {
     public function index()
     {
-        $categories = Category::all();
-        return view('user.requestpublicservice', compact('categories'));
+        // $categories = Category::all();
+        // return view('user.requestpublicservice', compact('categories'));
     }
 
 
@@ -21,20 +22,29 @@ class RequestController extends Controller
     public function requestUserToFreelancer($id)
     {
         $freelancer = User::find($id);
-        return view('user.requestprivateservice', compact('freelancer'));
+        $categories=Category::all();
+        return view('user.requestprivateservice', compact('freelancer','categories'));
     }
 
+    public function requestpublicservice(){
 
+        $categories=Category::all();
+        return view('user.requestpublicservice', compact('categories'));
+    }
 
-    public function store(Request $request)
+// store public and private  requests
+    public function store(Request $request ,$freelancer_id=null)
     {
+       
         $this->validate($request, [
             'category_id' => 'required',
             'service_id' => 'required',
             'title' => 'required|string',
-            'attachment' => 'required|mimes:pdf,word',
+            'attachment' => 'required',
+            // 'attachment' => 'required|mimes:pdf,word',
             'description' => 'required',
             'due_date' => 'required|date',
+            'type'=>[\Illuminate\Validation\Rule::in(['public','private'])]
         ],[
             'category_id.required' => 'Category is required',
             'service_id.required' => 'Service is required',
@@ -45,19 +55,64 @@ class RequestController extends Controller
             'due_date.required' => 'Due Date is required',
         ]);
 
-        $data = $request->only('category_id', 'service_id', 'title', 'attachment', 'description', 'due_date');
-        $data['user_id'] = Auth::User()->id;
-        if($request->hasFile('attachment')){
-            // $data['attachment'] = Storage::disk('public')->put('attachments', $request->file('attachment'));
+       
+        if($request->type=='pulbic'){
+
+           $re= Requests::create([
+             'title'=>'title',
+             'service_id'=>'service_id',
+             'description'=>'description',
+             'due_date'=>'due_date',
+             
+            ]);
+
+         
+        }elseif($request->type=='private'){
+            $re= Requests::create([
+             'title'=>'title',
+             'service_id'=>'service_id',
+             'description'=>'description',
+             'due_date'=>'due_date',
+             'freelancer_id'=>$freelancer_id,
+            ]);
+
+        
+    
+
         }
-        Requests::create($data);
-        return redirect()->route('showpublicrequest');
+
+
+      
+        $name= explode(".",$request->file("attachment")->getCLientOriginalName())[0];
+       $size=number_format($request->file("attachment")->getSize()/ 1024,2);
+     
+       $type=$request->file("attachment")->getCLientOriginalExtension();
+        $file_extention = $request->file("attachment")->getCLientOriginalExtension();
+        $attachment_name=time(). ".".$file_extention;
+        $request->file("attachment")->move(public_path('front/upload/files/'),$attachment_name);
+       
+        $re->file()->create([
+            'name'=> $name,
+            'type'=>$type,
+            'url'=> $attachment_name,
+            'size'=>$size,
+        ]);
+
+        return  redirect()->back()->with( [messsage => 'ok'] );
+
+
     }
 
 
     public function getCategoryServices($id)
     {
-        $services = DB::table("services")->where("category_id" , $id)->pluck("service_en" , "id");
+
+        if(app()->getLocale()=='ar'){
+            $services = DB::table("services")->where("category_id" , $id)->pluck("service_ar" , "id");
+        }else{
+            $services = DB::table("services")->where("category_id" , $id)->pluck("service_en" , "id");
+        }
+        
         return json_encode($services);
     }
 
@@ -65,6 +120,7 @@ class RequestController extends Controller
     public function publicRequests()
     {
         $requests = Requests::where('type', 'public')->where("user_id", auth()->user()->id)->get();
+
         return view('user.showpublicrequest', compact('requests'));
     }
 
@@ -72,6 +128,7 @@ class RequestController extends Controller
     public function privateRequests()
     {
         $requests = Requests::where('type', 'private')->where("user_id", auth()->user()->id)->get();
+      
 
         return view('user.showprivaterequest', compact('requests'));
     }
