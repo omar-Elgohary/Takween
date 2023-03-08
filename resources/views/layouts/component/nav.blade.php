@@ -24,7 +24,9 @@
                 </div>
             </div>
 
-
+            <a href="{{ route('home') }}" class=" d-inline-block align-self-center ms-2 px-2">Home</a>
+            <a href="{{ route('products') }}"class=" d-inline-block align-self-center  ms-2 px-2">products</a>
+            <a href="{{ route('freelancers') }}"class=" d-inline-block align-self-center  ms-2 px-2">freelancers</a>
 
             @if (!auth()->check())
                 <a class="d-inline-block align-self-center" href="#" class="btn" data-bs-toggle="modal"
@@ -37,9 +39,7 @@
 
             @if (auth()->check())
             @if (auth()->user()->type=="customer")
-            <a href="{{ route('home') }}" class=" d-inline-block align-self-center ms-2 px-2">Home</a>
-            <a href="{{ route('products') }}"class=" d-inline-block align-self-center  ms-2 px-2">products</a>
-            <a href="{{ route('freelancers') }}"class=" d-inline-block align-self-center  ms-2 px-2">freelancers</a>
+           
 
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
@@ -74,9 +74,7 @@
             </div>
 
             @elseif (auth()->user()->type=="freelancer")
-            <a href="{{ route('home') }}" class=" d-inline-block align-self-center ms-2 px-2">Home</a>
-            <a href="{{ route('products') }}"class=" d-inline-block align-self-center  ms-2 px-2">products</a>
-            <a href="{{ route('freelancers') }}"class=" d-inline-block align-self-center  ms-2 px-2">freelancers</a>
+           
 
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
