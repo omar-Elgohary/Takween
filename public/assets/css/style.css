@@ -1621,8 +1621,10 @@ font-size: 1rem;
 }
 
 .freelanc .image img{
-    width: 136px;
-    height: 157px;
+    /* width: 136px;
+    height: 157px; */
+    width: 120px;
+    height: 129px;
     border-radius: 12px;
     position: relative;
     top: -43px;
@@ -1631,6 +1633,10 @@ font-size: 1rem;
 .freelanc .info{
     padding-top: 10px;
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
 }
 .freelanc .info .name{
     display: flex;
@@ -1666,6 +1672,7 @@ font-size: 1rem;
     font-size: 20px;
     padding: 10px 0;
     font-weight: 100;
+    flex-grow: 1;
 }
 
 .freelanc .service{
@@ -2199,7 +2206,7 @@ font-size: 20px;
  .hest{
     margin: 30px;
         max-width: 800px;
-        height: 282px;
+        /* height: 282px; */
         border-radius: 12px;
         overflow-y: auto;
         overflow-x: hidden;
@@ -2432,6 +2439,7 @@ border-radius: 12px;
 }
 .requestlink a{
 position: relative;
+cursor: pointer !important;
 }
 .requestlink a:active,.requestlink a:link{
     color:#333;

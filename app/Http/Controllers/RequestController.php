@@ -36,6 +36,8 @@ class RequestController extends Controller
     public function store(Request $request ,$freelancer_id=null)
     {
        
+ 
+        $user_id= auth()->user()->id;
         $this->validate($request, [
             'category_id' => 'required',
             'service_id' => 'required',
@@ -56,36 +58,41 @@ class RequestController extends Controller
         ]);
 
        
-        if($request->type=='pulbic'){
+        if($request->type=='public'){
 
            $re= Requests::create([
              'title'=>'title',
-             'service_id'=>'service_id',
-             'description'=>'description',
-             'due_date'=>'due_date',
+             'category_id'=>$request->category_id,
+             'service_id'=>$request->service_id,
+             'description'=>$request->description,
+             'due_date'=>$request->due_date,
+             'user_id'=>$user_id,
+             'type'=>'public',
              
             ]);
-
+           
+            
          
         }elseif($request->type=='private'){
             $re= Requests::create([
              'title'=>'title',
-             'service_id'=>'service_id',
-             'description'=>'description',
-             'due_date'=>'due_date',
+             'category_id'=>$request->category_id,
+             'service_id'=>$request->service_id,
+             'description'=>$request->description,
+             'due_date'=>$request->due_date,
              'freelancer_id'=>$freelancer_id,
+             'type'=>'private',
             ]);
 
         
     
 
         }
-
+       
 
       
         $name= explode(".",$request->file("attachment")->getCLientOriginalName())[0];
        $size=number_format($request->file("attachment")->getSize()/ 1024,2);
-     
        $type=$request->file("attachment")->getCLientOriginalExtension();
         $file_extention = $request->file("attachment")->getCLientOriginalExtension();
         $attachment_name=time(). ".".$file_extention;
@@ -98,7 +105,7 @@ class RequestController extends Controller
             'size'=>$size,
         ]);
 
-        return  redirect()->back()->with( [messsage => 'ok'] );
+        return  redirect()->back()->with( ['messsage' => 'ok'] );
 
 
     }
@@ -119,7 +126,7 @@ class RequestController extends Controller
 
     public function publicRequests()
     {
-        $requests = Requests::where('type', 'public')->where("user_id", auth()->user()->id)->get();
+        $requests = Requests::where('type', 'public')->where("user_id", auth()->user()->id)->orderBy('status')->get();
 
         return view('user.showpublicrequest', compact('requests'));
     }
@@ -127,7 +134,7 @@ class RequestController extends Controller
 
     public function privateRequests()
     {
-        $requests = Requests::where('type', 'private')->where("user_id", auth()->user()->id)->get();
+        $requests = Requests::where('type', 'private')->where("user_id", auth()->user()->id)->orderBy('status')->get();
       
 
         return view('user.showprivaterequest', compact('requests'));
