@@ -24,7 +24,7 @@ notification
 
 
 {{-- @include("layouts.component.modal.freelancerRequests.pendingwithsendoffer") --}}
-@include("layouts.component.modal.freelancerRequests.inprogress")
+{{-- @include("layouts.component.modal.freelancerRequests.inprogress") --}}
 {{-- @include("layouts.component.modal.freelancerRequests.offer") --}}
 
 
@@ -59,12 +59,103 @@ notification
           
       
 
-@foreach ( $privates as $request)
-{{$request->id}}-
+@foreach ( $result as $request)
+
+
+@if($request->status=='Pending')
+<a data-bs-toggle="modal" href="#freelancerallstatus{{$request->id}}" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
+@elseif($request->status=='In Process')
+
+<a data-bs-toggle="modal" href="#freelancerorderinprogress{{$request->id}}" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
+
+@elseif($request->status=='Finished')
+<a data-bs-toggle="modal" href="#freelancerallstatus{{$request->id}}" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
+@elseif($request->status=='Completed')
+<a data-bs-toggle="modal" href="#freelancerallstatus{{$request->id}}" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
+@else
+
+<a data-bs-toggle="modal" href="#freelancerallstatus{{$request->id}}" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
+@endif
+
+
+<div class="d-flex justify-content-between align-items-baseline">
+  <div class="frelacereq d-flex ">
+    <img src="{{ asset("Admin3/assets/images/users/".App\Models\User::where('id',$request->user_id)->first()->profile_image) }}" class="img-fluid rounded-top" alt="">
+      <div class="freelanereq mx-2">
+      <h3 class="fw-600">{{App\Models\User::find($request->user_id)->name}}</h3>
+        <span class="text-black-50">#123123</span>
+      </div>
+  </div>
+  @if($request->status == 'Pending')
+  <p class="status gray" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
+@elseif($request->status == 'In Process')
+  <p class="status gray text-warning" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
+@elseif($request->status == 'Finished')
+  <p class="status finish "  data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
+@elseif($request->status == 'Completed')
+  <p class="status gray text-black" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
+  @else
+  <p class="status gray text-black" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
+@endif
+</div>
+<div class="d-flex ">
+    <div class="d-flex flex-column px-2">
+       <p class="m-0">req.date</p>
+        <span>{{date_format($request->created_at,"Y-m-d") }}</span>
+    </div>
+    <div class=" d-flex flex-column px-2">
+        <p class="m-0">Due date</p>
+        <span>{{ $request->due_date }}</span>
+    <div>
+</div>
+
+    </div>
+
+    
+@if($request->offer->where('freelancer_id',auth()->user()->id)->first()!=null )
+<div class="d-flex flex-column px-2">
+    <p class="m-0">price</p>
+    <span >{{$request->offer->where('freelancer_id',auth()->user()->id)->first()->price }}</span>
+    <div>
+    </div>
+</div>
+@endif
+
+ </div>
+
+ 
+</a>
+
+
+
+{{-- modal --}}
+
+@if($request->status=='Pending')
+@include("layouts.component.modal.freelancerRequests.allstatus")
+@include("layouts.component.modal.userRequests.chat")
+@elseif($request->status=='In Process')
+
+@include("layouts.component.modal.freelancerRequests.inprogress")
+@include("layouts.component.modal.userRequests.chat")
+
+@elseif($request->status=='Finished')
+@include("layouts.component.modal.freelancerRequests.allstatus")
+@include("layouts.component.modal.userRequests.chat")
+@elseif($request->status=='Completed')
+@include("layouts.component.modal.freelancerRequests.allstatus")
+@include("layouts.component.modal.userRequests.chat")
+
+@else
+@include("layouts.component.modal.freelancerRequests.allstatus")
+@include("layouts.component.modal.userRequests.chat")
+
+@endif
+
+
 @endforeach
     
 
-    <a data-bs-toggle="modal" href="#freelancerorderinprogress" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
+    {{-- <a data-bs-toggle="modal" href="#freelancerorderinprogress" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
             <div class="d-flex justify-content-between align-items-baseline">
               <div class="frelacereq d-flex ">
                 <img src="{{asset("assets/images/vicky-hladynets-C8Ta0gwPbQg-unsplash.png")}}" class="img-fluid rounded-top" alt="">
@@ -175,7 +266,7 @@ notification
              </div>
 
              
-    </a>
+    </a> --}}
 
        </div>
 </div>

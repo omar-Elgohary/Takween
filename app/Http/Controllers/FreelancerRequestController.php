@@ -10,10 +10,43 @@ class FreelancerRequestController extends Controller
     
 
     public function  getneworder(){
-       $id=auth()->user()->id;
-        $privates =  Requests::where('type','private')->where("status",'Pending')->where('freelancer_id',$id)->get();
-        $publics=Requests::where('type','public')->where('status','Pending'
+       $user_id=auth()->user()->id;
+       $privates=[];
+       $publics=[];
+
+        $privatesx =  Requests::where('type','private')->where("status",'Pending')->where('freelancer_id',$user_id)->get();
+
+
+
+        foreach(  $privatesx  as $p){
+
+            if($p->type =='private' && $p->status =='Pending' && $p->offer->where('freelancer_id',$user_id)->first()!=null){
+                
+                if($p->type =='private' && $p->status =='Pending' && in_array($p->offer->where('freelancer_id',$user_id)->first()->status,['accept','pending'])){
+                    continue;
+                }
+              
+
+         } 
+        
+            array_push($privates,$p);
+        }
+        $publicsx=Requests::where('type','public')->where('status','Pending'
         )->whereNull('freelancer_id')->get();
+
+
+        foreach( $publicsx as $p){
+
+            if($p->type =='public' && $p->status =='Pending' && $p->offer->where('freelancer_id',$user_id)->first()!=null){
+                if($p->type =='public' && $p->status =='Pending' && in_array($p->offer->where('freelancer_id',$user_id)->first()->status,['accept','pending'])){
+                    continue;
+                }
+              
+
+         } 
+
+            array_push($publics,$p);
+        }
 
         // dd($publics);
         return view('freelancer.neworder',compact('privates','publics'));
@@ -66,7 +99,32 @@ if($flag){
     public function getmywork(){
         $user_id=auth()->user()->id; 
 
-        $privates= Requests::where();
+        $privates= Requests::where(function($q)use( $user_id){
+           $q->where('freelancer_id',$user_id)->orWhere('freelancer_id',null);
+        })->orderBy('status')->get();
+
+        $result=[];
+
+
+        foreach(  $privates as $p){
+
+            if( $p->status =='Pending' && $p->offer->where('freelancer_id',$user_id)->first()==null){
+
+                continue;
+
+         } elseif( $p->status =='Pending' && in_array($p->offer->where('freelancer_id',$user_id)->first()->status,['reject'])){
+            continue;
+
+            }
+
+            array_push($result,$p);
+        }
+     
+
+
+   
+
+
 
         // $privates= $privatesw->offer->get();
 //         $privates = Requests::where('type','private')->where(function($q){
@@ -92,6 +150,6 @@ if($flag){
         //             })->get();
 
         //  dd($privates);
-        return view('freelancer.mywork',compact('privates'));
+        return view('freelancer.mywork',compact('result'));
     }
 }

@@ -27,7 +27,7 @@
               </div>
           </div>
           <div class="d-flex flex-column px-5">
-            <div class="d-flex justify-content-between">
+           f <div class="d-flex justify-content-between">
                 <p class=" mb-0" >{{__('request.customer name')}}</p>
                 <p class="fw-900 mb-0">
                {{APP\Models\User::find($request->user_id)->name}}
@@ -45,7 +45,7 @@
             <div class="d-flex justify-content-between">
                 <p class=" mb-0">{{__('request.service')}}</p>
                 <p class="fw-900 mb-0">
-                  @if (App::getLocale() =="ar")
+                  @if(App::getLocale() =="ar")
                   {{ App\Models\Service::where('id', $request->service_id)->first()->service_ar }}</p>
                   @else
                   {{ App\Models\Service::where('id', $request->service_id)->first()->service_en }}</p>

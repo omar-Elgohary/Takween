@@ -1,4 +1,4 @@
-<div class="modal offers fade" id="freelancerorderinprogress{{$request->id}}" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" tabindex="-1">
+<div class="modal offers fade" id="freelancerallstatus{{$request->id}}" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header ">
@@ -10,7 +10,20 @@
           <div class="div d-flex justify-content-start px-4">
               <div class="d-flex flex-column">
                 <h3 class="mb-0 font-bold">#324234</h3>
-                <span class="inprogress">{{$request->status}}</span>
+
+                
+                @if ( $request->status =='Cancel by customer')
+                <span class="cancel  text-danger">cancel</span>
+                @elseif($request->status =='Finished')
+                <span class="finish ">{{$request->status}}</span>
+                @elseif($request->status =='Completed')
+                <span class="text-black text-warning">{{$request->status}}</span>
+                @elseif($request->status =='Pending')
+                <span class="text-black-50 text-warning">{{$request->status}}</span>
+                @else
+                
+                @endif
+                {{-- <span class="inprogress">{{$request->status}}</span> --}}
               </div>
               <div class="align-slef-end" style="
     flex-grow: 1;
@@ -110,11 +123,7 @@
   </div>
   
           </div>
-          <div class="btn-contianer d-flex flex-column justify-between align-items-center my-3">
-            <button class=" btn-modal btn-model-primary border-0" type="button" >finish</button>
-            
-           
-             </div>
+          
          
 
        
