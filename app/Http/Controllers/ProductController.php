@@ -88,7 +88,12 @@ class ProductController extends Controller
 
     public function getCategoryServices($id)
     {
-        $services = DB::table("services")->where("category_id" , $id)->pluck("service_en" , "id");
+        if(APP::getLocale()=='ar'){
+            $services = DB::table("services")->where("category_id" , $id)->pluck("service_ar" , "id");
+        }else{
+            $services = DB::table("services")->where("category_id" , $id)->pluck("service_en" , "id");
+        }
+    
         return json_encode($services);
     }
 
@@ -101,4 +106,20 @@ class ProductController extends Controller
         $likes = Like::all();
         return view('visitor.products', compact('products', 'categories', 'services', 'likes'));
     }
+
+
+
+
+    // user show product 
+
+
+    function usershowproduct($id){
+
+       $product= Product::findOrFail($id);
+
+
+       return view('visitor.product',compact('product'));
+    }
 }
+
+

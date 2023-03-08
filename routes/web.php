@@ -23,9 +23,7 @@ Route::get('/', [HomeController::class, 'index'])->name("home");
 Route::get('products', [ProductController::class, 'displayAllProducts'])->name('products');
 
 
-Route::get('/product', function () {
-    return view('visitor.product');
-})->name("product");
+Route::get('/product{id}', [ProductController::class, 'usershowproduct'])->name("product");
 
 Route::get('/photo', function () {
     return view('visitor.photo');
@@ -182,6 +180,7 @@ Route::prefix("user")->name("user.")->middleware('auth')->group(function(){
 
     Route::resource('/chat',ChatController::class);
 
+   
 });
 
 ########################################## End Customer ##############################################

@@ -81,7 +81,7 @@
 
         <div class="products">
             @foreach ($products as $product)
-                <div class="card">
+                <a  href='{{route('product',$product->id)}}'class="card">
                     <div class="image-product">
                         <img src="{{asset('assets/images/product/'.$product->img1) }}" class="card-img-top" alt="product image">
                               @auth
@@ -121,7 +121,7 @@
                             <span>{{ $product->likes->count() }}</span>
                         </div>
                     </div>
-                </div> <!-- card -->
+                </a> <!-- card -->
                 @endforeach
             </div>
 
