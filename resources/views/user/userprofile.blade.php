@@ -50,7 +50,7 @@ profile page
             </div>
         </div>
 
-        <div class="waltinfo d-flex flex-sm-wrap">
+        <div class="waltinfo d-flex flex-sm-wrap mb-5">
             <div class="flex-grow-1 cash">
                 <div class="section-header ">
                     <h2>wallet </h2>
