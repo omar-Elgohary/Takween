@@ -25,9 +25,6 @@
             </div>
 
 
-            <a href="{{route('home')}}" class=" d-inline-block align-self-center ms-2 px-2">Home</a>
-            <a href="{{route('products')}}"class=" d-inline-block align-self-center  ms-2 px-2">products</a>
-            <a href="{{route('freelancers')}}"class=" d-inline-block align-self-center  ms-2 px-2">freelancers</a>
 
             @if (!auth()->check())
                 <a class="d-inline-block align-self-center" href="#" class="btn" data-bs-toggle="modal"
@@ -40,6 +37,10 @@
 
             @if (auth()->check())
             @if (auth()->user()->type=="customer")
+            <a href="{{ route('home') }}" class=" d-inline-block align-self-center ms-2 px-2">Home</a>
+            <a href="{{ route('products') }}"class=" d-inline-block align-self-center  ms-2 px-2">products</a>
+            <a href="{{ route('freelancers') }}"class=" d-inline-block align-self-center  ms-2 px-2">freelancers</a>
+
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -55,13 +56,12 @@
 
                     <a class="dropdown-item" href="{{ route('user.profile') }}"><i class="uil uil-user-circle font-size-18 align-middle text-muted me-1"></i> <span class="align-middle">Profile</span></a>
                     @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                    
+
                     @if($localeCode!=app()->getLocale())
                         <a class="dropdown-item" rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}"
                         <i class="fa-solid fa-solid fa-earth-americas font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">language ({{ $properties['native'] }})</span></a>
-                    
-                       
                    @endif
+
                 @endforeach
                     <a class="dropdown-item d-block" href="{{route("user.notification")}}"><i class="uil-bell font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">notification</span> <span class="badge  rounded-pill mt-1 ms-2">03</span></a>
                     <a class="dropdown-item" href="{{route("user.reservations")}}"><i class="fa-regular fa-calendar font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">reservation</span></a>
@@ -74,6 +74,10 @@
             </div>
 
             @elseif (auth()->user()->type=="freelancer")
+            <a href="{{ route('home') }}" class=" d-inline-block align-self-center ms-2 px-2">Home</a>
+            <a href="{{ route('products') }}"class=" d-inline-block align-self-center  ms-2 px-2">products</a>
+            <a href="{{ route('freelancers') }}"class=" d-inline-block align-self-center  ms-2 px-2">freelancers</a>
+
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

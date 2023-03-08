@@ -35,13 +35,12 @@
             <h4>Services</h4>
             <ul class="subcategorys">
                 <li class="d-flex"><button type="button" id="closesubcategory">
-                    <i class="fa fa-arrow-left"></i>
-                   </button></li>
-            @foreach ($services as $service)
-
-                    <li><a href="#">{{ $service->service_en }}</a></li>
-                </ul>
-            @endforeach
+                <i class="fa fa-arrow-left"></i>
+                </button></li>
+                @foreach ($services as $service)
+                <li><a href="#">{{ $service->service_en }}</a></li>
+            </ul>
+                @endforeach
         </div>
 
         <div class="product-table" >
@@ -53,7 +52,6 @@
                     </button>
                     <span class=" px-2">All</span>
                 </div>
-
 
             <div class="filter-items">
                 <form action="">
@@ -79,14 +77,16 @@
             </div>
         </div>
 
+
         <div class="products">
             @foreach ($products as $product)
+            @if(Auth::user()->id != $product->freelancer_id)
                 <div class="card">
                     <div class="image-product">
                         <img src="{{asset('assets/images/product/'.$product->img1) }}" class="card-img-top" alt="product image">
-                              @auth
+                            @auth
                         <button type="button" data-type="product" data-id="{{$product->id}}"
-                            
+
                             onclick="likes(this)"
                         class="hart   @if ($product->likes->where("user_id",auth()->user()->id)->count())
                                 active
@@ -94,17 +94,11 @@
                                @else
                                <button  class="hart" type="button" data-bs-target="#login" data-bs-toggle="modal"><i class="fa fa-heart"></i></button>
                               @endauth
-
-
                               @auth
-                                  
                               <button class="addtochart"  data-id="{{$product->id}}" onclick="addcart(this)">add to cart</button>
                               @else
                               <button class="addtochart" >add to cart</button>
                               @endauth
-                          
-                       
-                       
                     </div>
 
                     <div class="card-body">
@@ -122,26 +116,23 @@
                         </div>
                     </div>
                 </div> <!-- card -->
+                @endif
                 @endforeach
             </div>
 
             <div class="text-end p-4">
                 {{ $products->links() }}
             </div>
-    </div>
+        </div>
     </div>
 </div>
 @endsection
 
 @section("js")
-    <script>
-        $(".filter-button").click(function(){
-
-        
-            $(".filter-items").toggle();
-        });
-
-
+<script>
+    $(".filter-button").click(function(){
+        $(".filter-items").toggle();
+    });
 
 function likes(e){
 // $(this).toggleClass("active");
@@ -160,13 +151,9 @@ $.ajax({
         $(e).addClass("active");
     }else if(data['action']=="delete"){
         $(e).removeClass("active");
-      
     }
-  }
-
-  });
-
-
+    }
+});
 }
 
 function addcart(e){
@@ -185,10 +172,8 @@ function addcart(e){
     }else if(data['action']=="delete"){
         $(e).removeClass("active");
     }
-  }
-
-  });
 }
-    
-    </script>
+});
+}
+</script>
 @endsection

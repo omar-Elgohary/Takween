@@ -55,6 +55,7 @@ freelancers
         </div>
 
     @foreach ($freelancers as $freelancer)
+    @if (Auth::user()->id != $freelancer->id)
         <a class="freelanc" href="{{ route('showFreelancerDetails', $freelancer->id) }}">
             <div class="image">
                 <img src="{{ asset("Admin3/assets/images/users/".$freelancer->profile_image) }}" alt="">
@@ -93,6 +94,7 @@ freelancers
                 </div>
             </div>
         </a>
+    @endif
     @endforeach
         </div>
     </div>

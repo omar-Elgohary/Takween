@@ -81,7 +81,7 @@ Route::prefix("freelancer")->name("freelanc.")->middleware('auth','is_freelancer
     //     return view("freelancer.product");
     //     })->name("product");
 
-    Route::resource('product',ProductController::class);
+    Route::resource('product', ProductController::class);
 
     // get all services of one category
     Route::get('category/{id}', [ProductController::class, 'getCategoryServices'])->name('getCategoryServices');
