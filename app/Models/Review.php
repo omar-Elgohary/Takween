@@ -9,5 +9,10 @@ class Review extends Model
 {
     use HasFactory;
 
+    protected $guarded=[];
+
+    function reviewsable(){
+        return $this->morphTo();
+    }
     
 }

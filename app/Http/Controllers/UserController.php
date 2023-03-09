@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Photo;
+use App\Models\Review;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -37,7 +38,8 @@ class UserController extends Controller
         $freelancer = User::find($id);
         $products = Product::where('freelancer_id' , $id)->get();
         $photos = Photo::where('freelancer_id' , $id)->get();
-        return view('visitor.freelancer', compact('freelancer', 'products', 'photos'));
+       $reviews=Review::where('freelancer_id',$id)->simplePaginate(10);
+        return view('visitor.freelancer', compact('freelancer', 'products', 'photos','reviews'));
     }
 
 // show user files

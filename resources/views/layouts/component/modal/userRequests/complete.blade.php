@@ -195,7 +195,7 @@
                     </div>
 
                     <p>
-                        {{App\Models\Requests::find($request->id)->review->first()->pragraph}}
+                        {{$request->review->first()->pragraph}}
                     </p>
                 </div>
 

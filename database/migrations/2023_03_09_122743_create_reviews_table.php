@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('freelancer_id')->references('id')->on('users')->cascadeOnDelete();
             $table->integer('rate');
             $table->text('pragraph');
-            $table->morphs("filesable");
+            $table->morphs("reviewsable");
             
             $table->timestamps();
         });

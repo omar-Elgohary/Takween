@@ -96,7 +96,13 @@ freelancers
                         <span>{{ $freelancer->name }}</span>
                         <div class="rate">
                             <i class="fa fa-star"></i>
-                            <span>4,5</span>
+                            <span>
+                                @if( App\Models\Review::select('rate')->where('freelancer_id',$freelancer->id)->count()>0)
+                                {{App\Models\Review::select('rate')->where('freelancer_id',$freelancer->id)->sum('rate')/  App\Models\Review::select('rate')->where('freelancer_id',$freelancer->id)->count()}}
+                            @else
+  {{App\Models\Review::select('rate')->where('freelancer_id',$freelancer->id)->count()}}
+                            @endif
+                            </span>
                         </div>
                     </div>
         
@@ -110,7 +116,7 @@ freelancers
                 <div class="totals">
                     <div class="projects">
                         <i class="fa-solid fa-list-check"></i>
-                        <p>{{ App\Models\Requests::where('freelancer_id', $freelancer->id)->count() }}<sub>projects</sub></p>
+                        <p>{{ App\Models\Requests::where('freelancer_id', $freelancer->id)->where('status','Completed')->count() }}<sub>projects</sub></p>
                     </div>
         
                     <div class="productstotal">

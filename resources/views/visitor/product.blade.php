@@ -43,11 +43,17 @@ product
                                         <img src="{{ asset('Admin3/assets/images/users/'.App\Models\User::where('id', $product->freelancer_id)->first()->profile_image) }}" >
                                   
                                 </div>
-                                 <p class="card-text ">{{\APP\models\User::find($product->freelancer_id)->name}} <span class="text-black-50 px-2">|</span></p>
+                                 <p class="card-text ">{{\APP\Models\User::find($product->freelancer_id)->name}} <span class="text-black-50 px-2">|</span></p>
                               </div>
                               <div  class="freelacer-rate">
                                   <i class="fa-solid fa-star align-self-center"></i>
-                                  <span>{{\APP\models\User::find($product->freelancer_id)->review}}</span>
+                                  <span>
+                                    @if( App\Models\Review::select('rate')->where('freelancer_id',$product->freelancer_id)->count()>0)
+                                    {{App\Models\Review::select('rate')->where('freelancer_id',$product->freelancer_id)->sum('rate')/  App\Models\Review::select('rate')->where('freelancer_id',$product->freelancer_id)->count()}}
+                                @else
+{{App\Models\Review::select('rate')->where('freelancer_id',$product->freelancer_id)->count()}}
+                                @endif
+                                </span>
                               </div>
                                 </div>
                                 
