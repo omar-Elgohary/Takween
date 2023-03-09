@@ -281,7 +281,7 @@ font-size: 30px;
     color: var(--primary-color);
 }
 .modal .modal-body .input-icon i{
-    color: var(--orange-color);
+    color: #F8B792;
     position: absolute;
     left:0;
     bottom:-3px;

@@ -16,9 +16,11 @@ return new class extends Migration
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
             $table->foreignId("user_id")->references('id')->on('users');
-            $table->foreignId('requests_id')->references('id')->on('requests')->cascadeOnDelete();
+            $table->foreignId('freelancer_id')->references('id')->on('users')->cascadeOnDelete();
             $table->integer('rate');
             $table->text('pragraph');
+            $table->morphs("filesable");
+            
             $table->timestamps();
         });
     }

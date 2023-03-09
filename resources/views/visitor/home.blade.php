@@ -16,9 +16,15 @@ home
 
 @section("content")
 
+@auth
 <a class="addrequesticon" href="{{route('user.requestpublic')}}">
     <i class="fa-solid fa-plus"></i>
+</a>  
+@else
+<a class="addrequesticon" href="#login2"  data-bs-toggle="modal">
+    <i class="fa-solid fa-plus"></i>
 </a>
+@endauth
 
 <div class="messages pt-3">
     <div class="container py-3">
