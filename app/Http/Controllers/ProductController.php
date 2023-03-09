@@ -100,11 +100,86 @@ class ProductController extends Controller
 
     public function displayAllProducts()
     {
-        $products = Product::paginate(30);
-        $categories = Category::all();
-        $services = Service::all();
-        $likes = Like::all();
-        return view('visitor.products', compact('products', 'categories', 'services', 'likes'));
+           $filter=[];
+
+        if(request()->cat_id && request()->subcat_id){
+            $products = Product::where('cat_id',request()->cat_id)->where('service_id',request()
+            ->subcat_id)->get();
+            $categories = Category::all();
+            
+            if(request('productsearch')!=null){
+              
+            
+            if(in_array('newest',request('productsearch'))){
+                $products=$products->sortBy('created_at');
+                array_push($filter,'newest'); 
+            }
+            if(in_array('highestrating',request('productsearch'))){
+                $products=$products->sortBy(function($item){
+                    return $item->likes()->count();
+                });
+                array_push($filter,'highestrating'); 
+            }
+            if(in_array('pricelowtoheight',request('productsearch'))){
+                $products=$products->sortByDesc('price');
+                array_push($filter,'pricelowtoheight'); 
+            }
+
+        }else{
+          
+           array_push($filter,'All'); 
+        }
+            return view('visitor.products', ['products'=>$products, 'categories'=>$categories,'cat_id'=>request()->cat_id,'subcat_id'=>request()->subcat_id,'filter'=>$filter]);
+
+        }elseif(request()->cat_id ){
+            $products = Product::where('cat_id',request()->cat_id)->get();
+            $categories = Category::all();
+            if(request('productsearch')!=null){
+                
+            
+                if(in_array('newest',request('productsearch'))){
+                    $products=$products->sortBy('created_at');
+                }
+                if(in_array('highestrating',request('productsearch'))){
+                    $products=$products->sortBy(function($item){
+                        return $item->likes()->count();
+                    });
+                }
+                if(in_array('pricelowtoheight',request('productsearch'))){
+                    $products=$products->sortByDesc('price');
+                }
+    
+            }else{
+                array_push($filter,'All'); 
+            }
+           
+            return view('visitor.products', ['products'=>$products, 'categories'=>$categories,'cat_id'=>request()->cat_id,'filter'=>$filter]);
+
+        }else{
+            $products = Product::all();
+            $categories = Category::all();
+            if(request('productsearch')!=null){
+            
+                if(in_array('newest',request('productsearch'))){
+                    $products=$products->sortBy('created_at');
+                }
+                if(in_array('highestrating',request('productsearch'))){
+                    $products=$products->sortBy(function($item){
+                        return $item->likes()->count();
+                    });
+                }
+                if(in_array('pricelowtoheight',request('productsearch'))){
+                    $products=$products->sortByDesc('price');
+                }
+    
+            }else{
+                array_push($filter,'All'); 
+            }
+            return view('visitor.products', compact('products', 'categories' ,'filter'));
+        }
+       
+       
+       
     }
 
 
@@ -116,6 +191,8 @@ class ProductController extends Controller
     function usershowproduct($id){
 
        $product= Product::findOrFail($id);
+
+       
 
 
        return view('visitor.product',compact('product'));

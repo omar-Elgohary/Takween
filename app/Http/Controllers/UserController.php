@@ -1,8 +1,9 @@
 <?php
 namespace App\Http\Controllers;
 use App\Models\User;
-use App\Models\Product;
 use App\Models\Photo;
+use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -18,8 +19,16 @@ class UserController extends Controller
 
     public function allFreelancers()
     {
-        $freelancers = User::where('type', 'freelancer')->get();
-        return view("visitor.freelancers", compact('freelancers'));
+        $categories=Category::all();
+        if(request()->category){
+
+
+        }else{
+            $freelancers = User::where('type', 'freelancer')->get();
+        }
+       
+
+        return view("visitor.freelancers", compact('freelancers','categories'));
     }
 
 
@@ -31,7 +40,7 @@ class UserController extends Controller
         return view('visitor.freelancer', compact('freelancer', 'products', 'photos'));
     }
 
-
+// show user files
     public function FreelancerFiles($id)
     {
         $freelancer = User::find($id);

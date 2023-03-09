@@ -1144,10 +1144,15 @@ text-align: center;
     list-style-type: none;
 
 }
+
+.category-table .active{
+    color:var(--orange-color);
+}
 @media(max-width:767px){
     .category-table .category{
          display: flex;
          gap:5px;
+         overflow-x: scroll;
     }
 
     .products-page .container-fluid .category-table {
@@ -1160,7 +1165,7 @@ text-align: center;
         margin-right: 0;
         margin-bottom: 47px;
         text-align: center;
-        overflow-x: auto;
+     
 
     }
     .products-page .container-fluid .category-table .category > li  a  {
@@ -1176,10 +1181,18 @@ text-align: center;
             left:0;
             width: 100%;
             background-color: #FBFBFB;
-            display: flex;
-            flex-direction: column;
+         
 
            }
+}
+
+@media(min-width:767px){
+
+    .products-page .container-fluid .category-table{
+        overflow-y:auto;
+        height: 600px;;
+    }
+
 }
 
 .products-page  .product-table {
@@ -1207,6 +1220,7 @@ text-align: center;
 
     .products-page .category-table {
         width: 100%;
+        background-color: #fff !important;
 
     }
 
@@ -1614,7 +1628,8 @@ font-size: 1rem;
     box-shadow: 1px 2px 4px #777777a2;
     border-radius: 17px;
     margin-top: 70px;
-    width: calc(100% - 50px);
+    width: calc(100% - 80px);
+    max-width: 880px;
     margin-left:40px;
     margin-right:68px;
 
@@ -1715,12 +1730,14 @@ font-size: 1rem;
     display: flex;
     align-items: baseline;
     white-space: nowrap;
-    gap: 18px;
+    gap: 4px;
 }
 .freelanc .totals div p{
+    display: flex;
     font-size: 28px;
     font-weight: 300;
     color: black;
+    align-items: baseline;
 
 }
 .freelanc .totals div i{
@@ -2419,6 +2436,7 @@ border-radius: 12px;
 }
 .filtercontainer{
     position: relative;
+    width: fit-content;
 }
 
 .filter-items{
@@ -2429,20 +2447,24 @@ border-radius: 12px;
     left: 108px;
     z-index: 3;
     padding: 20px 30px;
+    width: 250px;
     display: none;
     transition: all .3s;
     box-shadow: 1px 2px 4px #8e8e8ee3;
 }
 
 .filter-items input,.filter-items label{
-    font-size: 20px;
+    font-size: 18px;
     padding-left: 6px;
     padding-right: 5px;
+    color:#333;
 }
 
 .filter-items  button{
-    width:120px;
-    height: 49px;
+    /* width: 120px; */ 
+    width: fit-content;
+    height: 29px;
+    padding: 20px 25px;
 }
 .requestlink a{
 position: relative;

@@ -7,7 +7,7 @@
 @section("og-image")
 @endsection
 @section("title")
-    product
+  products
 @endsection
 @section("header")
 @endsection
@@ -25,22 +25,50 @@
 <div class="products-page">
     <div class="container-fluid d-flex ">
         <div class="category-table">
-            <h4>Categories</h4>
+            <ul class="category">
             @foreach ($categories as $category)
-                <ul class="category">
-                    <li><a href="#">{{ $category->title_en }}</a></li>
-                </ul>
+           
+            @if( empty($category->services->first()))
+            <li><a href="{{route('products',['cat_id'=>$category->id])}}"
+                @if(isset($cat_id) && $cat_id==$category->id)
+                class="active"
+                @endif >{{ $category->title_en }}</a></li>
+                @else
+                <li><a href="#" class="linktosubcategory @if(isset($cat_id) && $cat_id==$category->id)
+                  active
+                    @endif" data-id='{{$category->id}}'>{{ $category->title_en }}</a></li>   
+                  
+                 @endif
+
+    
+         
+    
+
+           
             @endforeach
+           
+        </ul>
+            @foreach (App\Models\Category::all() as $category)
 
-            <h4>Services</h4>
-            <ul class="subcategorys">
-                <li class="d-flex"><button type="button" id="closesubcategory">
+            <div class="subcategorys" id="subcategorys{{$category->id}}">
+                <div class="d-flex px-3"><button type="button" class="closesubcategory" data-id='{{$category->id}}'>
                     <i class="fa fa-arrow-left"></i>
-                   </button></li>
-            @foreach ($services as $service)
+                   </button></div>
+                   <div class="d-flex flex-column">
+                @foreach ( $category->services as  $service)
+                <a href="{{route('products',['cat_id'=>$category->id,'subcat_id'=>$service->id])}}"
+                    @if(isset($subcat_id)&&$subcat_id==$service->id)
 
-                    <li><a href="#">{{ $service->service_en }}</a></li>
-                </ul>
+                  
+                        class="active"
+                    
+                    
+                    @endif
+                    >{{$service->service_en}}</a>
+                @endforeach
+
+            </div>
+                </div>
             @endforeach
         </div>
 
@@ -51,24 +79,56 @@
                     <i class="fa-solid fa-arrow-up-wide-short"></i>
                         <span >sort by:</span>
                     </button>
-                    <span class=" px-2">All</span>
+                    <span class=" px-2">
+                        @foreach ( $filter as  $f )
+                            {{  $f }} ,
+                        @endforeach
+
+
+
+                    </span>
                 </div>
 
 
             <div class="filter-items">
-                <form action="">
-                    <div>
-                        <input type="checkbox" name="productsearch" value="newest" id="newest">
+                @if (isset($cat_id) && isset($subcat_id))
+                <form action="{{route('products',['cat_id'=>$cat_id,'subcat_id'=>$subcat_id]) }}">
+                    {{"sadasdasdasd"}};
+                    @elseif (isset($cat_id))  
+                    <form action="{{route('products',['cat_id'=>$cat_id]) }}">
+                        @else
+                        <form action="{{route('products')}}">
+                @endif
+                <div>
+                        <input type="checkbox" name="productsearch[]" 
+                        @if (in_array('newest',$filter))
+                            
+                         checked
+                            
+                        @endif
+                        value="newest" id="newest">
                         <label for="newest" class="bold" >newest</label>
                     </div>
 
                     <div>
-                        <input type="checkbox" name="productsearch" value="highestrating" id="highestrating">
+                        <input type="checkbox" name="productsearch[]" value="highestrating" id="highestrating"
+                        @if (in_array('highestrating',$filter))
+                            
+                        checked
+                           
+                       @endif
+                        >
                         <label for="highestrating"class="bold" >highest rating</label>
                     </div>
 
                     <div>
-                        <input type="checkbox" name="productsearch" value="pricelowtoheight"id="pricelowtoheight" >
+                        <input type="checkbox" name="productsearch[]" value="pricelowtoheight"id="pricelowtoheight"
+                        @if (in_array('pricelowtoheight',$filter))
+                            
+                        checked
+                           
+                       @endif
+                        >
                         <label for="pricelowtoheight"class="bold" >price lower to high</label>
                     </div>
 
@@ -126,7 +186,7 @@
             </div>
 
             <div class="text-end p-4">
-                {{ $products->links() }}
+                {{-- {{ $products->links() }} --}}
             </div>
     </div>
     </div>
@@ -190,5 +250,20 @@ function addcart(e){
   });
 }
     
+$(document).ready(function () {
+    $(".category a.linktosubcategory").click(function(e){
+    e.preventDefault();
+    var id=$(this).attr('data-id');
+    $("#subcategorys"+id).toggle();
+
+    $('.subcategorys').not($("#subcategorys"+id)).hide();
+    })
+    
+    $('.closesubcategory').click(function(e){
+        var id=$(this).attr('data-id');
+    $("#subcategorys"+id).hide();
+
+    });
+});
     </script>
 @endsection
