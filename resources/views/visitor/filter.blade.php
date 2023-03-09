@@ -68,82 +68,57 @@
                     <i class="fa-solid fa-arrow-up-wide-short"></i>
                         <span >sort by:</span>
                     </button>
-                    <span class="px-2">
-                        @foreach ( $filter as  $f )
-                            {{ $f }} ,
-                        @endforeach
-                    </span>
+                    <span class="px-2">All</span>
                 </div>
 
-            <div class="filter-items">
-                @if (isset($cat_id) && isset($subcat_id))
-                <form action="{{route('products',['cat_id'=>$cat_id,'subcat_id'=>$subcat_id]) }}">
-                    {{"sadasdasdasd"}};
-                    @elseif (isset($cat_id))
-                    <form action="{{route('products', ['cat_id'=>$cat_id]) }}">
-                        @else
-                    <form action="{{route('products')}}">
-                    @endif
-                <div>
-                    <input type="checkbox" name="productsearch[]"
-                    @if (in_array('newest',$filter))
-                        checked
-                    @endif
-                    value="newest" id="newest">
-                    <label for="newest" class="bold">newest</label>
-                </div>
+                <div class="filter-items">
+                    <form name="filter-products" id="filter-products">
+                    <div name="sort" id="sort">
+                        <div>
+                            <input type="checkbox" name="sort" value="product_newest"
+                            @if (isset($_GET['sort']) && $_GET['sort'] == "product_newest") selected="" @endif>
+                            <label class="bold">Newest</label>
+                        </div>
 
-                <div>
-                    <input type="checkbox" name="productsearch[]" value="highestrating" id="highestrating"
-                    @if (in_array('highestrating',$filter))
-                    checked
-                    @endif
-                    >
-                    <label for="highestrating"class="bold" >highest rating</label>
-                </div>
+                        <div>
+                            <input type="checkbox" name="sort" value="product_rate"
+                            @if (isset($_GET['sort']) && $_GET['sort'] == "product_rate") selected="" @endif>
+                            <label class="bold">Higher Rating</label>
+                        </div>
 
-                <div>
-                    <input type="checkbox" name="productsearch[]" value="pricelowtoheight"id="pricelowtoheight"
-                    @if (in_array('pricelowtoheight',$filter))
-                    checked
-                    @endif
-                    >
-                    <label for="pricelowtoheight"class="bold" >price lower to high</label>
-                </div>
+                        <div>
+                            <input type="checkbox" name="sort" value="product_price"
+                            @if (isset($_GET['sort']) && $_GET['sort'] == "product_price") selected="" @endif>
+                            <label class="bold">Price: Low to High</label>
+                        </div>
 
-                <div class="btn-contianer d-flex justify-content-center align-items-center">
-                    <button type="submit" class=" border-0 btn-modal  my-3 btn-model-primary ">apply</button>
+                        <div class="btn-contianer d-flex justify-content-center align-items-center">
+                            <button type="submit" class="border-0 btn-modal my-3 btn-model-primary">apply</button>
+                        </div>
+                    </div>
+                    </form>
                 </div>
-            </form>
-        </div>
-        </div>
+            </div>
 
         <div class="products">
             @foreach ($products as $product)
-                <a  href='{{route('product',$product->id)}}'class="card">
+                <a  href='{{route('product', $product->id)}}'class="card">
                     <div class="image-product">
                         <img src="{{asset('assets/images/product/'.$product->img1) }}" class="card-img-top" alt="product image">
                             @auth
                         <button type="button" data-type="product" data-id="{{$product->id}}"
-
-                            onclick="likes(this)"
-                        class="hart   @if ($product->likes->where("user_id",auth()->user()->id)->count())
-                                active
-                            @endif"><i class="fa fa-heart"></i></button>
-                            @else
-                            <button  class="hart" type="button" data-bs-target="#login" data-bs-toggle="modal"><i class="fa fa-heart"></i></button>
-                            @endauth
-
-
-                              @auth
-
-                              <button class="addtochart"  data-id="{{$product->id}}" onclick="addcart(this)">add to cart</button>
-                              @else
-                              <button class="addtochart" >add to cart</button>
-                              @endauth
-
-
-
+                        onclick="likes(this)"
+                        class="hart @if ($product->likes->where("user_id",auth()->user()->id)->count())
+                            active
+                        @endif"><i class="fa fa-heart"></i></button>
+                        @else
+                        <button  class="hart" type="button" data-bs-target="#login" data-bs-toggle="modal"><i class="fa fa-heart"></i></button>
+                        @endauth
+                        @auth
+                        <button class="addtochart"  data-id="{{$product->id}}" onclick="addcart(this)">add to cart</button>
+                        @else
+                        <button class="addtochart" >add to cart</button>
+                        @endauth
                     </div>
 
                     <div class="card-body">
@@ -243,7 +218,16 @@ $(document).ready(function () {
     });
 });
     </script>
+
+
+{{-- Filter --}}
+<script>
+$(document).ready(functon(){
+    $("#filter").on("change", function(){
+        this.form.submit();
+
+    });
+});
+</script>
+
 @endsection
-
-
-

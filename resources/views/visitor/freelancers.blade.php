@@ -20,9 +20,9 @@ freelancers
             <ul class="category">
             @foreach ($categories as $category)
                   <li><a href="#">{{ $category->title_en }}</a></li>
-                
-                
-                                
+
+
+
             @endforeach
         </ul>
             {{-- <ul class="subcategory">
@@ -70,18 +70,19 @@ freelancers
             </form>
             </div>
         </div>
+        
         <div class="d-flex flex-column px-md-4">
 
             @foreach ($freelancers as $freelancer)
-  
+
             @auth
-                
+
             @if (Auth::user()->id != $freelancer->id)
             <a class="freelanc" href="{{ route('showFreelancerDetails', $freelancer->id) }}">
                 <div class="image">
                     <img src="{{ asset("Admin3/assets/images/users/".$freelancer->profile_image) }}" alt="">
                 </div>
-        
+
                 <div class="info ">
                     <div class="name">
                         <span>{{ $freelancer->name }}</span>
@@ -90,25 +91,25 @@ freelancers
                             <span>4,5</span>
                         </div>
                     </div>
-        
+
                     <div class="txt">{{ $freelancer->bio }}</div>
                     <div class="service">
                         <p>service :</p>
                         <p>{{ $freelancer->service_en }}</p>
                     </div>
                 </div>
-        
+
                 <div class="totals">
                     <div class="projects">
                         <i class="fa-solid fa-list-check"></i>
                         <p>{{ App\Models\Requests::where('freelancer_id', $freelancer->id)->count() }}<sub>projects</sub></p>
                     </div>
-        
+
                     <div class="productstotal">
                         <i class="fa-solid fa-dollar-sign"></i>
                         <p>{{ App\Models\Product::where('freelancer_id', $freelancer->id)->count() }}<sub>products</sub></p>
                     </div>
-        
+
                     <div class="photos">
                         <i class="fa-solid fa-image"></i>
                         <p>{{ App\Models\Photo::where('freelancer_id', $freelancer->id)->count() }}<sub>photos</sub></p>
@@ -121,7 +122,7 @@ freelancers
                     <div class="image">
                         <img src="{{ asset("Admin3/assets/images/users/".$freelancer->profile_image) }}" alt="">
                     </div>
-        
+
                     <div class="info ">
                         <div class="name">
                             <span>{{ $freelancer->name }}</span>
@@ -130,37 +131,37 @@ freelancers
                                 <span>4,5</span>
                             </div>
                         </div>
-        
+
                         <div class="txt">{{ $freelancer->bio }}</div>
                         <div class="service">
                             <p>service :</p>
                             <p>{{ $freelancer->service_en }}</p>
                         </div>
                     </div>
-        
+
                     <div class="totals">
                         <div class="projects">
                             <i class="fa-solid fa-list-check"></i>
                             <p>{{ App\Models\Requests::where('freelancer_id', $freelancer->id)->count() }}<sub>projects</sub></p>
                         </div>
-        
+
                         <div class="productstotal">
                             <i class="fa-solid fa-dollar-sign"></i>
                             <p>{{ App\Models\Product::where('freelancer_id', $freelancer->id)->count() }}<sub>products</sub></p>
                         </div>
-        
+
                         <div class="photos">
                             <i class="fa-solid fa-image"></i>
                             <p>{{ App\Models\Photo::where('freelancer_id', $freelancer->id)->count() }}<sub>photos</sub></p>
                         </div>
                     </div>
                 </a>
-            
+
             @endauth
-            
+
             @endforeach
         </div>
-  
+
         </div>
     </div>
 </div>
@@ -174,14 +175,14 @@ freelancers
         });
 
 
-            
+
 $(".category a.active").click(function(e){
 
 e.preventDefault();
 
 $(".subcategorys").toggle();
 })
-  
+
 $('#closesubcategory').click(function(){
 $(".subcategorys").hide();
 });
