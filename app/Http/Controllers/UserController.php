@@ -4,10 +4,12 @@ use App\Models\User;
 use App\Models\Photo;
 use App\Models\Review;
 use App\Models\Product;
+use App\Models\File as  Files;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -162,6 +164,34 @@ class UserController extends Controller
 
     public function addcart($id){
 
+
+    }
+
+
+    public function getprofile(){
+
+        $user_id=auth()->user()->id;
+        $user=User::find($user_id);
+
+        $currentYear = Carbon::now()->year; 
+        $currentMonth = Carbon::now()->month;
+        $lastMonth = Carbon::now()->subMonth()->month;
+
+
+        $files_current= Files::where('user_id', $user_id)->whereMonth('created_at', $currentMonth)
+        ->whereYear('created_at', $currentYear)
+        ->get();
+        $files_lastmonth= Files::where('user_id', $user_id)->whereMonth('created_at', $lastMonth)
+        ->whereYear('created_at', $currentYear)
+        ->get();
+        $files_old=Files::where('user_id',$user_id)->whereNotBetween('created_at', [
+            Carbon::createFromDate($currentYear, $lastMonth,1),
+            Carbon::createFromDate($currentYear, $currentMonth,31)
+            
+        ])
+        ->get();
+
+return view('user.userprofile',compact('user','files_current','files_lastmonth','files_old'));
 
     }
 

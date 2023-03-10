@@ -100,6 +100,7 @@ class RequestController extends Controller
        
         $re->file()->create([
             'name'=> $name,
+            'user_id'=>auth()->user()->id,
             'type'=>$type,
             'url'=> $attachment_name,
             'size'=>$size,

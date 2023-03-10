@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('files', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->foreignId('user_id')->references('id')->on('users');
             $table->string('type');
             $table->string('url');
             $table->string('size');

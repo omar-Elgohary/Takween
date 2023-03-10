@@ -131,9 +131,7 @@ Route::prefix("freelancer")->name("freelanc.")->middleware('auth','is_freelancer
 
 Route::prefix("user")->name("user.")->middleware('auth')->group(function(){
 
-    Route::get("/profile",function(){
-        return view("user.userprofile");
-    })->name("profile");
+    Route::get("/profile",[UserController::class,'getprofile'])->name("profile");
 
     Route::post('updateUserProfile/{id}', [UserController::class, 'updateUserProfile'])->name('updateUserProfile');
 
