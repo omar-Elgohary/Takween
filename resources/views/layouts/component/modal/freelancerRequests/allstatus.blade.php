@@ -1,4 +1,4 @@
-<div class="modal offers fade" id="freelancerallstatus{{$request->id}}" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" tabindex="-1">
+<div class="modal offers fade" id="freelancerallstatus{{$request->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header ">

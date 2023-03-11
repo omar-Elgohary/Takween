@@ -110,7 +110,7 @@
 
 
  --}}
- <div id="inprogress{{ $request->id }}" class="modal offers fade" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" tabindex="-1">
+ <div id="inprogress{{ $request->id }}" class="modal offers fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header ">

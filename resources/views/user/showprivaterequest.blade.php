@@ -270,7 +270,7 @@ type=type.trim();
 
 mesageto=mesageto.trim();
 setTimeout(getmessage, 0);
-var getmes =setInterval(getmessage,5000);
+var getmes =setInterval(getmessage,3000);
 
 function getmessage() { 
 $.ajax({
@@ -350,25 +350,25 @@ function sendmessage(e){
 
 //     var x=$(e);
 // $('.messageinput').html(' ');
-    $.ajax({
-       
-        url: "{{route('user.chat.store')}}",
-        type: "POST",
-        data:$(e).serialize(),
-        dataType: "json",
-        success: function(data) {
-        if(data){
-            console.log(data);
-            getmessage();
-            $('.messageinput').html(' ');
 
-        }else{
-            
-            
-        }
-        }
-    
-        });
+$.ajax({
+           
+           url: "{{route('user.chat.store')}}",
+           type: "POST",
+           data:$(e).serialize(),
+           dataType: "json",
+           success: function(data) {
+           if(data){
+               console.log(data);
+               $(e).find('.messageinput').val(' ');
+
+           }else{
+               
+               
+           }
+           }
+       
+           });
     
 
 
