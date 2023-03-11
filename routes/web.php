@@ -168,8 +168,10 @@ Route::prefix("user")->name("user.")->middleware('auth')->group(function(){
 
 
     Route::get('/requestprivate/{id}', [RequestController::class, 'requestUserToFreelancer'])->name("requestprivate");
+//get offer request
 
-
+    Route::get('/getrequestoffer/{id}', [RequestController::class, 'getrequestoffer'])->name("getrequestoffer");
+    Route::get('/rejectofferrequest', [RequestController::class, 'rejectofferrequest'])->name("rejectofferrequest");
     // add or delete likes
     Route::get('/addorremovelikes/{id}',[UserController::class,'addorremovelikes']);
 

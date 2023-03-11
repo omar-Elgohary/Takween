@@ -63,6 +63,9 @@
       
 
   <div class="conversation">
+    
+    <div class="tenor-gif-embed" data-postid="5345658" data-share-method="host" data-aspect-ratio="1" data-width="100%" data-hide-gif-attribution="true">
+        <script type="text/javascript" async src="https://tenor.com/embed.js"></script></div>
     {{-- <div class="rightcont">
         <div class="chat-txt rightside">
             <p>
@@ -95,6 +98,7 @@
 
     </div>
     
+    {{-- <form class="sendmessage  senmessage{{$request->id}}" onsubmit="event.preventDefault(); "> --}}
     <form class="sendmessage" onsubmit="event.preventDefault(); return sendmessage(this);">
         @csrf
         <input type="hidden" value="{{$request->id}}" name="request_id">
@@ -110,7 +114,7 @@
         @else
         {{$request->user_id}}
         @endif" name="to">
-       <input type="text" class="rounded-pill" class="messageinput" name="message">
+       <input type="text" class="rounded-pill  messageinput"  name="message">
         <button class="rounded-circle sendtext" type="submit">
             <i class="fa-solid fa-paper-plane"></i>
         </button>

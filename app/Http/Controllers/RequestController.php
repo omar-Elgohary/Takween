@@ -1,12 +1,13 @@
 <?php
 namespace App\Http\Controllers;
 use App\Models\User;
+use App\Models\Review;
 use App\Models\Category;
 use App\Models\Requests;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class RequestController extends Controller
@@ -154,11 +155,111 @@ class RequestController extends Controller
 
     public function review($id)
     {
-        $request=Requests::find($id);
-        $s= $request->update([
-            'status'=>"Cancel by customer"
-        ]);
-        return redirect()->back()->with(['state'=>"cancel","id"=>$id]);
+        // $request=Requests::find($id);
+        // $s= $request->update([
+        //     'status'=>"Cancel by customer"
+        // ]);
+        // return redirect()->back()->with(['state'=>"cancel","id"=>$id]);
+    }
+
+    public function  getrequestoffer($id){
+
+    $requests=Requests::findorfail($id);
+
+     $requestsoffer=$requests->offer()->select('freelancer_id','price')->where('status','pending')->get();
+
+$data="";
+     foreach(  $requestsoffer  as $re){
+    
+       $data.=' <div class="freelanceroffer ">
+        <div class=" d-flex ">
+            <div class="img">
+        <img src="'.asset( 'Admin3/assets/images/users/'.User::findOrFail($re->freelancer_id)->profile_image).'" alt="">
+            </div>
+
+            <div class="info d-flex flex-column">
+                <h5 class="mb-0">'. User::findOrFail($re->freelancer_id)->name  .'</h5>
+                <p class="mb-0"><span style="font-weight:600" class="mb-0 ">'. $re->price .'</span> <span style="font-size:12px;color:#777">Rs</span>
+                </p>
+
+                <div class="d-flex">
+                    <div class="d-flex align-items-baseline ">
+                        <i class="fa-solid fa-star"></i>
+                        <p class="mb-0">';
+                        if(Review::select('rate')->where('freelancer_id',$re->freelancer_id)->count() > 0){
+                            $data.=    Review::select('rate')->where('freelancer_id',$re->freelancer_id)->sum('rate')/  Review::select('rate')->where('freelancer_id',$re->freelancer_id)->count();
+                    }else{
+                        $data.=   Review::select('rate')->where('freelancer_id',$re->freelancer_id)->count();
+                     }
+                     
+                     $data.= 
+                     '</p>
+                    </div>
+
+                    <div class="d-flex align-items-baseline px-2">
+                        <i class="fa-solid fa-clipboard-check align-items-baseline"></i>
+                        <p class="mb-0">7</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class=" buttoncontainer d-flex align-items-around justify-content-around position-relative">
+        <form  method="GET" class="reject'.$id.'" onsubmit="event.preventDefault();" >
+        <input type="hidden" name="request_id" value="'.$id.'">
+        <input type="hidden" name="freelancer_id" value="'.$re->freelancer_id.'">
+        <input type="hidden"  name="_token" value='.csrf_token().'>
+         
+        <button class="btn rej rounded-pill px-3 py-2 " type="submit"> reject</button>
+        </form>
+       
+       
+        <form action="" method="">
+        <button class="btn accept rounded-pill px-3 py-2" >accept</button>
+        </form>
+        
+        </div>
+    </div>';
+}
+if(strlen($data)>0 and $data!=null){
+    return JSON_encode( $data);
+
+}else{
+    if(app()->getLocale()=='ar'){
+
+        $data="لا يوجد عروض متاحه";
+    }else{
+
+        $data="no offer";
+
+    }
+
+    
+    
+    return JSON_encode( $data);
+
+     }
+
+  
+
+    }
+
+
+    function rejectofferrequest(Request $request){
+     $flag=false;
+    // $request_id=$request->request_id;
+    $request_id= request("request_id");
+    $freelancer_id=request("freelancer_id");
+
+    $requests=Requests::findOrFail($request_id);
+     $requests->offer()->where('freelancer_id',$freelancer_id)->update([
+    'status'=>'reject'
+    ]);
+
+    $flag=true;
+     
+    return JSON_encode($flag);
     }
 }
+//onsubmit="event.preventDefault(); return rejectoffer(this)"
 

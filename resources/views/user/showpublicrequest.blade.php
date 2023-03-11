@@ -86,7 +86,7 @@ show public request
 <div class="requesties d-flx flex-column pt-4">
     @foreach ($requests as $request)
     @if(!$request->freelancer_id)
-        <div class="request offer d-flex flex-column px-3 py-3 position-relative mb-5">
+        <div class="request offer d-flex flex-column px-3 py-3 position-relative mb-5" style="    margin-bottom: 63px !important;">
             <a href="#offerPending{{ $request->id }}" data-bs-toggle="modal" role="button">
                 <div class="d-flex justify-content-between align-items-baseline show-phone">
                     <h3>#3412312</h3>
@@ -96,7 +96,7 @@ show public request
                 <div class="d-flex ">
                     <div class="d-flex flex-column px-2">
                         <p class="m-0">req.date</p>
-                        <span>20/09/2010</span>
+                        <span>{{date_format($request->created_at,"Y-m-d")}}</span>
                     </div>
 
                     <div class="d-flex flex-column px-2">
@@ -108,10 +108,11 @@ show public request
                 </div>
             </a>
 
-            <button class="w-100 by-2 btn-noborder position-absolute " data-bs-target="#freelaceroffers" data-bs-toggle="modal"  role="button">
+            <button class="w-100 by-2 btn-noborder position-absolute mb-4" data-bs-target="#freelaceroffers{{$request->id}}" data-bs-toggle="modal"  role="button">
                 offer
             </button>
         </div>
+        @include("layouts.component.modal.userRequests.offer")
     @else
 
     @if($request->due_date < now())
@@ -140,7 +141,7 @@ show public request
             <div class="d-flex ">
                 <div class="d-flex flex-column px-2">
                     <p class="m-0">req.date</p>
-                    <span>20/09/2010</span>
+                    <span>{{date_format($request->created_at,"Y-m-d")}}</span>
                 </div>
                     {{-- @if($request->due_date < now()) --}}
                     @if($request->due_date < now()->toDateString())
@@ -188,7 +189,7 @@ show public request
             <div class="d-flex ">
                 <div class="d-flex flex-column px-2">
                     <p class="m-0">req.date</p>
-                    <span>20/09/2010</span>
+                    <span>{{date_format($request->created_at,"Y-m-d")}}</span>
                 </div>
                     @if($request->due_date < now()->toDateString())
                         <div class="d-flex flex-column px-2">
@@ -235,7 +236,7 @@ show public request
             <div class="d-flex ">
                 <div class="d-flex flex-column px-2">
                     <p class="m-0">req.date</p>
-                    <span>20/09/2010</span>
+                    <span>{{date_format($request->created_at,"Y-m-d")}}</span>
                 </div>
                     {{-- @if($request->due_date < now()) --}}
                     @if($request->due_date < now()->toDateString())
@@ -283,7 +284,7 @@ show public request
             <div class="d-flex ">
                 <div class="d-flex flex-column px-2">
                     <p class="m-0">req.date</p>
-                    <span>20/09/2010</span>
+                    <span>{{ date_format($request->created_at,"Y-m-d")}}</span>
                 </div>
                     {{-- @if($request->due_date < now()) --}}
                     @if($request->due_date < now()->toDateString())
@@ -378,7 +379,7 @@ show public request
         </div>
 
         <div class="modal-footer">
-            <button class="btn  btn-modal  my-3 btn-model-primary" data-bs-target="#freelaceroffers"
+            <button class="btn  btn-modal  my-3 btn-model-primary" data-bs-target="#freelaceroffers{{$request->id}}"
                 data-bs-toggle="modal" data-bs-dismiss="modal">offers
             </button>
         </div>
@@ -544,6 +545,7 @@ type: "GET",
 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
 data:{'type':type,'messageto':mesageto ,'request_id':request_id},
 dataType: "json",
+
 success: function(data) {
 if(data){
 
@@ -622,8 +624,7 @@ function sendmessage(e){
             success: function(data) {
             if(data){
                 console.log(data);
-                getmessage();
-                $(e).find('.messageinput').html(' ');
+                $(e).find('.messageinput').val(' ');
 
             }else{
                 
@@ -639,6 +640,139 @@ function sendmessage(e){
 
 }
 
+
+
+// start show offer
+
+$(document).ready(function () {
+ $('.freelaceroffers').on('show.bs.modal',function(){
+
+var request_id= $(this).attr('data-id');
+
+//  console.log(request_id);
+
+
+
+
+
+//  var getmes =setTimeout(getoffer,1000);
+getoffer();
+
+function getoffer() { 
+$.ajax({
+url: "{{URL::to('user/getrequestoffer')}}/"+ request_id,
+type: "GET",
+headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+dataType: "json",
+success: function(data) {
+if(data){
+
+   
+    $('#offercontainer'+request_id).html(" ");
+   
+    $('#offercontainer'+request_id).append(data);
+  
+    // $.each( data,function (index, el) {
+    //  console.log( el);
+        
+
+$('.reject'+request_id).on('submit',function(e){
+
+    $.ajax({
+           
+           url: "{{route('user.rejectofferrequest')}}",
+           type: "GET",
+           data:$(this).serialize(),
+           dataType: "json",
+           headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+           success: function(data) {
+           if(data){
+            console.log(data);
+console.log(request_id);
+            $.ajax({
+                    url: "{{URL::to('user/getrequestoffer')}}/"+ request_id,
+                    type: "GET",
+                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                    dataType: "json",
+                    success: function(data) {
+                        console.log(data);
+                    if(data){
+
+                        $('#offercontainer'+request_id).html(" ");
+                    
+                        $('#offercontainer'+request_id).append(data);
+                    }else{
+                        $('#offercontainer'+request_id).append('no offer available')
+                    }
+                    }
+                });
+           }else{
+               
+               
+           }
+           }
+       
+           });
+
+});
+
+
+    // } );
+   
+//    if( Object.keys(data).length >olddata){
+   
+//     $('.conversation').scrollTop($('.conversation')[0].scrollHeight);
+//     olddata=Object.keys(data).length;
+//    }
+//    $('.chat').on('hide.bs.offcanvas',function(){
+//   clearInterval(getmes);
+//    });
+
+
+}else{
+
+
+}
+}
+
+});
+
+
+}
+
+
+});
+
+
+
+
+});
+
+function rejectoffer(e){
+console.log("sadasd");
+    $.ajax({
+           
+           url: "{{route('user.rejectofferrequest')}}",
+           type: "POST",
+           data:$(e).serialize(),
+           dataType: "json",
+           success: function(data) {
+           if(data){
+            //    console.log(data);
+            //    getmessage();
+            //    $(e).find('.messageinput').html(' ');
+
+           }else{
+               
+               
+           }
+           }
+       
+           });
+
+}
+
+// end show offer
 
     </script>
 @endsection

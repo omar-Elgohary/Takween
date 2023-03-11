@@ -1,13 +1,18 @@
 {{-- freelancers offers modal --}}
-<div id="freelaceroffers" class="modal offers fade" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+<div id="freelaceroffers{{$request->id}}" class="modal offers fade freelaceroffers"  data-id= "{{$request->id}}"aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
-        <div class="modal-body d-flex flex-column justify-content-arounds align-items-center">
-            <div class="freelanceroffer ">
+        <div class="offercontainer modal-body d-flex flex-column justify-content-arounds align-items-center"  id="offercontainer{{$request->id}}">
+
+            
+            <div class="tenor-gif-embed" data-postid="5345658" data-share-method="host" data-aspect-ratio="1" data-width="100%" data-hide-gif-attribution="true">
+            <script type="text/javascript" async src="https://tenor.com/embed.js"></script></div>
+            
+            {{-- <div class="freelanceroffer ">
                 <div class=" d-flex ">
                     <div class="img">
                         <img src="{{asset("assets/images/vicky-hladynets-C8Ta0gwPbQg-unsplash.png")}}" alt="">
@@ -157,7 +162,7 @@
                         <button class="btn rej rounded-pill px-3 py-2 ">reject</button>
                         <button class="btn accept rounded-pill px-3 py-2 ">accept</button>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

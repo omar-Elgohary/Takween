@@ -2582,15 +2582,15 @@ margin-bottom: 0px;
     border-top:none;
     justify-content: center;
 }
-#freelaceroffers{
+.freelaceroffers{
 
     padding:5px 10px;
 
 }
-#freelaceroffers .modal-dialog {
+.freelaceroffers .modal-dialog {
     overflow-y: initial !important
 }
-#freelaceroffers .modal-body{
+.freelaceroffers .modal-body{
 height: 80vh;
     overflow-y: auto;
     justify-content: start;
@@ -2629,11 +2629,11 @@ margin-bottom: 84px;
     padding:0 3px;
 }
 
-#freelaceroffers .buttoncontainer{
+.freelaceroffers .buttoncontainer{
     top:5px;
 
 }
-#freelaceroffers .buttoncontainer .rej{
+.freelaceroffers .buttoncontainer .rej{
     background-color:var(--primary-color);
     color:white;
     margin-right: 20px;
@@ -2643,7 +2643,7 @@ margin-bottom: 84px;
     box-shadow: 1px 2px 4px #77777786;
 
 }
-#freelaceroffers .buttoncontainer .accept{
+.freelaceroffers .buttoncontainer .accept{
 background-color: var(--orange-color);
     color: white;
     box-shadow: 1px 2px 4px #77777786;
