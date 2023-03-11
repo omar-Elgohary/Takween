@@ -59,7 +59,7 @@ profile page
                 <div class="hoverdiv d-flex justify-content-around align-items-baseline py-3" >
                     <div class="wall d-flex flex-column">
                         <p class="total">Total</p>
-                        <P class="number">127<span>
+                        <P class="number">{{$user->wallet->total}}<span>
                             SR
                         </span>
                             </P>
@@ -107,38 +107,137 @@ profile page
         <h2>Files</h2>
     </div>
 
-<div class="accordion" id="accordionPanelsStayOpenExample">
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+    <div class="accordion" id="accordionPanelsStayOpenExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="panelsStayOpen-headingOne">
             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#newfile" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                <span class="px-2">New</span>
+           <span class="px-2">New</span>
+      
             </button>
-        </h2>
+          </h2>
 
-    <div id="newfile" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-        <div class="accordion-body d-flex flex-column">
-            <div class="file d-flex ">
-                <div class="details d-flex ">
-                    <div class="img">
-                        <i class="fa-regular fa-file-word"></i>
-                    </div>
+          <div id="newfile" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+            <div class="accordion-body d-flex flex-column">
 
-                    <div class="info">
-                        <h3>{{ App\Models\Requests::where('user_id', Auth::user()->id)->first()->attachment }}</h3>
-                        <div class="size">
-                            521kB . PDF
-                        </div>
+                
+          @foreach ($files_current as $curfile )
+          <div class="file d-flex ">
+            <div class="details d-flex ">
+                <div class="img">
+                    @if($curfile->type=='word')
+                    <i class="fa-regular fa-file-word"></i>
+                    @elseif($curfile->type=='pptx')
+                    <i class="fa-regular fa-file-powerpoint"></i>
+                    @elseif($curfile->type =='pdf')
+                    <i class="fa-regular fa-file-pdf"></i>
+                     @else
+                     <i class="fa-regular fa-file"></i>
+                    @endif
+                </div>
+                <div class="info">
+                    <h3>
+                        {{$curfile->name}}
+
+                    </h3>
+                    <div class="size">
+                        {{$curfile->size}} . {{$curfile->type}}
                     </div>
                 </div>
 
-                <div class="tool">
-                    <i class="fa-solid fa-ellipsis-vertical"></i>
-                </div>
+            </div>
+            <div class="tool">
+                <i class="fa-solid fa-ellipsis-vertical"></i>
             </div>
         </div>
-    </div>
-</div>
-</div>
+          @endforeach
+             
+      
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#last-monthfile" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+            <span class="px-2"> Last month</span>
+            </button>
+          </h2>
+          <div id="last-monthfile" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+            <div class="accordion-body">
+                @foreach ($files_lastmonth as $lastfile )
+                <div class="file d-flex ">
+                  <div class="details d-flex ">
+                      <div class="img">
+                        @if($lastfile->type=='word')
+                        <i class="fa-regular fa-file-word"></i>
+                        @elseif($lastfile->type=='pptx')
+                        <i class="fa-regular fa-file-powerpoint"></i>
+                        @elseif($lastfile->type =='pdf')
+                        <i class="fa-regular fa-file-pdf"></i>
+                         @else
+                         <i class="fa-regular fa-file"></i>
+                        @endif
+                      </div>
+                      <div class="info">
+                          <h3>
+                              {{$lastfile->name}}
+      
+                          </h3>
+                          <div class="size">
+                              {{$lastfile->size}} . {{$lastfile->type}}
+                          </div>
+                      </div>
+      
+                  </div>
+                  <div class="tool">
+                      <i class="fa-solid fa-ellipsis-vertical"></i>
+                  </div>
+              </div>
+                @endforeach
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#oldfile" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+            <span class="px-2"> Older</span>
+            </button>
+          </h2>
+          <div id="oldfile" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+            <div class="accordion-body">
+                @foreach ($files_old as $lastfile )
+                <div class="file d-flex ">
+                  <div class="details d-flex ">
+                      <div class="img">
+                      @if($lastfile->type=='word')
+                     <i class="fa-regular fa-file-word"></i>
+                     @elseif($lastfile->type=='pptx')
+                     <i class="fa-regular fa-file-powerpoint"></i>
+                     @elseif($lastfile->type =='pdf')
+                     <i class="fa-regular fa-file-pdf"></i>
+                      @else
+                      <i class="fa-regular fa-file"></i>
+                     @endif
+                      </div>
+                      <div class="info">
+                          <h3>
+                              {{$lastfile->name}}
+      
+                          </h3>
+                          <div class="size">
+                              {{$lastfile->size}} . {{$lastfile->type}}
+                          </div>
+                      </div>
+      
+                  </div>
+                  <div class="tool">
+                      <i class="fa-solid fa-ellipsis-vertical"></i>
+                  </div>
+              </div>
+                @endforeach
+            </div>
+          </div>
+        </div>
+      </div>
 </div>
 </div>
 </div>

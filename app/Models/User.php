@@ -1,6 +1,7 @@
 <?php
 namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Wallet;
 use App\Models\Product;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
@@ -36,4 +37,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function wallet(){
+
+        return $this->hasOne(Wallet::class);
+    }
 }

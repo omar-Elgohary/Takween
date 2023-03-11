@@ -94,13 +94,13 @@ home
         </button>
         <button class="nxt-btn"><i class="fa fa-arrow-right"></i></button>
 
-        <div class="scrollable">
+        <div class="scrollable" style="gap:15px">
             @forelse ($freelancers as $freelancer)
-                <div class="freelancer ">
+                <div class="freelancer " style="align-items:flex-start;">
                     <div class="image">
                         <img src="{{ asset("Admin3/assets/images/users/".$freelancer->profile_image) }}" alt="">
                     </div>
-                    <div class="info">
+                    <div class="info px-2" >
                         <div class="name text-capitalize">{{ $freelancer->name }}</div>
                         <div class="rate">
                             <i class="fa fa-star"></i>

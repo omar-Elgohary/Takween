@@ -9,7 +9,7 @@ class File extends Model
 {
     use HasFactory;
 
-    protected $fillable=['name',"type",'size','url','filesable_id','filesable_type'];
+    protected $fillable=['name',"type",'size','url','user_id','filesable_id','filesable_type'];
 
     public function filesable(){
         return $this->morphTo();
