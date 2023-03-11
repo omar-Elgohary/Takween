@@ -107,7 +107,7 @@
  --}}
 
 
- <div id="complete{{ $request->id }}" class="modal offers fade"  aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" tabindex="-1">
+ <div id="complete{{ $request->id }}" class="modal offers fade"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header ">
@@ -202,10 +202,12 @@
          @endif
 
 
-         <div style="position:fixed ; bottom:0;right:0; font-size:30px">
-            <button class="addrequesticon" type="button" data-bs-toggle="offcanvas" data-bs-target="#chat{{$request->id}}" aria-controls="offcanvasRight"><i class="uil-comments-alt"></i></button>
-        </div>
+       
             </div>
         </div>
+    </div>
+
+    <div style="position:fixed ; bottom:0;right:0; font-size:30px">
+        <button class="addrequesticon" type="button" data-bs-toggle="offcanvas" data-bs-target="#chat{{$request->id}}" aria-controls="offcanvasRight"><i class="uil-comments-alt"></i></button>
     </div>
 </div> <!-- end compelete modal -->

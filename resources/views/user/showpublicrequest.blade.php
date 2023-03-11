@@ -256,7 +256,6 @@ show public request
                     @endif
             </div>
         </a>
-      
         @include("layouts.component.modal.userRequests.chat")
     @elseif ($request->status == 'Completed')
         <a href="#complete{{ $request->id }}" data-bs-toggle="modal" class="request d-flex flex-column px-3 py-3 position-relative mb-5">
@@ -306,7 +305,7 @@ show public request
             </a>
 
             @include("layouts.component.modal.userRequests.review")
-@include("layouts.component.modal.userRequests.chat")
+           @include("layouts.component.modal.userRequests.chat")
         @endif
     @endif
    
@@ -524,7 +523,7 @@ show public request
 // get message 
 
 $(document).ready(function () {
- $('.chat').on('show.bs.offcanvas',function(){
+$('.chat').on('show.bs.offcanvas',function(){
 
 var request_id= $(this).attr('data-id');
 var type= $(this).attr('data-type');
@@ -545,58 +544,58 @@ type: "GET",
 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
 data:{'type':type,'messageto':mesageto ,'request_id':request_id},
 dataType: "json",
-
 success: function(data) {
-if(data){
+if(data['status'] !='no message'){
 
-    conversation.html(" ");
-    $.each(data,  function (index, el) {  
-        if(el.from !={{auth()->user()->id}}){
+conversation.html(" ");
+$.each(data['message'],  function (index, el) {  
+    if(el.from !={{auth()->user()->id}}){
 
 let message= " ";
-  message=  '<div class="rightcont"> <div class="chat-txt rightside"> <p>'+
-    el.text
-           +' </p> <span>'+
-            new Date(el.created_at).toLocaleTimeString() 
-           +
-            '</span> </div> </div>';
+message=  '<div class="rightcont"> <div class="chat-txt rightside"> <p>'+
+el.text
+       +' </p> <span>'+
+        new Date(el.created_at).toLocaleTimeString() 
+       +
+        '</span> </div> </div>';
 
-            conversation.append(message);
-       
+        conversation.append(message);
+   
 
-        }else{
+    }else{
 
-            let message2= " ";
+        let message2= " ";
 message2=  '<div class="leftcont"> <div class="chat-txt leftside"> <p>'+
-    el.text
-           +' </p> <span>'+
-            new Date(el.created_at).toLocaleTimeString() +
-            '</span> </div> </div>';
+el.text
+       +' </p> <span>'+
+        new Date(el.created_at).toLocaleTimeString() +
+        '</span> </div> </div>';
 
-            conversation.append(message2);
-         
-        }
-
-
-        
+        conversation.append(message2);
+     
+    }
 
 
-    });
-   
+    
 
-   
-   if( Object.keys(data).length >olddata){
-   
-    $('.conversation').scrollTop($('.conversation')[0].scrollHeight);
-    olddata=Object.keys(data).length;
-   }
-   $('.chat').on('hide.bs.offcanvas',function(){
-  clearInterval(getmes);
-   });
+
+});
+
+
+
+if( Object.keys(data).length >olddata){
+
+$('.conversation').scrollTop($('.conversation')[0].scrollHeight);
+olddata=Object.keys(data).length;
+}
+$('.chat').on('hide.bs.offcanvas',function(){
+clearInterval(getmes);
+});
 
 
 }else{
 
+    conversation.html(data['message']);
 
 }
 }

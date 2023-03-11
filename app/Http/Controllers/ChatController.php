@@ -26,15 +26,17 @@ class ChatController extends Controller
          ->where(function ($q)use($messageto,$user) {return $q->where('from',$user)->orWhere('from',$messageto);})
         ->where(function ($q)use($messageto,$user) {return $q->where('to',$messageto)->orWhere('to',$user);})->sortBy('created_at');
 
-        if($messages !=null){
+        if( count($messages)>0 ){
             $messagelist=array('message'=>$messages, 'status'=>'found message');
             return JSON_encode($messagelist);
 
         }else{
-            if(app()->getLocal()=='ar'){
-                $messages="لا يوجد رسائل سابقة ";
+            if(app()->getLocale()=='ar'){
+                $messages=" <div class='text-center'>  لا يوجد رسائل سابقة  </div> ";
+            }else{
+
+                $messages=" <div class='text-center'>No message </div> ";
             }
-            $messages=" No message ";
             $messagelist=array('message'=>$messages, 'status'=>'no message');
             return JSON_encode($messagelist); 
         }

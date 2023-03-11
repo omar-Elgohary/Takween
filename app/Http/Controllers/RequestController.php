@@ -260,6 +260,12 @@ if(strlen($data)>0 and $data!=null){
      
     return JSON_encode($flag);
     }
+
+   
+    function acceptoffer(){
+   
+  
+    }
 }
 //onsubmit="event.preventDefault(); return rejectoffer(this)"
 
