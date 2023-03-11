@@ -280,10 +280,10 @@ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
 data:{'type':type,'messageto':mesageto ,'request_id':request_id},
 dataType: "json",
 success: function(data) {
-if(data){
+if(data['status'] !='no message'){
 
 conversation.html(" ");
-$.each(data,  function (index, el) {  
+$.each(data['message'],  function (index, el) {  
     if(el.from !={{auth()->user()->id}}){
 
 let message= " ";
@@ -330,6 +330,7 @@ clearInterval(getmes);
 
 }else{
 
+    conversation.val(data['message']);
 
 }
 }
@@ -373,8 +374,11 @@ $.ajax({
 
 
 
-
 }
+
+
+
+
 
 </script>
 @endsection

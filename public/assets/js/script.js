@@ -31,6 +31,12 @@ productContainers.forEach((item, i) => {
 })
 
 
+// close chat when close requests 
+$('.modal').on('hide.bs.modal',function(){
+    $('.chat').offcanvas('hide');
+});
+
+console.log("close");
 // $(".hart").click(function(e){
 
 //   // var id=$(".hart").data('id');
