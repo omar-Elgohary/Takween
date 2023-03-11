@@ -13,7 +13,7 @@
 
                 <div>
                     <div class="br-wrapper br-theme-fontawesome-stars">
-                        <select id="example-rating" name="rate" style="display: none;">
+                        <select class="example-rating" name="rate" style="display: none;">
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>

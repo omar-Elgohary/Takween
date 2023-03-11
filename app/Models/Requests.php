@@ -40,7 +40,7 @@ class Requests extends Model
 
     public function review()
     {
-        return $this->hasMany(Review::class);
+     return $this->morphMany(Review::class,'reviewsable');
     }
     public function chats()
     {

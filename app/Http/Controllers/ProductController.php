@@ -199,6 +199,9 @@ class ProductController extends Controller
         if(isset($_GET['sort']) && !empty($_GET['sort'])){
             if($_GET['sort'] == 'product_newest'){
                 $products = Product::orderBy('created_at', 'asc')->get();   // تنازلي من الكبير للصغير
+            $similar=Product::where(function($q) use($product){
+                $q->where('cat_id',$product->cat_id)->orWhere("service_id",$product->serivce_id);
+            })->limit(4)->get();
 
             }elseif($_GET['sort'] == 'product_rate'){
                 $products = DB::table('likes')->where('likesable_type', 'Product')->orderBy('likesable_id', 'asc')->get();
@@ -209,6 +212,7 @@ class ProductController extends Controller
         }
 
         return view('visitor.filter', compact('categories', 'products'));
+       return view('visitor.product',compact('product','similar'));
     }
 }
 

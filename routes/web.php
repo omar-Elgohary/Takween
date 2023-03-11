@@ -23,7 +23,7 @@ Route::get('/', [HomeController::class, 'index'])->name("home");
 Route::get('products', [ProductController::class, 'displayAllProducts'])->name('products');
 
 
-Route::get('/product{id}', [ProductController::class, 'usershowproduct'])->name("product");
+Route::get('/product/{id}', [ProductController::class, 'usershowproduct'])->name("product");
 
 Route::get('/photo', function () {
     return view('visitor.photo');

@@ -17,10 +17,16 @@
 
 @endsection
 @section("content")
-
+@auth
 <a class="addrequesticon" href="{{route('user.requestpublic')}}">
     <i class="fa-solid fa-plus"></i>
 </a>
+@else
+<a class="addrequesticon" href="#login2"  data-bs-toggle="modal">
+    <i class="fa-solid fa-plus"></i>
+</a>
+@endauth
+
 
 <div class="products-page">
     <div class="container-fluid d-flex ">
@@ -78,9 +84,9 @@
             <div class="filter-items">
                 @if (isset($cat_id) && isset($subcat_id))
                 <form action="{{route('products',['cat_id'=>$cat_id,'subcat_id'=>$subcat_id]) }}">
-                    {{"sadasdasdasd"}};
+
                     @elseif (isset($cat_id))
-                    <form action="{{route('products', ['cat_id'=>$cat_id]) }}">
+                    <form action="{{route('products',['cat_id'=>$cat_id]) }}">
                         @else
                     <form action="{{route('products')}}">
                     @endif
@@ -120,7 +126,7 @@
 
         <div class="products">
             @foreach ($products as $product)
-                <a  href='{{route('product',$product->id)}}'class="card">
+                <div class="card">
                     <div class="image-product">
                         <img src="{{asset('assets/images/product/'.$product->img1) }}" class="card-img-top" alt="product image">
                             @auth
@@ -130,23 +136,23 @@
                         class="hart   @if ($product->likes->where("user_id",auth()->user()->id)->count())
                                 active
                             @endif"><i class="fa fa-heart"></i></button>
-                            @else
-                            <button  class="hart" type="button" data-bs-target="#login" data-bs-toggle="modal"><i class="fa fa-heart"></i></button>
-                            @endauth
+                               @else
+                               <button  class="hart" type="button" data-bs-target="#login2" data-bs-toggle="modal"><i class="fa fa-heart"></i></button>
+                              @endauth
 
 
                               @auth
 
                               <button class="addtochart"  data-id="{{$product->id}}" onclick="addcart(this)">add to cart</button>
                               @else
-                              <button class="addtochart" >add to cart</button>
+                              <button class="addtochart" data-bs-target="#login2" data-bs-toggle="modal" >add to cart</button>
                               @endauth
 
 
 
                     </div>
 
-                    <div class="card-body">
+                    <a class="card-body"  href='{{route('product',$product->id)}}'>
                         <h5 class="card-title">{{ $product->name }}</h5>
                         <div class="freelancer-info d-flex align-items-center ">
                             <div class="image">
@@ -159,8 +165,8 @@
                             <i class="fa-solid fa-heart align-self-center"></i>
                             <span>{{ $product->likes->count() }}</span>
                         </div>
-                    </div>
-                </a> <!-- card -->
+                    </a>
+                </div> <!-- card -->
                 @endforeach
             </div>
 

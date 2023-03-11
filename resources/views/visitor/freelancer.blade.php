@@ -37,7 +37,13 @@
                 <span>{{ $freelancer->name }}</span>
                     <div class="rate">
                         <i class="fa fa-star"></i>
-                        <span>4,5</span>
+                        <span>
+                            @if( App\Models\Review::select('rate')->where('freelancer_id',$freelancer->id)->count()>0)
+                            {{App\Models\Review::select('rate')->where('freelancer_id',$freelancer->id)->sum('rate')/  App\Models\Review::select('rate')->where('freelancer_id',$freelancer->id)->count()}}
+                        @else
+{{App\Models\Review::select('rate')->where('freelancer_id',$freelancer->id)->count()}}
+                        @endif
+                        </span>
                     </div>
                 </div>
                 <div class="txt">{{ $freelancer->bio }}</div>
@@ -46,7 +52,7 @@
             <div class="totals">
                 <div class="projects">
                     <i class="fa-solid fa-list-check"></i>
-                    <p>{{ App\Models\Requests::where('freelancer_id', $freelancer->id)->count() }}<sub>projects</sub></p>
+                    <p>{{  App\Models\Requests::where('freelancer_id', $freelancer->id)->where('status','Completed')->count() }}<sub>projects</sub></p>
                 </div>
 
                 <div class="productstotal">
@@ -67,8 +73,12 @@
             <div class="section-header">
                 <h2>products</h2>
             </div>
-
-            <div class="products productscroll">
+            <button class="pre-btn">
+                <i class="fa fa-arrow-left"></i>
+            </button>
+            <button class="nxt-btn"><i class="fa fa-arrow-right"></i></button>
+    
+            <div class="products productscroll scrollable">
                 @foreach ($products as $product)
                     <div class="card">
                         <div class="image-product">
@@ -94,7 +104,7 @@
 
                             <div  class="prod-likes ">
                                 <i class="fa-solid fa-heart align-self-center"></i>
-                                <span>123</span>
+                                <span>{{ $product->likes->count() }}</span>
                             </div>
                         </div>
                     </div>
@@ -110,8 +120,11 @@
         <div class="section-header">
             <h2>photos</h2>
         </div>
-
-        <div class="products productscroll">
+        <button class="pre-btn">
+            <i class="fa fa-arrow-left"></i>
+        </button>
+        <button class="nxt-btn"><i class="fa fa-arrow-right"></i></button>
+        <div class="products productscroll  scrollable">
             @foreach ($photos as $photo)
                 <div class="card">
                     <div class="image-product">
@@ -131,7 +144,7 @@
 
                         <div  class="prod-likes ">
                             <i class="fa-solid fa-heart align-self-center"></i>
-                            <span>123</span>
+                            <span>{{ $photo->likes->count() }}</span>
                         </div>
                     </div>
                 </div>
@@ -146,11 +159,41 @@
 <div class="container-fluid d-block">
 
     <div class="section-header px-4">
-        <h2 class="text-black "> reviews <span class="text-black">(1234)</span></h2>
+        <h2 class="text-black "> reviews <span class="text-black">({{$reviews->count()}})</span></h2>
 
     </div>
 
+    @forelse ( $reviews  as  $review )
     <div class="review freelanc ">
+
+        <div class="image">
+            <img src="{{asset("Admin3/assets/images".App\Models\User::find($review->user_id)->profile_image)}}" alt="">
+        </div>
+        <div class="info">
+            <div class="name">
+            <span>{{App\Models\User::find($review->user_id)->name}}</span>
+                <div class="rate">
+
+                    
+                    @for ( $i=5 ;$i>0; $i-- )
+                    @if($review->rate-- )
+                    <i class="fa fa-star active"></i>
+                    @else
+                    <i class="fa fa-star"></i>
+                     @endif
+                    @endfor
+                   
+
+                </div>
+            </div>
+            <div class="txt">{{$review->pragraph}}</div>
+
+        </div>
+</div>
+    @empty
+        
+    @endforelse
+    {{-- <div class="review freelanc ">
 
             <div class="image">
                 <img src="{{asset("assets/images/vicky-hladynets-C8Ta0gwPbQg-unsplash.png")}}" alt="">
@@ -211,13 +254,15 @@
                 </div>
                 <div class="txt">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam velit alias ratione eaque dolores expedita ex repellat ducimus. Ratione quisquam molestiae iusto minima obcaecati tenetur delectus ex ipsam doloribus nulla.</div>
             </div>
-    </div>
+    </div> --}}
+
+    {{$reviews->links() }}
             <a href="" class=" text-center showmore">show more</a>
 </div>
 </div>
 
 <!-- chooseservice -->
-<div id="chooseservice" class="modal fade p-5"  aria-hidden="true" aria-labelledby="chooseserviceLabel2" tabindex="-1">
+<div id="chooseservice" class="modal fade p-5  modal-uk"  aria-hidden="true" aria-labelledby="chooseserviceLabel2" tabindex="-1">
 <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
         <div class="modal-header">
@@ -239,9 +284,9 @@
                     <label for="reservation">Booking for photo shot</label>
                 </div>
 
-                <div class="btn-contianer d-flex justify-content-between align-items-center my-3">
-                    <button class="btn-modal modal-color-text border-0" data-bs-dismiss="modal" type="button">move back</button>
-                    <button class="btn-modal btn-model-primary border-0" name="submit" type="submit">apply</button>
+                <div class="btn-contianer d-flex flex-md-row justify-content-between align-items-center my-3 fullwidthfield flex-column-reverse">
+                    <button class="btn-modal modal-color-text border-0" data-bs-dismiss="modal" type="button" style="width:150px;padding:5px 6px">move back</button>
+                    <button class="btn-modal btn-model-primary border-0"style="width:150px;padding:5px 6px" name="submit" type="submit">apply</button>
                 </div>
             </form>
         </div>
