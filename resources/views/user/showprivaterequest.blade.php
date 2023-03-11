@@ -7,7 +7,7 @@
 @section("og-image")
 @endsection
 @section("title")
-notification
+show private requests
 @endsection
 @section("header")
 @endsection
