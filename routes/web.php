@@ -35,6 +35,7 @@ Route::get('/showFreelancerDetails/{id}', [UserController::class, 'showFreelance
 
 Route::get("user/freelancers", [UserController::class, 'allFreelancers'])->name("freelancers");
 
+Route::get('filter', [ProductController::class, 'filter'])->name('filter');
 
 ########################################## Start Freelancer ##############################################
 
@@ -180,7 +181,7 @@ Route::prefix("user")->name("user.")->middleware('auth')->group(function(){
 
     Route::resource('/chat',ChatController::class);
 
-   
+
 });
 
 ########################################## End Customer ##############################################

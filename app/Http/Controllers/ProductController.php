@@ -93,7 +93,7 @@ class ProductController extends Controller
         }else{
             $services = DB::table("services")->where("category_id" , $id)->pluck("service_en" , "id");
         }
-    
+
         return json_encode($services);
     }
 
@@ -106,28 +106,28 @@ class ProductController extends Controller
             $products = Product::where('cat_id',request()->cat_id)->where('service_id',request()
             ->subcat_id)->get();
             $categories = Category::all();
-            
+
             if(request('productsearch')!=null){
-              
-            
+
+
             if(in_array('newest',request('productsearch'))){
                 $products=$products->sortBy('created_at');
-                array_push($filter,'newest'); 
+                array_push($filter,'newest');
             }
             if(in_array('highestrating',request('productsearch'))){
                 $products=$products->sortBy(function($item){
                     return $item->likes()->count();
                 });
-                array_push($filter,'highestrating'); 
+                array_push($filter,'highestrating');
             }
             if(in_array('pricelowtoheight',request('productsearch'))){
                 $products=$products->sortByDesc('price');
-                array_push($filter,'pricelowtoheight'); 
+                array_push($filter,'pricelowtoheight');
             }
 
         }else{
-          
-           array_push($filter,'All'); 
+
+           array_push($filter,'All');
         }
             return view('visitor.products', ['products'=>$products, 'categories'=>$categories,'cat_id'=>request()->cat_id,'subcat_id'=>request()->subcat_id,'filter'=>$filter]);
 
@@ -135,8 +135,8 @@ class ProductController extends Controller
             $products = Product::where('cat_id',request()->cat_id)->get();
             $categories = Category::all();
             if(request('productsearch')!=null){
-                
-            
+
+
                 if(in_array('newest',request('productsearch'))){
                     $products=$products->sortBy('created_at');
                 }
@@ -148,18 +148,18 @@ class ProductController extends Controller
                 if(in_array('pricelowtoheight',request('productsearch'))){
                     $products=$products->sortByDesc('price');
                 }
-    
+
             }else{
-                array_push($filter,'All'); 
+                array_push($filter,'All');
             }
-           
+
             return view('visitor.products', ['products'=>$products, 'categories'=>$categories,'cat_id'=>request()->cat_id,'filter'=>$filter]);
 
         }else{
             $products = Product::all();
             $categories = Category::all();
             if(request('productsearch')!=null){
-            
+
                 if(in_array('newest',request('productsearch'))){
                     $products=$products->sortBy('created_at');
                 }
@@ -171,34 +171,48 @@ class ProductController extends Controller
                 if(in_array('pricelowtoheight',request('productsearch'))){
                     $products=$products->sortByDesc('price');
                 }
-    
+
             }else{
-                array_push($filter,'All'); 
+                array_push($filter,'All');
             }
             return view('visitor.products', compact('products', 'categories' ,'filter'));
         }
-       
-       
-       
     }
 
 
 
 
-    // user show product 
+    // user show product
+    function usershowproduct($id)
+    {
+        $product= Product::findOrFail($id);
+        return view('visitor.product',compact('product'));
+    }
 
 
-    function usershowproduct($id){
 
-       $product= Product::findOrFail($id);
+    public function filter()
+    {
+        $categories = Category::all();
+        $products = Product::get();
 
-       $similar=Product::where(function($q) use($product){
-        $q->where('cat_id',$product->cat_id)->orWhere("service_id",$product->serivce_id);
-       })->limit(4)->get();
+        if(isset($_GET['sort']) && !empty($_GET['sort'])){
+            if($_GET['sort'] == 'product_newest'){
+                $products = Product::orderBy('created_at', 'asc')->get();   // تنازلي من الكبير للصغير
+            $similar=Product::where(function($q) use($product){
+                $q->where('cat_id',$product->cat_id)->orWhere("service_id",$product->serivce_id);
+            })->limit(4)->get();
 
+            }elseif($_GET['sort'] == 'product_rate'){
+                $products = DB::table('likes')->where('likesable_type', 'Product')->orderBy('likesable_id', 'asc')->get();
 
+            }elseif($_GET['sort'] == 'product_price'){
+                $products = Product::orderBy('price', 'desc')->get();       // تصاعدي من الصغير للكبير
+            }
+        }
+
+        return view('visitor.filter', compact('categories', 'products'));
        return view('visitor.product',compact('product','similar'));
     }
 }
-
 
