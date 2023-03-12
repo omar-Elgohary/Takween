@@ -54,4 +54,10 @@ class Requests extends Model
     {
         return $this->morphMany(File::class,'filesable');
     }
+    public function payment()
+    {
+        return $this->morphMany(Payment::class,'paymentsable');
+    }
+
+    
 }

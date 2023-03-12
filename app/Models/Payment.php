@@ -8,11 +8,15 @@ class Payment extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $fillable = ['user_id','freelancer_id','status','pay_type','total','discount'];
 
 
     public function users()
     {
         return $this->belongsToMany(User::class);
+    }
+
+    public function paymentsable(){
+        return $this->morphTo();
     }
 }

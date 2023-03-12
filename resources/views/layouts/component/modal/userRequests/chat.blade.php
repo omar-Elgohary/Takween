@@ -18,8 +18,6 @@
       <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             <div class="d-flex flex-row-reverse chat-head">
                 @if(auth()->user()->id ==$request->user_id) 
-
-
                 <img src="{{asset("Admin3/assets/images/users/".App\Models\User::where('id', $request->freelancer_id)->first()->profile_image)}}" alt="" class="rounded-circle avatar-sm">
                 <div class="d-flex flex-column">
                     <h5 class=""><a href="#" class="text-dark">
@@ -28,7 +26,7 @@
                         
                     @else
                     
-                    <img src="{{asset('assets/images/users/'.App\Models\User::find($request->user_id)->first()->profile_image)}}" alt="" class="rounded-circle avatar-sm">
+                    <img src="{{asset('Admin3/assets/images/users/'.App\Models\User::where('id',$request->user_id)->first()->profile_image)}}" alt="" class="rounded-circle avatar-sm">
                     <div class="d-flex flex-column">
                         <h5 class=""><a href="#" class="text-dark">
                     

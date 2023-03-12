@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 use App\Models\User;
+use App\Models\Offer;
 use App\Models\Review;
 use App\Models\Category;
 use App\Models\Requests;
@@ -166,7 +167,7 @@ class RequestController extends Controller
 
     $requests=Requests::findorfail($id);
 
-     $requestsoffer=$requests->offer()->select('freelancer_id','price')->where('status','pending')->get();
+     $requestsoffer=$requests->offer()->select('freelancer_id','price','id')->where('status','pending')->get();
 
 $data="";
      foreach(  $requestsoffer  as $re){
@@ -214,7 +215,7 @@ $data="";
         </form>
        
        
-        <form action="" method="">
+        <form action="'. route("user.acceptoffertopay",[$re->id,$id]) .'" method="GET">
         <button class="btn accept rounded-pill px-3 py-2" >accept</button>
         </form>
         
@@ -240,7 +241,7 @@ if(strlen($data)>0 and $data!=null){
 
      }
 
-  
+    
 
     }
 
@@ -262,10 +263,20 @@ if(strlen($data)>0 and $data!=null){
     }
 
    
-    function acceptoffer(){
-   
-  
+    function acceptoffertopay($id ,$re){
+
+       
+       $offer_price= Offer::where('id',$id)->first()->price;
+
+       $wallet=User::findOrFail(auth()->user()->id)->wallet->total;
+      
+       
+       $pay_wallet=( $wallet>=$offer_price)?1:0;
+    
+
+    return redirect()->back()->with(['message'=>'open payment','offer_id'=>$id,'request_id'=>$re,'pay_wallet'=>$pay_wallet]);
     }
+
 }
 //onsubmit="event.preventDefault(); return rejectoffer(this)"
 

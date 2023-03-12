@@ -30,7 +30,7 @@
     @include("layouts.component.modal.otp")
     @include("layouts.component.modal.addtocart")
     @include("layouts.component.modal.switchtofreelancer")
-    @include("layouts.component.modal.userRequests.payment")
+    {{-- @include("layouts.component.modal.userRequests.payment") --}}
 
 
     <div class="content">

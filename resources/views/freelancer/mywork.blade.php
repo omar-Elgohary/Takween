@@ -279,4 +279,124 @@ notification
 <script src="{{asset('assets/libs/jquery-bar-rating/jquery.barrating.min.js')}}"></script>
 
 <script src="{{asset('assets/js/pages/rating-init.js')}}"></script> 
+
+
+<script>
+  $(document).ready(function () {
+$('.chat').on('show.bs.offcanvas',function(){
+
+var request_id= $(this).attr('data-id');
+var type= $(this).attr('data-type');
+var mesageto= $(this).attr('data-to');
+var conversation =$(this).find('.conversation')
+// console.log(.append("asdsdas"));
+var olddata =0;
+type=type.trim();
+
+mesageto=mesageto.trim();
+setTimeout(getmessage, 0);
+var getmes =setInterval(getmessage,3000);
+
+function getmessage() { 
+$.ajax({
+url: "{{URL::to('user/chat')}}",
+type: "GET",
+headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+data:{'type':type,'messageto':mesageto ,'request_id':request_id},
+dataType: "json",
+success: function(data) {
+if(data['status'] !='no message'){
+
+conversation.html(" ");
+$.each(data['message'],  function (index, el) {  
+    if(el.from !={{auth()->user()->id}}){
+
+let message= " ";
+message=  '<div class="rightcont"> <div class="chat-txt rightside"> <p>'+
+el.text
+       +' </p> <span>'+
+        new Date(el.created_at).toLocaleTimeString() 
+       +
+        '</span> </div> </div>';
+
+        conversation.append(message);
+   
+
+    }else{
+
+        let message2= " ";
+message2=  '<div class="leftcont"> <div class="chat-txt leftside"> <p>'+
+el.text
+       +' </p> <span>'+
+        new Date(el.created_at).toLocaleTimeString() +
+        '</span> </div> </div>';
+
+        conversation.append(message2);
+     
+    }
+
+
+    
+
+
+});
+
+
+
+if( Object.keys(data).length >olddata){
+
+$('.conversation').scrollTop($('.conversation')[0].scrollHeight);
+olddata=Object.keys(data).length;
+}
+$('.chat').on('hide.bs.offcanvas',function(){
+clearInterval(getmes);
+});
+
+
+}else{
+
+    conversation.html(data['message']);
+
+}
+}
+
+});
+
+
+}
+
+});
+
+});
+// end get message
+
+
+
+function sendmessage(e){
+    
+        $.ajax({
+           
+            url: "{{route('user.chat.store')}}",
+            type: "POST",
+            data:$(e).serialize(),
+            dataType: "json",
+            success: function(data) {
+            if(data){
+                console.log(data);
+                $(e).find('.messageinput').val(' ');
+
+            }else{
+                
+                
+            }
+            }
+        
+            });
+        
+  
+
+
+
+}
+</script>
 @endsection

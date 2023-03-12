@@ -126,9 +126,10 @@
 
         <div class="products">
             @foreach ($products as $product)
-                <div class="card">
+            
+                <div class="card" >
                     <div class="image-product">
-                        <img src="{{asset('assets/images/product/'.$product->img1) }}" class="card-img-top" alt="product image">
+                        <a href='{{route('product',$product->id)}}' tabindex='2'> <img src="{{asset('assets/images/product/'.$product->img1) }}" class="card-img-top" alt="product image"></a>
                             @auth
                         <button type="button" data-type="product" data-id="{{$product->id}}"
 
@@ -152,21 +153,22 @@
 
                     </div>
 
-                    <a class="card-body"  href='{{route('product',$product->id)}}'>
+                    <div class="card-body" >
                         <h5 class="card-title">{{ $product->name }}</h5>
-                        <div class="freelancer-info d-flex align-items-center ">
+                        <a class="freelancer-info d-flex align-items-center " href="{{ route('showFreelancerDetails', $product->id) }}">
                             <div class="image">
                                 <img src="{{ asset("Admin3/assets/images/users/".App\Models\User::where('id', $product->freelancer_id)->first()->profile_image) }}" alt="">
                             </div>
                             <p class="card-text">{{ \App\Models\User::where('id', $product->freelancer_id)->first()->name }}</p>
-                        </div>
+                        </a>
 
                         <div class="prod-likes">
                             <i class="fa-solid fa-heart align-self-center"></i>
                             <span>{{ $product->likes->count() }}</span>
                         </div>
-                    </a>
-                </div> <!-- card -->
+                    </div>
+                </div> 
+           <!-- card -->
                 @endforeach
             </div>
 

@@ -4,6 +4,7 @@ use App\Http\Controllers\ChatController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RequestController;
@@ -173,6 +174,14 @@ Route::prefix("user")->name("user.")->middleware('auth')->group(function(){
 
     Route::get('/getrequestoffer/{id}', [RequestController::class, 'getrequestoffer'])->name("getrequestoffer");
     Route::get('/rejectofferrequest', [RequestController::class, 'rejectofferrequest'])->name("rejectofferrequest");
+    Route::get('/acceptoffertopay/{id}/{re}', [RequestController::class, 'acceptoffertopay'])->name("acceptoffertopay");
+    // payment
+
+
+    Route::post('/walletpay', [PaymentController::class, 'walletpay'])->name("walletpay");
+    // end payment
+
+
     // add or delete likes
     Route::get('/addorremovelikes/{id}',[UserController::class,'addorremovelikes']);
 

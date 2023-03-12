@@ -2656,7 +2656,7 @@ background-color: var(--orange-color);
 
 /*  */
 
-#pay .paytype{
+.pay .paytype{
     font-size: 30px;
     width:80px;
     height: 65px;
@@ -2672,21 +2672,21 @@ background-color: var(--orange-color);
 
 
 }
-#pay .paytype.active{
+.pay .paytype.active{
     background-color:var(--primary-color);
     color:#fff;
     width: 122px;
     height: 82px;
     font-size: 40px;
 }
-#pay .paytype.active > i{
+.pay .paytype.active > i{
     font-size: 50px;
 }
-#pay .paytype.active span{
+.pay .paytype.active span{
     font-size: 21px;
     display: flex;
 }
-#pay .paytype span{
+.pay .paytype span{
     font-size: 16px;
     position: absolute;
     top: 3px;
@@ -2960,7 +2960,7 @@ padding: 20px;
     margin-bottom: 23px;
 
 }
-#pay h1{
+.pay h1{
 font-size: 30px;
 font-weight: 900px;
 color: #000;

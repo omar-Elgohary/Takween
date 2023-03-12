@@ -1,4 +1,4 @@
-<div class="modal offers fade  modal-uk" id="pay" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+<div class="modal offers fade  modal-uk pay" id="pay{{$request->id}}" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header ">
@@ -32,7 +32,10 @@
    
 
       <div class="visa paycard">
-        <form action="">
+        <form action="" method="POST">
+          <input type="hidden" name="offer">
+          <input type="hidden" name="request_id">
+    
    <div class="form-outline mb-4 halfwidthinput">
     <label class="form-label" for="holder">holderholder name</label>
     
@@ -79,9 +82,35 @@
        
         </form>
       </div>
-      <div class="wallet  paycard">
-         
-       
+      <div class="wallet  paycard" style="height: 350px">
+        <div class="wallet-empty" style="height:100%">
+        <div class=" d-flex flex-column align-items-center justify-content-center w-100" style="height:100%" >
+
+        
+          <img src="{{asset('assets/images/wallet.png')}}" alt="wallet not enought" style="width:100px">
+
+          <p style="color:#011C26;" class="text-center py-3">Your wallet is empty
+            or haven't enough balance</p>
+        </div>
+      
+      </div>
+<div class="wallet-pay">
+  <form action="{{route('user.walletpay')}}" method="POST" class=" d-flex flex-column justify-content-end" >
+    @csrf
+    <input type="hidden" name="offer">
+    <input type="hidden" name="request_id">
+    
+
+
+    <div class="btn-contianer d-flex justify-content-center align-items-center">
+      <button type="submit" class="btn  btn-modal  my-3 btn-model-primary ">checkout</button>
+     
+       </div>
+
+    </form>
+</div>
+
+        
 
        
      </div>

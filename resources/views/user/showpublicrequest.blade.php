@@ -22,7 +22,7 @@ show public request
 
 @section("nosearch","none !important")
 @section("content")
-@include("layouts.component.modal.userRequests.payment")
+{{-- @include("layouts.component.modal.userRequests.payment") --}}
 {{-- @include("layouts.component.modal.userRequests.offer")
 @include("layouts.component.modal.userRequests.inprogress")
 @include("layouts.component.modal.userRequests.inprogressenddue")
@@ -113,6 +113,7 @@ show public request
             </button>
         </div>
         @include("layouts.component.modal.userRequests.offer")
+        @include("layouts.component.modal.userRequests.payment")
     @else
 
     @if($request->due_date < now())
@@ -438,10 +439,11 @@ show public request
                 <p class="flex-grow-1">{{ $request->description }}</p>
             </div>
 
-            @foreach (App\Models\Requests::where('id', $request->id)->get() as $request)
+            
                 <div class="d-flex flex-column px-3">
                     <p class="fs-5 font-bold">attachment</p>
                     <div class="d-flex flex-column px-2 ">
+                        @foreach (  $request->file()->get() as $file)
                         <div class="file d-flex mb-2">
                             <div class="details d-flex ">
                                 <div class="img">
@@ -449,14 +451,15 @@ show public request
                                 </div>
 
                                 <div class="info">
-                                    <p class="mb-0">{{ $request->attachment }}</p>
-                                    <div class="size">521kB .WORD</div>
+                                    <p class="mb-0">{{ $file->name }}</p>
+                                    <div class="size">{{ $file->size}}kB .{{ $file->type }}</div>
                                 </div>
                             </div>
                         </div> <!-- end offerPending modal -->
+                        @endforeach
                     </div>
                 </div>
-            @endforeach
+            
 
                 <div class="btn-contianer d-flex flex-column justify-between align-items-center my-3">
                     <button class="btn  btn-modal btn-model-primary" type="button" data-bs-toggle="modal" data-bs-target="#review"  >search new offer</button>
@@ -716,18 +719,6 @@ console.log(request_id);
 });
 
 
-    // } );
-   
-//    if( Object.keys(data).length >olddata){
-   
-//     $('.conversation').scrollTop($('.conversation')[0].scrollHeight);
-//     olddata=Object.keys(data).length;
-//    }
-//    $('.chat').on('hide.bs.offcanvas',function(){
-//   clearInterval(getmes);
-//    });
-
-
 }else{
 
 
@@ -773,5 +764,30 @@ console.log("sadasd");
 
 // end show offer
 
+@if(Session::has('message') && Session::get('message')=="open payment")
+// console.log({{Session::get('pay_wallet')}});
+// console.log({{Session::get('request_id')}});
+$(document).ready(function() {
+    $('#pay{{Session::get('request_id')}}').modal('show');
+    $('#pay{{Session::get('request_id')}}').find('.wallet .wallet-pay').hide();
+    $('#pay{{Session::get('request_id')}}').find('.wallet .wallet-empty').hide();
+    @if (Session::get('pay_wallet'))
+    $('#pay{{Session::get('request_id')}}').find('.wallet .wallet-pay').show();
+    $('#pay{{Session::get('request_id')}}').find('form input[name="offer"]').val("{{Session::get('offer_id')}}")
+    $('#pay{{Session::get('request_id')}}').find('form input[name="request_id"]').val("{{Session::get('request_id')}}")
+     
+    @else
+    $('#pay{{Session::get('request_id')}}').find('.wallet .wallet-empty').show();
+        
+    @endif
+    
+});
+@endif
+@if(Session::has('message') && Session::get('message')=="paydone")
+
+@endif
     </script>
+
+    <!-- jQuery library -->
+ 
 @endsection
