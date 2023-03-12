@@ -2470,6 +2470,13 @@ border-radius: 12px;
     height: 29px;
     padding: 20px 25px;
 }
+
+@media (max-width:375px){
+
+    .filter-items{
+        left:26px;
+    }
+}
 .requestlink a{
 position: relative;
 cursor: pointer !important;
@@ -2841,6 +2848,15 @@ font-size: 19px;
         height: 599px;
     }
 }
+@media(max-width:767px){
+
+    .suredelete .btn-contianer {
+ 
+
+        flex-direction: column-reverse;
+    }
+}
+
 
 
 #review .example-rating a{
@@ -2969,6 +2985,29 @@ margin-bottom: 10px;
 }
 
 
+
+@media (max-width:767px){
+
+    #switchtofreelancer .text-center p ,#switchtofreelancersignup .text-center p{
+        font-size: 14px;
+        
+        }
+
+    #switchtofreelancer h1,#switchtofreelancersignup h1{
+        font-size: 27px;
+    }
+
+    #switchtofreelancer .feature .images img{
+        width: 40px;
+       height: 40px;
+    }
+    #switchtofreelancer .feature  h3{
+        font-size: 14px;
+    }
+    #switchtofreelancer .text-center ,#switchtofreelancersignup .text-center {
+        margin-bottom: 40px;
+    }
+}
 /* end user page  */
 
 .privateorders{

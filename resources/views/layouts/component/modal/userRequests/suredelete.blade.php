@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal fade " id="suredelete{{$request->id}}" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+<div class="modal fade suredelete" id="suredelete{{$request->id}}" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
               <div class="modal-header">

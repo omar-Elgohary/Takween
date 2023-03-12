@@ -28,7 +28,7 @@ carts
 
 @section("nosearch","none !important")
 @section("content")
-@extends("layouts.component.modal.userRequests.payment")
+{{-- @extends("layouts.component.modal.userRequests.payment") --}}
 <div class="charts">
     <div class="container-fluid">
          <div class="section-header ">
@@ -81,7 +81,7 @@ carts
                    
                 <div class="chartitem row justify-content-center align-items-center g-2">
                     <div class="col">
-                        <img src="{{asset("assets/images/Component5.png")}}" alt="">
+                        <img src="{{asset("assets/images/coming-soon-img.png")}}" alt="">
                     </div>
                     <div class="col">
                         <h4>product name</h4>

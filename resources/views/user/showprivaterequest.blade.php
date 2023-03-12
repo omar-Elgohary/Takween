@@ -22,7 +22,6 @@ show private requests
 @section("nosearch","none !important")
 
 @section("content")
-@include("layouts.component.modal.userRequests.payment")
 {{-- @include("layouts.component.modal.userprivaterequest.penddingacceptorreject") --}}
 {{-- @include("layouts.component.modal.userprivaterequest.penddingcancel") --}}
 {{-- @include("layouts.component.modal.userRequests.inprogress")
@@ -183,6 +182,7 @@ show private requests
                 @include("layouts.component.modal.userRequests.chat")
                 @include("layouts.component.modal.userRequests.finish")
                 @include("layouts.component.modal.userRequests.complete")
+@include("layouts.component.modal.userRequests.payment")
                 
                 @include("layouts.component.modal.userRequests.review")
                 
