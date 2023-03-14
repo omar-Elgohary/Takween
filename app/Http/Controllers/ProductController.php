@@ -44,21 +44,21 @@ class ProductController extends Controller
         $img3=time(). ".".$file_extention;
         $request->img3->move(public_path('front/upload/product/images'),$img3);
 
-      $product= Product::create([
-        'name'=> $request->name,
-        "freelancer_id"=>Auth::user()->id,
-        'category_id'=> $request->category,
-        'service_id'=> $request->service,
-        'price'=> $request->price,
-        'description'=> $request->description,
-        'file'=> $request->file("file"),
-        'img1'=> $request->file("img1"),
-        'img2'=> $request->file("img2"),
-        'img3'=> $request->file("img3"),
-       ]);
+        $product= Product::create([
+            'name'=> $request->name,
+            "freelancer_id" =>Auth::user()->id,
+            'category_id'=> $request->category,
+            'service_id'=> $request->service,
+            'price'=> $request->price,
+            'description'=> $request->description,
+            'file' => $request->file("file"),
+            'img1' => $request->file("img1"),
+            'img2' => $request->file("img2"),
+            'img3' => $request->file("img3"),
+        ]);
 
-       $product->id;
-       return redirect()->back();
+        $product->id;
+        return redirect()->back();
     }
 
 
@@ -198,16 +198,15 @@ class ProductController extends Controller
     {
         $categories = Category::all();
         $products = Product::get();
+        $products = collect($products);
 
         if(isset($_GET['sort']) && !empty($_GET['sort'])){
             if($_GET['sort'] == 'product_newest'){
                 $products = Product::orderBy('created_at', 'asc')->get();   // تنازلي من الكبير للصغير
-            $similar=Product::where(function($q) use($product){
-                $q->where('cat_id',$product->cat_id)->orWhere("service_id",$product->serivce_id);
-            })->limit(4)->get();
 
             }elseif($_GET['sort'] == 'product_rate'){
-                $products = DB::table('likes')->where('likesable_type', 'Product')->orderBy('likesable_id', 'asc')->get();
+                return Like::where('type', 'product')->orderby();
+                // return Product::find(2)->likes()->count();
 
             }elseif($_GET['sort'] == 'product_price'){
                 $products = Product::orderBy('price', 'desc')->get();       // تصاعدي من الصغير للكبير
@@ -215,7 +214,6 @@ class ProductController extends Controller
         }
 
         return view('visitor.filter', compact('categories', 'products'));
-       return view('visitor.product',compact('product','similar'));
     }
 }
 
