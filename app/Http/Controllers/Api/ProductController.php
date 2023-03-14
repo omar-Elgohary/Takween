@@ -13,8 +13,19 @@ class ProductController extends Controller
 
     public function index()
     {
+        try{
         $products = Product::get();
-        return $this->returnData(200, 'Products Returned Successfully', $products);
+            foreach($products as $product){
+                $product->attachment =  asset('assets/front/upload/files/'.$product->attachment);
+                $product->img1 =  asset('assets/images/product/'.$product->img1);
+                $product->img2 =  asset('assets/images/product/'.$product->img2);
+                $product->img3 =  asset('assets/images/product/'.$product->img3);
+            }
+            return $this->returnData(200, 'Products Returned Successfully',$products);
+        }catch(\Exception $e){
+            echo $e;
+            return $this->returnError(400, 'Products Returned Failed');
+        }
     }
 
 
@@ -69,7 +80,7 @@ class ProductController extends Controller
     public function destroy($id)
     {
         try {
-        $product = Product::find($id)->delete();
+            $product = Product::find($id)->delete();
         if(!$product){
             return $this->returnError('404', 'Product Not Found');
         }
