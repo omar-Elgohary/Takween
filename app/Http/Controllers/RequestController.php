@@ -144,20 +144,17 @@ class RequestController extends Controller
         // return redirect()->back()->with(['state'=>"cancel","id"=>$id]);
     }
 
-    public function  getrequestoffer($id){
-
-    $requests=Requests::findorfail($id);
-
-     $requestsoffer=$requests->offer()->select('freelancer_id','price','id')->where('status','pending')->get();
-
-$data="";
-     foreach(  $requestsoffer  as $re){
-    
-       $data.=' <div class="freelanceroffer ">
-        <div class=" d-flex ">
-            <div class="img">
-        <img src="'.asset( 'Admin3/assets/images/users/'.User::findOrFail($re->freelancer_id)->profile_image).'" alt="">
-            </div>
+    public function getrequestoffer($id)
+    {
+        $requests=Requests::findorfail($id);
+        $requestsoffer=$requests->offer()->select('freelancer_id','price','id')->where('status','pending')->get();
+        $data="";
+        foreach($requestsoffer  as $re){
+        $data.=' <div class="freelanceroffer ">
+            <div class=" d-flex ">
+                <div class="img">
+                    <img src="'.asset( 'Admin3/assets/images/users/'.User::findOrFail($re->freelancer_id)->profile_image).'" alt="">
+                </div>
 
             <div class="info d-flex flex-column">
                 <h5 class="mb-0">'. User::findOrFail($re->freelancer_id)->name  .'</h5>
@@ -170,12 +167,11 @@ $data="";
                         <p class="mb-0">';
                         if(Review::select('rate')->where('freelancer_id',$re->freelancer_id)->count() > 0){
                             $data.=    Review::select('rate')->where('freelancer_id',$re->freelancer_id)->sum('rate')/  Review::select('rate')->where('freelancer_id',$re->freelancer_id)->count();
-                    }else{
-                        $data.=   Review::select('rate')->where('freelancer_id',$re->freelancer_id)->count();
-                     }
-                     
-                     $data.= 
-                     '</p>
+                        }else{
+                            $data.=   Review::select('rate')->where('freelancer_id',$re->freelancer_id)->count();
+                        }
+                            $data.=
+                        '</p>
                     </div>
 
                     <div class="d-flex align-items-baseline px-2">
@@ -191,40 +187,30 @@ $data="";
         <input type="hidden" name="request_id" value="'.$id.'">
         <input type="hidden" name="freelancer_id" value="'.$re->freelancer_id.'">
         <input type="hidden"  name="_token" value='.csrf_token().'>
-         
+
         <button class="btn rej rounded-pill px-3 py-2 " type="submit"> reject</button>
         </form>
-       
-       
+
+
         <form action="'. route("user.acceptoffertopay",[$re->id,$id]) .'" method="GET">
         <button class="btn accept rounded-pill px-3 py-2" >accept</button>
         </form>
-        
+
         </div>
     </div>';
-}
-if(strlen($data)>0 and $data!=null){
-    return JSON_encode( $data);
+    }
+    if(strlen($data)>0 and $data!=null){
+        return JSON_encode( $data);
 
-}else{
-    if(app()->getLocale()=='ar'){
-
-        $data="لا يوجد عروض متاحه";
     }else{
-
-        $data="no offer";
-
+        if(app()->getLocale()=='ar'){
+            $data="لا يوجد عروض متاحه";
+        }else{
+            $data="no offer";
+        }
+        return JSON_encode( $data);
     }
-
-    
-    
-    return JSON_encode( $data);
-
-     }
-
-    
-
-    }
+}
 
 
     function rejectofferrequest(Request $request){
@@ -239,21 +225,21 @@ if(strlen($data)>0 and $data!=null){
     ]);
 
     $flag=true;
-     
+
     return JSON_encode($flag);
     }
 
-   
+
     function acceptoffertopay($id ,$re){
 
-       
+
        $offer_price= Offer::where('id',$id)->first()->price;
 
        $wallet=User::findOrFail(auth()->user()->id)->wallet->total;
-      
-       
+
+
        $pay_wallet=( $wallet>=$offer_price)?1:0;
-    
+
 
     return redirect()->back()->with(['message'=>'open payment','offer_id'=>$id,'request_id'=>$re,'pay_wallet'=>$pay_wallet]);
     }
