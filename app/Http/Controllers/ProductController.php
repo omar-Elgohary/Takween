@@ -186,7 +186,10 @@ class ProductController extends Controller
     function usershowproduct($id)
     {
         $product= Product::findOrFail($id);
-        return view('visitor.product',compact('product'));
+        $similar=Product::where(function($q) use($product){
+            $q->where('cat_id',$product->cat_id)->orWhere("service_id",$product->serivce_id);
+        })->limit(4)->get();
+        return view('visitor.product',compact('similar','product'));
     }
 
 

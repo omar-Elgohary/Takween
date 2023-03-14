@@ -92,7 +92,7 @@
 
 
  --}}
- <div id="finish{{$request->id}}" class="modal offers fade" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" tabindex="-1">
+ <div id="finish{{$request->id}}" class="modal offers fade"tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header ">
@@ -140,24 +140,24 @@
                     <p class="flex-grow-1 ">{{ $request->description }}</p>
                 </div>
 
-                <div class="d-flex flex-column px-3 ">
+                <div class="d-flex flex-column px-3">
                     <p class="fs-5 font-bold">attachment</p>
-                   
-                        <div class="d-flex flex-column px-2 ">
-                            <div class="file d-flex mb-2">
-                                <div class="details d-flex ">
-                                    <div class="img"><i class="fa-regular fa-file-word"></i></div>
-                                    <div class="info">
-                                    <p class=" mb-0">{{ $request->attachment }}</p>
-                                        <div class="size">
-                                            
-                                            521kB .word
-                                        </div>
-                                    </div>
+                    <div class="d-flex flex-column px-2 ">
+                        @foreach (  $request->file()->get() as $file)
+                        <div class="file d-flex mb-2">
+                            <div class="details d-flex ">
+                                <div class="img">
+                                    <i class="fa-regular fa-file-word"></i>
+                                </div>
+
+                                <div class="info">
+                                    <p class="mb-0">{{ $file->name }}</p>
+                                    <div class="size">{{ $file->size}}kB .{{ $file->type }}</div>
                                 </div>
                             </div>
-                        </div>
-                  
+                        </div> <!-- end offerPending modal -->
+                        @endforeach
+                    </div>
                 </div>
                 
                 <div class="btn-contianer d-flex flex-column justify-between align-items-center my-3">

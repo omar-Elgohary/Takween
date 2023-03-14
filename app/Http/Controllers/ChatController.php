@@ -22,11 +22,24 @@ class ChatController extends Controller
         if($type=='request'){
 
         $request= Requests::findorfail($request_id);
-         $mssagefrom=$request->chats
+         $messages=$request->chats
          ->where(function ($q)use($messageto,$user) {return $q->where('from',$user)->orWhere('from',$messageto);})
         ->where(function ($q)use($messageto,$user) {return $q->where('to',$messageto)->orWhere('to',$user);})->sortBy('created_at');
 
-      return JSON_decode($mssagefrom);
+        if( count($messages)>0 ){
+            $messagelist=array('message'=>$messages, 'status'=>'found message');
+            return JSON_encode($messagelist);
+
+        }else{
+            if(app()->getLocale()=='ar'){
+                $messages=" <div class='text-center'>  لا يوجد رسائل سابقة  </div> ";
+            }else{
+
+                $messages=" <div class='text-center'>No message </div> ";
+            }
+            $messagelist=array('message'=>$messages, 'status'=>'no message');
+            return JSON_encode($messagelist); 
+        }
 
 
         }elseif($type=='reservation'){

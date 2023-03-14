@@ -7,7 +7,7 @@
 @section("og-image")
 @endsection
 @section("title")
-notification
+show private requests
 @endsection
 @section("header")
 @endsection
@@ -22,7 +22,6 @@ notification
 @section("nosearch","none !important")
 
 @section("content")
-@include("layouts.component.modal.userRequests.payment")
 {{-- @include("layouts.component.modal.userprivaterequest.penddingacceptorreject") --}}
 {{-- @include("layouts.component.modal.userprivaterequest.penddingcancel") --}}
 {{-- @include("layouts.component.modal.userRequests.inprogress")
@@ -183,6 +182,7 @@ notification
                 @include("layouts.component.modal.userRequests.chat")
                 @include("layouts.component.modal.userRequests.finish")
                 @include("layouts.component.modal.userRequests.complete")
+@include("layouts.component.modal.userRequests.payment")
                 
                 @include("layouts.component.modal.userRequests.review")
                 
@@ -270,7 +270,7 @@ type=type.trim();
 
 mesageto=mesageto.trim();
 setTimeout(getmessage, 0);
-var getmes =setInterval(getmessage,5000);
+var getmes =setInterval(getmessage,3000);
 
 function getmessage() { 
 $.ajax({
@@ -280,10 +280,10 @@ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
 data:{'type':type,'messageto':mesageto ,'request_id':request_id},
 dataType: "json",
 success: function(data) {
-if(data){
+if(data['status'] !='no message'){
 
 conversation.html(" ");
-$.each(data,  function (index, el) {  
+$.each(data['message'],  function (index, el) {  
     if(el.from !={{auth()->user()->id}}){
 
 let message= " ";
@@ -330,6 +330,7 @@ clearInterval(getmes);
 
 }else{
 
+    conversation.val(data['message']);
 
 }
 }
@@ -350,31 +351,34 @@ function sendmessage(e){
 
 //     var x=$(e);
 // $('.messageinput').html(' ');
-    $.ajax({
+
+$.ajax({
+           
+           url: "{{route('user.chat.store')}}",
+           type: "POST",
+           data:$(e).serialize(),
+           dataType: "json",
+           success: function(data) {
+           if(data){
+               console.log(data);
+               $(e).find('.messageinput').val(' ');
+
+           }else{
+               
+               
+           }
+           }
        
-        url: "{{route('user.chat.store')}}",
-        type: "POST",
-        data:$(e).serialize(),
-        dataType: "json",
-        success: function(data) {
-        if(data){
-            console.log(data);
-            getmessage();
-            $('.messageinput').html(' ');
-
-        }else{
-            
-            
-        }
-        }
+           });
     
-        });
-    
-
 
 
 
 }
+
+
+
+
 
 </script>
 @endsection

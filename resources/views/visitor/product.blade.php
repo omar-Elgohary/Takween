@@ -175,8 +175,8 @@ product
                 @forelse ( $similar as $s )
                     
 
-                {{-- <div class="card-container col-xs-12 col-sm-6 col-md-4 col-lg-3" > --}}
-                    <div class="card  col-xs-12 col-sm-6 col-md-4 col-lg-3" style="max-width: 300px">
+                <div class="card-container col-xs-12 col-sm-6 col-md-4 col-lg-3" >
+                    <div class="card " style="max-width: 300px">
                       <div class="image-product" style="width:auto; height:auto">
                         @foreach (array($product->img1,$product->img2,$product->img2) as $image )
                             @if ($image !=null)
@@ -219,6 +219,7 @@ product
                                   </div>
                                 
                                 </div>
+                     </div>
                      </div>
     
                 @empty

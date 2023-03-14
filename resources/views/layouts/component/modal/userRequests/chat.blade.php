@@ -18,8 +18,6 @@
       <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             <div class="d-flex flex-row-reverse chat-head">
                 @if(auth()->user()->id ==$request->user_id) 
-
-
                 <img src="{{asset("Admin3/assets/images/users/".App\Models\User::where('id', $request->freelancer_id)->first()->profile_image)}}" alt="" class="rounded-circle avatar-sm">
                 <div class="d-flex flex-column">
                     <h5 class=""><a href="#" class="text-dark">
@@ -28,7 +26,7 @@
                         
                     @else
                     
-                    <img src="{{asset('assets/images/users/'.App\Models\User::find($request->user_id)->first()->profile_image)}}" alt="" class="rounded-circle avatar-sm">
+                    <img src="{{asset('Admin3/assets/images/users/'.App\Models\User::where('id',$request->user_id)->first()->profile_image)}}" alt="" class="rounded-circle avatar-sm">
                     <div class="d-flex flex-column">
                         <h5 class=""><a href="#" class="text-dark">
                     
@@ -63,6 +61,9 @@
       
 
   <div class="conversation">
+    
+    <div class="tenor-gif-embed" data-postid="5345658" data-share-method="host" data-aspect-ratio="1" data-width="100%" data-hide-gif-attribution="true">
+        <script type="text/javascript" async src="https://tenor.com/embed.js"></script></div>
     {{-- <div class="rightcont">
         <div class="chat-txt rightside">
             <p>
@@ -95,6 +96,7 @@
 
     </div>
     
+    {{-- <form class="sendmessage  senmessage{{$request->id}}" onsubmit="event.preventDefault(); "> --}}
     <form class="sendmessage" onsubmit="event.preventDefault(); return sendmessage(this);">
         @csrf
         <input type="hidden" value="{{$request->id}}" name="request_id">
@@ -110,7 +112,7 @@
         @else
         {{$request->user_id}}
         @endif" name="to">
-       <input type="text" class="rounded-pill" class="messageinput" name="message">
+       <input type="text" class="rounded-pill  messageinput"  name="message">
         <button class="rounded-circle sendtext" type="submit">
             <i class="fa-solid fa-paper-plane"></i>
         </button>

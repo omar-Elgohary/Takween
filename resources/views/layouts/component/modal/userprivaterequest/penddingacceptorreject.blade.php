@@ -1,4 +1,4 @@
-<div class="modal offers fade" id="penddingacceptoreject{{$request->id}}" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" tabindex="-1">
+<div class="modal offers fade" id="penddingacceptoreject{{$request->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header ">
@@ -64,10 +64,10 @@
                 ">{{ $request->due_date }}</p>
             </div>
             </div>
-          <div class="d-flex flex-column px-3 bg-blue ">
-            <span class="flex-grow-1 fs-5 font-bold ">description</span>
-             <p class="flex-grow-1 ">Lorem ipsum dolor sit amet consectetur .</p>
-          </div>
+            <div class="d-flex flex-column px-3 bg-blue ">
+              <span class="flex-grow-1 fs-5 font-bold ">{{__('request.description')}}</span>
+               <p class="flex-grow-1 ">{{ $request->description }}</p>
+            </div>
   
           <div class="d-flex flex-column px-3 ">
               <p class="fs-5 font-bold">attachment</p>
