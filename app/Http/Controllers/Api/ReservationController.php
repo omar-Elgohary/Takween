@@ -10,7 +10,7 @@ class ReservationController extends Controller
     use ApiResponseTrait;
 
     public function allReservations(Request $request)
-    {
+    {   // new
         try{
             $reservations = Reservation::all();
                 return $this->returnData(200, 'Reservations Returned Successfully', $reservations);
