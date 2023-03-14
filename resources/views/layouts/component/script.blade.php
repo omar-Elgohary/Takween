@@ -17,6 +17,7 @@
 
 <!-- timeline init js -->
 <script src="{{asset("assets/js/pages/timeline.init.js")}}"></script>
+ <script type="text/javascript" src="{{asset("assets/js/text/javascript")}}"></script>
 
 <script src="{{asset("/assets/js/script.js")}}"></script>
 {{-- slick scroll --}}

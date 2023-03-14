@@ -34,7 +34,7 @@ p{
 }
 a{
 
-    cursor: pointer;
+    cursor:pointer !important;
 }
 .deadline{
     color:red;

@@ -164,6 +164,7 @@ show public request
         </a>
         @include("layouts.component.modal.userRequests.review")
         @include("layouts.component.modal.userRequests.chat")
+        @include("layouts.component.modal.userRequests.suredelete")
     @elseif ($request->status == 'In Process')
         <a href="#inprogress{{ $request->id }}" data-bs-toggle="modal" class="request d-flex flex-column px-3 py-3 position-relative mb-5">
             <div class=" d-flex justify-content-between align-items-baseline  show-phone ">
@@ -463,7 +464,7 @@ show public request
 
                 <div class="btn-contianer d-flex flex-column justify-between align-items-center my-3">
                     <button class="btn  btn-modal btn-model-primary" type="button" data-bs-toggle="modal" data-bs-target="#review"  >search new offer</button>
-                    <button class="btn text-black-50 border-0"type="button" data-bs-toggle="modal" data-bs-target="#suredelete"  >cancel this service</button>
+                    <button class="btn text-black-50 border-0"type="button" data-bs-toggle="modal" data-bs-target="#suredelete{{$request->id}}"  >cancel this service</button>
                 </div>
             </div>
         </div>
@@ -481,7 +482,7 @@ show public request
 @include("layouts.component.modal.userRequests.complete")
 
 
-@include("layouts.component.modal.userRequests.suredelete")
+
 
 {{-- @include("layouts.component.modal.userRequests.review") --}}
 {{-- @include("layouts.component.modal.userRequests.chat") --}}

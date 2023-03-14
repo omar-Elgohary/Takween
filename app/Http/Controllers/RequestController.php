@@ -110,7 +110,6 @@ class RequestController extends Controller
 
         return  redirect()->back()->with( ['messsage' => 'ok'] );
 
-
     }
 
 
@@ -147,10 +146,26 @@ class RequestController extends Controller
     public function cancel($id)
     {
         $request=Requests::find($id);
-        $s= $request->update([
+        
+        $total_pay=$request->payment()->where('freelancer_id',$request->freelancer_id)->first()->total;
+        $edit_pay=$request->payment()->where('freelancer_id',$request->freelancer_id)->first()->update([
+            'status'=>"refund"
+        ]);
+
+       $current_wallet= User::findOrFail(auth()->user()->id)->wallet->total;
+        $current_wallet+= $total_pay;
+        $edit_offer= Requests::findorfail($id)->offer()->where('freelancer_id',$request->freelancer_id)->update([
+            "status"=>'reject',
+        ]);
+        $edit_request= $request->update([
             'status'=>"Cancel by customer"
         ]);
-        return redirect()->back()->with(['state'=>"cancel","id"=>$id]);
+
+        $edit_wallet=User::findOrFail(auth()->user()->id)->wallet()->update([
+            "total"=>$current_wallet
+           ]);
+
+        return redirect()->back()->with(['state'=>"cancel","id"=>$id,'command'=>'open review']);
     }
 
 
@@ -173,7 +188,7 @@ $data="";
      foreach(  $requestsoffer  as $re){
     
        $data.=' <div class="freelanceroffer ">
-        <div class=" d-flex ">
+        <div class=" d-flex "> 
             <div class="img">
         <img src="'.asset( 'Admin3/assets/images/users/'.User::findOrFail($re->freelancer_id)->profile_image).'" alt="">
             </div>
