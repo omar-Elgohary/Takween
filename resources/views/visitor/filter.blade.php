@@ -23,7 +23,7 @@
 </a>
 
 <div class="products-page">
-    <div class="container-fluid d-flex ">
+    <div class="container-fluid d-flex">
         <div class="category-table">
             <ul class="category">
                 @foreach ($categories as $category)
@@ -108,16 +108,16 @@
                             @auth
                         <button type="button" data-type="product" data-id="{{$product->id}}"
                         onclick="likes(this)"
-                        class="hart @if ($product->likes->where("user_id",auth()->user()->id)->count())
+                        class="hart @if ($product->likes->where("user_id", auth()->user()->id)->count())
                             active
                         @endif"><i class="fa fa-heart"></i></button>
                         @else
-                        <button  class="hart" type="button" data-bs-target="#login" data-bs-toggle="modal"><i class="fa fa-heart"></i></button>
+                        <button class="hart" type="button" data-bs-target="#login" data-bs-toggle="modal"><i class="fa fa-heart"></i></button>
                         @endauth
                         @auth
-                        <button class="addtochart"  data-id="{{$product->id}}" onclick="addcart(this)">add to cart</button>
+                        <button class="addtochart" data-id="{{$product->id}}" onclick="addcart(this)">add to cart</button>
                         @else
-                        <button class="addtochart" >add to cart</button>
+                        <button class="addtochart">add to cart</button>
                         @endauth
                     </div>
 
