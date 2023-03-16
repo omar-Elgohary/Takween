@@ -82,7 +82,7 @@ show private requests
             <a href="{{route('user.showpublicrequest')}}" class=" fs-4 text-black-50 ">{{__('request.public request')}}</a>
             <a href="{{route('user.showprivaterequest')}}" class="active  fs-4">{{__('request.private request')}}</a>
         </div>
-{{Session::get("state")}}
+
     <div class="requesties d-flx flex-column pt-4">
         @foreach ($requests as $request)
  
@@ -93,7 +93,7 @@ show private requests
         @elseif($request->status=="Pending")
         <a  href="#penddingcancel{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
 
-        @elseif($request->status=='In Process' && $request->due_date < now()->toDateString())
+        @elseif(($request->status=='In Process' && $request->due_date < now()->toDateString() ) ||$request->status=='Reject' )
         <a  href="#inprogressenddueprivate{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
 
         @elseif($request->status=='In Process' )
@@ -118,7 +118,7 @@ show private requests
 
                         <div class="freelanereq mx-2">
                             <h3 class="fw-600">{{App\Models\User::where('id', $request->freelancer_id)->first()->name }}</h3>
-                            <span class="text-black-50">#123123</span>
+                            <span class="text-black-50">{{$request->random_id}}</span>
                         </div>
                     </div>
 
@@ -182,7 +182,7 @@ show private requests
                 @include("layouts.component.modal.userRequests.chat")
                 @include("layouts.component.modal.userRequests.finish")
                 @include("layouts.component.modal.userRequests.complete")
-@include("layouts.component.modal.userRequests.payment")
+                 @include("layouts.component.modal.userRequests.payment")
                 
                 @include("layouts.component.modal.userRequests.review")
                 
@@ -330,7 +330,7 @@ clearInterval(getmes);
 
 }else{
 
-    conversation.val(data['message']);
+    conversation.html(data['message']);
 
 }
 }
@@ -348,36 +348,74 @@ clearInterval(getmes);
 
 
 function sendmessage(e){
-
-//     var x=$(e);
-// $('.messageinput').html(' ');
-
-$.ajax({
-           
-           url: "{{route('user.chat.store')}}",
-           type: "POST",
-           data:$(e).serialize(),
-           dataType: "json",
-           success: function(data) {
-           if(data){
-               console.log(data);
-               $(e).find('.messageinput').val(' ');
-
-           }else{
-               
-               
-           }
-           }
-       
-           });
     
+        $.ajax({
+           
+            url: "{{route('user.chat.store')}}",
+            type: "POST",
+            data:$(e).serialize(),
+            dataType: "json",
+            success: function(data) {
+            if(data){
+                console.log(data);
+                $(e).find('.messageinput').val(' ');
+
+            }else{
+                
+                
+            }
+            }
+        
+            });
+        
+  
 
 
 
 }
 
 
+@if(Session::has('message') && Session::get('message')=="open payment")
+// console.log({{Session::get('pay_wallet')}});
+// console.log({{Session::get('request_id')}});
+$(document).ready(function() {
+    $('#pay{{Session::get('request_id')}}').modal('show');
+    $('#pay{{Session::get('request_id')}}').find('.wallet .wallet-pay').hide();
+    $('#pay{{Session::get('request_id')}}').find('.wallet .wallet-empty').hide();
+    @if (Session::get('pay_wallet'))
+    $('#pay{{Session::get('request_id')}}').find('.wallet .wallet-pay').show();
+    $('#pay{{Session::get('request_id')}}').find('form input[name="offer"]').val("{{Session::get('offer_id')}}")
+    $('#pay{{Session::get('request_id')}}').find('form input[name="request_id"]').val("{{Session::get('request_id')}}")
+     
+    @else
+    $('#pay{{Session::get('request_id')}}').find('.wallet .wallet-empty').show();
+        
+    @endif
+    
+});
+@endif
+@if(Session::has('message') && Session::get('message')=="completed")
+$(document).ready(function() {
+console.log('asdas');
+    $('#complete{{Session::get('id')}}').modal('show');
+     
+});
+@endif
 
+
+
+
+@if(Session::has('message') && Session::get('message')=="open completed")
+$()
+
+@endif
+
+@if(Session::has('status') && Session::get('status')=="completed")
+$(document).ready(function() {
+$('#review{{Session::get('request_id')}}').modal('show');
+
+});
+@endif
 
 
 </script>

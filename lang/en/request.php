@@ -15,5 +15,5 @@ return [
     'public request' => 'public  request',
     'customer name' => 'customer name',
     'user' => "We can't find a user with that email address.",
-
+"reject offer message"=>" offer is rejected successfully",
 ];

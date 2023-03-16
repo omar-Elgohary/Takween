@@ -102,7 +102,7 @@
             <div class="modal-body">
                 <div class="div d-flex justify-content-start px-4">
                     <div class="d-flex flex-column">
-                        <h3 class="mb-0 font-bold">#324234</h3>
+                        <h3 class="mb-0 font-bold">{{$request->random_id}}</h3>
                         <span class="inprogress">{{ $request->status }}</span>
                     </div>
 
@@ -161,7 +161,11 @@
                 </div>
                 
                 <div class="btn-contianer d-flex flex-column justify-between align-items-center my-3">
-                    <button class="btn  btn-modal btn-model-primary" type="button" data-bs-toggle="modal" data-bs-target="#review"  >complete</button>
+                    <form action="{{route('user.completerequest',$request->id)}}" method="GET">
+
+                        <button class=" btn-accept border-0 btn-modal rounded-pill mx-2"type="submit" >complete</button>
+                      
+                      </form>
                 </div>
             </div>
         </div>

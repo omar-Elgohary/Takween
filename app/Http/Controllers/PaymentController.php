@@ -23,6 +23,10 @@ class PaymentController extends Controller
        $edit_offer= Requests::findorfail($request_id)->offer()->where('id',$offer_id)->update([
             "status"=>'active',
         ]);
+        $edit_other_offer=Requests::findorfail($request_id)->offer()->where('id',"!=",$offer_id)->update([
+            "status"=>'reject',
+        ]);
+
 
         $edit_request=Requests::findorfail($request_id)->update([
             'freelancer_id'=>$freelancer_id,

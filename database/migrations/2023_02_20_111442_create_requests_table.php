@@ -9,6 +9,7 @@ return new class extends Migration
     {
         Schema::create('requests', function (Blueprint $table) {
             $table->id();
+            $table->string('random_id');
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('freelancer_id')->nullable()->constrained('users');
             $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
@@ -18,7 +19,7 @@ return new class extends Migration
             $table->text('description');
             $table->date('due_date');
             $table->enum('type', ['public', 'private'])->default('public');
-            $table->enum('status', ['Pending', 'In Process', 'Finished', 'Completed','Cancel by customer'])->default('Pending');
+            $table->enum('status', ['Pending', 'In Process', 'Finished', 'Completed','Cancel by customer','Reject'])->default('Pending');
             $table->timestamps();
         });
     }

@@ -58,9 +58,15 @@ class RequestController extends Controller
         ]);
 
 
+        $random_id = strtoupper('#'.substr(str_shuffle(uniqid()),0,6));
+        while(Requests::where('random_id', $random_id )->exists()){
+            $random_id = sstrtoupper('#'.substr(str_shuffle(uniqid()),0,6));
+        }
+
         if($request->type == 'public'){
             $re= Requests::create([
-                'title'=>'title',
+                'title'=>$request->title,
+                'random_id'=>$random_id,
                 'category_id'=>$request->category_id,
                 'service_id'=>$request->service_id,
                 'description'=>$request->description,
@@ -70,12 +76,14 @@ class RequestController extends Controller
             ]);
         }elseif($request->type=='private'){
             $re= Requests::create([
-                'title'=>'title',
+                'title'=>$request->title,
+                'random_id'=>$random_id,
                 'category_id'=>$request->category_id,
                 'service_id'=>$request->service_id,
                 'description'=>$request->description,
                 'due_date'=>$request->due_date,
                 'freelancer_id'=>$freelancer_id,
+                'user_id'=>$user_id,
                 'type'=>'private',
             ]);
         }
@@ -128,6 +136,8 @@ class RequestController extends Controller
     public function cancel($id)
     {
         $request=Requests::find($id);
+
+        // if($request->payment()->where('freelancer_id',$request->freelancer_id)->first()){}
         
         $total_pay=$request->payment()->where('freelancer_id',$request->freelancer_id)->first()->total;
         $edit_pay=$request->payment()->where('freelancer_id',$request->freelancer_id)->first()->update([
@@ -151,14 +161,24 @@ class RequestController extends Controller
     }
 
 
-    public function review($id)
+    public function review($id,Request $req)
     {
-        // $request=Requests::find($id);
-        // $s= $request->update([
-        //     'status'=>"Cancel by customer"
-        // ]);
-        // return redirect()->back()->with(['state'=>"cancel","id"=>$id]);
+        $request=Requests::find($id);
+        $freelancer_id=$request->freelancer_id;
+        $request=Requests::find($id);
+        $s= $request->review()->create([
+              'freelancer_id'=>$freelancer_id,
+              'rate'=> $req->rate,
+              'pragraph'=> $req->pragraph,
+              'user_id'=>auth()->user()->id
+            
+        ]);
+        return redirect()->back()->with(['message'=>"completed","id"=>$id]);
     }
+
+
+
+
 
     public function  getrequestoffer($id){
 
@@ -274,6 +294,70 @@ if(strlen($data)>0 and $data!=null){
     return redirect()->back()->with(['message'=>'open payment','offer_id'=>$id,'request_id'=>$re,'pay_wallet'=>$pay_wallet]);
     }
 
+
+
+    function  completeRequest($id){
+
+        $re=Requests::findorfail($id);
+        $freelnacer_id=$re->first()->freelancer_id;
+        $offer_price=$re->offer->first()->price;
+          
+        $wallet=User::findOrFail($freelnacer_id)->wallet->total;
+
+        $wallet+=$offer_price;
+        Requests::findorfail($id)->update([
+            "status"=>"Completed",
+            
+          ]);
+
+
+          $edit_wallet=User::findOrFail( $freelnacer_id)->wallet()->update([
+            "total"=> $wallet
+           ]);
+      
+
+          
+          return  redirect()->back()->with(['message'=>"request update finished",'status'=>"completed",'request_id'=>$id]);
+        
+
+    }
+
+    function privaterejectoffer($id){
+
+        $requests=Requests::findOrFail($id);
+     $requests->offer()->update([
+    'status'=>'reject'
+    ]);
+    $requests->update([
+        'status'=>'Reject',
+
+        ]);
+ 
+
+    return redirect()->back()->with(['message'=>__('reject offer message')]);
+    }
+
+  function privateracceptoffer($id){
+
+     $requests=Requests::findOrFail($id);
+
+    $re= $requests->offer->first()->id;
+       $offer_price= $requests->offer->first()->price;
+
+       $wallet=User::findOrFail(auth()->user()->id)->wallet->total;
+      
+       
+       $pay_wallet=( $wallet>=$offer_price)?1:0;
+    
+
+    return redirect()->back()->with(['message'=>'open payment','offer_id'=> $re,'request_id'=>$id,'pay_wallet'=>$pay_wallet]);
+    }
+
+
+   
+
+
+  
 }
 //onsubmit="event.preventDefault(); return rejectoffer(this)"
 

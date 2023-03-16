@@ -62,6 +62,8 @@ Route::prefix("freelancer")->name("freelanc.")->middleware('auth','is_freelancer
     Route::get("/mywork",[FreelancerRequestController::class,'getmywork'])->name("mywork");
 
     Route::post('/sendoffer/{id}',[FreelancerRequestController::class,'sendoffer'])->name("sendoffer");
+    Route::get('/request/finish/{id}',[FreelancerRequestController::class,'finishRequest'])->name("finishrequest");
+    
 
 
 
@@ -113,9 +115,7 @@ Route::prefix("freelancer")->name("freelanc.")->middleware('auth','is_freelancer
     //profile
     Route::get("/files/{id}", [UserController::class, 'FreelancerFiles'])->name("files");
 
-    Route::get("/wallet",function(){
-        return view("freelancer.wallet");
-    })->name("wallet");
+    Route::get("/wallet",[UserController::class,'freelancerwallet'])->name("wallet");
 
 
     Route::get("/reviews",function(){
@@ -162,7 +162,7 @@ Route::prefix("user")->name("user.")->middleware('auth')->group(function(){
 
 // request route
     Route::get('/requestpublic', [RequestController::class, 'requestpublicservice'])->name("requestpublic");
-    Route::post('/StoreRequest', [RequestController::class, 'store'])->name("request.store");
+    Route::post('/StoreRequest/{freelancer_id}', [RequestController::class, 'store'])->name("request.store");
     Route::post('/cancelRequest/{id}', [RequestController::class, 'cancel'])->name("request.cancel");
     Route::post('/reviewRequest/{id}',[RequestController::class, 'review'])->name("request.review");
     // get all services of one category
@@ -189,6 +189,12 @@ Route::prefix("user")->name("user.")->middleware('auth')->group(function(){
     Route::get('/addcart/{id}',[UserController::class,'addcart']);
 
     Route::resource('/chat',ChatController::class);
+
+
+
+Route::get('/request/completed/{id}',[RequestController::class,'completeRequest'])->name("completerequest");
+Route::post('/private/request/rejectoffer/{id}',[RequestController::class,'privaterejectoffer'])->name("privaterejectoffer");
+Route::post('/private/request/aceptoffer/{id}',[RequestController::class,'privateracceptoffer'])->name("privateracceptoffer");
 
 
 });

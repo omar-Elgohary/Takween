@@ -35,6 +35,7 @@ p{
 a{
 
     cursor:pointer !important;
+    pointer-events: auto;
 }
 .deadline{
     color:red;
@@ -2866,10 +2867,12 @@ font-size: 30px;
     font-weight: 900;
 }
 .myreview i{
-    color:var(--section-color);
+    /* color:var(--section-color); */
     font-size:10px;
 }
-
+.myreview i.active{
+    color:var(--section-color);
+}
 
 
 

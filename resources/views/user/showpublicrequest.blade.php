@@ -116,7 +116,7 @@ show public request
         @include("layouts.component.modal.userRequests.payment")
     @else
 
-    @if($request->due_date < now())
+    @if($request->status == 'In Process' &&$request->due_date < now() )
     <a href="#inprogressenddue{{$request->id}}" data-bs-toggle="modal" class="request d-flex flex-column px-3 py-3 position-relative mb-5">
             <div class="d-flex justify-content-between align-items-baseline show-phone">
                 <div class="frelacereq d-flex ">
@@ -305,9 +305,60 @@ show public request
                     @endif
                 </div>
             </a>
-
+            @include("layouts.component.modal.userRequests.complete")
             @include("layouts.component.modal.userRequests.review")
            @include("layouts.component.modal.userRequests.chat")
+
+           @elseif($request->status == 'Cancel by customer')
+           <a href="#complete{{ $request->id }}" data-bs-toggle="modal" class="request d-flex flex-column px-3 py-3 position-relative mb-5">
+            <div class="d-flex justify-content-between align-items-baseline show-phone">
+                <div class="frelacereq d-flex ">
+                    <img src="{{ asset('Admin3/assets/images/users/'.App\Models\User::where('id', $request->freelancer_id)->first()->profile_image) }}" class="img-fluid rounded-top" alt="">
+
+                    <div class="freelanereq mx-2">
+                        <h3 class="fw-600">{{ App\Models\User::where('id', $request->freelancer_id)->first()->name }}</h3>
+                        <span class="text-black-50">#123123</span>
+                    </div>
+                </div>
+
+                @if($request->status == 'Pending')
+                    <p class="status gray" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
+                @elseif($request->status == 'In Process')
+                    <p class="status gray text-warning" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
+                @elseif($request->status == 'Finished')
+                    <p class="status gray" style="color: rgb(214, 214, 42);" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
+                @elseif($request->status == 'Completed')
+                    <p class="status gray text-black" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
+                    @elseif($request->status == 'Cancel by customer')
+                    <p class="status text-danger" >cancel<i class="fa-solid fa-circle px-2 "></i></p>
+                @endif
+            </div>
+
+            <div class="d-flex ">
+                <div class="d-flex flex-column px-2">
+                    <p class="m-0">req.date</p>
+                    <span>{{ date_format($request->created_at,"Y-m-d")}}</span>
+                </div>
+                    {{-- @if($request->due_date < now()) --}}
+                    @if($request->due_date < now()->toDateString())
+                        <div class="d-flex flex-column px-2">
+                            <p class="m-0">Due date</p>
+                            <span class="text-danger">{{ $request->due_date }}</span>
+                            <div>
+                            </div>
+                        </div>
+                    @else
+                        <div class="d-flex flex-column px-2">
+                            <p class="m-0">Due date</p>
+                            <span>{{ $request->due_date }}</span>
+                            <div>
+                            </div>
+                        </div>
+                    @endif
+                </div>
+            </a>
+            @include("layouts.component.modal.userRequests.complete")
+            @include("layouts.component.modal.userRequests.review")
         @endif
     @endif
    
@@ -426,7 +477,7 @@ show public request
 
                 <div class="d-flex justify-content-between">
                     <p class="mb-0">title</p>
-                    <p class="fw-900 mb-0">{{ App\Models\Requests::where('due_date' ,'<', now())->first()->title}}</p>
+                    <p class="fw-900 mb-0">{{ $request->title}}</p>
                 </div>
 
                 <div class="d-flex justify-content-between">
@@ -479,7 +530,7 @@ show public request
 
 @include("layouts.component.modal.userRequests.inprogress")
 @include("layouts.component.modal.userRequests.finish")
-@include("layouts.component.modal.userRequests.complete")
+{{-- @include("layouts.component.modal.userRequests.complete") --}}
 
 
 
@@ -489,6 +540,8 @@ show public request
 
 @endforeach
 </div>
+</div>
+
 </div>
 @endsection
 
@@ -503,26 +556,7 @@ show public request
         });
     </script>
     <script>
-        // $('#offerPending').on('show.bs.modal', function(event) {
-        //     var button = $(event.relatedTarget)
-        //     console.log(button)
-        //     var id = button.data('id')
-        //     var category_id = button.data('category_id')
-        //     var service_id = button.data('service_id')
-        //     var title = button.data('title')
-        //     var due_date = button.data('due_date')
-        //     var description = button.data('description')
-        //     var attachment = button.data('attachment')
-        //     var modal = $(this)
-        //     modal.find('.modal-body #id').val(id);
-        //     modal.find('.modal-body #category_id').val(category_id);
-        //     modal.find('.modal-body #service_id').val(service_id);
-        //     modal.find('.modal-body #title').val(title);
-        //     modal.find('.modal-body #due_date').val(due_date);
-        //     modal.find('.modal-body #description').val(description);
-        //     modal.find('.modal-body #attachment').val(attachment);
-        // })
-
+    
 
 // get message 
 
@@ -784,9 +818,29 @@ $(document).ready(function() {
     
 });
 @endif
-@if(Session::has('message') && Session::get('message')=="paydone")
+@if(Session::has('message') && Session::get('message')=="completed")
+$(document).ready(function() {
+console.log('asdas');
+    $('#complete{{Session::get('id')}}').modal('show');
+     
+});
+@endif
+
+
+
+
+@if(Session::has('message') && Session::get('message')=="open completed")
+$()
 
 @endif
+
+@if(Session::has('status') && Session::get('status')=="completed")
+$(document).ready(function() {
+$('#review{{Session::get('request_id')}}').modal('show');
+
+});
+@endif
+
     </script>
 
     <!-- jQuery library -->

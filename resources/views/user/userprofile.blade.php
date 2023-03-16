@@ -126,7 +126,7 @@ profile page
                 <div class="img">
                     @if($curfile->type=='word')
                     <i class="fa-regular fa-file-word"></i>
-                    @elseif($curfile->type=='pptx')
+                    @elseif($curfile->type=='pptx' ||$curfile->type=='ppt')
                     <i class="fa-regular fa-file-powerpoint"></i>
                     @elseif($curfile->type =='pdf')
                     <i class="fa-regular fa-file-pdf"></i>
@@ -169,7 +169,7 @@ profile page
                       <div class="img">
                         @if($lastfile->type=='word')
                         <i class="fa-regular fa-file-word"></i>
-                        @elseif($lastfile->type=='pptx')
+                        @elseif($curfile->type=='pptx' ||$curfile->type=='ppt')
                         <i class="fa-regular fa-file-powerpoint"></i>
                         @elseif($lastfile->type =='pdf')
                         <i class="fa-regular fa-file-pdf"></i>
@@ -210,7 +210,7 @@ profile page
                       <div class="img">
                       @if($lastfile->type=='word')
                      <i class="fa-regular fa-file-word"></i>
-                     @elseif($lastfile->type=='pptx')
+                     @elseif($curfile->type=='pptx' ||$curfile->type=='ppt')
                      <i class="fa-regular fa-file-powerpoint"></i>
                      @elseif($lastfile->type =='pdf')
                      <i class="fa-regular fa-file-pdf"></i>
