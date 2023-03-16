@@ -34,8 +34,12 @@ p{
 }
 a{
 
+<<<<<<< HEAD
     cursor:pointer !important;
     pointer-events: auto;
+=======
+    cursor: pointer;
+>>>>>>> e96ba87b5a5b320bc4c8afedf0b0d0a08e7c3f83
 }
 .deadline{
     color:red;

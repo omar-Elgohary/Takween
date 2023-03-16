@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\MainController;
 use App\Http\Controllers\Api\PhotoController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\RequestController;
+use App\Http\Controllers\Api\ReservationController;
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
@@ -50,3 +51,5 @@ Route::get('getPublicRequestById/{id}', [RequestController::class, 'getPublicReq
 Route::get('getPrivateRequestById/{id}', [RequestController::class, 'getPrivateRequestById']);
 
 
+// Reservations
+Route::get('allReservations',  [ReservationController::class, 'allReservations']);

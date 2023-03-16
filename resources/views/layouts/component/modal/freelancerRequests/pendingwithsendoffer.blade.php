@@ -83,7 +83,7 @@
               </div> <!-- end offerPending modal -->
               @endforeach
           </div>
-      </div> 
+      </div>
           <div class="btn-contianer d-flex flex-column justify-between align-items-center my-3">
             <button class="btn  btn-modal btn-model-primary" type="button" data-bs-toggle="modal" data-bs-target="#sendofferforrequest{{$request->id}}"  >offer</button>
             

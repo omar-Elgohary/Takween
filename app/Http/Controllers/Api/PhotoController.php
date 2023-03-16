@@ -1,6 +1,6 @@
 <?php
 namespace App\Http\Controllers\Api;
-use App\Models\photo;
+use App\Models\Photo;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -12,9 +12,14 @@ class photoController extends Controller
 
     public function index()
     {
-        $photos = Photo::get();
-        return $this->returnData(200, 'Photos Returned Successfully', $photos);
+        try{
+            $photos = Photo::all();
+            return $this->returnData(200, 'Photos Returned Successfully', $photos);
+        }catch(\Exception $e){
+            return $this->returnError(400, 'Photos Returned Failed');
+        }
     }
+    
 
 
     public function store(Request $request)
