@@ -136,7 +136,6 @@ class RequestController extends Controller
     public function cancel($id)
     {
         $request=Requests::find($id);
-<<<<<<< HEAD
 
         // if($request->payment()->where('freelancer_id',$request->freelancer_id)->first()){}
         
@@ -151,9 +150,6 @@ class RequestController extends Controller
             "status"=>'reject',
         ]);
         $edit_request= $request->update([
-=======
-        $s= $request->update([
->>>>>>> e96ba87b5a5b320bc4c8afedf0b0d0a08e7c3f83
             'status'=>"Cancel by customer"
         ]);
         return redirect()->back()->with(['state'=>"cancel","id"=>$id]);
@@ -175,7 +171,7 @@ class RequestController extends Controller
         return redirect()->back()->with(['message'=>"completed","id"=>$id]);
     }
 
-<<<<<<< HEAD
+
 
 
 
@@ -194,19 +190,8 @@ $data="";
             <div class="img">
         <img src="'.asset( 'Admin3/assets/images/users/'.User::findOrFail($re->freelancer_id)->profile_image).'" alt="">
             </div>
-=======
-    public function getrequestoffer($id)
-    {
-        $requests=Requests::findorfail($id);
-        $requestsoffer=$requests->offer()->select('freelancer_id','price','id')->where('status','pending')->get();
-        $data="";
-        foreach($requestsoffer  as $re){
-        $data.=' <div class="freelanceroffer ">
-            <div class=" d-flex ">
-                <div class="img">
-                    <img src="'.asset( 'Admin3/assets/images/users/'.User::findOrFail($re->freelancer_id)->profile_image).'" alt="">
-                </div>
->>>>>>> e96ba87b5a5b320bc4c8afedf0b0d0a08e7c3f83
+
+ 
 
             <div class="info d-flex flex-column">
                 <h5 class="mb-0">'. User::findOrFail($re->freelancer_id)->name  .'</h5>
