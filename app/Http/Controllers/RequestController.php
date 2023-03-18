@@ -28,6 +28,24 @@ class RequestController extends Controller
         return view('user.requestprivateservice', compact('freelancer','categories'));
     }
 
+    public function choseRequestOrReservation($id)
+    {
+        if(request()->requesttype=='private'){
+            $freelancer = User::find($id);
+            $categories = Category::all();
+            return view('user.requestprivateservice', compact('freelancer','categories'));
+        }else{
+
+            $freelancer = User::find($id);
+            $categories = Category::all();
+            return view('user.requestreservation', compact('freelancer'));
+
+        }
+        
+    }
+
+
+
     public function requestpublicservice(){
 
         $categories = Category::all();

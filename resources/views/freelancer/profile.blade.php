@@ -214,44 +214,48 @@ freelanser name
             @endforeach
         </div>
                 </div>
-        <div class="categories ccs ms-3 ">
-            <div class="container-fluid py-2 px-3 ">
-                <div class="section-header">
-                    <h2>photos</h2>
-                    <a href="{{route("freelanc.photo.index")}}" class="flex-1">See all</a>
+
+            @if(App\Models\User::find(auth()->user()->id)->is_photographer ==1 )
+            <div class="categories ccs ms-3 ">
+                <div class="container-fluid py-2 px-3 ">
+                    <div class="section-header">
+                        <h2>photos</h2>
+                        <a href="{{route("freelanc.photo.index")}}" class="flex-1">See all</a>
+                    </div>
                 </div>
-            </div>
-
-            <div class="container-fluid py-2 px-3 ">
-            <div class="products productscroll">
-                <a class="card card-plus" href="{{route("freelanc.photo.create")}}">
-                    <div class="image-product" style="display: flex; justify-content: center; align-items: center; color: #CDCDCD; background-color: #F8F8F8; border-radius: 18px; display: flex; flex-direction: column;">
-                        <i class="fa fa-add " style="font-size: 70px;"></i>
-                        <p>add new photo</p>
-                    </div>
-
-                    <div class="card-body">
-                    </div>
-                </a>
-
-            @foreach (App\Models\Photo::where('freelancer_id', Auth::user()->id)->get() as $photo)
-                <div class="card">
-                    <div class="image-product">
-                        <img src="{{ asset('assets/images/photo/'.$photo->photo) }}" class="card-img-top" alt="Photo">
-                    </div>
-
-                    <div class="card-body d-flex justify-content-between">
-                        <h5 class="card-title">{{ $photo->name }}</h5>
-                        <div  class="prod-likes ">
-                            <i class="fa-solid fa-heart align-self-center"></i>
-                            <span>123</span>
+    
+                <div class="container-fluid py-2 px-3 ">
+                <div class="products productscroll">
+                    <a class="card card-plus" href="{{route("freelanc.photo.create")}}">
+                        <div class="image-product" style="display: flex; justify-content: center; align-items: center; color: #CDCDCD; background-color: #F8F8F8; border-radius: 18px; display: flex; flex-direction: column;">
+                            <i class="fa fa-add " style="font-size: 70px;"></i>
+                            <p>add new photo</p>
+                        </div>
+    
+                        <div class="card-body">
+                        </div>
+                    </a>
+    
+                @foreach (App\Models\Photo::where('freelancer_id', Auth::user()->id)->get() as $photo)
+                    <div class="card">
+                        <div class="image-product">
+                            <img src="{{ asset('assets/images/photo/'.$photo->photo) }}" class="card-img-top" alt="Photo">
+                        </div>
+    
+                        <div class="card-body d-flex justify-content-between">
+                            <h5 class="card-title">{{ $photo->name }}</h5>
+                            <div  class="prod-likes ">
+                                <i class="fa-solid fa-heart align-self-center"></i>
+                                <span>123</span>
+                            </div>
                         </div>
                     </div>
+                @endforeach
                 </div>
-            @endforeach
+                </div>
             </div>
-            </div>
-        </div>
+            @endif
+        
     </div>
 
 

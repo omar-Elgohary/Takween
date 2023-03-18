@@ -7,7 +7,7 @@
 @section("og-image")
 @endsection
 @section("title")
-product
+{{$photo->name}}
 @endsection
 @section("header")
 @endsection
@@ -40,18 +40,22 @@ product
                 <div class="title">
                     
                     <div class="info d-flex flex-column  ">
-                        <h2 class="bold text-black">photo name </h2>
+                        <h2 class="bold text-black">{{$photo->name}} </h2>
                        
                         <div class="freelancer-info d-flex ">
                             <div class="d-flex ">
                                 <div class="image">
-                              <img src="{{asset("assets/images/vicky-hladynets-C8Ta0gwPbQg-unsplash.png")}}" alt="">
+                              <img src="{{asset('admin3/assets/images/users/'.$freelancer->profile_image)}}" alt="{{$photo->name}}">
                             </div>
-                             <p class="card-text ">freelancer name <span class="text-black-50 px-2">|</span></p>
+                             <p class="card-text ">{{$freelancer->name}} <span class="text-black-50 px-2">|</span></p>
                           </div>
                           <div  class="freelacer-rate">
                               <i class="fa-solid fa-star align-self-center"></i>
-                              <span>3,2</span>
+                              <span>       @if( App\Models\Review::select('rate')->where('freelancer_id',$freelancer->id)->count()>0)
+                                {{App\Models\Review::select('rate')->where('freelancer_id',$freelancer->id)->sum('rate') / App\Models\Review::select('rate')->where('freelancer_id',$freelancer->id)->count()}}
+                            @else
+    {{App\Models\Review::select('rate')->where('freelancer_id',$freelancer->id)->count()}}
+                            @endif </span>
                           </div>
                             </div>
                               
@@ -62,7 +66,10 @@ product
                     <div class="serv d-flex align-items-center">
                         <div  class="prod-likes withborder py-2 px-3 rounded-pill">
                                       <i class="fa-solid fa-heart align-self-center"></i>
-                                      <span>123</span>
+                                      <span>
+                                        
+                                 {{$photo->likes->count()}}
+                                      </span>
                                   </div>
     
                                   <form action="">
@@ -74,63 +81,63 @@ product
 
             </div>
 
-<div class="contentporduct row  ">
+            <div class="contentporduct row  ">
              
-    <div class = "card-wrapper  col-lg-5 col-md-6 col-sm-12 ">
-      <div class = "card ">
-        <!-- card left -->
-        <div class = "product-imgs d-flex">
-            <div class="product-detail">
-              {{--  --}}
-
-              <div class="card">
-                <div class="card-body photo-card-body">
-                    <div class="popup-gallery">
-                        <div class="row">
-
-                            <div class="col-12">
-                                <a href="{{asset('assets/images/Component5.png')}}" title="">
-                                    <div class="img-fluid d-flex justify-content-end">
-                                        <img src="{{asset('assets/images/Component5.png')}}" alt="" class="img-fluid d-block">
-                                    </div>
-                                </a>
-                            </div>
-                            </div>
-                    </div>
-                   
-                    </div>
-                </div>
+                <div class = "card-wrapper  col-lg-5 col-md-6 col-sm-12 ">
+                  <div class = "card ">
+                    <!-- card left -->
+                    <div class = "product-imgs d-flex">
+                        <div class="product-detail">
+                          {{--  --}}
             
-
-              {{--  --}}
-            </div>
-        </div>
-      </div>
-    </div>
-                <div class="description  col-lg-7 col-md-6 col-sm-12  d-flex flex-column ">
-                    <div class="price bold fs-3">53<span class="curancy fs-6">
-                        S.R
-                    </span>
-
+                          <div class="card">
+                            <div class="card-body photo-card-body">
+                                <div class="popup-gallery">
+                                    <div class="row">
+            
+                                        <div class="col-12">
+                                            <a href="{{asset('assets/images/photo/'.$photo->photo)}}" title="$photo->name">
+                                                <div class="img-fluid photo-place d-flex justify-content-end">
+                                                    <img src="{{asset('assets/images/photo/'.$photo->photo)}}" alt="" class="img-fluid d-block">
+                                                </div>
+                                            </a>
+                                        </div>
+                                        </div>
+                                </div>
+                               
+                                </div>
+                            </div>
+                        
+            
+                          {{--  --}}
+                        </div>
                     </div>
-                    <div class="body">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam culpa reprehenderit veniam sequi, exercitationem ipsum voluptates sed, soluta et voluptate perspiciatis distinctio quaerat aut. Rem autem aut illum eveniet voluptatibus.
-                    </div>
-                    <div class="proprity py-4" >
-                        <h2  class="bold">proprities</h2>
-                        <ul >
-                            <li>camera: canon</li>
-                            <li>camra lens:14322px </li>
-                            <li>size: 1700 1200 px</li>
-                            
-                        </ul>
-                    </div>
-                    
+                  </div>
                 </div>
-            </div>
+                            <div class="description  col-lg-7 col-md-6 col-sm-12  d-flex flex-column ">
+                                <div class="price bold fs-3">53<span class="curancy fs-6">
+                                    S.R
+                                </span>
+            
+                                </div>
+                                <div class="body">
+                                    {{$photo->description}}
+                                </div>
+                                <div class="proprity py-4" >
+                                    <h2  class="bold">proprities</h2>
+                                    <ul >
+                                        <li>camera: {{$photo->camera_brand}}</li>
+                                        <li>camra lens:{{$photo->lens_type}} </li>
+                                        <li>size: {{$photo->size_width}}   {{$photo->size_height}}{{$photo->size_type}}</li>
+                                        
+                                    </ul>
+                                </div>
+                                
+                            </div>
+                        </div>
 
             
-            <div class="similar ">
+            {{-- <div class="similar ">
                 <div class="section-header d-flex  ">
             <h2 class="me-auto">similar products</h2>
 
@@ -163,7 +170,75 @@ product
             
               </div>
           </div>
+            </div> --}}
+
+
+
+
+            <div class="similar ">
+                <div class="section-header d-flex  ">
+            <h2 class="me-auto">similar photos</h2>
+
+          
             </div>
+            <div class="product-table">
+            <div class="row">
+
+                @forelse ( $similar as $s )
+
+                    <div class="card col-xs-12 col-sm-12 col-md-4 col-lg-3" style="max-width: 300px">
+                      <div class="image-product  im-product" >
+                        <img src="{{asset('assets/images/photo/'.$s->photo) }}" class="card-img-top" alt="product image">
+                        @auth
+                        <button type="button" data-type="photo" data-id="{{$s->id}}"
+                            
+                            onclick="likes(this)"
+                        class="hart   @if ($s->likes->where("user_id",auth()->user()->id)->count())
+                                active
+                            @endif"><i class="fa fa-heart"></i></button>
+                               @else
+                               <button  class="hart" type="button" data-bs-target="#login2" data-bs-toggle="modal"><i class="fa fa-heart"></i></button>
+                              @endauth
+
+
+                              @auth
+                                  
+                              <button class="addtochart"  data-id="{{$s->id}}" onclick="addcart(this)">add to cart</button>
+                              @else
+                              <button class="addtochart" data-bs-target="#login2" data-bs-toggle="modal" >add to cart</button>
+                              @endauth
+                          
+                       
+                        </div>
+                                <div class="card-body">
+                                  <h5 class="card-title">{{$s->name}}</h5>
+                                  <div class="freelancer-info d-flex align-items-center ">
+                                    <div class="image">
+                                        <img src="{{ asset('Admin3/assets/images/users/'.App\Models\User::where('id', $s->freelancer_id)->first()->profile_image) }}" alt="">
+                                    </div>
+                                     <p class="card-text ">{{\APP\models\User::find($s->freelancer_id)->name}}</p>
+                                  </div>
+                                  <div  class="prod-likes ">
+                                      <i class="fa-solid fa-heart align-self-center"></i>
+                                      <span>{{$s->likes->count()}}</span>
+                                  </div>
+                                
+                                </div>
+                     </div>
+                    
+    
+                @empty
+                    <span>no photo</span>
+                @endforelse
+              
+
+                 {{-- end card --}}
+              
+            
+              </div>
+          </div>
+            </div>
+            
 
             
             

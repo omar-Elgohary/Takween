@@ -167,28 +167,26 @@ product
                 <div class="section-header d-flex  ">
             <h2 class="me-auto">similar products</h2>
 
-            <a href="{{route('products',['cat_id'=>$product->cat_id,'subcat_id'=>$product->service_id])}}" class="flex-1">See all</a>
+            {{-- <a href="{{route('products',['cat_id'=>$product->cat_id,'subcat_id'=>$product->service_id])}}" class="flex-1">See all</a> --}}
             </div>
             <div class="product-table">
             <div class="row">
 
                 @forelse ( $similar as $s )
                     
-
-                <div class="card-container col-xs-12 col-sm-6 col-md-4 col-lg-3" >
-                    <div class="card " style="max-width: 300px">
-                      <div class="image-product" style="width:auto; height:auto">
-                        @foreach (array($product->img1,$product->img2,$product->img2) as $image )
+                    <div class="card col-xs-12 col-sm-12 col-md-4 col-lg-3" style="max-width: 300px">
+                      <div class="image-product im-product" >
+                        @foreach (array($s->img1,$s->img2,$s->img2) as $image )
                             @if ($image !=null)
                             <img src="{{asset('assets/images/product/'.$image) }}" class="card-img-top" alt="product image">
                                 @break
                             @endif
                         @endforeach
                         @auth
-                        <button type="button" data-type="product" data-id="{{$product->id}}"
+                        <button type="button" data-type="product" data-id="{{$s->id}}"
                             
                             onclick="likes(this)"
-                        class="hart   @if ($product->likes->where("user_id",auth()->user()->id)->count())
+                        class="hart   @if ($s->likes->where("user_id",auth()->user()->id)->count())
                                 active
                             @endif"><i class="fa fa-heart"></i></button>
                                @else
@@ -198,7 +196,7 @@ product
 
                               @auth
                                   
-                              <button class="addtochart"  data-id="{{$product->id}}" onclick="addcart(this)">add to cart</button>
+                              <button class="addtochart"  data-id="{{$s->id}}" onclick="addcart(this)">add to cart</button>
                               @else
                               <button class="addtochart" data-bs-target="#login2" data-bs-toggle="modal" >add to cart</button>
                               @endauth
@@ -209,7 +207,7 @@ product
                                   <h5 class="card-title">{{$s->name}}</h5>
                                   <div class="freelancer-info d-flex align-items-center ">
                                     <div class="image">
-                                        <img src="{{ asset('Admin3/assets/images/users/'.App\Models\User::where('id', $product->freelancer_id)->first()->profile_image) }}" alt="">
+                                        <img src="{{ asset('Admin3/assets/images/users/'.App\Models\User::where('id', $s->freelancer_id)->first()->profile_image) }}" alt="">
                                     </div>
                                      <p class="card-text ">{{\APP\models\User::find($s->freelancer_id)->name}}</p>
                                   </div>
@@ -220,7 +218,7 @@ product
                                 
                                 </div>
                      </div>
-                     </div>
+                    
     
                 @empty
                     <span>no product</span>

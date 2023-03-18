@@ -1245,6 +1245,11 @@ text-align: center;
     margin-bottom: 10px;
 }
 
+
+.im-product{
+
+    max-width:100% !important;
+}
 .categories  .card{
     width:300px;
     box-shadow: none;
@@ -1390,6 +1395,19 @@ align-self: baseline;
 {
     flex: 1;
     align-self: baseline;
+}
+
+.service .serv-data{
+    font-size: 14px !important;
+    font-weight: 300 !important;
+    margin: 0;
+    margin-left: 20px;
+}
+.service .service-head{
+    font-size: 20px !important;
+    font-weight: 900 !important;
+    /* margin: 0;
+    margin-left: 20px; */
 }
 
 .freelancer-info i{
@@ -2250,7 +2268,7 @@ font-size: 20px;
 
 }
 .hest .accordion .accordion-item{
-    background-color:#00000029 !important;
+    background-color:#c3bebe29 !important;
 }
  .hest .accordion,  .hest .accordion .accordion-body{
 width: 100%;

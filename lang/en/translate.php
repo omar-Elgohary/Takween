@@ -10,4 +10,5 @@ return [
     'private request' => 'private request',
     'user' => "We can't find a user with that email address.",
      'wallet empty'=>"Your wallet is empty or haven't enough balance",
+     'no data'=> 'no data',
 ];

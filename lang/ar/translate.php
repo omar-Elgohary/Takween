@@ -10,6 +10,6 @@ return [
     'private request' => 'طلب خاص',
     'user' => "We can't find a user with that email address.",
     'wallet empty'=>" المحفظة فارغة او لا يوجد رصيد كافي",
-
+  'no data'=>"لا يوجد ",
 
 ];

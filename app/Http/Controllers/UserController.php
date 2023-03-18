@@ -45,6 +45,8 @@ class UserController extends Controller
         return view('visitor.freelancer', compact('freelancer', 'products', 'photos','reviews'));
     }
 
+
+   
 // show user files
     public function FreelancerFiles($id)
     {

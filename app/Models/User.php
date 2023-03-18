@@ -68,6 +68,6 @@ class User extends Authenticatable implements JWTSubject
     }
 
     public function freelancerService(){
-        return $this->hasMany(FreelancerService::class);
+        return $this->hasMany(FreelancerService::class,'freelancer_id');
     }
 }

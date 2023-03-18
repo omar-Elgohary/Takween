@@ -1,8 +1,9 @@
 <?php
 namespace App\Http\Controllers;
+use App\Models\User;
 use App\Models\Photo;
-use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class PhotoController extends Controller
 {
@@ -49,8 +50,8 @@ class PhotoController extends Controller
         ]);
 
         session()->flash('Create' , "created susseccfully");
-        return route('freelanc.photo.index');
-    }
+        return redirect()->route('freelanc.photo.index'); 
+       }
 
 
     public function show(Photo $photo)
@@ -111,4 +112,21 @@ class PhotoController extends Controller
         session()->flash('Delete' , "deleted susseccfully");
         return redirect()->route("freelanc.photo.index");
     }
+
+   
+    public function showPhoto(Request $request, $id)
+    {
+        $photo = Photo::where('id',$id)->first();
+    
+        $freelancer = User::find($photo->freelancer_id);
+
+        // $similar=Photo::where(function($q) use($photo){
+        //     $q->where('name','LIKE', '%'. $photo->name.'%')->orWhere("location",'LIKE', '%'. $photo->location.'%');
+        // })->limit(4)->get();
+
+        $similar=Photo::all();
+        return view('visitor.photo', compact('freelancer', 'photo', "similar"));
+    }
+
+
 }

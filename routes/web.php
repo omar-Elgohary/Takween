@@ -27,9 +27,7 @@ Route::get('products', [ProductController::class, 'displayAllProducts'])->name('
 
 Route::get('/product/{id}', [ProductController::class, 'usershowproduct'])->name("product");
 
-Route::get('/photo', function () {
-    return view('visitor.photo');
-})->name("photo");
+Route::get('/photo/{id}',[PhotoController::class, 'showPhoto'] )->name("photo");
 
 
 // Route::get('/freelancer/{id}', [UserController::class, 'FreelancerProfile'])->name("freelancer"
@@ -66,7 +64,9 @@ Route::prefix("freelancer")->name("freelanc.")->middleware('auth','is_freelancer
     Route::get('/request/finish/{id}',[FreelancerRequestController::class,'finishRequest'])->name("finishrequest");
     
 
-
+Route::middleware("is_photgrapher")->group(function() {
+    Route::resource('/photo', PhotoController::class);
+});
 
     // Route::get("/showproducts",function(){
     //     return view("freelancer.showproducts");
@@ -111,7 +111,7 @@ Route::prefix("freelancer")->name("freelanc.")->middleware('auth','is_freelancer
     //     return view("freelancer.photo");
     // })->name("photo");
 
-    Route::resource('photo', PhotoController::class);
+   
 
     //profile
     Route::get("/files/{id}", [UserController::class, 'FreelancerFiles'])->name("files");
@@ -173,6 +173,8 @@ Route::prefix("user")->name("user.")->middleware('auth')->group(function(){
 
 
     Route::get('/requestprivate/{id}', [RequestController::class, 'requestUserToFreelancer'])->name("requestprivate");
+// form that chose if private or reservation   reuest 
+    Route::post('/choserequest/{id}', [RequestController::class, 'choseRequestOrReservation'])->name("choseRequestOrReservation");
 //get offer request
 
     Route::get('/getrequestoffer/{id}', [RequestController::class, 'getrequestoffer'])->name("getrequestoffer");
