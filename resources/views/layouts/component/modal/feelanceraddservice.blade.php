@@ -13,7 +13,7 @@
                     <h1 class=""  style="color:var(--orange-color)">Services</h1>
                 </div>
 
-                <form action="{{route('freelanc.addservice')}}" method="POST">
+                <form action="{{route('freelanc.addservice')}}" id="form-freelanc-service" method="POST">
                 @csrf
                     <div class="halfwidthinput">
                     <p class="bold">categories</p>
@@ -24,10 +24,9 @@
                  <div class=" mb-3 halfwidthinput">
                   <div class="form-check">
                  <input class="form-check-input category-checkbox" type="checkbox"name="category[]" value="{{ $category->id }}" id="category{{$category->id}}"
-                 {{-- @if( App\Models\FreelancerService::where('parent_id',$category->id)->where('freelancer_id',auth()->user()->id) ||
-                 App\Models\FreelancerService::where('parent_id',null)->where('service_id',$category->id)->where('freelancer_id',auth()->user()->id) ) --}}
-                 @if( 
-                 App\Models\FreelancerService::where('parent_id',null)->where('service_id',$category->id)->where('freelancer_id',auth()->user()->id) )
+                 @if( App\Models\FreelancerService::where('parent_id',$category->id)->where('freelancer_id',auth()->user()->id)->exists() ||
+                 App\Models\FreelancerService::where('parent_id',null)->where('service_id',$category->id)->where('freelancer_id',auth()->user()->id)->exists() )
+                
                   checked
                   @endif
                  >
@@ -45,8 +44,10 @@
                        
                 <div class="form-check">
                   <input class="form-check-input service-checkbox" type="checkbox"  data-parent="{{$category->id}}"value="{{$service->id}}" name="service[{{ $category->id }}][]"value="{{$service->id}}" data-parent="{{$category->id}}" id="service{{ $service->id }}"
-                  @if( App\Models\FreelancerService::where('service_id',$service->id)->where('parent_id',$category->id)->where('freelancer_id',auth()->user()->id) )
+                  @if( App\Models\FreelancerService::where('service_id',$service->id)->where('parent_id',$category->id)->where('freelancer_id',auth()->user()->id)->exists() )
+
                    checked
+                   
                   @endif
 
                   >

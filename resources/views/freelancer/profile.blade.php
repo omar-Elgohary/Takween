@@ -275,16 +275,34 @@ freelanser name
 
 <script>
 
-// const $categoryCheckboxes = $('.category-checkbox');
-// const $serviceCheckboxes = $(`.service-checkbox`);
-// // Add event listener to each category checkbox
-// $serviceCheckboxes.on('click', function() {
-//     // Get all service checkboxes within this category
-//     const $parentcategory = $(`.category-checkbox[value="${$(this).data('parent')}"]`);;
 
-//     // Check/uncheck each service checkbox
-//     $parentcategory .prop('checked', this.checked);
-// });
+const $categoryCheckboxes = $('.category-checkbox');
+const $serviceCheckboxes = $('.service-checkbox');
+
+// Add event listener to each service checkbox
+$serviceCheckboxes.on('click', function() {
+    // Get the parent category checkbox of this service checkbox
+    const $parentCategory = $(`.category-checkbox[value="${$(this).data('parent')}"]`);
+    
+    // Check if at least one service checkbox is checked
+    if ($(`.service-checkbox[data-parent="${$parentCategory.val()}"]:checked`).length > 0) {
+        // If at least one service is checked, select the parent category checkbox
+        $parentCategory.prop('checked', true);
+    } else {
+        // If no service is checked, unselect the parent category checkbox
+        $parentCategory.prop('checked', false);
+    }
+});
+
+$categoryCheckboxes.on('click', function() {
+    // Get all service checkboxes within this category
+    const $serviceCheckboxes = $(`.service-checkbox[data-parent="${$(this).val()}"]`);
+    
+    // Check/uncheck each service checkbox
+    $serviceCheckboxes.prop('checked', this.checked);
+});
+
+
 </script>
 @endsection
 

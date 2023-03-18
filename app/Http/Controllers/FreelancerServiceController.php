@@ -22,16 +22,19 @@ class FreelancerServiceController extends Controller
         if ($category && in_array($categoryId,array_keys($serviceIds) ) ) {
 
             $selectedServiceIds = $serviceIds[$categoryId] ?? [];
-            foreach ($category->services as $service) {
-                $service->selected = in_array($service->id, $selectedServiceIds);
-            }
+          
+            foreach ( $selectedServiceIds as $service) {
 
+                // $service->selected = in_array($service->id, $selectedServiceIds);
+                
             FreelancerService::create([
                 'freelancer_id'=>auth()->user()->id,
                 'parent_id'=>$categoryId,
-                'service_id'=>$service->id,
+                'service_id'=>$service,
 
             ]);
+            }
+
         }
         else{
             FreelancerService::create([
