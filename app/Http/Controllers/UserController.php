@@ -192,7 +192,26 @@ class UserController extends Controller
         ])
         ->get();
 
-return view('user.userprofile',compact('user','files_current','files_lastmonth','files_old'));
+
+
+        $wallet_history=Payment::all();
+        $user_wallet_hestory=[];
+        foreach($wallet_history as $wr){
+
+     if($wr->user_id == $user_id){
+
+               array_push( $user_wallet_hestory,$wr);
+
+    }
+
+     if($wr->freelancer_id == $user_id && ($wr->status=="purchase")){
+      
+        array_push( $user_wallet_hestory,$wr);
+    }
+
+        }
+        
+return view('user.userprofile',compact('user','files_current','files_lastmonth','files_old','user_wallet_hestory'));
 
     }
 

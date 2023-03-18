@@ -74,6 +74,9 @@ class RequestController extends Controller
                 'user_id'=>$user_id,
                 'type'=>'public',
             ]);
+
+            
+
         }elseif($request->type=='private'){
             $re= Requests::create([
                 'title'=>$request->title,
@@ -340,8 +343,6 @@ $data="";
     return redirect()->back()->with(['message'=>'open payment','offer_id'=> $re,'request_id'=>$id,'pay_wallet'=>$pay_wallet]);
     }
 
-
-   
 
 
   

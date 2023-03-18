@@ -27,7 +27,7 @@
 
 <div class="products-page py-5">
     <div class="container">
-        <section class="freelanc v2">
+        <section class="freelanc v2 " style="max-width: 1200px;margin-left:0;margin-right:0;">
             <div class="image">
                 <img src="{{ asset("Admin3/assets/images/users/".$freelancer->profile_image) }}" alt="">
             </div>
@@ -46,7 +46,7 @@
                         </span>
                     </div>
                 </div>
-                <div class="txt">{{ $freelancer->bio }}</div>
+                <div class="txt"  style=" min-height: 125px; ">{{ $freelancer->bio }}</div>
             </div>
 
             <div class="totals">
@@ -67,6 +67,59 @@
             </div>
         </section>
     </div>
+
+
+  @auth
+  <div class="container-fluid py-5 px-3" style="padding-top: 185px !important;">
+    <div class="section-header">
+        <h2>services</h2>
+    </div>
+  </div>
+
+  <div class="servicex">
+     @if(App\models\FreelancerService::where('freelancer_id',$freelancer->id)->get()!=null)
+   @foreach (App\models\FreelancerService::where('freelancer_id',$freelancer->id)->get() as $serv)
+               
+
+            @if($serv->parent_id ==null)
+
+            <div class="serv">
+                <div class="logo">
+             <i class="fa-solid {{App\models\Category::find($serv->service_id)->icon}}"></i>
+                </div>
+                <div class="txt">
+                    @if ( app()->getLocale()=='ar')
+                    {{App\models\Category::find($serv->service_id)->title_ar}}
+                        
+                    @else
+                    {{App\models\Category::find($serv->service_id)->title_en}}
+                        
+                    @endif
+                </div>
+            </div>
+            @else
+
+            <div class="serv">
+                <div class="logo">
+                    <i class="{{App\models\Service::find($serv->service_id)->service_icon}}"></i>
+                </div>
+                <div class="txt">
+                    @if ( app()->getLocale()=='ar')
+                    {{App\models\service::find($serv->service_id)->service_ar}}
+                        
+                    @else
+                    {{App\models\Service::find($serv->service_id)->service_en}}
+                        
+                    @endif
+                    
+                </div>
+            </div>
+            @endif
+            @endforeach
+        @endif
+    </div>
+      
+  @endauth
 
     <div class="categories pt-5 ms-3 ccs">
         <div class="container-fluid py-5  px-3 scrollable-container">
@@ -167,7 +220,7 @@
     <div class="review freelanc ">
 
         <div class="image">
-            <img src="{{asset("Admin3/assets/images".App\Models\User::find($review->user_id)->profile_image)}}" alt="">
+            <img src="{{asset("Admin3/assets/images/users/".App\Models\User::find($review->user_id)->profile_image)}}" alt="">
         </div>
         <div class="info">
             <div class="name">
@@ -175,14 +228,17 @@
                 <div class="rate">
 
                     
-                    @for ( $i=5 ;$i>0; $i-- )
-                    @if($review->rate-- )
-                    <i class="fa fa-star active"></i>
-                    @else
-                    <i class="fa fa-star"></i>
-                     @endif
-                    @endfor
                    
+                    @for ( $i=$review->rate ;$i>0; $i-- )
+                           
+                    <i class="fa fa-star active"></i>
+                  
+                    
+                    @endfor
+                    @for ($i=5-$review->rate ; $i>0; $i-- )
+                    <i class="fa fa-star" style="color:#777"></i>
+                        
+                    @endfor
 
                 </div>
             </div>

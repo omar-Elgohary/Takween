@@ -52,7 +52,7 @@ freelancers
         </div>
 
         <div class="product-table" >
-        <div class="filtercontainer d-flex align-items-baseline justify-content-start mb-2">
+        <div class="filtercontainer d-flex align-items-baseline justify-content-start mb-2 mx-2">
             <div class="filter d-flex align-items-baseline">
             <button class=" filter-button btn d-flex align-items-center justify-content-between">
                 <i class="fa-solid fa-arrow-up-wide-short"></i>
@@ -80,7 +80,7 @@ freelancers
             </div>
         </div>
         
-        <div class="d-flex flex-column px-md-4">
+        <div class="d-flex flex-column px-md-4 align-items-center">
 
             @foreach ($freelancers as $freelancer)
 

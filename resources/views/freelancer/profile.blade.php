@@ -15,6 +15,7 @@ freelanser name
 
 @section("css")
 
+
 @endsection
 
 
@@ -30,7 +31,7 @@ freelanser name
 
 <div class="products-page py-5 px-md-4">
         <div class="container">
-            <section class="freelanc v2">
+            <section class="freelanc v2"  style="max-width: 1200px;margin-left:0;margin-right:0;">
                 <div class="image">
                     <img src="{{ asset('Admin3/assets/images/users/'.Auth::user()->profile_image) }}" alt="">
                 </div>
@@ -118,7 +119,7 @@ freelanser name
 </div> <!-- end row -->
 </div>
 
-        <div class="container-fluid py-5   ">
+        <div class="container-fluid py-5  px-3 ">
             <div class="section-header">
                 <h2>services</h2>
             </div>
@@ -134,39 +135,46 @@ freelanser name
                         </a>
                     </div>
 
-                    <div class="serv">
-                        <div class="logo">
-                            <i class="fa-solid fa-newspaper"></i>
-                        </div>
-                        <div class="txt">
-                            Bannars
-                        </div>
-                    </div>
+   @if(App\models\FreelancerService::where('freelancer_id',auth()->user()->id)->get()!=null)
+                    @foreach (App\models\FreelancerService::where('freelancer_id',auth()->user()->id)->get() as  $serv)
+                       
+
+                    @if($serv->parent_id ==null)
 
                     <div class="serv">
                         <div class="logo">
-                            <i class="fa-solid fa-newspaper"></i>
+                            <i class="fa-solid {{App\models\Category::find($serv->service_id)->icon}}"></i>
                         </div>
                         <div class="txt">
-                            Bannars
+                            @if ( app()->getLocale()=='ar')
+                            {{App\models\Category::find($serv->service_id)->title_ar}}
+                                
+                            @else
+                            {{App\models\Category::find($serv->service_id)->title_en}}
+                                
+                            @endif
                         </div>
                     </div>
+                    @else
+
                     <div class="serv">
                         <div class="logo">
-                            <i class="fa-solid fa-newspaper"></i>
+                            <i class="{{App\models\Service::find($serv->service_id)->service_icon}}"></i>
                         </div>
                         <div class="txt">
-                            Bannars
+                            @if ( app()->getLocale()=='ar')
+                            {{App\models\service::find($serv->service_id)->service_ar}}
+                                
+                            @else
+                            {{App\models\Service::find($serv->service_id)->service_en}}
+                                
+                            @endif
+                            
                         </div>
                     </div>
-                    <div class="serv">
-                        <div class="logo">
-                            <i class="fa-solid fa-newspaper"></i>
-                        </div>
-                        <div class="txt">
-                            Bannars
-                        </div>
-                    </div>
+                    @endif
+                    @endforeach
+                @endif
                 </div>
 
 
@@ -264,6 +272,20 @@ freelanser name
 <script src="{{asset('assets/libs/jquery-sparkline/jquery.sparkline.min.js')}}"></script>
 
 <script src="{{asset('assets/js/pages/sparklines.init.js')}}"></script>
+
+<script>
+
+// const $categoryCheckboxes = $('.category-checkbox');
+// const $serviceCheckboxes = $(`.service-checkbox`);
+// // Add event listener to each category checkbox
+// $serviceCheckboxes.on('click', function() {
+//     // Get all service checkboxes within this category
+//     const $parentcategory = $(`.category-checkbox[value="${$(this).data('parent')}"]`);;
+
+//     // Check/uncheck each service checkbox
+//     $parentcategory .prop('checked', this.checked);
+// });
+</script>
 @endsection
 
 

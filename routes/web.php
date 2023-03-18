@@ -10,6 +10,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\FreelancerRequestController;
+use App\Http\Controllers\FreelancerServiceController;
 
 
 Route::group(
@@ -122,6 +123,8 @@ Route::prefix("freelancer")->name("freelanc.")->middleware('auth','is_freelancer
         return view("freelancer.reviews");
     })->name("reviews");
 
+    Route::post('service/add',[FreelancerServiceController::class,'addservice'])->name('addservice');
+
 
 });
 ########################################## End Freelancer ##############################################
@@ -162,7 +165,7 @@ Route::prefix("user")->name("user.")->middleware('auth')->group(function(){
 
 // request route
     Route::get('/requestpublic', [RequestController::class, 'requestpublicservice'])->name("requestpublic");
-    Route::post('/StoreRequest/{freelancer_id}', [RequestController::class, 'store'])->name("request.store");
+    Route::post('/StoreRequest/{freelancer_id?}', [RequestController::class, 'store'])->name("request.store");
     Route::post('/cancelRequest/{id}', [RequestController::class, 'cancel'])->name("request.cancel");
     Route::post('/reviewRequest/{id}',[RequestController::class, 'review'])->name("request.review");
     // get all services of one category
