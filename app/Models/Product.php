@@ -18,5 +18,8 @@ class Product extends Model
     public function likes(){
         return $this->morphMany(Like::class,"likesable");
     }
-
+    public function carts(){
+        return $this->morphMany(Cart::class,"cartsable");
+    } 
+    
 }

@@ -14,6 +14,8 @@ carts
 
 
 @section("css")
+
+@livewireStyles()
 <style>
 
     .container-fluid{
@@ -36,134 +38,48 @@ carts
         </div>
 
 
-       @if (true)
+       @if (App\Models\Cart::where('user_id',auth()->user()->id)->exists())
               <div class=" chart-container d-flex flex-column flex-md-row ">
              <div class="chartsitems ">
                  
-                   
-                <div class="chartitem row justify-content-center align-items-center g-2">
+                   @foreach ($cartadditems as $cartitems )
+                   <div class="chartitem row justify-content-center align-items-center g-2">
                     <div class="col">
-                        <img src="{{asset("assets/images/Component5.png")}}" alt="">
+
+                        @if ($cartitems->type=='product')
+                            
+                        <img src="{{ asset('assets/images/product/'.$cartitems->image)  }}" alt="">
+                        @else
+                        
+                        <img src="{{ asset('assets/images/photo/'.$cartitems->image) }}" alt="">
+                        @endif
                     </div>
                     <div class="col">
-                        <h4>product name</h4>
-                        <p>123 <span>S.R</span></p>
+                        <h4>{{$cartitems->name}}</h4>
+                        <p>{{$cartitems->price}}<span>S.R</span></p>
                     </div>
                     <div class="col">
-                        <form action="">
+                        <form action="{{route('user.cart.destroy',$cartitems->id)}}"  method="POST">
                             @csrf
-                            @method("delete")
+                          @method('delete')
                             <button type="submit" class="bg-white border-0"><i class="fa-solid fa-trash-can"></i></button>
                         </form>
                        
                     </div>
                 </div>
-                
-                   
-                <div class="chartitem row justify-content-center align-items-center g-2">
-                    <div class="col">
-                        <img src="{{asset("assets/images/Component5.png")}}" alt="">
-                    </div>
-                    <div class="col">
-                        <h4>product name</h4>
-                        <p>123 <span>S.R</span></p>
-                    </div>
-                    <div class="col">
-                        <form action="">
-                            @csrf
-                            @method("delete")
-                            <button type="submit" class="bg-white border-0"><i class="fa-solid fa-trash-can"></i></button>
-                        </form>
-                       
-                    </div>
-                </div>
-                
-                   
-                <div class="chartitem row justify-content-center align-items-center g-2">
-                    <div class="col">
-                        <img src="{{asset("assets/images/coming-soon-img.png")}}" alt="">
-                    </div>
-                    <div class="col">
-                        <h4>product name</h4>
-                        <p>123 <span>S.R</span></p>
-                    </div>
-                    <div class="col">
-                        <form action="">
-                            @csrf
-                            @method("delete")
-                            <button type="submit" class="bg-white border-0"><i class="fa-solid fa-trash-can"></i></button>
-                        </form>
-                       
-                    </div>
-                </div>
-                
-                   
-                <div class="chartitem row justify-content-center align-items-center g-2">
-                    <div class="col">
-                        <img src="{{asset("assets/images/Component5.png")}}" alt="">
-                    </div>
-                    <div class="col">
-                        <h4>product name</h4>
-                        <p>123 <span>S.R</span></p>
-                    </div>
-                    <div class="col">
-                        <form action="">
-                            @csrf
-                            @method("delete")
-                            <button type="submit" class="bg-white border-0"><i class="fa-solid fa-trash-can"></i></button>
-                        </form>
-                       
-                    </div>
-                </div>
-                
-                   
-                <div class="chartitem row justify-content-center align-items-center g-2">
-                    <div class="col">
-                        <img src="{{asset("assets/images/Component5.png")}}" alt="">
-                    </div>
-                    <div class="col">
-                        <h4>product name</h4>
-                        <p>123 <span>S.R</span></p>
-                    </div>
-                    <div class="col">
-                        <form action="">
-                            @csrf
-                            @method("delete")
-                            <button type="submit" class="bg-white border-0"><i class="fa-solid fa-trash-can"></i></button>
-                        </form>
-                       
-                    </div>
-                </div>
-                
-                   
-                <div class="chartitem row justify-content-center align-items-center g-2">
-                    <div class="col">
-                        <img src="{{asset("assets/images/Component5.png")}}" alt="">
-                    </div>
-                    <div class="col">
-                        <h4>product name</h4>
-                        <p>123 <span>S.R</span></p>
-                    </div>
-                    <div class="col">
-                        <form action="">
-                            @csrf
-                            @method("delete")
-                            <button type="submit" class="bg-white border-0"><i class="fa-solid fa-trash-can"></i></button>
-                        </form>
-                       
-                    </div>
-                </div>
-                
-           
+                   @endforeach
+          
              
+                
 
         </div>
          <div class="
                chartcheckout px-2">
             <h3 class="py-2 px-3 ">order summery</h3>
-             <form action=""class="copone px-3" >
+             <form action="{{route('user.addPromoCode')}}"class="copone px-3">
+                @csrf
                <div class="d-flex">
-                <input type="text" class="form-control" id="promo" placeholder="promo code">
+                <input type="text" class="form-control" id="promo" placeholder="promo code" name="code">
                 <button type="submit" class="btn py-2 px-4 ms-3">
                     apply
                 </button>
@@ -174,21 +90,21 @@ carts
                     <div class="price d-flex">
                         <p class="fs-4">price</p>
                         <div class="number ">
-                            170
+                          {{$price}}
                             <span>S.R</span>
                         </div>
                     </div>
                     <div class="price d-flex ">
                          <p class="fs-4">discount</p>
                         <div class="number">
-                            20
+                            {{$descount}}
                             <span>%</span>
                         </div>
                     </div>
                     <div class="price d-flex">
                         <p class="fs-4">total</p>
                         <div class="number">
-                           75
+                           {{$total}}
                             <span>S.R</span>
                         </div>
                     </div>
@@ -211,10 +127,138 @@ carts
 </div>
 
 
-
+<div class="modal offers fade  modal-uk pay" id="pay" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header ">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+  
+          <h1>payment method</h1>
+        <div class="d-flex align-items-center
+        justify-content-center py-4">
+          <div class="paytype visaicon">
+              <i class="fa-brands fa-cc-visa"></i>
+            <span>
+              <i class="fa-solid fa-check"></i>
+            </span>
+          </div>
+          <div class="paytype apayicon">
+              
+                <i class="fa-brands fa-apple-pay"></i>
+            <span>
+              <i class="fa-solid fa-check"></i>
+            </span>
+          </div>
+          <div class="paytype active  walleticon">
+           <i class="fa-solid fa-wallet"></i>
+            <span>
+              <i class="fa-solid fa-check"></i>
+            </span>
+          </div>
+        </div>
+     
+  
+        <div class="visa paycard">
+          <form action="" method="POST">
+            <input type="hidden" name="offer">
+            <input type="hidden" name="request_id">
+      
+     <div class="form-outline mb-4 halfwidthinput">
+      <label class="form-label" for="holder">holderholder name</label>
+      
+          
+      <input type="text" id="holder" class="form-control" name="holder_name" />
+     
+    </div>
+             <div class="form-outline mb-4 halfwidthinput">
+      <label class="form-label" for="holder">Card number</label>
+      
+          
+      <input type="text" id="holder" class="form-control" name="card_number" />
+      
+    </div>
+             <div class="form-outline mb-4 halfwidthinput">
+      <label class="form-label" for="holder">exp</label>
+      
+          
+      <input type="text" id="holder" class="form-control" name="exp" />
+      
+    </div>
+    <div class="form-outline mb-4 halfwidthinput">
+      <label class="form-label" for="holder">cvv</label>
+     
+      <input type="text" id="holder" class="form-control" name="cvv" />
+     
+    </div>
+        
+    <div class="btn-contianer d-flex justify-content-center align-items-center">
+      <button type="submit" class="btn  btn-modal  my-3 btn-model-primary ">checkout</button>
+     
+       </div>
+         
+          </form>
+        </div>
+        <div class="apay paycard">
+          <form action="">
+  
+        
+    <div class="btn-contianer d-flex justify-content-center align-items-center">
+      <button type="submit" class="btn  btn-modal  my-3 btn-model-primary ">checkout</button>
+     
+       </div>
+         
+          </form>
+        </div>
+        <div class="wallet  paycard" style="height: 350px">
+          <div class="wallet-empty" style="height:100%">
+          <div class=" d-flex flex-column align-items-center justify-content-center w-100" style="height:100%" >
+  
+          
+            <img src="{{asset('assets/images/wallet.png')}}" alt="wallet not enought" style="width:100px">
+  
+            <p style="color:#011C26;" class="text-center py-3">Your wallet is empty
+              or haven't enough balance</p>
+          </div>
+        
+        </div>
+  <div class="wallet-pay">
+    <form action="{{route('user.walletpay')}}" method="POST" class=" d-flex flex-column justify-content-end" >
+      @csrf
+      <input type="hidden" name="offer">
+      <input type="hidden" name="request_id">
+      
+  
+  
+      <div class="btn-contianer d-flex justify-content-center align-items-center">
+        <button type="submit" class="btn  btn-modal  my-3 btn-model-primary ">checkout</button>
+       
+         </div>
+  
+      </form>
+  </div>
+  
+          
+  
+         
+       </div>
+         
+         
+        </div>
+  
+        </div>
+        <div class="modal-footer">
+          
+        </div>
+      </div>
+    </div>
+  
+  
+  
 
 @endsection
 
 @section("js")
-    
+    @livewireScripts()
 @endsection

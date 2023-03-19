@@ -12,6 +12,7 @@ return new class extends Migration
             $table->foreignId('freelancer_id')->constrained('users')->cascadeOnDelete();
             $table->string('photo', 100);
             $table->string('name', 20);
+            $table->double('price');
             $table->text('description');
             $table->string('camera_brand', 20)->nullable();
             $table->string('lens_type', 20)->nullable();

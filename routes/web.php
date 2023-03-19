@@ -1,5 +1,6 @@
 <?php
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
@@ -144,9 +145,7 @@ Route::prefix("user")->name("user.")->middleware('auth')->group(function(){
         return view("user.notification");
     })->name("notification");
 
-    Route::get("/cart",function(){
-        return view("user.chart");
-    })->name("cart");
+    Route::resource("/cart", CartController::class);
 
     Route::get("/freelancer/profile",function(){
         return view("user.freelancerprofile");
@@ -191,9 +190,12 @@ Route::prefix("user")->name("user.")->middleware('auth')->group(function(){
     Route::get('/addorremovelikes/{id}',[UserController::class,'addorremovelikes']);
 
     // add cart
-    Route::get('/addcart/{id}',[UserController::class,'addcart']);
+    Route::get('/addtocart/{id}',[CartController::class,'addToCart'])->name('addtocart');
+    Route::post('/addPromoCode',[CartController::class,'addPromoCode'])->name('addPromoCode');
+ 
 
     Route::resource('/chat',ChatController::class);
+
 
 
 

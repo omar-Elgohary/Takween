@@ -27,7 +27,7 @@
 
     <!-- Submit button -->
     <div class="btn-contianer d-flex  flex-column justify-content-center align-items-center">
-   <a href="{{route('user.cart')}}" class="btn btn-modal  my-3 btn-model-primary ">checkout</a>
+   <a href="{{route('user.cart.index')}}" class="btn btn-modal  my-3 btn-model-primary ">checkout</a>
    <button class="modal-color-text "data-bs-dismiss="modal" type="button" >continue shopping</button>
   
     </div>

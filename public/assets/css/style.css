@@ -1318,6 +1318,11 @@ justify-content: center;
     display: block;
 
    }
+
+   .addtochart.active{
+    display: block;
+    
+   }
    .card:hover .hart {
     display: flex;
     align-items: center;
