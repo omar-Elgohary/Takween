@@ -148,6 +148,11 @@ z-index: 1000;
     transition: all .3s;
     border: 0;
 }
+@media(max-width:767px){
+    .addrequesticon{
+        top: 95%;
+    }
+}
 .addrequesticon:hover{
 box-shadow: 1px 2px 14px 14px #04040463;
 }
