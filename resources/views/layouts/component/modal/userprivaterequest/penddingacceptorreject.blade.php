@@ -9,7 +9,7 @@
          
           <div class="div d-flex justify-content-start px-4">
               <div class="d-flex flex-column">
-                <h3 class="mb-0 font-bold">#324234</h3>
+                <h3 class="mb-0 font-bold">{{$request->random_id}}</h3>
                 <span class="text-black-50">pendding</span>
               </div>
               <div class="align-slef-end" style="
@@ -113,9 +113,16 @@
   
           </div>
           <div class="btn-contianer d-flex flex-row justify-content-center align-items-center my-3">
-           
-            <button class=" btn-reject border-0 btn-modal rounded-pill mx-2"type="button" data-bs-toggle="modal" data-bs-target="#suredelete" >reject</button>
-            <button class=" btn-accept border-0 btn-modal rounded-pill mx-2"type="button" data-bs-toggle="modal" data-bs-target="#pay" >accept</button>
+           <form action="{{route("user.privaterejectoffer",$request->id)}}" method="post">
+                @csrf
+             <button class=" btn-reject border-0 btn-modal rounded-pill mx-2"type="submit" >reject</button>
+            
+           </form>
+           <form action="{{route("user.privateracceptoffer",$request->id)}}" method="post">
+            @csrf
+             <button class=" btn-accept border-0 btn-modal rounded-pill mx-2"type="submit" >accept</button>
+
+           </form>
            
              </div>
          

@@ -117,8 +117,14 @@
             <div class="modal-body">
                 <div class="div d-flex justify-content-start px-4">
                     <div class="d-flex flex-column">
-                        <h3 class="mb-0 font-bold">#324234</h3>
+                        <h3 class="mb-0 font-bold">{{$request->random_id}}</h3>
+                        @if ($request->status =="Completed")
                         <span class="text-black">{{ $request->status }}</span>
+                        
+                        @elseif ($request->status =="Cancel by customer")
+                        <span class="text-danger">cancel</span>
+                            
+                        @endif
                     </div>
 
                     <div class="align-slef-end" style="flex-grow: 1; display: flex; align-items: center; justify-content: end;">
@@ -186,12 +192,15 @@
                         
                         <div class="d-flex flex-grow-1 justify-content-end align-items-center">
 
-                            @for ( $i=5 ;$i>0; $i-- )
-                            @if($request->review->first()->rate-- )
+                            @for ( $i=$request->review->first()->rate ;$i>0; $i-- )
+                           
                             <i class="fa fa-star active"></i>
-                            @else
+                          
+                            
+                            @endfor
+                            @for ($i=5-$request->review->first()->rate ;$i>0; $i-- )
                             <i class="fa fa-star"></i>
-                             @endif
+                                
                             @endfor
                            
                         </div>

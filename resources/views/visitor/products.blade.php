@@ -143,8 +143,12 @@
 
 
                               @auth
-
-                              <button class="addtochart"  data-id="{{$product->id}}" onclick="addcart(this)">add to cart</button>
+                                 @if ($product->carts()->where('user_id',auth()->user()->id)->exists())
+                                 <button class="addtochart active"  data-id="{{$product->id}}" onclick="addcart(this)"data-type='product'>in cart</button>  
+                                 @else
+                                 <button class="addtochart"  data-id="{{$product->id}}" onclick="addcart(this)"data-type='product'>add to cart</button>
+                                 @endif
+                              
                               @else
                               <button class="addtochart" data-bs-target="#login2" data-bs-toggle="modal" >add to cart</button>
                               @endauth
@@ -200,7 +204,7 @@ $.ajax({
   headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
   dataType: "json",
   success: function(data) {
-    console.log(data);
+    
     if(data['action']=="add"){
         $(e).addClass("active");
     }else if(data['action']=="delete"){
@@ -216,21 +220,33 @@ $.ajax({
 
 function addcart(e){
     var id =$(e).attr('data-id');
+    var  type =$(e).attr('data-type');
     var token= $('meta[name="csrf_token"]').attr('content');
     $.ajax({
  type: "GET",
-  url: "{{ URL::to('user/addcart')}}/" + id,
+  url: "{{ URL::to('user/addtocart')}}/" + id,
   data:{'type':type},
   headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
   dataType: "json",
   success: function(data) {
     console.log(data);
-    if(data['action']=="add"){
+    if(data['status']){
         $(e).addClass("active");
-    }else if(data['action']=="delete"){
-        $(e).removeClass("active");
-    }
-  }
+        $(e).text('in cart');
+
+        $('#cart-count').html(parseInt($('#cart-count').html())+1);
+        $(document).ready(function(){
+            $('#addcart').modal('show');
+        });
+        
+    }else{
+
+        toastr.warning(data['message']); // Debugging statement
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log(xhr.responseText); // Debugging statement
+        }
 
   });
 }

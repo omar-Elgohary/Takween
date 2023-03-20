@@ -75,27 +75,47 @@ profile page
 
                 <div class="hest mx-2">
                     <div class="accordion" id="accordionPanelsStayOpenExample">
-                    <div class="accordion-item">
-                    <h2 class="accordion-header d-flex align-items-center justify-content-between p-2" id="panelsStayOpen-headingOne">
-                    <div  class= "info d-flex flex-column">
-                    <p class="text-black-100 p-0 m-0">refund</p>
-                    <p class="text-black-50">2/8/2202</p>
-                </div>
-
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#refund1" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                    <div class="number">+
-                        <span>150</span>
-                        <span>RS</span>
-                    </div>
-                </button>
-            </h2>
-
-        <div id="refund1" class="accordion-collapse collapse " aria-labelledby="panelsStayOpen-headingOne">
-            <div class="accordion-body">
-                <strong>This is the first item's accordion body.</strong>  that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-            </div>
+                 
+  @forelse ( $user_wallet_hestory as $wh )
+    
+  <div class="accordion-item">
+    <h2 class="accordion-header d-flex align-items-center justify-content-between p-2" id="panelsStayOpen-headingOne">
+        <div  class= "info d-flex flex-column">
+        <p class="text-black-100 p-0 m-0">{{$wh->status}}</p>
+        <p class="text-black-50">{{$wh->created_at}}</p>
         </div>
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#refund{{$wh->id}}" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+        <div class="number">
+
+          @if ($wh->user_id == auth()->user()->id && $wh->status !='refund')
+             
+             -
+
+          @else
+            +
+          @endif
+            
+            <span >{{$wh->total}}</span>
+            <span>RS</span>
+        </div>
+      </button>
+    </h2>
+    <div id="refund{{$wh->id}}" class="accordion-collapse collapse " aria-labelledby="panelsStayOpen-headingOne">
+      <div class="accordion-body">
+        <div style="max-width:100%">
+
+
+
+        
+
+        </div>
+      </div>
     </div>
+  </div>
+
+  @empty
+    
+  @endforelse
 </div>
 </div>
 </div>
@@ -126,7 +146,7 @@ profile page
                 <div class="img">
                     @if($curfile->type=='word')
                     <i class="fa-regular fa-file-word"></i>
-                    @elseif($curfile->type=='pptx')
+                    @elseif($curfile->type=='pptx' ||$curfile->type=='ppt')
                     <i class="fa-regular fa-file-powerpoint"></i>
                     @elseif($curfile->type =='pdf')
                     <i class="fa-regular fa-file-pdf"></i>
@@ -169,7 +189,7 @@ profile page
                       <div class="img">
                         @if($lastfile->type=='word')
                         <i class="fa-regular fa-file-word"></i>
-                        @elseif($lastfile->type=='pptx')
+                        @elseif($curfile->type=='pptx' ||$curfile->type=='ppt')
                         <i class="fa-regular fa-file-powerpoint"></i>
                         @elseif($lastfile->type =='pdf')
                         <i class="fa-regular fa-file-pdf"></i>
@@ -210,7 +230,7 @@ profile page
                       <div class="img">
                       @if($lastfile->type=='word')
                      <i class="fa-regular fa-file-word"></i>
-                     @elseif($lastfile->type=='pptx')
+                     @elseif($curfile->type=='pptx' ||$curfile->type=='ppt')
                      <i class="fa-regular fa-file-powerpoint"></i>
                      @elseif($lastfile->type =='pdf')
                      <i class="fa-regular fa-file-pdf"></i>

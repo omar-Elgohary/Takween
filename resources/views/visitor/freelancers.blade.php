@@ -52,7 +52,7 @@ freelancers
         </div>
 
         <div class="product-table" >
-        <div class="filtercontainer d-flex align-items-baseline justify-content-start mb-2">
+        <div class="filtercontainer d-flex align-items-baseline justify-content-start mb-2 mx-2">
             <div class="filter d-flex align-items-baseline">
             <button class=" filter-button btn d-flex align-items-center justify-content-between">
                 <i class="fa-solid fa-arrow-up-wide-short"></i>
@@ -80,7 +80,7 @@ freelancers
             </div>
         </div>
         
-        <div class="d-flex flex-column px-md-4">
+        <div class="d-flex flex-column px-md-4 align-items-center">
 
             @foreach ($freelancers as $freelancer)
 
@@ -92,7 +92,7 @@ freelancers
                     <img src="{{ asset("Admin3/assets/images/users/".$freelancer->profile_image) }}" alt="">
                 </div>
 
-                <div class="info ">
+                <div class="info " style="  padding-bottom: 10px;">
                     <div class="name">
                         <span>{{ $freelancer->name }}</span>
                         <div class="rate">
@@ -109,8 +109,46 @@ freelancers
 
                     <div class="txt">{{ $freelancer->bio }}</div>
                     <div class="service">
-                        <p>service :</p>
-                        <p>{{ $freelancer->service_en }}</p>
+                        <div class="d-flex service-head" style="">service:</div>
+                        <div class="d-flex flex-wrap ">
+
+
+                            @if($freelancer->freelancerService->first() !=null)
+                            @foreach ($freelancer->freelancerService as $serv)
+    
+                            @if($serv->parent_id ==null)
+    
+                            @if ( app()->getLocale()=='ar')
+                            <p class="serv-data">  {{App\models\Category::find($serv->service_id)->title_ar}}</p>
+                                
+                            @else
+                            <p class="serv-data"> {{App\models\Category::find($serv->service_id)->title_en}}</p>
+                            @endif
+    
+    
+                            @else
+    
+    
+                            @if ( app()->getLocale()=='ar')
+                            <p class="serv-data">  {{App\models\service::find($serv->service_id)->service_ar}}</p>
+                                
+                            @else
+                            <p class="serv-data"> {{App\models\Service::find($serv->service_id)->service_en}}</p>
+                                
+                            @endif
+                            @endif
+                               
+                            @endforeach
+                         
+                            @else
+                            
+                     
+                            <p class="serv-data">{{__('translate.no data')}}</p>
+                          
+                            @endif
+                        </div>
+                   
+                       
                     </div>
                 </div>
 

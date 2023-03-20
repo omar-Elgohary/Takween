@@ -15,6 +15,7 @@ freelanser name
 
 @section("css")
 
+
 @endsection
 
 
@@ -30,7 +31,7 @@ freelanser name
 
 <div class="products-page py-5 px-md-4">
         <div class="container">
-            <section class="freelanc v2">
+            <section class="freelanc v2"  style="max-width: 1200px;margin-left:0;margin-right:0;">
                 <div class="image">
                     <img src="{{ asset('Admin3/assets/images/users/'.Auth::user()->profile_image) }}" alt="">
                 </div>
@@ -118,7 +119,7 @@ freelanser name
 </div> <!-- end row -->
 </div>
 
-        <div class="container-fluid py-5   ">
+        <div class="container-fluid py-5  px-3 ">
             <div class="section-header">
                 <h2>services</h2>
             </div>
@@ -134,39 +135,46 @@ freelanser name
                         </a>
                     </div>
 
-                    <div class="serv">
-                        <div class="logo">
-                            <i class="fa-solid fa-newspaper"></i>
-                        </div>
-                        <div class="txt">
-                            Bannars
-                        </div>
-                    </div>
+   @if(App\models\FreelancerService::where('freelancer_id',auth()->user()->id)->get()!=null)
+                    @foreach (App\models\FreelancerService::where('freelancer_id',auth()->user()->id)->get() as  $serv)
+                       
+
+                    @if($serv->parent_id ==null)
 
                     <div class="serv">
                         <div class="logo">
-                            <i class="fa-solid fa-newspaper"></i>
+                            <i class="fa-solid {{App\models\Category::find($serv->service_id)->icon}}"></i>
                         </div>
                         <div class="txt">
-                            Bannars
+                            @if ( app()->getLocale()=='ar')
+                            {{App\models\Category::find($serv->service_id)->title_ar}}
+                                
+                            @else
+                            {{App\models\Category::find($serv->service_id)->title_en}}
+                                
+                            @endif
                         </div>
                     </div>
+                    @else
+
                     <div class="serv">
                         <div class="logo">
-                            <i class="fa-solid fa-newspaper"></i>
+                            <i class="{{App\models\Service::find($serv->service_id)->service_icon}}"></i>
                         </div>
                         <div class="txt">
-                            Bannars
+                            @if ( app()->getLocale()=='ar')
+                            {{App\models\service::find($serv->service_id)->service_ar}}
+                                
+                            @else
+                            {{App\models\Service::find($serv->service_id)->service_en}}
+                                
+                            @endif
+                            
                         </div>
                     </div>
-                    <div class="serv">
-                        <div class="logo">
-                            <i class="fa-solid fa-newspaper"></i>
-                        </div>
-                        <div class="txt">
-                            Bannars
-                        </div>
-                    </div>
+                    @endif
+                    @endforeach
+                @endif
                 </div>
 
 
@@ -206,44 +214,48 @@ freelanser name
             @endforeach
         </div>
                 </div>
-        <div class="categories ccs ms-3 ">
-            <div class="container-fluid py-2 px-3 ">
-                <div class="section-header">
-                    <h2>photos</h2>
-                    <a href="{{route("freelanc.photo.index")}}" class="flex-1">See all</a>
+
+            @if(App\Models\User::find(auth()->user()->id)->is_photographer ==1 )
+            <div class="categories ccs ms-3 ">
+                <div class="container-fluid py-2 px-3 ">
+                    <div class="section-header">
+                        <h2>photos</h2>
+                        <a href="{{route("freelanc.photo.index")}}" class="flex-1">See all</a>
+                    </div>
                 </div>
-            </div>
-
-            <div class="container-fluid py-2 px-3 ">
-            <div class="products productscroll">
-                <a class="card card-plus" href="{{route("freelanc.photo.create")}}">
-                    <div class="image-product" style="display: flex; justify-content: center; align-items: center; color: #CDCDCD; background-color: #F8F8F8; border-radius: 18px; display: flex; flex-direction: column;">
-                        <i class="fa fa-add " style="font-size: 70px;"></i>
-                        <p>add new photo</p>
-                    </div>
-
-                    <div class="card-body">
-                    </div>
-                </a>
-
-            @foreach (App\Models\Photo::where('freelancer_id', Auth::user()->id)->get() as $photo)
-                <div class="card">
-                    <div class="image-product">
-                        <img src="{{ asset('assets/images/photo/'.$photo->photo) }}" class="card-img-top" alt="Photo">
-                    </div>
-
-                    <div class="card-body d-flex justify-content-between">
-                        <h5 class="card-title">{{ $photo->name }}</h5>
-                        <div  class="prod-likes ">
-                            <i class="fa-solid fa-heart align-self-center"></i>
-                            <span>123</span>
+    
+                <div class="container-fluid py-2 px-3 ">
+                <div class="products productscroll">
+                    <a class="card card-plus" href="{{route("freelanc.photo.create")}}">
+                        <div class="image-product" style="display: flex; justify-content: center; align-items: center; color: #CDCDCD; background-color: #F8F8F8; border-radius: 18px; display: flex; flex-direction: column;">
+                            <i class="fa fa-add " style="font-size: 70px;"></i>
+                            <p>add new photo</p>
+                        </div>
+    
+                        <div class="card-body">
+                        </div>
+                    </a>
+    
+                @foreach (App\Models\Photo::where('freelancer_id', Auth::user()->id)->get() as $photo)
+                    <div class="card">
+                        <div class="image-product">
+                            <img src="{{ asset('assets/images/photo/'.$photo->photo) }}" class="card-img-top" alt="Photo">
+                        </div>
+    
+                        <div class="card-body d-flex justify-content-between">
+                            <h5 class="card-title">{{ $photo->name }}</h5>
+                            <div  class="prod-likes ">
+                                <i class="fa-solid fa-heart align-self-center"></i>
+                                <span>123</span>
+                            </div>
                         </div>
                     </div>
+                @endforeach
                 </div>
-            @endforeach
+                </div>
             </div>
-            </div>
-        </div>
+            @endif
+        
     </div>
 
 
@@ -264,6 +276,38 @@ freelanser name
 <script src="{{asset('assets/libs/jquery-sparkline/jquery.sparkline.min.js')}}"></script>
 
 <script src="{{asset('assets/js/pages/sparklines.init.js')}}"></script>
+
+<script>
+
+
+const $categoryCheckboxes = $('.category-checkbox');
+const $serviceCheckboxes = $('.service-checkbox');
+
+// Add event listener to each service checkbox
+$serviceCheckboxes.on('click', function() {
+    // Get the parent category checkbox of this service checkbox
+    const $parentCategory = $(`.category-checkbox[value="${$(this).data('parent')}"]`);
+    
+    // Check if at least one service checkbox is checked
+    if ($(`.service-checkbox[data-parent="${$parentCategory.val()}"]:checked`).length > 0) {
+        // If at least one service is checked, select the parent category checkbox
+        $parentCategory.prop('checked', true);
+    } else {
+        // If no service is checked, unselect the parent category checkbox
+        $parentCategory.prop('checked', false);
+    }
+});
+
+$categoryCheckboxes.on('click', function() {
+    // Get all service checkboxes within this category
+    const $serviceCheckboxes = $(`.service-checkbox[data-parent="${$(this).val()}"]`);
+    
+    // Check/uncheck each service checkbox
+    $serviceCheckboxes.prop('checked', this.checked);
+});
+
+
+</script>
 @endsection
 
 

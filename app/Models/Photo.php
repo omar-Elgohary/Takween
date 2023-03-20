@@ -1,7 +1,8 @@
 <?php
 namespace App\Models;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Selled;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Photo extends Model
 {
@@ -12,5 +13,13 @@ class Photo extends Model
 
     public function likes(){
         return $this->morphMany(Like::class,"likesable");
+ 
+        
     }
+        public function carts(){
+            return $this->morphMany(Cart::class,"cartsable");
+        }   
+        public function sells(){
+            return $this->morphMany(Selled::class,"selledsable");
+        }   
 }

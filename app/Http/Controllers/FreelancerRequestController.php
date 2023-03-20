@@ -152,4 +152,16 @@ if($flag){
         //  dd($privates);
         return view('freelancer.mywork',compact('result'));
     }
+
+
+
+    function finishRequest($id){
+
+
+        Requests::findorfail($id)->update([
+          "status"=>"Finished",
+          
+        ]);
+        return  redirect()->back()->with(['message'=>"request udate finished"]);
+    }
 }

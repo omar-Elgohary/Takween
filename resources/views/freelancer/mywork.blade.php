@@ -83,7 +83,7 @@ notification
     <img src="{{ asset("Admin3/assets/images/users/".App\Models\User::where('id',$request->user_id)->first()->profile_image) }}" class="img-fluid rounded-top" alt="">
       <div class="freelanereq mx-2">
       <h3 class="fw-600">{{App\Models\User::find($request->user_id)->name}}</h3>
-        <span class="text-black-50">#123123</span>
+        <span class="text-black-50">{{$request->random_id}}</span>
       </div>
   </div>
   @if($request->status == 'Pending')
@@ -282,7 +282,8 @@ notification
 
 
 <script>
-  $(document).ready(function () {
+
+$(document).ready(function () {
 $('.chat').on('show.bs.offcanvas',function(){
 
 var request_id= $(this).attr('data-id');
@@ -398,5 +399,8 @@ function sendmessage(e){
 
 
 }
+
+
+
 </script>
 @endsection

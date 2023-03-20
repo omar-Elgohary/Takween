@@ -1,15 +1,16 @@
 <?php
 namespace App\Http\Controllers;
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Photo;
 use App\Models\Review;
+use App\Models\Payment;
 use App\Models\Product;
-use App\Models\File as  Files;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Models\File as  Files;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
-use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -44,6 +45,8 @@ class UserController extends Controller
         return view('visitor.freelancer', compact('freelancer', 'products', 'photos','reviews'));
     }
 
+
+   
 // show user files
     public function FreelancerFiles($id)
     {
@@ -191,7 +194,61 @@ class UserController extends Controller
         ])
         ->get();
 
-return view('user.userprofile',compact('user','files_current','files_lastmonth','files_old'));
+
+
+        $wallet_history=Payment::all();
+        $user_wallet_hestory=[];
+        foreach($wallet_history as $wr){
+
+     if($wr->user_id == $user_id){
+
+               array_push( $user_wallet_hestory,$wr);
+
+    }
+
+     if($wr->freelancer_id == $user_id && ($wr->status=="purchase")){
+      
+        array_push( $user_wallet_hestory,$wr);
+    }
+
+        }
+        
+return view('user.userprofile',compact('user','files_current','files_lastmonth','files_old','user_wallet_hestory'));
+
+    }
+
+
+    function freelancerwallet(){
+
+        $user_id=auth()->user()->id;
+        $user=  User::findorfail(auth()->user()->id);
+        $total_wallet=$user->wallet->total;
+
+        $wallet_history=Payment::all();
+        $user_wallet_hestory=[];
+        foreach($wallet_history as $wr){
+
+     if($wr->user_id == $user_id){
+
+               array_push( $user_wallet_hestory,$wr);
+
+    }
+
+     if($wr->freelancer_id == $user_id && ($wr->status=="purchase")){
+      
+        array_push( $user_wallet_hestory,$wr);
+    }
+
+        
+
+        }
+
+
+        // dd($user_wallet_hestory);
+
+       return  view("freelancer.wallet",compact('total_wallet','user_wallet_hestory'));
+     
+     
 
     }
 

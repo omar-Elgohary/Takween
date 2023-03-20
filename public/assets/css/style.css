@@ -34,7 +34,9 @@ p{
 }
 a{
 
-    cursor: pointer;
+    cursor:pointer !important;
+    pointer-events: auto;
+
 }
 .deadline{
     color:red;
@@ -190,6 +192,7 @@ box-shadow: 1px 2px 14px 14px #04040463;
 /* start slider */
 .scrollable-container{
     position: relative;
+    min-height: 300px;
 }
 .scrollable{
     display: flex;
@@ -1242,6 +1245,11 @@ text-align: center;
     margin-bottom: 10px;
 }
 
+
+.im-product{
+
+    max-width:100% !important;
+}
 .categories  .card{
     width:300px;
     box-shadow: none;
@@ -1309,6 +1317,11 @@ justify-content: center;
 .card:hover .addtochart {
     display: block;
 
+   }
+
+   .addtochart.active{
+    display: block  !important;
+    
    }
    .card:hover .hart {
     display: flex;
@@ -1389,6 +1402,19 @@ align-self: baseline;
     align-self: baseline;
 }
 
+.service .serv-data{
+    font-size: 14px !important;
+    font-weight: 300 !important;
+    margin: 0;
+    margin-left: 20px;
+}
+.service .service-head{
+    font-size: 20px !important;
+    font-weight: 900 !important;
+    /* margin: 0;
+    margin-left: 20px; */
+}
+
 .freelancer-info i{
     color:var(--section-color);
 }
@@ -1438,12 +1464,17 @@ align-self: baseline;
     overflow-y: hidden;
     width: 100%;
     margin-bottom: 120px;
+    padding-bottom: 30px;
+    padding-left: 55px;
 
 }
 .products-page .servicex .serv {
     margin-left: 10px;
     margin-right: 20px;
-
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
 }
 .products-page .servicex .serv .logo{
     width: 143px;
@@ -1699,6 +1730,7 @@ font-size: 1rem;
     padding: 10px 0;
     font-weight: 100;
     flex-grow: 1;
+    word-break: break-all;
 }
 
 .freelanc .service{
@@ -2234,14 +2266,14 @@ font-size: 20px;
  .hest{
     margin: 30px;
         max-width: 800px;
-        /* height: 282px; */
+        height: 300px;
         border-radius: 12px;
         overflow-y: auto;
         overflow-x: hidden;
 
 }
 .hest .accordion .accordion-item{
-    background-color:#00000029 !important;
+    background-color:#c3bebe29 !important;
 }
  .hest .accordion,  .hest .accordion .accordion-body{
 width: 100%;
@@ -2866,10 +2898,12 @@ font-size: 30px;
     font-weight: 900;
 }
 .myreview i{
-    color:var(--section-color);
+    /* color:var(--section-color); */
     font-size:10px;
 }
-
+.myreview i.active{
+    color:var(--section-color);
+}
 
 
 

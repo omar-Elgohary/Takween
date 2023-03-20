@@ -27,7 +27,7 @@
 
 <div class="products-page py-5">
     <div class="container">
-        <section class="freelanc v2">
+        <section class="freelanc v2 " style="max-width: 1200px;margin-left:0;margin-right:0;">
             <div class="image">
                 <img src="{{ asset("Admin3/assets/images/users/".$freelancer->profile_image) }}" alt="">
             </div>
@@ -46,7 +46,7 @@
                         </span>
                     </div>
                 </div>
-                <div class="txt">{{ $freelancer->bio }}</div>
+                <div class="txt"  style=" min-height: 125px; ">{{ $freelancer->bio }}</div>
             </div>
 
             <div class="totals">
@@ -68,6 +68,59 @@
         </section>
     </div>
 
+
+  @auth
+  <div class="container-fluid py-5 px-3" style="padding-top: 185px !important;">
+    <div class="section-header">
+        <h2>services</h2>
+    </div>
+  </div>
+
+  <div class="servicex">
+     @if(App\models\FreelancerService::where('freelancer_id',$freelancer->id)->get()!=null)
+   @foreach (App\models\FreelancerService::where('freelancer_id',$freelancer->id)->get() as $serv)
+               
+
+            @if($serv->parent_id ==null)
+
+            <div class="serv">
+                <div class="logo">
+             <i class="fa-solid {{App\models\Category::find($serv->service_id)->icon}}"></i>
+                </div>
+                <div class="txt">
+                    @if ( app()->getLocale()=='ar')
+                    {{App\models\Category::find($serv->service_id)->title_ar}}
+                        
+                    @else
+                    {{App\models\Category::find($serv->service_id)->title_en}}
+                        
+                    @endif
+                </div>
+            </div>
+            @else
+
+            <div class="serv">
+                <div class="logo">
+                    <i class="{{App\models\Service::find($serv->service_id)->service_icon}}"></i>
+                </div>
+                <div class="txt">
+                    @if ( app()->getLocale()=='ar')
+                    {{App\models\service::find($serv->service_id)->service_ar}}
+                        
+                    @else
+                    {{App\models\Service::find($serv->service_id)->service_en}}
+                        
+                    @endif
+                    
+                </div>
+            </div>
+            @endif
+            @endforeach
+        @endif
+    </div>
+      
+  @endauth
+
     <div class="categories pt-5 ms-3 ccs">
         <div class="container-fluid py-5  px-3 scrollable-container">
             <div class="section-header">
@@ -83,14 +136,24 @@
                     <div class="card">
                         <div class="image-product">
                             <img src="{{ asset('assets/images/product/'.$product->img1) }}" class="card-img-top" alt="product image">
-
-                            <button class="hart ">
-                                <i class="fa fa-heart"></i>
-                            </button>
-
-                            <button class="addtochart">
-                                add to cart
-                            </button>
+                            @auth
+                            <button type="button" data-type="product" data-id="{{$product->id}}"
+                                
+                                onclick="likes(this)"
+                            class="hart   @if ($product->likes->where("user_id",auth()->user()->id)->count())
+                                    active
+                                @endif"><i class="fa fa-heart"></i></button>
+                                   @else
+                                   <button  class="hart" type="button" data-bs-target="#login2" data-bs-toggle="modal"><i class="fa fa-heart"></i></button>
+                                  @endauth
+    
+    
+                                  @auth
+                                      
+                                  <button class="addtochart"  data-id="{{$product->id}}" onclick="addcart(this)">add to cart</button>
+                                  @else
+                                  <button class="addtochart" data-bs-target="#login2" data-bs-toggle="modal" >add to cart</button>
+                                  @endauth
                         </div>
 
                         <div class="card-body">
@@ -114,6 +177,7 @@
     </div>
 </div>
 
+@if($freelancer->is_photographer ==1 )
 
 <div class="categories ccs ms-3">
     <div class="container-fluid py-2 px-3 scrollable-container">
@@ -128,15 +192,27 @@
             @foreach ($photos as $photo)
                 <div class="card">
                     <div class="image-product">
-                        <img src="{{ asset('assets/images/photo/'.$photo->photo) }}" class="card-img-top" alt="Photo">
+                        <a href="{{route('photo',$photo->id)}}">
+                        <img src="{{ asset('assets/images/photo/'.$photo->photo) }}" class="card-img-top" alt="Photo"></a>
 
-                        <button class="hart ">
-                            <i class="fa fa-heart"></i>
-                        </button>
+                        @auth
+                        <button type="button" data-type="photo" data-id="{{$photo->id}}"
+                            
+                            onclick="likes(this)"
+                        class="hart   @if ($photo->likes->where("user_id",auth()->user()->id)->count())
+                                active
+                            @endif"><i class="fa fa-heart"></i></button>
+                               @else
+                               <button  class="hart" type="button" data-bs-target="#login2" data-bs-toggle="modal"><i class="fa fa-heart"></i></button>
+                              @endauth
 
-                        <button class="addtochart">
-                            add to cart
-                        </button>
+
+                              @auth
+                                  
+                              <button class="addtochart"  data-id="{{$product->id}}" onclick="addcart(this)">add to cart</button>
+                              @else
+                              <button class="addtochart" data-bs-target="#login2" data-bs-toggle="modal" >add to cart</button>
+                              @endauth
                     </div>
 
                     <div class="card-body d-flex justify-content-between">
@@ -152,6 +228,8 @@
         </div>
     </div>
 </div>
+@endif
+
 
 
 
@@ -167,7 +245,7 @@
     <div class="review freelanc ">
 
         <div class="image">
-            <img src="{{asset("Admin3/assets/images".App\Models\User::find($review->user_id)->profile_image)}}" alt="">
+            <img src="{{asset("Admin3/assets/images/users/".App\Models\User::find($review->user_id)->profile_image)}}" alt="">
         </div>
         <div class="info">
             <div class="name">
@@ -175,14 +253,17 @@
                 <div class="rate">
 
                     
-                    @for ( $i=5 ;$i>0; $i-- )
-                    @if($review->rate-- )
-                    <i class="fa fa-star active"></i>
-                    @else
-                    <i class="fa fa-star"></i>
-                     @endif
-                    @endfor
                    
+                    @for ( $i=$review->rate ;$i>0; $i-- )
+                           
+                    <i class="fa fa-star active"></i>
+                  
+                    
+                    @endfor
+                    @for ($i=5-$review->rate ; $i>0; $i-- )
+                    <i class="fa fa-star" style="color:#777"></i>
+                        
+                    @endfor
 
                 </div>
             </div>
@@ -270,17 +351,17 @@
         </div>
 
         <div class="modal-body text-center">
-            <form action="#" id="form-chooserequest" method="POST">
+            <form action="{{route('user.choseRequestOrReservation',$freelancer->id)}}" id="form-chooserequest" method="POST">
                 @csrf
                 <h1 class="modal-title fs-5">Request service</h1>
 
                 <div>
-                    <input type="radio" value="private" id="private" name="requesttype">
+                    <input type="radio" value="private" id="private" name="requesttype" required>
                     <label for="private">Request new service</label>
                 </div>
 
                 <div>
-                    <input type="radio" value="reservation" id="reservation" name="requesttype">
+                    <input type="radio" value="reservation" id="reservation" name="requesttype" required>
                     <label for="reservation">Booking for photo shot</label>
                 </div>
 
@@ -296,5 +377,54 @@
 @endsection
 
 @section("js")
+<script>
 
+        
+    function likes(e){
+    // $(this).toggleClass("active");
+    var id =$(e).attr('data-id');
+     var  type =$(e).attr('data-type');
+    var token= $('meta[name="csrf_token"]').attr('content');
+    $.ajax({
+     type: "GET",
+      url: "{{ URL::to('user/addorremovelikes')}}/" + id,
+      data:{'type':type},
+      headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+      dataType: "json",
+      success: function(data) {
+        console.log(data);
+        if(data['action']=="add"){
+            $(e).addClass("active");
+        }else if(data['action']=="delete"){
+            $(e).removeClass("active");
+          
+        }
+      }
+    
+      });
+    
+    
+    }
+    
+    function addcart(e){
+        var id =$(e).attr('data-id');
+        var token= $('meta[name="csrf_token"]').attr('content');
+        $.ajax({
+     type: "GET",
+      url: "{{ URL::to('user/addcart')}}/" + id,
+      data:{'type':type},
+      headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+      dataType: "json",
+      success: function(data) {
+        console.log(data);
+        if(data['action']=="add"){
+            $(e).addClass("active");
+        }else if(data['action']=="delete"){
+            $(e).removeClass("active");
+        }
+      }
+    
+      });
+    }
+        </script>
 @endsection

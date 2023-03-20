@@ -37,69 +37,40 @@ product
 
         </div>
 
-        <div class="review freelanc ">
+        
+    @forelse ( App\Models\Review::where('freelancer_id',auth()->user()->id)  as  $review )
+    <div class="review freelanc ">
 
-                <div class="image">
-                  <img src="{{asset("assets/images/vicky-hladynets-C8Ta0gwPbQg-unsplash.png")}}" alt="">
-                </div>
-                <div class="info">
-                  <div class="name">
-                    <span>ahmed</span>
-                        <div class="rate">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                         
-                        </div> 
-                  </div>
-                  <div class="txt">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam velit alias ratione eaque dolores expedita ex repellat ducimus. Ratione quisquam molestiae iusto minima obcaecati tenetur delectus ex ipsam doloribus nulla.</div>
-                 
-                </div>
+        <div class="image">
+            <img src="{{asset("Admin3/assets/images/users/".App\Models\User::find($review->user_id)->profile_image)}}" alt="">
         </div>
-        <div class="review freelanc ">
+        <div class="info">
+            <div class="name">
+            <span>{{App\Models\User::find($review->user_id)->name}}</span>
+                <div class="rate">
 
-                <div class="image">
-                  <img src="{{asset("assets/images/vicky-hladynets-C8Ta0gwPbQg-unsplash.png")}}" alt="">
-                </div>
-                <div class="info">
-                  <div class="name">
-                    <span>ahmed</span>
-                        <div class="rate">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                         
-                        </div> 
-                  </div>
-                  <div class="txt">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam velit alias ratione eaque dolores expedita ex repellat ducimus. Ratione quisquam molestiae iusto minima obcaecati tenetur delectus ex ipsam doloribus nulla.</div>
-                 
-                </div>
-        </div>
-        <div class="review freelanc ">
+                    
+                   
+                    @for ( $i=$review->rate ;$i>0; $i-- )
+                           
+                    <i class="fa fa-star active"></i>
+                  
+                    
+                    @endfor
+                    @for ($i=5-$review->rate ; $i>0; $i-- )
+                    <i class="fa fa-star" style="color:#777"></i>
+                        
+                    @endfor
 
-                <div class="image">
-                  <img src="{{asset("assets/images/vicky-hladynets-C8Ta0gwPbQg-unsplash.png")}}" alt="">
                 </div>
-                <div class="info">
-                  <div class="name">
-                    <span>ahmed</span>
-                        <div class="rate">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                         
-                        </div> 
-                  </div>
-                  <div class="txt">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam velit alias ratione eaque dolores expedita ex repellat ducimus. Ratione quisquam molestiae iusto minima obcaecati tenetur delectus ex ipsam doloribus nulla.</div>
-                 
-                </div>
+            </div>
+            <div class="txt">{{$review->pragraph}}</div>
+
         </div>
+</div>
+    @empty
+        
+    @endforelse
         <a href="" class=" text-center showmore">show more</a>
     </div>
 </div>

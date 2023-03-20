@@ -15,5 +15,5 @@ return [
     'customer name' => 'اسم العميل',
     'attachment' =>'مرفقات',
     'user' => "We can't find a user with that email address.",
-
+    "reject offer message"=>"تم رفض العرض بنجاح",
 ];

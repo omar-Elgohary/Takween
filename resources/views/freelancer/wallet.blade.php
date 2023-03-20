@@ -36,7 +36,7 @@ product
                 <div class="hoverdiv d-flex justify-content-around align-items-baseline py-3" >
                     <div class="wall d-flex flex-column">
                         <p class="total">total</p>
-                        <P class="number" style="font-size:49px">127<span>
+                        <P class="number" style="font-size:49px">{{$total_wallet}}<span>
                             SR
                         </span>
                             </P>
@@ -53,66 +53,50 @@ product
 {{--  --}}
 
 <div class="accordion" id="accordionPanelsStayOpenExample">
+
+
+  @forelse ( $user_wallet_hestory as $wh )
+    
   <div class="accordion-item">
     <h2 class="accordion-header d-flex align-items-center justify-content-between p-2" id="panelsStayOpen-headingOne">
         <div  class= "info d-flex flex-column">
-        <p class="text-black-100 p-0 m-0">refund</p>
-        <p class="text-black-50">2/8/2202</p>
+        <p class="text-black-100 p-0 m-0">{{$wh->status}}</p>
+        <p class="text-black-50">{{$wh->created_at}}</p>
         </div>
-      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#refund1" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#refund{{$wh->id}}" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
         <div class="number">
+
+          @if ($wh->user_id == auth()->user()->id && $wh->status !='refund')
+             
+             -
+
+          @else
             +
-            <span >150</span>
+          @endif
+            
+            <span >{{$wh->total}}</span>
             <span>RS</span>
         </div>
       </button>
     </h2>
-    <div id="refund1" class="accordion-collapse collapse " aria-labelledby="panelsStayOpen-headingOne">
+    <div id="refund{{$wh->id}}" class="accordion-collapse collapse " aria-labelledby="panelsStayOpen-headingOne">
       <div class="accordion-body">
-        <strong>This is the first item's accordion body.</strong>  that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+        <div style="max-width:100%">
+
+
+
+        
+
+        </div>
       </div>
     </div>
   </div>
-  <div class="accordion-item">
-    <h2 class="accordion-header d-flex align-items-center justify-content-between p-2" id="panelsStayOpen-headingOne">
-        <div  class= "info d-flex flex-column">
-        <p class="text-black-100 p-0 m-0">refund</p>
-        <p class="text-black-50">2/8/2202</p>
-        </div>
-      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#refund2" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-        <div class="number">
-            +
-            <span>150</span>
-            <span>RS</span>
-        </div>
-      </button>
-    </h2>
-    <div id="refund2" class="accordion-collapse collapse " aria-labelledby="panelsStayOpen-headingOne">
-      <div class="accordion-body">
-        <strong>This is the first item's accordion body.</strong>  that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-      </div>
-    </div>
-  </div>
-  <div class="accordion-item">
-    <h2 class="accordion-header d-flex align-items-center justify-content-between p-2" id="panelsStayOpen-headingOne">
-        <div  class= "info d-flex flex-column">
-        <p class="text-black-100 p-0 m-0">refund</p>
-        <p class="text-black-50">2/8/2202</p>
-        </div>
-      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#refund4" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-        <div class="number">
-            +
-            <span>150</span>
-            <span>RS</span>
-        </div>
-      </button>
-    </h2>
-    <div id="refund4" class="accordion-collapse collapse " aria-labelledby="panelsStayOpen-headingOne">
-      <div class="accordion-body">
-        <strong>This is the first item's accordion body.</strong>  that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-      </div>
-    </div>
-  </div>
+
+  @empty
+    
+  @endforelse
+  
+ 
 
 
 </div>

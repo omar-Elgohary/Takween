@@ -90,11 +90,17 @@
                 </div>
   
           </div>
+         
           <div class="btn-contianer d-flex flex-column justify-between align-items-center my-3">
-            <button class=" btn-modal btn-model-primary border-0" type="button" >finish</button>
-            
            
-             </div>
+          <form action="{{route('freelanc.finishrequest',$request->id)}}" method="GET">
+
+            <button class=" btn-accept border-0 btn-modal rounded-pill mx-2"type="submit" >Finish</button>
+          
+          </form>
+            
+          </div>
+             
          
 
        

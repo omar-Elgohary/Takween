@@ -1,5 +1,6 @@
 <?php
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\RequestController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\StripePaymentController;
 use App\Http\Controllers\FreelancerRequestController;
+use App\Http\Controllers\FreelancerServiceController;
 
 
 Route::group(
@@ -27,9 +29,7 @@ Route::get('products', [ProductController::class, 'displayAllProducts'])->name('
 
 Route::get('/product/{id}', [ProductController::class, 'usershowproduct'])->name("product");
 
-Route::get('/photo', function () {
-    return view('visitor.photo');
-})->name("photo");
+Route::get('/photo/{id}',[PhotoController::class, 'showPhoto'] )->name("photo");
 
 
 // Route::get('/freelancer/{id}', [UserController::class, 'FreelancerProfile'])->name("freelancer"
@@ -63,8 +63,12 @@ Route::prefix("freelancer")->name("freelanc.")->middleware('auth','is_freelancer
     Route::get("/mywork",[FreelancerRequestController::class,'getmywork'])->name("mywork");
 
     Route::post('/sendoffer/{id}',[FreelancerRequestController::class,'sendoffer'])->name("sendoffer");
+    Route::get('/request/finish/{id}',[FreelancerRequestController::class,'finishRequest'])->name("finishrequest");
+    
 
-
+Route::middleware("is_photgrapher")->group(function() {
+    Route::resource('/photo', PhotoController::class);
+});
 
     // Route::get("/showproducts",function(){
     //     return view("freelancer.showproducts");
@@ -109,19 +113,19 @@ Route::prefix("freelancer")->name("freelanc.")->middleware('auth','is_freelancer
     //     return view("freelancer.photo");
     // })->name("photo");
 
-    Route::resource('photo', PhotoController::class);
+   
 
     //profile
     Route::get("/files/{id}", [UserController::class, 'FreelancerFiles'])->name("files");
 
-    Route::get("/wallet",function(){
-        return view("freelancer.wallet");
-    })->name("wallet");
+    Route::get("/wallet",[UserController::class,'freelancerwallet'])->name("wallet");
 
 
     Route::get("/reviews",function(){
         return view("freelancer.reviews");
     })->name("reviews");
+
+    Route::post('service/add',[FreelancerServiceController::class,'addservice'])->name('addservice');
 
 
 });
@@ -142,9 +146,7 @@ Route::prefix("user")->name("user.")->middleware('auth')->group(function(){
         return view("user.notification");
     })->name("notification");
 
-    Route::get("/cart",function(){
-        return view("user.chart");
-    })->name("cart");
+    Route::resource("/cart", CartController::class);
 
     Route::get("/freelancer/profile",function(){
         return view("user.freelancerprofile");
@@ -163,7 +165,7 @@ Route::prefix("user")->name("user.")->middleware('auth')->group(function(){
 
 // request route
     Route::get('/requestpublic', [RequestController::class, 'requestpublicservice'])->name("requestpublic");
-    Route::post('/StoreRequest', [RequestController::class, 'store'])->name("request.store");
+    Route::post('/StoreRequest/{freelancer_id?}', [RequestController::class, 'store'])->name("request.store");
     Route::post('/cancelRequest/{id}', [RequestController::class, 'cancel'])->name("request.cancel");
     Route::post('/reviewRequest/{id}',[RequestController::class, 'review'])->name("request.review");
     // get all services of one category
@@ -171,6 +173,8 @@ Route::prefix("user")->name("user.")->middleware('auth')->group(function(){
 
 
     Route::get('/requestprivate/{id}', [RequestController::class, 'requestUserToFreelancer'])->name("requestprivate");
+// form that chose if private or reservation   reuest 
+    Route::post('/choserequest/{id}', [RequestController::class, 'choseRequestOrReservation'])->name("choseRequestOrReservation");
 //get offer request
 
     Route::get('/getrequestoffer/{id}', [RequestController::class, 'getrequestoffer'])->name("getrequestoffer");
@@ -187,9 +191,19 @@ Route::prefix("user")->name("user.")->middleware('auth')->group(function(){
     Route::get('/addorremovelikes/{id}',[UserController::class,'addorremovelikes']);
 
     // add cart
-    Route::get('/addcart/{id}',[UserController::class,'addcart']);
+    Route::get('/addtocart/{id}',[CartController::class,'addToCart'])->name('addtocart');
+    Route::get('/addPromoCode',[CartController::class,'addPromoCode'])->name('addPromoCode');
+    Route::post('/cartpay',[CartController::class,'cartpay'])->name('cartpay');
+
 
     Route::resource('/chat',ChatController::class);
+
+
+
+
+Route::get('/request/completed/{id}',[RequestController::class,'completeRequest'])->name("completerequest");
+Route::post('/private/request/rejectoffer/{id}',[RequestController::class,'privaterejectoffer'])->name("privaterejectoffer");
+Route::post('/private/request/aceptoffer/{id}',[RequestController::class,'privateracceptoffer'])->name("privateracceptoffer");
 
 
 });

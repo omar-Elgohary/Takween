@@ -32,8 +32,9 @@
                 <a class="d-inline-block align-self-center" href="#" class="btn" data-bs-toggle="modal"
                 data-bs-target="#login">login</a>
             @else
-                <a class="d-inline-block align-self-center" href="{{route("user.cart")}}" class="btn">
+                <a class="d-inline-block align-self-center" href="{{route("user.cart.index")}}" class="btn">
                     <i class="fa-solid fa-cart-shopping cart-icon px-3"></i>
+                    <span id="cart-count">{{App\Models\Cart::where('user_id' ,auth()->user()->id)->count()}}</span>
                 </a>
             @endif
 

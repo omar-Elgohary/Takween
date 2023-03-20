@@ -23,7 +23,7 @@ request private service
         </div>
 
         <div class="form px-3">
-            <form action="{{ route('user.request.store',$freelancer) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('user.request.store',$freelancer->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
         
                 <div class="mb-4">
@@ -83,7 +83,7 @@ request private service
                     <input type="date" class="form-control @error('due_date') is-invalid @enderror" id="due_date" name="due_date">
                     @error('due_date')<div class="alert alert-danger">{{ $message }}</div>@enderror
                 </div>
-                   <input type="hidden"  name="type" value="public">
+                   <input type="hidden"  name="type" value="private">
                 <button type="submit" class="btn btn-modal my-3 px-5 btn-model-primary ">request</button>
             </form>
         </div>

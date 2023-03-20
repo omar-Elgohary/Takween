@@ -120,9 +120,9 @@
             <div class="modal-body">
                 <div class="div d-flex justify-content-start px-4">
                     <div class="d-flex flex-column">
-                        <h3 class="mb-0 font-bold">#324234</h3>
+                        <h3 class="mb-0 font-bold">{{$request->random_id}}</h3>
 
-                        @if ( $request->status =='Cancel by customer')
+                        @if ( $request->status =='Cancel by customer'  )
                         <span class="cancel  text-danger">cancel</span>
                         
                         @else

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users');
             $table->foreignId('freelancer_id')->references('id')->on('users')->nullable();
-            $table->enum("status",['purchase','withdraw','refund']);
+            $table->enum("status",['pending','purchase','withdraw','refund']);
             $table->enum("pay_type",['bank','applepay','wallet']);
             $table->decimal('total', 10, 2);
             $table->decimal('discount', 10, 2)->default(0);

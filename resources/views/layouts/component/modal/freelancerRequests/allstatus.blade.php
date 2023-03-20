@@ -9,7 +9,7 @@
          
           <div class="div d-flex justify-content-start px-4">
               <div class="d-flex flex-column">
-                <h3 class="mb-0 font-bold">#324234</h3>
+                <h3 class="mb-0 font-bold">{{$request->random_id}}</h3>
 
                 
                 @if ( $request->status =='Cancel by customer')
@@ -100,7 +100,37 @@
             </div>
         </div>
           
-         
+        @if(empty($request->review->first()))
+        <div class="btn-contianer d-flex flex-column justify-between align-items-center my-3">
+            <button class="btn btn-modal btn-model-primary" type="button" data-bs-toggle="modal" data-bs-target="#review{{$request->id}}">Rate</button>
+        </div>
+        @else
+        <div class="myreview flex-column py-3">
+            <div class="d-flex">
+                <h5 class="flex-grow-1 fw-900">your review</h5>
+                
+                <div class="d-flex flex-grow-1 justify-content-end align-items-center">
+
+                    @for ( $i=$request->review->first()->rate ;$i>0; $i-- )
+                   
+                    <i class="fa fa-star active"></i>
+                  
+                    
+                    @endfor
+                    @for ($i=5-$request->review->first()->rate ;$i>0; $i-- )
+                    <i class="fa fa-star"></i>
+                        
+                    @endfor
+                   
+                </div>
+            </div>
+
+            <p>
+                {{$request->review->first()->pragraph}}
+            </p>
+        </div>
+
+ @endif
 
        
         </div>
