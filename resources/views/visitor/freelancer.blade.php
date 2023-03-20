@@ -77,22 +77,22 @@
   </div>
 
   <div class="servicex">
-     @if(App\models\FreelancerService::where('freelancer_id',$freelancer->id)->get()!=null)
-   @foreach (App\models\FreelancerService::where('freelancer_id',$freelancer->id)->get() as $serv)
+     @if(App\Models\FreelancerService::where('freelancer_id',$freelancer->id)->get()!=null)
+   @foreach (App\Models\FreelancerService::where('freelancer_id',$freelancer->id)->get() as $serv)
                
 
             @if($serv->parent_id ==null)
 
             <div class="serv">
                 <div class="logo">
-             <i class="fa-solid {{App\models\Category::find($serv->service_id)->icon}}"></i>
+             <i class="fa-solid {{App\Models\Category::find($serv->service_id)->icon}}"></i>
                 </div>
                 <div class="txt">
                     @if ( app()->getLocale()=='ar')
-                    {{App\models\Category::find($serv->service_id)->title_ar}}
+                    {{App\Models\Category::find($serv->service_id)->title_ar}}
                         
                     @else
-                    {{App\models\Category::find($serv->service_id)->title_en}}
+                    {{App\Models\Category::find($serv->service_id)->title_en}}
                         
                     @endif
                 </div>
@@ -101,14 +101,14 @@
 
             <div class="serv">
                 <div class="logo">
-                    <i class="{{App\models\Service::find($serv->service_id)->service_icon}}"></i>
+                    <i class="{{App\Models\Service::find($serv->service_id)->service_icon}}"></i>
                 </div>
                 <div class="txt">
                     @if ( app()->getLocale()=='ar')
-                    {{App\models\service::find($serv->service_id)->service_ar}}
+                    {{App\Models\service::find($serv->service_id)->service_ar}}
                         
                     @else
-                    {{App\models\Service::find($serv->service_id)->service_en}}
+                    {{App\Models\Service::find($serv->service_id)->service_en}}
                         
                     @endif
                     

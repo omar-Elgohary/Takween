@@ -15,7 +15,7 @@ carts
 
 @section("css")
 
-@livewireStyles()
+
 <style>
 
     .container-fluid{
@@ -87,7 +87,7 @@ carts
 
             @else
 
-            <div class="text-center   w-100 py-2 text-success">promo code is achived</div>
+            <div class="text-center   w-100 py-2 text-success">promo code is actived</div>
             @endif
              
                 </div>
@@ -270,5 +270,5 @@ carts
 @endsection
 
 @section("js")
-    @livewireScripts()
+    
 @endsection

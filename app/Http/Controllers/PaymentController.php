@@ -69,6 +69,14 @@ class PaymentController extends Controller
     }
 
 
+    static function bankpay(){
+        
+    }
+
+    static function apay(){
+        
+    }
+
 
     static function walletpay2($total){
    
@@ -90,4 +98,6 @@ class PaymentController extends Controller
       
        return User::findOrFail(auth()->user()->id)->wallet->total;
     }
+
+ 
 }
