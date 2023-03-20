@@ -17,9 +17,13 @@ class ProductController extends Controller
         $products = Product::get();
             foreach($products as $product){
                 $product->attachment =  asset('assets/front/upload/files/'.$product->attachment);
-                $product->img1 =  asset('assets/images/product/'.$product->img1);
-                $product->img2 =  asset('assets/images/product/'.$product->img2);
-                $product->img3 =  asset('assets/images/product/'.$product->img3);
+                $product['img1'] = asset('assets/images/product/'.$request->img1);
+                if($request->has('img2')){
+                    $product['img2'] = asset('assets/images/product/'.$request->img2);
+                }
+                if($request->has('img3')){
+                    $product['img3'] = asset('assets/images/product/'.$request->img3);
+                }
             }
             return $this->returnData(200, 'Products Returned Successfully',$products);
         }catch(\Exception $e){
