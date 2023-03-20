@@ -45,7 +45,7 @@
                         <div class="freelancer-info d-flex ">
                             <div class="d-flex ">
                                 <div class="image">
-                              <img src="{{asset('admin3/assets/images/users/'.$freelancer->profile_image)}}" alt="{{$photo->name}}">
+                              <img src="{{asset('Admin3/assets/images/users/'.$freelancer->profile_image)}}" alt="{{$photo->name}}">
                             </div>
                              <p class="card-text ">{{$freelancer->name}} <span class="text-black-50 px-2">|</span></p>
                           </div>
