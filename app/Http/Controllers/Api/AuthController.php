@@ -21,6 +21,8 @@ class AuthController extends Controller
             'password' => 'required|string|min:6',
         ]);
 
+        $token = auth()->guard('api')->attempt($validator);
+
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }

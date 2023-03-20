@@ -81,9 +81,6 @@ Route::get('getPrivateRequestById/{id}', [RequestController::class, 'getPrivateR
 // Reservations
 Route::get('allReservations',  [ReservationController::class, 'allReservations'])->middleware('auth:api');
 Route::post('createBookingPhotoShot/{freelancer_id}', [ReservationController::class, 'createBookingPhotoShot']); // Create Reservation
-
 Route::get('getReservationById/{id}', [ReservationController::class, 'getReservationById'])->middleware('auth:api');
-
-
 
 
