@@ -76,7 +76,7 @@ home
                 <i class="fa-solid fa-location-dot text-black-50"></i>
             </button>
         </div>
-        <button type="submit" class="btn btn-modal my-3 px-5 btn-model-primary">request</button>
+        <button type="submit" class="btn btn-modal my-3 px-5 btn-model-primary request-button">request</button>
     </form>
 </div>
 </div>
