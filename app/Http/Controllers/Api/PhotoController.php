@@ -13,13 +13,16 @@ class photoController extends Controller
     public function index()
     {
         try{
-            $photos = Photo::all();
+            $photos = Photo::get();
+            foreach ($photos as $photo) {
+                $photo->photo =  asset('assets/images/photo/'.$photo->photo);
+            }
             return $this->returnData(200, 'Photos Returned Successfully', $photos);
         }catch(\Exception $e){
             return $this->returnError(400, 'Photos Returned Failed');
         }
     }
-    
+
 
 
     public function store(Request $request)
@@ -69,6 +72,7 @@ class photoController extends Controller
             $photo->update($request->all());
             return $this->returnData(200, 'Photo Updated Successfully', $photo);
         }catch(\Exception $e){
+            echo $e;
             return $this->returnError('404', 'Photo Not Found');
         }
     }

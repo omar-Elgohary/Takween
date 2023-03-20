@@ -32,6 +32,12 @@ class User extends Authenticatable implements JWTSubject
         'remember_token',
     ];
 
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+
     /**
      * The attributes that should be cast.
      *
@@ -62,7 +68,7 @@ class User extends Authenticatable implements JWTSubject
     }
 
 
-    
+
     public function wallet(){
 
         return $this->hasOne(Wallet::class);
