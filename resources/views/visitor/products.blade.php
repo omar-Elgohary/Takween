@@ -143,12 +143,19 @@
 
 
                               @auth
+
+                              @if(!$product->sells()->where('user_id',auth()->user()->id)->exists())
                                  @if ($product->carts()->where('user_id',auth()->user()->id)->exists())
                                  <button class="addtochart active"  data-id="{{$product->id}}" onclick="addcart(this)"data-type='product'>in cart</button>  
                                  @else
                                  <button class="addtochart"  data-id="{{$product->id}}" onclick="addcart(this)"data-type='product'>add to cart</button>
                                  @endif
-                              
+                        
+                              @else
+                              <button class="addtochart active" > you paid</button>
+                              @endif
+
+                                
                               @else
                               <button class="addtochart" data-bs-target="#login2" data-bs-toggle="modal" >add to cart</button>
                               @endauth
