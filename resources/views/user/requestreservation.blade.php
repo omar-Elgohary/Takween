@@ -56,7 +56,7 @@ home
             </div>
         </div>
 
-        <div class="mb-4 hlafwidth d-flex gap-2">
+        <div class="mb-4 hlafwidth d-flex justify-content-between  px-3">
             <div class="d-flex flex-column">
                 <label for="from" class="form-label mb-3">from</label>
                 <input type="time" class="form-control" id="from" placeholder="width" name="from">
