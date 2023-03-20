@@ -190,7 +190,7 @@
         <button class="nxt-btn"><i class="fa fa-arrow-right"></i></button>
         <div class="products productscroll  scrollable">
             @foreach ($photos as $photo)
-                <div class="card">
+                <div class="card"  style="min-width:270px">
                     <div class="image-product">
                         <a href="{{route('photo',$photo->id)}}">
                         <img src="{{ asset('assets/images/photo/'.$photo->photo) }}" class="card-img-top" alt="Photo"></a>

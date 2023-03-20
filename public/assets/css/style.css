@@ -1267,6 +1267,16 @@ text-align: center;
 
 }
 
+@media(max-width:400px){
+    .card .image-product {
+        width: 270px;
+    }  
+
+    .products  .card{
+        min-width:270px;
+    }
+ }
+
 .card .image-product button{
     position: absolute;
     background-color: #b7b7b7a6;
