@@ -82,7 +82,7 @@ profile page
     <h2 class="accordion-header d-flex align-items-center justify-content-between p-2" id="panelsStayOpen-headingOne">
         <div  class= "info d-flex flex-column">
         <p class="text-black-100 p-0 m-0">{{$wh->status}}</p>
-        <p class="text-black-50">{{$wh->created_at}}</p>
+        <p class="text-black-50">{{ date_format($wh->created_at,'Y-m-d ')}}</p>
         </div>
       <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#refund{{$wh->id}}" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
         <div class="number">
