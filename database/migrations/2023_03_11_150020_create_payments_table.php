@@ -20,7 +20,7 @@ return new class extends Migration
             $table->enum("status",['pending','purchase','withdraw','refund']);
             $table->enum("pay_type",['bank','applepay','wallet']);
             $table->decimal('total', 10, 2);
-            $table->decimal('discount', 10, 2)->default(0);
+            $table->string('discount')->default(0);
             $table->morphs('paymentsable');
             $table->timestamps();
         });

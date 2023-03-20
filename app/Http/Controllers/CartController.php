@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\User;
 use App\Models\Photo;
 use App\Models\Product;
 use App\Models\Discount;
@@ -222,11 +223,13 @@ class CartController extends Controller
     $payed=false;
     $discount=null;
     $discount_id=null;
+    $disvalue=0;
     if(Cart::where('user_id',auth()->user()->id)->exists()){
 
         if(Discount::where('key',$request->disc)->exists()){
             $discount=Discount::where('key',$request->disc)->first();
             $discount_id=$discount->id;
+            $disvalue=$discount->value.$discount->by;
         }
         $paydata=$this->calcCartTotal($discount);
 
@@ -264,12 +267,24 @@ class CartController extends Controller
        'card_order_id'=>$order->id
         ]);
 
-        $order->payment()::create([
-            'user_id'=>auth()->user()->id,
-         ])
+       $tot= User::findOrFail($item->freelancer_id)->wallet->total ;
+       $tot+= $data->price;
+        User::findOrfail($item->freelancer_id)->wallet()->update([
+            "total"=> $tot,
+           ]);
       
      }
+
+     $order->payment()->create([
+        'user_id'=>auth()->user()->id,
+        'pay_type'=>$request->paytype,
+        "status"=>'purchase',
+        'total'=>$paydata['total'],
+        'discount'=>$disvalue,
+
+    ]);
    
+
 
      Cart::where('user_id',auth()->user()->id)->delete();
 
@@ -282,7 +297,7 @@ class CartController extends Controller
     
     } 
 
-    
+    return redirect()->route('user.cart.index');
 }
        toastr()->error('you dont have product in cart');
         return redirect()->back();
