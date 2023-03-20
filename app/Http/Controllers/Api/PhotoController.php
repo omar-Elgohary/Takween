@@ -9,7 +9,7 @@ use App\Http\Controllers\Api\ApiResponseTrait;
 class photoController extends Controller
 {
     use ApiResponseTrait;
-
+//
     public function index()
     {
         try{
