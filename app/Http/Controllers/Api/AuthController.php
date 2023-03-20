@@ -9,7 +9,8 @@ use Validator;
 class AuthController extends Controller
 {
     public function __construct() {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        // $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        auth()->setDefaultDriver('api');
     }
 
 
@@ -21,7 +22,7 @@ class AuthController extends Controller
             'password' => 'required|string|min:6',
         ]);
 
-        $token = auth()->guard('api')->attempt($validator);
+        $token = auth()->guard('api')->attempt();
 
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
