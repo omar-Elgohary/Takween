@@ -2909,6 +2909,7 @@ color:#000;
 border: 0;
 margin: 0 10px;
 width: 275px;
+outline: none;
 }
 
 @media(max-width:767px){
