@@ -77,8 +77,8 @@
   </div>
 
   <div class="servicex">
-     @if(App\models\FreelancerService::where('freelancer_id',$freelancer->id)->get()!=null)
-   @foreach (App\models\FreelancerService::where('freelancer_id',$freelancer->id)->get() as $serv)
+     @if(App\Models\FreelancerService::where('freelancer_id',$freelancer->id)->get()!=null)
+   @foreach (App\Models\FreelancerService::where('freelancer_id',$freelancer->id)->get() as $serv)
                
 
             @if($serv->parent_id ==null)
