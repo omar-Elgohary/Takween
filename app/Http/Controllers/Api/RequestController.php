@@ -46,7 +46,7 @@ class RequestController extends Controller
             // 'attachment' => 'required|mimes:pdf,word',
             'description' => 'required',
             'due_date' => 'required|date',
-            'type' => [\Illuminate\Validation\Rule::in(['public','private'])]
+            'type' => [\Illuminate\Validation\Rule::in(['public', 'private'])]
         ],[
             'category_id.required' => 'Category is required',
             'service_id.required' => 'Service is required',

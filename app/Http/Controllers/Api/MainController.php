@@ -1,7 +1,9 @@
 <?php
 namespace App\Http\Controllers\Api;
+use App\Models\AboutUs;
 use App\Models\Service;
 use App\Models\Category;
+use App\Models\ContactUs;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Api\ApiResponseTrait;
@@ -9,6 +11,31 @@ use App\Http\Controllers\Api\ApiResponseTrait;
 class MainController extends Controller
 {
     use ApiResponseTrait;
+
+
+    public function aboutUs()
+    {
+        try{
+            $aboutUs = AboutUs::all();
+            return $this->returnData(201, 'AboutUs Info Returned Successfully', $aboutUs);
+        }catch(\Exception $e){
+            return $this->returnError(400, 'There Is No AboutUs Info');
+        }
+    }
+
+
+
+    public function contactUs()
+    {
+        try{
+            $contactUs = ContactUs::all();
+            return $this->returnData(201, 'ContactUs Info Returned Successfully', $contactUs);
+        }catch(\Exception $e){
+            return $this->returnError(400, 'There Is No ContactUs Info');
+        }
+    }
+
+
 
     public function getAllCategories()
     {
