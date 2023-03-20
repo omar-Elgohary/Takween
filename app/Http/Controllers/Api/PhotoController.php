@@ -9,11 +9,11 @@ use App\Http\Controllers\Api\ApiResponseTrait;
 class photoController extends Controller
 {
     use ApiResponseTrait;
-//
+
     public function index()
     {
         try{
-            $photos = Photo::all();
+            $photos = Photo::get();
             foreach ($photos as $photo) {
                 $photo->photo =  asset('assets/images/photo/'.$photo->photo);
             }
