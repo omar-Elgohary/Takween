@@ -2559,6 +2559,11 @@ cursor: pointer !important;
 }
 
 }
+@media(max-width:767px){
+    .requestlink a{
+        font-size: 15px !important;
+    }
+}
 
 .request{
     width: 100%;
