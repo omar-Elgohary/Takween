@@ -1320,7 +1320,7 @@ justify-content: center;
    }
 
    .addtochart.active{
-    display: block;
+    display: block  !important;
     
    }
    .card:hover .hart {

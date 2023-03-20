@@ -34,7 +34,7 @@
             @else
                 <a class="d-inline-block align-self-center" href="{{route("user.cart.index")}}" class="btn">
                     <i class="fa-solid fa-cart-shopping cart-icon px-3"></i>
-                    {{App\Models\Cart::where('user_id' ,auth()->user()->id)->count()}}
+                    <span id="cart-count">{{App\Models\Cart::where('user_id' ,auth()->user()->id)->count()}}</span>
                 </a>
             @endif
 

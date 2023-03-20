@@ -73,18 +73,23 @@ carts
                 
 
         </div>
-         <div class="
-               chartcheckout px-2">
+         <div class="chartcheckout px-2">
             <h3 class="py-2 px-3 ">order summery</h3>
-             <form action="{{route('user.addPromoCode')}}"class="copone px-3">
+            <div class="d-flex">
+            @if ($descount==0)
+            <form action="{{route('user.addPromoCode')}}"  class="copone px-3" >
                 @csrf
-               <div class="d-flex">
+                <div class="d-flex">
                 <input type="text" class="form-control" id="promo" placeholder="promo code" name="code">
-                <button type="submit" class="btn py-2 px-4 ms-3">
-                    apply
-                </button>
-                
+                <button type="submit" class="btn py-2 px-4 ms-3">  apply</button>
+                </div>
             </form>
+
+            @else
+
+            <div class="text-center   w-100 py-2 text-success">promo code is achived</div>
+            @endif
+             
                 </div>
                  <div class="details mt-4">
                     <div class="price d-flex">
@@ -161,9 +166,9 @@ carts
      
   
         <div class="visa paycard">
-          <form action="" method="POST">
-            <input type="hidden" name="offer">
-            <input type="hidden" name="request_id">
+          <form action="{{route('user.cartpay')}}" method="POST">
+            <input type="hidden" name="paytype" value="visa">
+            <input type="hidden" name="disc" value=" @if(isset($discount_key)) {{$discount_key}} @endif">
       
      <div class="form-outline mb-4 halfwidthinput">
       <label class="form-label" for="holder">holderholder name</label>
@@ -203,7 +208,7 @@ carts
         <div class="apay paycard">
           <form action="">
   
-        
+            <input type="hidden" name="paytype" value="apay">
     <div class="btn-contianer d-flex justify-content-center align-items-center">
       <button type="submit" class="btn  btn-modal  my-3 btn-model-primary ">checkout</button>
      
@@ -212,6 +217,7 @@ carts
           </form>
         </div>
         <div class="wallet  paycard" style="height: 350px">
+          @if(!$walletEnough)
           <div class="wallet-empty" style="height:100%">
           <div class=" d-flex flex-column align-items-center justify-content-center w-100" style="height:100%" >
   
@@ -223,10 +229,14 @@ carts
           </div>
         
         </div>
+        @else
   <div class="wallet-pay">
-    <form action="{{route('user.walletpay')}}" method="POST" class=" d-flex flex-column justify-content-end" >
+    <form action="{{route('user.cartpay')}}" method="POST" class=" d-flex flex-column justify-content-end" >
       @csrf
-      <input type="hidden" name="offer">
+
+      <input type="hidden" name="paytype" value="wallet">
+      <input type="hidden" name="disc" value=" @if(isset($discount_key)) {{$discount_key}} @endif
+      ">
       <input type="hidden" name="request_id">
       
   
@@ -240,7 +250,7 @@ carts
   </div>
   
           
-  
+  @endif
          
        </div>
          

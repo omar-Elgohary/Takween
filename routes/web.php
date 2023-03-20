@@ -191,8 +191,9 @@ Route::prefix("user")->name("user.")->middleware('auth')->group(function(){
 
     // add cart
     Route::get('/addtocart/{id}',[CartController::class,'addToCart'])->name('addtocart');
-    Route::post('/addPromoCode',[CartController::class,'addPromoCode'])->name('addPromoCode');
- 
+    Route::get('/addPromoCode',[CartController::class,'addPromoCode'])->name('addPromoCode');
+    Route::post('/cartpay',[CartController::class,'cartpay'])->name('cartpay');
+
 
     Route::resource('/chat',ChatController::class);
 

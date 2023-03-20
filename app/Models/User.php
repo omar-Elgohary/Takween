@@ -3,6 +3,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Wallet;
 use App\Models\Product;
+use App\Models\CardOrder;
 use App\Models\FreelancerService;
 use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -70,4 +71,9 @@ class User extends Authenticatable implements JWTSubject
     public function freelancerService(){
         return $this->hasMany(FreelancerService::class,'freelancer_id');
     }
+    public function cardorder(){
+        return $this->hasMany(CardOrder::class);
+    }
+
+
 }

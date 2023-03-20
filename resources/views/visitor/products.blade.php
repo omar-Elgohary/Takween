@@ -204,7 +204,7 @@ $.ajax({
   headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
   dataType: "json",
   success: function(data) {
-    console.log(data);
+    
     if(data['action']=="add"){
         $(e).addClass("active");
     }else if(data['action']=="delete"){
@@ -234,7 +234,7 @@ function addcart(e){
         $(e).addClass("active");
         $(e).text('in cart');
 
-        
+        $('#cart-count').html(parseInt($('#cart-count').html())+1);
         $(document).ready(function(){
             $('#addcart').modal('show');
         });

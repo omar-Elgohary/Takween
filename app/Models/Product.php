@@ -21,5 +21,8 @@ class Product extends Model
     public function carts(){
         return $this->morphMany(Cart::class,"cartsable");
     } 
+    public function sells(){
+        return $this->morphMany(Selled::class,"selledsable");
+    }
     
 }

@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\Photo;
 use App\Models\Product;
+use App\Models\Discount;
+use App\Models\CardOrder;
 use Illuminate\Http\Request;
+use App\Http\Controllers\PaymentController;
 
 class CartController extends Controller
 {
@@ -14,12 +17,13 @@ class CartController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($discount= null)
     {
         $cartadditems=[];
         $total=0;
         $price=0;
         $descount=0;
+        $walletEnough=false;
     if(Cart::where('user_id',auth()->user()->id)->exists()){
 
         $cartadditems= Cart::where('user_id',auth()->user()->id)->get();
@@ -28,14 +32,48 @@ class CartController extends Controller
             $price+=$item->price;
         }
 
+        
+        if ($discount) {
+
+            $descount = $discount->value;
+            if($discount->by =="%"){
+            
+            $total= $price - ( $price * $descount)/100;
+
+
+        }elseif($discount->by =="$"){
+          
             $total=$price-$descount;
+            }
+
+            $discount_key=$discount->key;
+
+            if(PaymentController::getuserwallet()  >=$total){
+            $walletEnough=true ;
+            }
+
+ return view('user.chart',compact('cartadditems','total','descount','price','discount_key' ,'walletEnough'));
+
+        }else{
+
+            $total=$price-$descount;
+
+           if(PaymentController::getuserwallet()  >=$total){
+            $walletEnough=true ;
+           }
+         
+        }
+
+        
+
+      
 
     }
        
         
 
 
-        return view('user.chart',compact('cartadditems','total','descount','price'));
+        return view('user.chart',compact('cartadditems','total','descount','price','walletEnough'));
     }
 
 
@@ -92,9 +130,23 @@ class CartController extends Controller
         
         public function addPromoCode( Request $request ){
         
-          $request->code;
-         
+            $discount=null;
+            if(Discount::where('key',$request->code)->exists()){
+                   
+                  
+                $discount=Discount::where('key',$request->code)->first();
+                
+               
+      
+
+            }else{
+
+                toastr()->error('promo code not work');
+            }
           
+
+            return $this->index($discount);
+
         }
     /**
      * Show the form for creating a new resource.
@@ -164,5 +216,125 @@ class CartController extends Controller
     }
 
 
+
+    public function cartpay(Request $request ){
+    $paydata=[];
+    $payed=false;
+    $discount=null;
+    $discount_id=null;
+    if(Cart::where('user_id',auth()->user()->id)->exists()){
+
+        if(Discount::where('key',$request->disc)->exists()){
+            $discount=Discount::where('key',$request->disc)->first();
+            $discount_id=$discount->id;
+        }
+        $paydata=$this->calcCartTotal($discount);
+
+
+     if($request->paytype=='wallet'){
+      $payed = PaymentController::walletpay2($paydata['total']);
+    
+     }elseif($request->paytype=='visa'){
+
+        
+     }elseif($request->paytype=='apay'){
+
+
+     }else{
+
+     }
+
+
+     if($payed){
+
+       $order= CardOrder::create([
+       'user_id'=>auth()->user()->id,
+       'price'=>$paydata['price'],
+       'discount_id'=>  $discount_id,
+       'total'=>$paydata['total'],
+        ]);
+    foreach($paydata['cartadditems'] as $data ){
+       $item= $data->cartsable;
+     
+ 
+      $item->sells()->create([
+       "user_id"=>auth()->user()->id,
+       "type"=>$data->type,
+       'price'=>$data->price,
+       'card_order_id'=>$order->id
+        ]);
+
+        $order->payment()::create([
+            'user_id'=>auth()->user()->id,
+         ])
+      
+     }
+   
+
+     Cart::where('user_id',auth()->user()->id)->delete();
+
+  
+
+
+
+
+   
+    
+    } 
+
+    
+}
+       toastr()->error('you dont have product in cart');
+        return redirect()->back();
+       
+    }
+
+
+
+
+    public function calcCartTotal($discount=null){
+        $total=0;
+        $price=0;
+        $descount=0;
+        $walletEnough=false;
+          $cartadditems= Cart::where('user_id',auth()->user()->id)->get();
+        foreach($cartadditems as $item){
+            $price+=$item->price;
+        }
+
+        if ($discount) {
+
+            $descount = $discount->value;
+            if($discount->by =="%"){
+            
+            $total= $price - ( $price * $descount)/100;
+
+
+        }elseif($discount->by =="$"){
+          
+            $total=$price-$descount;
+            }
+
+            $discount_key=$discount->key;
+
+            if(PaymentController::getuserwallet()  >=$total){
+            $walletEnough=true ;
+            }
+
+
+
+        }else{
+
+            $total=$price-$descount;
+
+           if(PaymentController::getuserwallet()  >=$total){
+            $walletEnough=true ;
+           }
+         
+        }
+
+   return compact('cartadditems','total','descount','price','discount_key' ,'walletEnough');
+    }
+ 
     
 }

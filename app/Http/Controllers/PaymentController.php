@@ -65,10 +65,28 @@ class PaymentController extends Controller
         
 
 
-        dd($offer_id);
+        
     }
 
-    function getuserwallet(){
+
+
+    static function walletpay2($total){
+   
+        if(SELF::getuserwallet()>=$total){
+            $total_wallet_after_pay=SELF::getuserwallet()+$total;
+            $edit_wallet=User::findOrFail(auth()->user()->id)->wallet()->update([
+                "total"=>$total_wallet_after_pay,
+               ]);
+
+
+               return true;
+        }
+       
+            return false;
+        
+    }
+
+   static function getuserwallet(){
       
        return User::findOrFail(auth()->user()->id)->wallet->total;
     }
