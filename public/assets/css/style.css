@@ -2774,8 +2774,19 @@ span.inprogress{
     overflow: hidden;
     border-radius: 27px;
     bottom: 0 !important;
-    right: 20px !important;
-    top: unset !important;
+    /* right: 20px !important;
+    top: unset !important; */
+
+}
+
+@media(min-width:767px){
+
+    .chat{
+        right: 20px !important;
+        top: unset !important;
+
+    }
+
 
 }
 .chat .offcanvas-header .btn-close {
