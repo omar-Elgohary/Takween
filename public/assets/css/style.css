@@ -662,6 +662,12 @@ a.dropdown-item:last-child, a.dropdown-item:last-child i{
         max-width:673px;
     }
 }
+
+@media(max-width:767px){
+    #page-topbar .carve .search-form{
+        width: 75%;
+    }
+}
 .navbar-header .dropdown .show.header-item {
     background-color: transparent;
 }
