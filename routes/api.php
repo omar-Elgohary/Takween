@@ -31,6 +31,9 @@ Route::get('aboutUs', [MainController::class, 'aboutUs']);
 
 // Categories
 Route::get('categories', [MainController::class, 'getAllCategories']);
+Route::get('ProductsOfCategory/{cat_id}', [MainController::class, 'ProductsOfCategory']);
+Route::get('FreelancersOfCategory/{cat_id}', [MainController::class, 'FreelancersOfCategory']);
+
 
 //Services
 Route::get('services', [MainController::class, 'getAllServices']);
@@ -54,7 +57,7 @@ Route::get('allFiles/{id}', [UserController::class, 'allFiles']);
 // Products
 Route::get('products', [ProductController::class, 'index']);
 Route::post('store', [ProductController::class, 'store'])->middleware('auth:api');
-Route::get('show/{id}', [ProductController::class, 'show']);
+Route::get('getProduct/{id}', [ProductController::class, 'getProduct']);
 Route::put('editProduct/{id}', [ProductController::class, 'editProduct']);
 Route::delete('delete/{id}', [ProductController::class, 'destroy'])->middleware('auth:api');
 
