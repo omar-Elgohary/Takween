@@ -32,7 +32,7 @@ Route::get('aboutUs', [MainController::class, 'aboutUs']);
 // Categories
 Route::get('categories', [MainController::class, 'getAllCategories']);
 Route::get('ProductsOfCategory/{cat_id}', [MainController::class, 'ProductsOfCategory']);
-Route::get('FreelancersOfCategory{cat_id}', [MainController::class, 'FreelancersOfCategory']);
+Route::get('FreelancersOfCategory/{cat_id}', [MainController::class, 'FreelancersOfCategory']);
 
 
 //Services

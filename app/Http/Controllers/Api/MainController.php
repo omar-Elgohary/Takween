@@ -74,17 +74,17 @@ class MainController extends Controller
     public function FreelancersOfCategory(Request $request, $cat_id)
     {
         try{
-            dd('fsdh');
             $category = Category::find($cat_id);
             if(!$category){
                 return $this->returnError('404', 'Category Not Found');
             }
-            $freelancers = FreelancerService::where('parent_id', null)->get();
+            $freelancers = FreelancerService::where('parent_id', $cat_id)->get();
             return $this->returnData(200, 'Freelancers Returned Successfully', $freelancers);
         }catch(\Exception $e){
             echo $e;
-            return $this->returnData(200, 'Freelancers Returned Successfully', $freelancers);
+            return $this->returnError('404', 'Freelancers Not Found');
         }
+    }
 
     // try{
     //     $cat = Category::find($cat_id);
@@ -103,7 +103,7 @@ class MainController extends Controller
     //         echo $e;
     //         return $this->returnError(400, 'Freelancers Returned Failed');
     //     }
-    }
+
 
 
     public function store(Request $request)
