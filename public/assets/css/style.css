@@ -541,7 +541,7 @@ nav .container-fluid {
 }
 .head .navbar-header{
     display:flex;
-    justify-content: end;
+    justify-content: flex-end;
 
 }
 .head .logo img{
@@ -595,7 +595,7 @@ nav .container-fluid {
 #page-topbar .navbar-header,#page-topbar2 .navbar-header{
     position: relative;
     z-index: 4;
-    justify-content:end;
+    justify-content:flex-end;
 }
 a.dropdown-item {
     color: #303030;
@@ -1390,7 +1390,7 @@ padding: 0 5px;
 .card-body .prod-likes , .prod-likes{
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: flex-end;
 }
 .card-body .prod-likes i, .prod-likes i{
     padding: 0 12px;
@@ -2845,7 +2845,7 @@ color:var(--orange-color);
 .chat .conversation .rightcont{
     width: 100%;
     display: flex;
-    justify-content:end !important;
+    justify-content:flex-end !important;
     padding: 0 10px;
 }
 .chat .conversation .chat-txt p{

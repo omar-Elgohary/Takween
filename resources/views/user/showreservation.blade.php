@@ -146,6 +146,7 @@ notification
     
     @if ($request->status=="Pending" && $request->offer->first())
     @include("layouts.component.modal.userresrvationrequest.offeracceptorreject")
+    @include("layouts.component.modal.userresrvationrequest.rejectoffer")
      @include("layouts.component.modal.userRequests.chat")
     
      @elseif($request->status=="Pending" && $request->date_time< now())

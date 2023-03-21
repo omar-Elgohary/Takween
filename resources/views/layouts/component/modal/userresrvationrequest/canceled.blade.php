@@ -20,7 +20,7 @@
                 @endif
                 </div>
     
-                <div class="align-slef-end" style="flex-grow: 1; display: flex; align-items: center; justify-content: end;">
+                <div class="align-slef-end" style="flex-grow: 1; display: flex; align-items: center; justify-content: flex-end;">
                     <a  href="#" data-bs-toggle="offcanvas" data-bs-target="#chat{{$request->id}}" aria-controls="offcanvasRight">
                         <i class="uil-comments-alt" style="font-size:20px;"></i>
                     </a>

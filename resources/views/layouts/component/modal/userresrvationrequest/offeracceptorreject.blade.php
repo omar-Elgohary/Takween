@@ -13,7 +13,7 @@
                         <span class="text-black-50">{{ $request->status }}</span>
                     </div>
 
-                    <div class="align-slef-end" style="flex-grow: 1; display: flex; align-items: center; justify-content: end;">
+                    <div class="align-slef-end" style="flex-grow: 1; display: flex; align-items: center; justify-content: flex-end;">
                         <a  href="#" data-bs-toggle="offcanvas" data-bs-target="#chat" aria-controls="offcanvasRight">
                             <i class="uil-comments-alt" style="font-size:20px;"></i>
                         </a>
@@ -58,8 +58,8 @@
                     </div>
                 </div>
 
-                <div class="btn-contianer d-flex flex-row justify-content-center align-items-center my-3">
-                    <button class=" btn-reject border-0 btn-modal rounded-pill mx-2"type="button" data-bs-toggle="modal" data-bs-target="#userrejectreservationoffer" >reject</button>
+                <div class="btn-contianer d-flex flex-lg-row flex-column-reverse justify-content-center align-items-center my-3  gap-2 gap-lg-0">
+                    <button class=" btn-reject border-0 btn-modal rounded-pill mx-2"type="button" data-bs-toggle="modal" data-bs-target="#userrejectreservationoffer{{$request->id}}" >reject</button>
                     <button class=" btn-accept border-0 btn-modal rounded-pill mx-2"type="button" data-bs-toggle="modal" data-bs-target="#pay" >accept</button>
                 </div>
             </div>
