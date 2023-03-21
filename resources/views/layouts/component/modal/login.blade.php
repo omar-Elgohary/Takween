@@ -15,7 +15,7 @@
   <div class="form-outline mb-4 halfwidthinput">
     <label class="form-label" for="phone1">Phone number</label>
     <div class="input-icon">
-        <i class="fa fa-user"></i>
+        <i class="fa fa-mobile"></i>
     <input type="text" id="phone1" class="form-control" name="phone" />
     </div>
   </div>

@@ -27,7 +27,7 @@
 
 <div class="products-page py-5">
     <div class="container">
-        <section class="freelanc v2 " style="max-width: 1200px;margin-left:0;margin-right:0;">
+        <section class="freelanc v2 " style="max-width: 1200px;">
             <div class="image">
                 <img src="{{ asset("Admin3/assets/images/users/".$freelancer->profile_image) }}" alt="">
             </div>
@@ -190,7 +190,7 @@
         <button class="nxt-btn"><i class="fa fa-arrow-right"></i></button>
         <div class="products productscroll  scrollable">
             @foreach ($photos as $photo)
-                <div class="card">
+                <div class="card"  style="min-width:270px">
                     <div class="image-product">
                         <a href="{{route('photo',$photo->id)}}">
                         <img src="{{ asset('assets/images/photo/'.$photo->photo) }}" class="card-img-top" alt="Photo"></a>

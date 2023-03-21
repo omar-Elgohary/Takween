@@ -56,7 +56,7 @@ home
             </div>
         </div>
 
-        <div class="mb-4 hlafwidth d-flex justify-content-between">
+        <div class="mb-4 hlafwidth d-flex justify-content-between  px-3">
             <div class="d-flex flex-column">
                 <label for="from" class="form-label mb-3">from</label>
                 <input type="time" class="form-control" id="from" placeholder="width" name="from">
@@ -76,7 +76,7 @@ home
                 <i class="fa-solid fa-location-dot text-black-50"></i>
             </button>
         </div>
-        <button type="submit" class="btn btn-modal my-3 px-5 btn-model-primary">request</button>
+        <button type="submit" class="btn btn-modal my-3 px-5 btn-model-primary request-button">request</button>
     </form>
 </div>
 </div>

@@ -84,7 +84,7 @@ request private service
                     @error('due_date')<div class="alert alert-danger">{{ $message }}</div>@enderror
                 </div>
                    <input type="hidden"  name="type" value="private">
-                <button type="submit" class="btn btn-modal my-3 px-5 btn-model-primary ">request</button>
+                <button type="submit" class="btn btn-modal my-3 px-5 btn-model-primary request-button " >request</button>
             </form>
         </div>
     </div>

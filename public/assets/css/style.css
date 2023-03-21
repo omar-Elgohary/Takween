@@ -148,6 +148,11 @@ z-index: 1000;
     transition: all .3s;
     border: 0;
 }
+@media(max-width:767px){
+    .addrequesticon{
+        top: 79%;
+    }
+}
 .addrequesticon:hover{
 box-shadow: 1px 2px 14px 14px #04040463;
 }
@@ -660,6 +665,12 @@ a.dropdown-item:last-child, a.dropdown-item:last-child i{
 
     #page-topbar  .carve .search-form{
         max-width:673px;
+    }
+}
+
+@media(max-width:767px){
+    #page-topbar .carve .search-form{
+        width: 75%;
     }
 }
 .navbar-header .dropdown .show.header-item {
@@ -1266,6 +1277,21 @@ text-align: center;
     position: relative;
 
 }
+
+@media(max-width:400px){
+    .card .image-product {
+        width: 270px;
+    }  
+
+    .products  .card{
+        min-width:270px;
+    }
+    .request-button{
+        left: 6% !important;
+     }
+ }
+
+
 
 .card .image-product button{
     position: absolute;
@@ -2533,6 +2559,11 @@ cursor: pointer !important;
 }
 
 }
+@media(max-width:767px){
+    .requestlink a{
+        font-size: 18px !important;
+    }
+}
 
 .request{
     width: 100%;
@@ -2748,8 +2779,19 @@ span.inprogress{
     overflow: hidden;
     border-radius: 27px;
     bottom: 0 !important;
-    right: 20px !important;
-    top: unset !important;
+    /* right: 20px !important;
+    top: unset !important; */
+
+}
+
+@media(min-width:767px){
+
+    .chat{
+        right: 20px !important;
+        top: unset !important;
+
+    }
+
 
 }
 .chat .offcanvas-header .btn-close {
@@ -2867,6 +2909,15 @@ color:#000;
 border: 0;
 margin: 0 10px;
 width: 275px;
+outline: none;
+}
+
+@media(max-width:767px){
+    .chat .offcanvas-body .control form input[type="text"]{
+  width:200px;
+    }
+    
+
 }
 .chat .offcanvas-body .control .sendtext i{
 font-size: 19px;

@@ -207,7 +207,7 @@ freelanser name
 
                         <div  class="prod-likes justify-content-start ">
                             <i class="fa-solid fa-heart align-self-center"></i>
-                            <span>123</span>
+                            <span>{{ $product->likes->count() }}</span> 
                         </div>
                     </div>
                 </div>
@@ -246,7 +246,7 @@ freelanser name
                             <h5 class="card-title">{{ $photo->name }}</h5>
                             <div  class="prod-likes ">
                                 <i class="fa-solid fa-heart align-self-center"></i>
-                                <span>123</span>
+                                <span>{{ $photo->likes->count() }}</span>
                             </div>
                         </div>
                     </div>

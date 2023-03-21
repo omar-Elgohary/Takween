@@ -7,7 +7,7 @@
 @section("og-image")
 @endsection
 @section("title")
-carts
+carts  
 @endsection
 @section("header")
 @endsection
