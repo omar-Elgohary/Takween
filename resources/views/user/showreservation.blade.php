@@ -53,9 +53,8 @@ notification
     </div>
     <div class="requesties d-flx flex-column pt-4">
 @foreach ($reservations as $request)
-@if ($request->status=="Pending" && $request->date_time< now() )
-{{-- @if ($request->status=="Pending" && $request->offer->first()) --}}
-<a  href="#penddingacceptoreject{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
+@if ($request->status=="Pending" && $request->offer->first())
+<a  href="#userReservationPendingAceptOrReject{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
 
  @elseif($request->status=="Pending" && $request->date_time< now())
  <a  href="#penddingcancel{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-r elative mb-5" >
@@ -144,9 +143,10 @@ notification
     {{--  SHOW MODAL BASED ON REQUEST STATUS --}}
 
 
-    @if ($request->status=="Pending" && $request->date_time< now() )
-    {{-- @if ($request->status=="Pending" && $request->offer->first()) --}}
-   
+    
+    @if ($request->status=="Pending" && $request->offer->first())
+    @include("layouts.component.modal.userresrvationrequest.offeracceptorreject")
+     @include("layouts.component.modal.userRequests.chat")
     
      @elseif($request->status=="Pending" && $request->date_time< now())
      
