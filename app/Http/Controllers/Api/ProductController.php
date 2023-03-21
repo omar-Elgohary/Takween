@@ -80,14 +80,20 @@ class ProductController extends Controller
     }
 
 
-    public function show($id)
+    public function getProduct(Request $request, $id)
     {
-        $product = Product::find($id);
-        if(!$product){
-            return $this->returnError('404', 'Product Not Found');
+        try{
+            $product = Product::find($id);
+            if(!$product){
+                return $this->returnError('404', 'Product Not Found');
+            }
+            return $this->returnData(200, 'Product Returned Successfully', $product);
+        }catch(\Exception $e){
+            echo $e;
+            return $this->returnError(400, 'Product Returned Failed');
         }
-        return $this->returnData(200, 'Product Returned Successfully', $product);
     }
+
 
 
     public function editProduct(Request $request, $id)
