@@ -524,5 +524,12 @@ notification
          
     });
     @endif
+    @if(Session::has('state') && Session::get('state')=="offersend")
+    $(document).ready(function() {
+    
+        $('#feelancerReservationPendingcancancel{{Session::get('id')}}').modal('show');
+         
+    });
+    @endif
 </script>    
 @endsection

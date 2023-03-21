@@ -45,7 +45,7 @@ class ReservationController extends Controller
     public function show(Request $request)
     {
         $user_id = auth()->user()->id;
-        $reservations = Reservation::where('user_id', $user_id)->get();
+        $reservations = Reservation::where('user_id', $user_id)->orderBy('status')->get();
         return view('user.showreservation', compact('reservations'));
     }
 
@@ -131,8 +131,8 @@ class ReservationController extends Controller
         ]);
       
         toastr()->success('offer is send');
-        
-    return redirect()->back();
+
+    return redirect()->back()->with(['state'=>"offersend","id"=>$id]);
 
 
 

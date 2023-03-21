@@ -19,7 +19,7 @@
    
         <div class="btn-contianer d-flex  justify-content-between  align-items-center my-3">
             
-            <button class="btn  btn-modal modal-color-text border-0">move back</button>
+            <button class="btn  btn-modal modal-color-text border-0"type="button" class="btn btn-secondary" data-bs-dismiss="modal">move back</button>
             <button class="btn  btn-modal btn-model-primary" type="submit" >cancel reservation</button>
            
     </div>
