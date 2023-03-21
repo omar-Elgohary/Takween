@@ -10,7 +10,14 @@
             <div class="div d-flex justify-content-start px-4">
                 <div class="d-flex flex-column">
                 <h3 class="mb-0 font-bold">{{ $request->random_id }}</h3>
+
+                @if($request->status== 'Cancel by customer')
                 <span class="status text-danger">cancel</span>
+                @elseif($request->status== 'reject')
+                <span class="status text-danger">reject</span>
+                @else
+                <span class="status text-danger">cancel</span>
+                @endif
                 </div>
     
                 <div class="align-slef-end" style="flex-grow: 1; display: flex; align-items: center; justify-content: end;">

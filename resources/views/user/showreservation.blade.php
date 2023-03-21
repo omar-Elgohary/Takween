@@ -68,14 +68,14 @@ notification
  @elseif($request->status=='In Process' )
  <a  href="#inprogress{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
 
- @elseif($request->status=='Waiting' )
+ @elseif($request->status =='Waiting' )
  <a data-bs-toggle="modal" href="#userreservationwaitandinprogress{{$request->id}}" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
 
- @elseif($request->status=='Cancel by customer' )
+ @elseif($request->status =='Cancel by customer' ||  $request->status =='reject' )
  <a  href="#canceleduserreservation{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
- @elseif($request->status=='Finished' )
+ @elseif($request->status =='Finished' )
  <a  href="#userfinishedreservation{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
- @elseif($request->status== 'Completed'  )
+ @elseif($request->status == 'Completed'  )
  <a  href="#usercompletedreservation{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
 
  @else
@@ -98,7 +98,7 @@ notification
                             <p class="status gray" style="color: rgb(214, 214, 42);" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
                         @elseif($request->status == 'Completed')
                             <p class="status gray text-black" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
-                        @elseif($request->status == 'Cancel by customer')
+                        @elseif($request->status == 'Cancel by customer'||$request->status == 'reject')
                             <p class="status text-danger" >{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
                         @endif
         </div>
@@ -162,17 +162,17 @@ notification
 
      @elseif($request->status=='Waiting' )
      
-     @elseif($request->status=='Cancel by customer' )
+     @elseif($request->status=='Cancel by customer' || $request->status=='reject'  )
      @include("layouts.component.modal.userresrvationrequest.canceled")
      @include("layouts.component.modal.userRequests.chat")
      @elseif($request->status=='Finished' )
   
-     @elseif($request->status == 'Cancel by customer'&& $request->status == 'cancel by freelancer')
-     @include("layouts.component.modal.userresrvationrequest.canceled")
+     {{-- @elseif($request->status == 'Cancel by customer'|| $request->status == 'cancel by freelancer')
+     @include("layouts.component.modal.userresrvationrequest.canceled") --}}
     
      @else
     
-    <a  href="#"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
+    
     
     @endif
 

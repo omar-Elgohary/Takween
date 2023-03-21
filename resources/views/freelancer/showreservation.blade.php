@@ -60,7 +60,7 @@ notification
  @elseif($request->status=="Pending")
  <a href="#feelancerReservationPendingAceptOrReject{{ $request->id }}" data-bs-toggle="modal" role="button"class="request d-flex flex-column px-3 py-3 position-relative mb-5">
 
- @elseif(($request->status=='In Process' && $request->due_date < now()->toDateString() ) ||$request->status=='Reject' )
+ @elseif(($request->status=='In Process' && $request->due_date < now()->toDateString() ) ||$request->status=='Rejected' )
  <a  href="#inprogressenddueprivate{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
 
  @elseif($request->status=='In Process' )
@@ -71,8 +71,8 @@ notification
 
  @elseif($request->status=='Cancel by customer' )
  <a  href="#canceleduserreservation{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
- @elseif($request->status=='Rejected' )
- <a  href="#rejected{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
+ @elseif($request->status=='reject' )
+ <a  href="#reject{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
  @elseif($request->status=='Finished' )
  <a  href="#userfinishedreservation{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
  @elseif($request->status== 'Completed'  )
@@ -88,7 +88,7 @@ notification
    
         <div class="d-flex justify-content-between align-items-baseline" style="margin-bottom: 35px;">
             <div class="d-flex justify-content-between align-items-baseline">
-                <h3 class="reservation-id">#3412312</h3>
+                <h3 class="reservation-id">{{$request->random_id}}</h3>
             </div>
             @if($request->status == 'Pending')
                             <p class="status gray" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
@@ -98,7 +98,7 @@ notification
                             <p class="status gray" style="color: rgb(214, 214, 42);" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
                         @elseif($request->status == 'Completed')
                             <p class="status gray text-black" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
-                        @elseif($request->status == 'Cancel by customer'||$request->status == 'Rejected')
+                        @elseif($request->status == 'Cancel by customer'||$request->status == 'reject')
                             <p class="status text-danger" >{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
                         @endif
         </div>
@@ -330,14 +330,14 @@ notification
      @include("layouts.component.modal.freelancerreservation.PendingAcceptOrReject")
      @include("layouts.component.modal.freelancerreservation.offer")
      
-     @elseif(($request->status=='In Process' && $request->due_date < now()->toDateString() ) ||$request->status=='Reject' )
+     @elseif(($request->status=='In Process' && $request->due_date < now()->toDateString() ) ||$request->status=='Rejected' )
      
      
      @elseif($request->status=='In Process' )
      
      
      @elseif($request->status=='Waiting' )
-     @elseif($request->status=='Rejected' )
+     @elseif($request->status=='reject' )
      @include("layouts.component.modal.freelancerreservation.rejected")
      
      @elseif($request->status=='Cancel by customer' )
@@ -345,12 +345,12 @@ notification
      @include("layouts.component.modal.userRequests.chat")
      @elseif($request->status=='Finished' )
   
-     @elseif($request->status == 'Cancel by customer'&& $request->status == 'cancel by freelancer')
+     @elseif($request->status == 'Cancel by customer'|| $request->status == 'cancel by freelancer')
      @include("layouts.component.modal.userresrvationrequest.canceled")
     
      @else
     
-    <a  href="#"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
+  
     
     @endif
 
@@ -517,10 +517,10 @@ notification
     }
     
     
-    @if(Session::has('state') && Session::get('state')=="rejected")
+    @if(Session::has('state') && Session::get('state')=="reject")
     $(document).ready(function() {
     
-        $('#rejected{{Session::get('id')}}').modal('show');
+        $('#reject{{Session::get('id')}}').modal('show');
          
     });
     @endif

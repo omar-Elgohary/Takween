@@ -105,7 +105,7 @@ class ReservationController extends Controller
 
        $re= Reservation::findOrFail($id);
        $re->update([
-        'status'=>'Rejected',
+        'status'=>'reject',
        ]);
 
   return redirect()->back()->with(['state'=>"rejected","id"=>$id]);

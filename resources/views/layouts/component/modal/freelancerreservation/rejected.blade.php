@@ -1,4 +1,4 @@
-<div id="rejected{{ $request->id }}" class="modal offers fade" aria-hidden="true"   aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+<div id="reject{{ $request->id }}" class="modal offers fade" aria-hidden="true"   aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
     
@@ -10,7 +10,7 @@
             <div class="div d-flex justify-content-start px-4">
                 <div class="d-flex flex-column">
                 <h3 class="mb-0 font-bold">{{ $request->random_id }}</h3>
-                <span class="status text-danger">rejected</span>
+                <span class="status text-danger">reject</span>
                 </div>
     
                 <div class="align-slef-end" style="flex-grow: 1; display: flex; align-items: center; justify-content: end;">
