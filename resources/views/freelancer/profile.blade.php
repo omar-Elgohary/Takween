@@ -31,7 +31,7 @@ freelanser name
 
 <div class="products-page py-5 px-md-4">
         <div class="container">
-            <section class="freelanc v2"  style="max-width: 1200px;margin-left:0;margin-right:0;">
+            <section class="freelanc v2"  style="max-width: 1200px;">
                 <div class="image">
                     <img src="{{ asset('Admin3/assets/images/users/'.Auth::user()->profile_image) }}" alt="">
                 </div>

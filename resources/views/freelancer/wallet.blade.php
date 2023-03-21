@@ -36,7 +36,7 @@ product
                 <div class="hoverdiv d-flex justify-content-around align-items-baseline py-3" >
                     <div class="wall d-flex flex-column">
                         <p class="total">total</p>
-                        <P class="number" style="font-size:49px">{{$total_wallet}}<span>
+                        <P class="number" style="font-size:37px">{{$total_wallet}}<span>
                             SR
                         </span>
                             </P>
@@ -61,7 +61,7 @@ product
     <h2 class="accordion-header d-flex align-items-center justify-content-between p-2" id="panelsStayOpen-headingOne">
         <div  class= "info d-flex flex-column">
         <p class="text-black-100 p-0 m-0">{{$wh->status}}</p>
-        <p class="text-black-50">{{$wh->created_at}}</p>
+        <p class="text-black-50">{{date_format(new dateTime($wh->created_at),'d/m/Y h:m')}}</p>
         </div>
       <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#refund{{$wh->id}}" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
         <div class="number">
