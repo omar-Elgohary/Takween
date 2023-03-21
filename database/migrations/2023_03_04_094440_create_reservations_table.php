@@ -9,6 +9,7 @@ return new class extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
+            $table->string('random_id');
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('freelancer_id')->constrained('users')->cascadeOnDelete();
             $table->string('occasion');

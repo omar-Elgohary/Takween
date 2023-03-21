@@ -78,7 +78,7 @@ class RequestController extends Controller
 
         $random_id = strtoupper('#'.substr(str_shuffle(uniqid()),0,6));
         while(Requests::where('random_id', $random_id )->exists()){
-            $random_id = sstrtoupper('#'.substr(str_shuffle(uniqid()),0,6));
+            $random_id = strtoupper('#'.substr(str_shuffle(uniqid()),0,6));
         }
 
         if($request->type == 'public'){
@@ -158,7 +158,7 @@ class RequestController extends Controller
     {
         $request=Requests::find($id);
 
-        // if($request->payment()->where('freelancer_id',$request->freelancer_id)->first()){}
+         if($request->payment()->where('freelancer_id',$request->freelancer_id)->first()){
         
         $total_pay=$request->payment()->where('freelancer_id',$request->freelancer_id)->first()->total;
         $edit_pay=$request->payment()->where('freelancer_id',$request->freelancer_id)->first()->update([
@@ -170,6 +170,7 @@ class RequestController extends Controller
         $edit_offer= Requests::findorfail($id)->offer()->where('freelancer_id',$request->freelancer_id)->update([
             "status"=>'reject',
         ]);
+    }
         $edit_request= $request->update([
             'status'=>"Cancel by customer"
         ]);

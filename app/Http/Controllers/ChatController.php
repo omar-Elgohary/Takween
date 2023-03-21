@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\chat;
 use App\Models\Requests;
+use App\Models\Reservation;
 use Illuminate\Http\Request;
 
 class ChatController extends Controller
@@ -43,7 +44,26 @@ class ChatController extends Controller
 
 
         }elseif($type=='reservation'){
-
+            $request= Reservation::findorfail($request_id);
+            $messages=$request->chats
+            ->where(function ($q)use($messageto,$user) {return $q->where('from',$user)->orWhere('from',$messageto);})
+           ->where(function ($q)use($messageto,$user) {return $q->where('to',$messageto)->orWhere('to',$user);})->sortBy('created_at');
+   
+           if( count($messages)>0 ){
+               $messagelist=array('message'=>$messages, 'status'=>'found message');
+               return JSON_encode($messagelist);
+   
+           }else{
+               if(app()->getLocale()=='ar'){
+                   $messages=" <div class='text-center'>  لا يوجد رسائل سابقة  </div> ";
+               }else{
+   
+                   $messages=" <div class='text-center'>No message </div> ";
+               }
+               $messagelist=array('message'=>$messages, 'status'=>'no message');
+               return JSON_encode($messagelist); 
+           }
+   
         }
     }
 
@@ -87,7 +107,15 @@ class ChatController extends Controller
             $flag=true;
 
         }elseif($request->type=="reservation"){
+            $order= Reservation::findorfail($request->request_id);
+            $order->chats()->create([
+              'text'=>$request->message,
+              'type'=>trim($request->type),
+              'from'=>auth()->user()->id,
+              'to'=>$request->to,
+            ]);
 
+            $flag=true;
         }
 
        return JSON_decode($flag);

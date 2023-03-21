@@ -94,6 +94,9 @@ Route::middleware("is_photgrapher")->group(function() {
     Route::get("/reservation", [ReservationController::class, 'freelancerReservations'])->name("reservation");
     Route::post('/reservation/status/{id}', [ReservationController::class, 'changeStatus'])->name('reservations.status');
 
+    Route::get('/rejectResevation/{id}',[ReservationController::class,'rejectReservation'])->name('reservation.reject');
+    Route::get('/sendoffer/{id}',[ReservationController::class,'sendoffer'])->name('reservation.sendoffer');
+
 
 
 // start photo
@@ -157,7 +160,7 @@ Route::prefix("user")->name("user.")->middleware('auth')->group(function(){
     Route::get('/requestreservation/{freelancer_id}', [ReservationController::class, 'index'])->name('requestreservation');
     Route::post('/requestreservation/store/{freelancer_id}', [ReservationController::class, 'store'])->name('requestreservation.store');
     Route::get('reservations', [ReservationController::class, 'show'])->name('reservations');
-
+    Route::post('/cancelReservation/{id}', [ReservationController::class, 'cancel'])->name("reservation.cancel");
 
     Route::get('/showpublicrequest', [RequestController::class, 'publicRequests'])->name("showpublicrequest");
     Route::get('/showprivaterequest', [RequestController::class, 'privateRequests'])->name("showprivaterequest");

@@ -35,121 +35,7 @@ notification
 
 <div class="showrequest">
     <div class="container">
-        {{-- <div class="section-header ">
-            <h2>reservations </h2>
-        </div>
 
-        <div class="row">
-            <div class="col-12">
-                <div class="row">
-                    <div class="col-lg-3">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-grid">
-                                    <button class="btn font-16 btn-primary" id="btn-new-event"><i class="mdi mdi-plus-circle-outline"></i> Create
-                                        New Event</button>
-                                </div>
-
-                                <div class="row justify-content-center mt-5">
-                                    <img src="assets/images/coming-soon-img.png" alt="" class="img-fluid d-block">
-                                </div>
-
-                                <div id="external-events" class="mt-2">
-                                    <br>
-                                    <p class="text-muted">Drag and drop your event or click in the calendar</p>
-                                    <div class="external-event fc-event bg-success" data-class="bg-success">
-                                        <i class="mdi mdi-checkbox-blank-circle font-size-11 me-2"></i>New Event Planning
-                                    </div>
-                                    <div class="external-event fc-event bg-info" data-class="bg-info">
-                                        <i class="mdi mdi-checkbox-blank-circle font-size-11 me-2"></i>Meeting
-                                    </div>
-                                    <div class="external-event fc-event bg-warning" data-class="bg-warning">
-                                        <i class="mdi mdi-checkbox-blank-circle font-size-11 me-2"></i>Generating Reports
-                                    </div>
-                                    <div class="external-event fc-event bg-danger" data-class="bg-danger">
-                                        <i class="mdi mdi-checkbox-blank-circle font-size-11 me-2"></i>Create New theme
-                                    </div>
-                                </div>
-
-                                <ol class="activity-feed mb-0 ps-2 mt-4 ms-1">
-                                    <li class="feed-item">
-                                        <p class="mb-0">Andrei Coman magna sed porta finibus, risus
-                                            posted a new article: Forget UX Rowland</p>
-                                    </li>
-                                    <li class="feed-item">
-                                        <p class="mb-0">Zack Wetass, sed porta finibus, risus Chris Wallace Commented Developer Moreno</p>
-                                    </li>
-                                    <li class="feed-item">
-                                        <p class="mb-0">Zack Wetass, Chris combined Commented UX Murphy</p>
-                                    </li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div> <!-- end col-->
-
-                    <div class="col-lg-9">
-                        <div class="card">
-                            <div class="card-body">
-                                <div id="calendar"></div>
-                            </div>
-                        </div>
-                    </div> <!-- end col -->
-                </div>
-
-                <div style='clear:both'></div>
-                <div class="modal fade" id="event-modal" tabindex="-1">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-
-                            <div class="modal-header py-3 px-4 border-bottom-0">
-                                <h5 class="modal-title" id="modal-title">Event</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
-                            </div>
-
-                            <div class="modal-body p-4">
-                                <form class="needs-validation" name="event-form" id="form-event" novalidate>
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="mb-3">
-                                                <label class="form-label">Event Name</label>
-                                                <input class="form-control" placeholder="Insert Event Name"
-                                                    type="text" name="title" id="event-title" required value="" />
-                                                <div class="invalid-feedback">Please provide a valid event name</div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12">
-                                            <div class="mb-3">
-                                                <label class="form-label">Category</label>
-                                                <select class="form-control form-select" name="category" id="event-category">
-                                                    <option  selected> --Select-- </option>
-                                                    <option value="bg-danger">Danger</option>
-                                                    <option value="bg-success">Success</option>
-                                                    <option value="bg-primary">Primary</option>
-                                                    <option value="bg-info">Info</option>
-                                                    <option value="bg-dark">Dark</option>
-                                                    <option value="bg-warning">Warning</option>
-                                                </select>
-                                                <div class="invalid-feedback">Please select a valid event category</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-2">
-                                        <div class="col-6">
-                                            <button type="button" class="btn btn-danger" id="btn-delete-event">Delete</button>
-                                        </div>
-                                        <div class="col-6 text-end">
-                                            <button type="button" class="btn btn-light me-1" data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-success" id="btn-save-event">Save</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div> <!-- end modal-content-->
-                    </div> <!-- end modal dialog-->
-                </div><!-- end modal-->
-            </div>
-        </div> --}}
 
 
 <div id="calendar">
@@ -165,211 +51,157 @@ notification
     <div class="section-header ">
         <h3 class="text-black">Reservation List</h3>
     </div>
+    <div class="requesties d-flx flex-column pt-4">
+@foreach ($reservations as $request)
+@if ($request->status=="Pending" && $request->date_time< now() )
+{{-- @if ($request->status=="Pending" && $request->offer->first()) --}}
+<a  href="#penddingacceptoreject{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
 
-@foreach ($reservations as $reservation)
-<div class="requesties d-flx flex-column pt-4">
+ @elseif($request->status=="Pending" && $request->date_time< now())
+ <a  href="#penddingcancel{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-r elative mb-5" >
+ @elseif($request->status=="Pending")
+ <a href="#reservpending{{ $request->id }}" data-bs-toggle="modal" role="button"class="request d-flex flex-column px-3 py-3 position-relative mb-5">
 
-@if($reservation->status == 'Pending')
-    <a href="#reservpending{{ $reservation->id }}" data-bs-toggle="modal" role="button"class="request d-flex flex-column px-3 py-3 position-relative mb-5">
+ @elseif(($request->status=='In Process' && $request->due_date < now()->toDateString() ) ||$request->status=='Reject' )
+ <a  href="#inprogressenddueprivate{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
+
+ @elseif($request->status=='In Process' )
+ <a  href="#inprogress{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
+
+ @elseif($request->status=='Waiting' )
+ <a data-bs-toggle="modal" href="#userreservationwaitandinprogress{{$request->id}}" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
+
+ @elseif($request->status=='Cancel by customer' )
+ <a  href="#canceleduserreservation{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
+ @elseif($request->status=='Finished' )
+ <a  href="#userfinishedreservation{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
+ @elseif($request->status== 'Completed'  )
+ <a  href="#usercompletedreservation{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
+
+ @else
+
+<a  href="#"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
+
+@endif
+
+
+   
         <div class="d-flex justify-content-between align-items-baseline" style="margin-bottom: 35px;">
             <div class="d-flex justify-content-between align-items-baseline">
                 <h3 class="reservation-id">#3412312</h3>
             </div>
-            <p class="status gray" data-color="C4C3C3">{{ $reservation->status }}<i class="fa-solid fa-circle px-2 "></i></p>
+            @if($request->status == 'Pending')
+                            <p class="status gray" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
+                        @elseif($request->status == 'In Process')
+                            <p class="status gray text-warning" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
+                        @elseif($request->status == 'Finished')
+                            <p class="status gray" style="color: rgb(214, 214, 42);" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
+                        @elseif($request->status == 'Completed')
+                            <p class="status gray text-black" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
+                        @elseif($request->status == 'Cancel by customer')
+                            <p class="status text-danger" >{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
+                        @endif
         </div>
 
         <div class="d-flex">
-            <div class=" d-flex flex-column px-2">
-                <p class="m-0 text-black-50">Reservation Date</p>
-                <span>{{ $reservation->date_time }}</span>
-            </div>
-        </div>
-    </a>
-@endif
-
-
-
-@if ($reservation->status == 'Pending')
-    <a href="#userReservationPendingAceptOrReject{{ $reservation->id }}" data-bs-toggle="modal" role="button"class="request d-flex flex-column px-3 py-3 position-relative mb-5">
-        <div class="d-flex justify-content-between align-items-baseline" style="margin-bottom: 35px;">
-            <div class="d-flex justify-content-between align-items-baseline">
-                <h3 class="reservation-id">#3412312</h3>
-            </div>
-            <p class="status gray" data-color="C4C3C3">{{ $reservation->status }}<i class="fa-solid fa-circle px-2 "></i></p>
-        </div>
-
-        <div class="d-flex">
-            <div class=" d-flex flex-column px-2">
-                <p class="m-0 text-black-50">Reservation Date</p>
-                <span>{{ $reservation->date_time }}</span>
-            </div>
-
-            <div class=" d-flex flex-column px-2">
-                <p class="m-0 text-black-50">Price</p>
-                <span>1211 SR</span>
-            </div>
-        </div>
-    </a>
-@endif
-
-
-
-@if($reservation->status == 'Waiting')
-    <a href="#userreseravrtionwaitingwithcancel{{ $reservation->id }}" data-bs-toggle="modal" role="button"class="request d-flex flex-column px-3 py-3 position-relative mb-5">
-        <div class="d-flex justify-content-between align-items-baseline " style="margin-bottom: 35px;">
-            <div class="d-flex justify-content-between align-items-baseline">
-                <h3 class="reservation-id">#3412312</h3>
-            </div>
-            <p class="status orange" data-color="C4C3C3">{{ $reservation->status }}<i class="fa-solid fa-circle px-2 "></i></p>
-        </div>
-
-        <div class="d-flex ">
-            <div class=" d-flex flex-column px-2">
-                <p class="m-0 text-black-50">Reservation Date</p>
-                <span>{{ $reservation->date_time }}</span>
-            </div>
-
-            <div class=" d-flex flex-column px-2">
-                <p class="m-0 text-black-50">price</p>
-                <span>1211 SR</span>
-            </div>
-        </div>
-    </a>
-@endif
-
-
-
-@if($reservation->status == 'Waiting')
-    <a data-bs-toggle="modal" href="#userreservationwaitandinprogress" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
-        <div class="d-flex justify-content-between align-items-baseline " style="margin-bottom: 35px;">
-            <div class="d-flex justify-content-between align-items-baseline">
-                <h3 class="reservation-id">#3412312</h3>
-            </div>
-            <p class="status orange" data-color="C4C3C3">waiting<i class="fa-solid fa-circle px-2 "></i></p>
-        </div>
-
-        <div class="d-flex ">
+                
+            @if($request->date_time < now()->toDateString())
             <div class="d-flex flex-column px-2">
-                <p class="m-0">req.date</p>
-                <span>20/09/2010</span>
+                <p class="m-0">Reserve date</p>
+                <span class="text-danger">{{date_format(new dateTime($request->date_time),'d/m/Y')}}</span>
+                <div>
+                </div>
             </div>
-
+        @else
             <div class="d-flex flex-column px-2">
-                <p class="m-0">price</p>
-                <span>1211 SR</span>
+                <p class="m-0">Reserve date </p>
+                <span>{{date_format(new dateTime($request->date_time),'d/m/Y')}}</span>
+                <div>
+                </div>
             </div>
+        @endif
+        
+        @if($request->offer->first() !=null)
+        <div class="d-flex flex-column px-2">
+            <p class="m-0">Price</p>
+            <span >{{$request->offer->first()->price }}</span>
+            <div>
+            </div>
+        </div>
+    @else
+       
+    @endif
         </div>
     </a>
-@endif
-
-
-
-@if ($reservation->status == 'In Process')
-    <a href="#userreservationwaitandinprogress{{ $reservation->id }}" data-bs-toggle="modal" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
-        <div class="d-flex justify-content-between align-items-baseline " style="margin-bottom: 35px;">
-            <div class="d-flex justify-content-between align-items-baseline">
-                <h3 class="reservation-id">#3412312</h3>
-            </div>
-            <p class="status orange" data-color="C4C3C3">{{ $reservation->status }}<i class="fa-solid fa-circle px-2 "></i></p>
-        </div>
-
-        <div class="d-flex">
-            <div class="d-flex flex-column px-2">
-                <p class="m-0">req.date</p>
-                <span>20/09/2010</span>
-            </div>
-
-            {{-- <div class=" d-flex flex-column px-2">
-                <p class="m-0">Due date</p>
-                <span class="deadline">20/09/2010</span>
-            </div> --}}
-
-            <div class=" d-flex flex-column px-2">
-                <p class="m-0">Price</p>
-                <span>1211 SR</span>
-            </div>
-        </div>
-    </a>
-@endif
 
 
 
 
-@if($reservation->status == 'Finished')
-    <a href="#userfinishedreservation{{ $reservation->id }}" data-bs-toggle="modal" role="button"class="request d-flex flex-column px-3 py-3 position-relative mb-5">
-        <div class="d-flex justify-content-between align-items-baseline " style="margin-bottom: 35px;">
-            <div class="d-flex justify-content-between align-items-baseline">
-                <h3 class="reservation-id">#3412312</h3>
-            </div>
-            <p class="status finish" data-color="C4C3C3">{{ $reservation->status }}<i class="fa-solid fa-circle px-2 finish "></i></p>
-        </div>
-
-        <div class="d-flex ">
-            <div class="d-flex flex-column px-2">
-                <p class="m-0">req.date</p>
-                <span>20/09/2010</span>
-            </div>
-
-            {{-- <div class=" d-flex flex-column px-2">
-                <p class="m-0">Due date</p>
-                <span>20/09/2010</span>
-            </div> --}}
-
-            <div class=" d-flex flex-column px-2">
-                <p class="m-0">Price</p>
-                <span>1211 SR</span>
-            </div>
-        </div>
-    </a>
-@endif
 
 
 
 
-@if ($reservation->status == 'Completed')
-    <a data-bs-toggle="modal" href="#usercompletedreservation" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
-        <div class="d-flex justify-content-between align-items-baseline " style="margin-bottom: 35px;">
-            <div class="d-flex justify-content-between align-items-baseline">
-                <h3 class="reservation-id">#3412312</h3>
-            </div>
-            <p class="status text-black" data-color="C4C3C3">{{ $reservation->status }}<i class="fa-solid fa-circle px-2 text-black "></i></p>
-        </div>
+    {{--  SHOW MODAL BASED ON REQUEST STATUS --}}
 
-        <div class="d-flex">
-            <div class="d-flex flex-column px-2">
-                <p class="m-0">req.date</p>
-                <span>20/09/2010</span>
-            </div>
 
-            <div class=" d-flex flex-column px-2">
-                <p class="m-0">Price</p>
-                <span>1211 SR</span>
-            </div>
-        </div>
-    </a>
+    @if ($request->status=="Pending" && $request->date_time< now() )
+    {{-- @if ($request->status=="Pending" && $request->offer->first()) --}}
+   
+    
+     @elseif($request->status=="Pending" && $request->date_time< now())
+     
+     @elseif($request->status=="Pending")
+     @include("layouts.component.modal.userresrvationrequest.reservpending")
+     @include("layouts.component.modal.userresrvationrequest.surdeletereservation")
+    
+     @elseif(($request->status=='In Process' && $request->due_date < now()->toDateString() ) ||$request->status=='Reject' )
+     
+    
+     @elseif($request->status=='In Process' )
+     
+
+     @elseif($request->status=='Waiting' )
+     
+     @elseif($request->status=='Cancel by customer' )
+     @include("layouts.component.modal.userresrvationrequest.canceled")
+     @include("layouts.component.modal.userRequests.chat")
+     @elseif($request->status=='Finished' )
+  
+     @elseif($request->status == 'Cancel by customer'&& $request->status == 'cancel by freelancer')
+     @include("layouts.component.modal.userresrvationrequest.canceled")
+    
+     @else
+    
+    <a  href="#"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
+    
     @endif
 
-</div>
-</div>
-</div>
 
-@include("layouts.component.modal.userRequests.payment")
+
+@include("layouts.component.modal.userRequests.chat")
+
 @include("layouts.component.modal.userresrvationrequest.reservpending")
+@include("layouts.component.modal.userresrvationrequest.surdeletereservation")
+{{--  
+@include("layouts.component.modal.userRequests.payment")
 @include("layouts.component.modal.userresrvationrequest.offeracceptorreject")
 @include("layouts.component.modal.userresrvationrequest.waitwithcancel")
 @include("layouts.component.modal.userresrvationrequest.finished")
 @include("layouts.component.modal.userresrvationrequest.waitandinprogress")
-@include("layouts.component.modal.userresrvationrequest.completed")
+@include("layouts.component.modal.userresrvationrequest.completed") --}}
 
 
 @endforeach
+
+</div>
+</div>
+</div>
 @endsection
 
 @section("js")
+
 <script src="{{asset('assets/libs/jquery-bar-rating/jquery.barrating.min.js')}}"></script>
 <script src="{{asset('assets/js/pages/rating-init.js')}}"></script>
-<script src="{{asset('assets/libs/jquery/jquery.min.js')}}"></script>
-<script src="{{asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <script src="{{asset('assets/libs/metismenu/metisMenu.min.js')}}"></script>
 <script src="{{asset('assets/libs/simplebar/simplebar.min.js')}}"></script>
 <script src="{{asset('assets/libs/node-waves/waves.min.js')}}"></script>
@@ -378,11 +210,143 @@ notification
 <!-- plugin js -->
 <script src="{{asset('assets/libs/moment/min/moment.min.js')}}"></script>
 <script src="{{asset('assets/libs/jquery-ui-dist/jquery-ui.min.js')}}"></script>
-<script src="{{asset('assets/libs/@fullcalendar/core/main.min.js')}}"></script>
-<script src="{{asset('assets/libs/@fullcalendar/bootstrap/main.min.js')}}"></script>
+<script src="{{asset('assets/libs/@fullcalendar/core/main.min.js')}}"></script> 
+ <script src="{{asset('assets/libs/@fullcalendar/bootstrap/main.min.js')}}"></script>
 <script src="{{asset('assets/libs/@fullcalendar/daygrid/main.min.js')}}"></script>
 <script src="{{asset('assets/libs/@fullcalendar/timegrid/main.min.js')}}"></script>
 <script src="{{asset('assets/libs/@fullcalendar/interaction/main.min.js')}}"></script>
 <!-- Calendar init -->
-<script src="{{asset('assets/js/pages/calendar.init.js')}}"></script>
+ <script src="{{asset('assets/js/pages/calendar.init.js')}}"></script>
+
+
+ <script>
+
+    
+$(document).ready(function () {
+$('.chat').on('show.bs.offcanvas',function(){
+
+var request_id= $(this).attr('data-id');
+var type= $(this).attr('data-type');
+var mesageto= $(this).attr('data-to');
+var conversation =$(this).find('.conversation')
+// console.log(.append("asdsdas"));
+var olddata =0;
+type=type.trim();
+
+mesageto=mesageto.trim();
+setTimeout(getmessage, 0);
+var getmes =setInterval(getmessage,3000);
+
+function getmessage() { 
+$.ajax({
+url: "{{URL::to('user/chat')}}",
+type: "GET",
+headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+data:{'type':type,'messageto':mesageto ,'request_id':request_id},
+dataType: "json",
+success: function(data) {
+if(data['status'] !='no message'){
+
+conversation.html(" ");
+$.each(data['message'],  function (index, el) {  
+    if(el.from !={{auth()->user()->id}}){
+
+let message= " ";
+message=  '<div class="rightcont"> <div class="chat-txt rightside"> <p>'+
+el.text
+       +' </p> <span>'+
+        new Date(el.created_at).toLocaleTimeString() 
+       +
+        '</span> </div> </div>';
+
+        conversation.append(message);
+   
+
+    }else{
+
+        let message2= " ";
+message2=  '<div class="leftcont"> <div class="chat-txt leftside"> <p>'+
+el.text
+       +' </p> <span>'+
+        new Date(el.created_at).toLocaleTimeString() +
+        '</span> </div> </div>';
+
+        conversation.append(message2);
+     
+    }
+
+
+    
+
+
+});
+
+
+
+if( Object.keys(data).length >olddata){
+
+$('.conversation').scrollTop($('.conversation')[0].scrollHeight);
+olddata=Object.keys(data).length;
+}
+$('.chat').on('hide.bs.offcanvas',function(){
+clearInterval(getmes);
+});
+
+
+}else{
+
+    conversation.html(data['message']);
+
+}
+}
+
+});
+
+
+}
+
+});
+
+});
+// end get message
+
+
+
+function sendmessage(e){
+    
+        $.ajax({
+           
+            url: "{{route('user.chat.store')}}",
+            type: "POST",
+            data:$(e).serialize(),
+            dataType: "json",
+            success: function(data) {
+            if(data){
+                console.log(data);
+                $(e).find('.messageinput').val(' ');
+
+            }else{
+                
+                
+            }
+            }
+        
+            });
+        
+  
+
+
+
+}
+
+
+@if(Session::has('state') && Session::get('state')=="canceledInfirst")
+$(document).ready(function() {
+
+    $('#canceleduserreservation{{Session::get('id')}}').modal('show');
+     
+});
+@endif
+
+ </script>
 @endsection

@@ -12,4 +12,14 @@ class Reservation extends Model
     {
         return $this->morphMany(Payment::class,'paymentsable');
     }
+
+    public function chats()
+    {
+        return $this->morphMany(Chat::class,'chatsable');
+    }
+
+    public function offer()
+    {
+        return $this->morphMany(Offer::class,'offersable');
+    }
 }

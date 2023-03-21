@@ -17,7 +17,7 @@ class ReservationController extends Controller
 
     public function store(Request $request, $freelancer_id)
     {
-        $this->validate($request, [
+        $request->validate([
             'occasion' => 'required',
             'date_time' => 'required',
             'from' => 'required',
@@ -25,11 +25,19 @@ class ReservationController extends Controller
             'location' => 'nullable',
         ]);
 
+        $random_id = strtoupper('#'.substr(str_shuffle(uniqid()),0,6));
+        while(Reservation::where('random_id', $random_id )->exists()){
+            $random_id = strtoupper('#'.substr(str_shuffle(uniqid()),0,6));
+        }
+
+        
         $data = $request->only('occasion', 'date_time', 'from', 'to', 'location');
         $data['user_id'] = Auth::User()->id;
         $data['freelancer_id'] = $request->freelancer_id;
+        $data['random_id']=$random_id;
+
         Reservation::create($data);
-        return back();
+        return redirect()->route('user.reservations');
     }
 
 
@@ -57,5 +65,77 @@ class ReservationController extends Controller
         $reservation = Reservation::find($id);
         Reservation::where('id' , $id)->update(['status' => $request->status]);
         return back();
+    }
+
+    public function cancel($id)
+    {
+        $request=Reservation::find($id);
+
+         if($request->payment()->where('freelancer_id',$request->freelancer_id)->first()){
+        
+        $total_pay=$request->payment()->where('freelancer_id',$request->freelancer_id)->first()->total;
+        $edit_pay=$request->payment()->where('freelancer_id',$request->freelancer_id)->first()->update([
+            'status'=>"refund"
+        ]);
+
+       $current_wallet= User::findOrFail(auth()->user()->id)->wallet->total;
+        $current_wallet+= $total_pay;
+        $edit_offer= Reservation::findorfail($id)->offer()->where('freelancer_id',$request->freelancer_id)->update([
+            "status"=>'reject',
+        ]);
+    }
+        $edit_request= $request->update([
+            'status'=>"Cancel by customer"
+        ]);
+        return redirect()->back()->with(['state'=>"canceledInfirst","id"=>$id]);
+    }
+
+
+
+
+
+
+
+    // freelancer 
+
+
+
+    public function rejectReservation($id){
+
+
+       $re= Reservation::findOrFail($id);
+       $re->update([
+        'status'=>'Rejected',
+       ]);
+
+  return redirect()->back()->with(['state'=>"rejected","id"=>$id]);
+
+    }
+
+
+    // send offer for reesrvation from freelancer
+    public function sendoffer(Request $request ,$id){
+ 
+        $user_id=auth()->user()->id;
+       $request->validate([
+       'offer'=>['required'],
+       
+        ]);
+        $order=Reservation::find($id);
+        $order->offer()->create([
+         'type'=>"reservation",
+          'freelancer_id'=>$user_id,
+          'price'=>$request->offer,
+          'status'=>'pending',
+       
+        ]);
+      
+        toastr()->success('offer is send');
+        
+    return redirect()->back();
+
+
+
+
     }
 }

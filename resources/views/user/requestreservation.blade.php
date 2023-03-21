@@ -52,7 +52,7 @@ home
         <div class="mb-4">
             <label for="v" class="pb-2">date&time</label>
             <div>
-                <input type="date" name="date_time" class="form-control" id="datepicker-inline">
+                <input type="datetime-local" name="date_time" class="form-control" id="datepicker-inline">
             </div>
         </div>
 
