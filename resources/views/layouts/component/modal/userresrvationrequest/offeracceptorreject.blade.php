@@ -60,7 +60,7 @@
 
                 <div class="btn-contianer d-flex flex-lg-row flex-column-reverse justify-content-center align-items-center my-3  gap-2 gap-lg-0">
                     <button class=" btn-reject border-0 btn-modal rounded-pill mx-2"type="button" data-bs-toggle="modal" data-bs-target="#userrejectreservationoffer{{$request->id}}" >reject</button>
-                    <button class=" btn-accept border-0 btn-modal rounded-pill mx-2"type="button" data-bs-toggle="modal" data-bs-target="#pay" >accept</button>
+                    <button class=" btn-accept border-0 btn-modal rounded-pill mx-2"type="button" data-bs-toggle="modal" data-bs-target="#pay{{$request->id}}" >accept</button>
                 </div>
             </div>
         </div>

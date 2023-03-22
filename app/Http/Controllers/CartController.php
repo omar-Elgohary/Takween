@@ -253,7 +253,7 @@ class CartController extends Controller
        $order= CardOrder::create([
        'user_id'=>auth()->user()->id,
        'price'=>$paydata['price'],
-       'discount_id'=>  $discount_id,
+       'discount_id'=> $discount_id,
        'total'=>$paydata['total'],
         ]);
     foreach($paydata['cartadditems'] as $data ){
@@ -297,7 +297,7 @@ class CartController extends Controller
     
     } 
 
-    return redirect()->route('user.cart.index');
+    return redirect()->route('user.cart.index')->with(['state'=>"paydone"]);
 }
        toastr()->error('you dont have product in cart');
         return redirect()->back();
@@ -337,7 +337,7 @@ class CartController extends Controller
             }
 
 
-
+            return compact('cartadditems','total','descount','price','discount_key' ,'walletEnough');
         }else{
 
             $total=$price-$descount;
@@ -348,7 +348,8 @@ class CartController extends Controller
          
         }
 
-   return compact('cartadditems','total','descount','price','discount_key' ,'walletEnough');
+   
+   return compact('cartadditems','total','descount','price','walletEnough');
     }
  
     

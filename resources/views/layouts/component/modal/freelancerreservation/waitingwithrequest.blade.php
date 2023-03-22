@@ -8,7 +8,7 @@
         <div class="modal-body">
             <div class="div d-flex justify-content-start px-4">
                 <div class="d-flex flex-column">
-                    <h3 class="mb-0 font-bold">#324234</h3>
+                    <h3 class="mb-0 font-bold">{{$request->random_id}} </h3>
                     <span class="inprogress">{{ $reservation->status }}</span>
                 </div>
 
@@ -53,12 +53,14 @@
                 <h5 class="text-black border-top pt-2">Total price</h5>
                 <div class="d-flex justify-content-between">
                     <p class=" mb-0">Price</p>
-                    <p class="fw-900 mb-0 text-black">5000 <span class="text-black-50 mx-1">SR</span></p>
+                    <p class="fw-900 mb-0 text-black">{{$request->offer->first()->price}} <span class="text-black-50 mx-1">SR</span></p>
                 </div>
             </div>
 
             <div class="btn-contianer d-flex flex-column justify-content-center align-items-center my-3">
-                <button class="btn-cormoz btn-modal border-0"type="button" data-bs-toggle="modal" data-bs-target="#suredelete" >request relay</button>
+
+                
+                <button class="btn-cormoz btn-modal border-0"type="button" data-bs-toggle="modal" data-bs-target="#requestdelay" >request relay</button>
             </div>
             </div>
         </div>

@@ -19,13 +19,13 @@
         
    
         <div class="btn-contianer d-flex flex-lg-row flex-column-reverse   justify-content-between  align-items-center my-3">
-            <form action="{{route('')}}" method="GET">
+            <form action="" method="GET">
 
 
                 <button type="submit" class="btn  btn-modal modal-color-text border-0">cancel reservation</button>
 
             </form>
-            <form action="{{}}" method="GET">
+            <form action="" method="GET">
 
                 <button class="btn  btn-modal btn-model-primary" type="button">recive new offer</button>
 

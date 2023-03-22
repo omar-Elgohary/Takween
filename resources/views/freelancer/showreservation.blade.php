@@ -33,14 +33,14 @@ notification
 <div class="showrequest">
 <div class="container">
 
-    <div id="calendar">
+    {{-- <div id="calendar">
         <div id="calendar_header"><i class="icon-chevron-left"></i>
             <h1></h1><i class="icon-chevron-right"></i>
         </div>
 
         <div id="calendar_weekdays"></div>
         <div id="calendar_content"></div>
-    </div>
+    </div> --}}
 
     <div class="section-header ">
         <h3 class="text-black">Reservation List</h3>
@@ -67,7 +67,7 @@ notification
  <a  href="#inprogress{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
 
  @elseif($request->status=='Waiting' )
- <a data-bs-toggle="modal" href="#userreservationwaitandinprogress{{$request->id}}" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
+ <a data-bs-toggle="modal" href="#waitingonly{{$request->id}}" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
 
  @elseif($request->status=='Cancel by customer' )
  <a  href="#canceleduserreservation{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
@@ -92,6 +92,10 @@ notification
             </div>
             @if($request->status == 'Pending')
                             <p class="status gray" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
+                        @elseif($request->status == 'Waiting')
+                            <p class="status inprogress" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
+                        @elseif($request->status == 'Waiting'  && $request->date_time<=time())
+                            <p class="status inprogress" data-color="C4C3C3">In process<i class="fa-solid fa-circle px-2 "></i></p>
                         @elseif($request->status == 'In Process')
                             <p class="status gray text-warning" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
                         @elseif($request->status == 'Finished')
@@ -137,185 +141,6 @@ notification
 
 
 
-{{-- 
-@if ($request->status == 'Pending')
-    <a href="#feelancerReservationPendingAceptOrReject{{ $request->id }}" data-bs-toggle="modal" role="button" class="request d-flex flex-column px-3 py-3 position-relative mb-5">
-        <div class="d-flex justify-content-between align-items-baseline" style="margin-bottom: 35px;">
-            <div class="d-flex justify-content-between align-items-baseline">
-                <h3 class="reservation-id">#3412312</h3>
-            </div>
-            <p class="status gray" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
-        </div>
-
-        <div class="d-flex ">
-            <div class=" d-flex flex-column px-2">
-                <p class="m-0 text-black-50">Reservation Date</p>
-                <span>{{ date_format(new DateTime($request->date_time,),'Y-m-d')}}</span>
-            </div>
-        </div>
-    </a>
-@endif
-
-
-@if ($request->status == 'Pending')
-    <a href="#feelancerReservationPendingcancancel{{ $request->id }}" data-bs-toggle="modal" role="button"class="request d-flex flex-column px-3 py-3 position-relative mb-5">
-        <div class="d-flex justify-content-between align-items-baseline " style="margin-bottom: 35px;">
-            <div class="d-flex justify-content-between align-items-baseline">
-                <h3 class="reservation-id">{{$request->id}}</h3>
-            </div>
-            <p class="status gray" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
-        </div>
-
-        <div class="d-flex ">
-            <div class="d-flex flex-column px-2">
-                <p class="m-0 text-black-50">Reservation Date</p>
-                <span>{{ date_format(new DateTime($request->date_time,),'Y-m-d')}}</span>
-            </div>
-
-            <div class="d-flex flex-column px-2">
-                <p class="m-0 text-black-50">Price</p>
-                <span>1211 SR</span>
-            </div>
-        </div>
-    </a>
-@endif
-
-
-
-
-@if ($request->status == 'Waiting')
-    <a href="#waitingwithrequest{{ $request->id }}" data-bs-toggle="modal" role="button"class="request d-flex flex-column px-3 py-3 position-relative mb-5">
-        <div class="d-flex justify-content-between align-items-baseline " style="margin-bottom: 35px;">
-            <div class="d-flex justify-content-between align-items-baseline">
-                <h3 class="reservation-id">#3412312</h3>
-            </div>
-            <p class="status orange" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
-        </div>
-
-        <div class="d-flex ">
-            <div class=" d-flex flex-column px-2">
-                <p class="m-0 text-black-50">Reservation Date</p>
-                <span>{{ $request->date_time }}</span>
-            </div>
-
-            <div class=" d-flex flex-column px-2">
-                <p class="m-0 text-black-50">Price</p>
-                <span>1211 SR</span>
-            </div>
-        </div>
-    </a>
-@endif
-
-
-
-@if ($request->status == 'Waiting')
-    <a href="#waitingonly{{ $request->id }}" data-bs-toggle="modal" role="button"class="request d-flex flex-column px-3 py-3 position-relative mb-5">
-        <div class="d-flex justify-content-between align-items-baseline " style="margin-bottom: 35px;">
-            <div class="d-flex justify-content-between align-items-baseline">
-                <h3 class="reservation-id">#3412312</h3>
-            </div>
-            <p class="status orange" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
-        </div>
-
-        <div class="d-flex ">
-            <div class="d-flex flex-column px-2">
-                <p class="m-0 text-black-50">Reservation Date</p>
-                <span>{{ $request->date_time }}</span>
-            </div>
-
-            <div class=" d-flex flex-column px-2">
-                <p class="m-0">Price</p>
-                <span>1211 SR</span>
-            </div>
-        </div>
-    </a>
-@endif
-
-
-
-
-@if ($request->status == 'In Process')
-    <a href="#frelancerreservationinprogress{{ $request->id }}" data-bs-toggle="modal" role="button"class="request d-flex flex-column px-3 py-3 position-relative mb-5">
-        <div class="d-flex justify-content-between align-items-baseline " style="margin-bottom: 35px;">
-            <div class="d-flex justify-content-between align-items-baseline">
-                <h3 class="reservation-id">#3412312</h3>
-            </div>
-            <p class="status orange" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
-        </div>
-
-        <div class="d-flex ">
-            <div class="d-flex flex-column px-2">
-                <p class="m-0 text-black-50">Reservation Date</p>
-                <span>{{ $request->date_time }}</span>
-            </div>
-
-            {{-- <div class=" d-flex flex-column px-2">
-                <p class="m-0">Due date</p>
-                <span class="deadline">20/09/2010</span>
-            </div> --}}
-{{-- 
-            <div class=" d-flex flex-column px-2">
-                <p class="m-0">Price</p>
-                <span>1211 SR</span>
-            </div>
-        </div>
-    </a>
-@endif
-
-
-
-@if ($request->status == 'Finished')
-    <a href="#freelancerreservationfinished{{ $request->id }}" data-bs-toggle="modal" role="button"class="request d-flex flex-column px-3 py-3 position-relative mb-5">
-        <div class="d-flex justify-content-between align-items-baseline " style="margin-bottom: 35px;">
-            <div class="d-flex justify-content-between align-items-baseline">
-                <h3 class="reservation-id">#3412312</h3>
-            </div>
-            <p class="status finish" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 finish "></i></p>
-        </div>
-
-        <div class="d-flex ">
-            <div class="d-flex flex-column px-2">
-                <p class="m-0 text-black-50">Reservation Date</p>
-                <span>{{ $request->date_time }}</span>
-            </div>
-
-            {{-- <div class=" d-flex flex-column px-2">
-                <p class="m-0">Due date</p>
-                <span>20/09/2010</span>
-            </div> --}}
-
-            {{-- <div class=" d-flex flex-column px-2">
-                <p class="m-0">Price</p>
-                <span>1211 SR</span>
-            </div>
-        </div>
-    </a>
-@endif
-
-
-@if ($request->status == 'Completed')
-    <a href="#freelancerreservationcompleted{{ $request->id }}" data-bs-toggle="modal" role="button"class="request d-flex flex-column px-3 py-3 position-relative mb-5">
-        <div class="d-flex justify-content-between align-items-baseline " style="margin-bottom: 35px;">
-            <div class="d-flex justify-content-between align-items-baseline">
-                <h3 class="reservation-id">#3412312</h3>
-            </div>
-            <p class="status text-black" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 text-black "></i></p>
-        </div>
-
-        <div class="d-flex">
-            <div class="d-flex flex-column px-2">
-                <p class="m-0 text-black-50">Reservation Date</p>
-                <span>{{ $request->date_time }}</span>
-            </div>
-
-            <div class="d-flex flex-column px-2">
-                <p class="m-0">Price</p>
-                <span>1211 SR</span>
-            </div>
-        </div>
-    </a>
-@endif  --}}
-
 
     {{--  SHOW MODAL BASED ON REQUEST STATUS --}}
 
@@ -337,12 +162,13 @@ notification
      
      
      @elseif($request->status=='Waiting' )
+     @include("layouts.component.modal.freelancerreservation.waitingonly")
+
      @elseif($request->status=='reject' )
      @include("layouts.component.modal.freelancerreservation.rejected")
      
      @elseif($request->status=='Cancel by customer' )
      @include("layouts.component.modal.userresrvationrequest.canceled")
-     @include("layouts.component.modal.userRequests.chat")
      @elseif($request->status=='Finished' )
   
      @elseif($request->status == 'Cancel by customer'|| $request->status == 'cancel by freelancer')
@@ -355,6 +181,7 @@ notification
     @endif
 
 
+    @include("layouts.component.modal.userRequests.chat")
 
 
 {{-- 
@@ -384,7 +211,7 @@ notification
 <script src="{{asset('assets/libs/waypoints/lib/jquery.waypoints.min.js')}}"></script>
 <script src="{{asset('assets/libs/jquery.counterup/jquery.counterup.min.js')}}"></script>
 <!-- plugin js -->
-<script src="{{asset('assets/libs/moment/min/moment.min.js')}}"></script>
+{{-- <script src="{{asset('assets/libs/moment/min/moment.min.js')}}"></script>
 <script src="{{asset('assets/libs/jquery-ui-dist/jquery-ui.min.js')}}"></script>
 <script src="{{asset('assets/libs/@fullcalendar/core/main.min.js')}}"></script>
 <script src="{{asset('assets/libs/@fullcalendar/bootstrap/main.min.js')}}"></script>
@@ -392,7 +219,7 @@ notification
 <script src="{{asset('assets/libs/@fullcalendar/timegrid/main.min.js')}}"></script>
 <script src="{{asset('assets/libs/@fullcalendar/interaction/main.min.js')}}"></script>
 <!-- Calendar init -->
-<script src="{{asset('assets/js/pages/calendar.init.js')}}"></script>
+<script src="{{asset('assets/js/pages/calendar.init.js')}}"></script> --}}
 
 
 
@@ -406,7 +233,7 @@ notification
     var type= $(this).attr('data-type');
     var mesageto= $(this).attr('data-to');
     var conversation =$(this).find('.conversation')
-    // console.log(.append("asdsdas"));
+   
     var olddata =0;
     type=type.trim();
     

@@ -2769,8 +2769,7 @@ background-color: var(--orange-color);
 }
 
 
-
-span.inprogress{
+.inprogress{
     color:var(--orange-color);
 }
 .finish{
@@ -2796,6 +2795,10 @@ span.inprogress{
     }
 
 
+}
+
+.chat .status i{
+    font-size: 8px;
 }
 .chat .offcanvas-header .btn-close {
 font-size: 14px;
@@ -2917,7 +2920,7 @@ outline: none;
 
 @media(max-width:767px){
     .chat .offcanvas-body .control form input[type="text"]{
-  width:200px;
+  width:221px;
     }
     
 

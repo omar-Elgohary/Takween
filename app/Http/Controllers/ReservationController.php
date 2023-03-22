@@ -91,7 +91,49 @@ class ReservationController extends Controller
     }
 
 
+public function reservationPay(Request $request, $id){
+$reservation=Reservation::findOrFail($id);
+$offer_total=$reservation->offer->first()->price;
+$payed =false;
+if($request->paytype=='wallet'){
+    $payed = PaymentController::walletpay2($offer_total);
+  
+   }elseif($request->paytype=='visa'){
 
+      
+   }elseif($request->paytype=='apay'){
+
+
+   }else{
+
+   }
+
+
+   if($payed){
+
+     $reservation->offer()->first()->update([
+        "status"=>'active',
+    ]);
+   
+    $reservation->update([
+       
+        'status'=>"Waiting"
+    ]);
+    $reservation->payment()->create([
+     'user_id'=>auth()->user()->id,
+     'freelancer_id'=>$reservation->freelancer_id,
+     "status"=>'pending',
+     "pay_type"=>'wallet',
+     "total"=>$offer_total,
+
+    ]);
+    return redirect()->back()->with(['state'=>"paydone","id"=>$id]);
+   }
+
+   toastr()->error('something went wronge');
+   return redirect()->back();
+
+}
 
 
 
@@ -111,6 +153,10 @@ class ReservationController extends Controller
   return redirect()->back()->with(['state'=>"rejected","id"=>$id]);
 
     }
+
+
+
+    
 
 
     // send offer for reesrvation from freelancer
