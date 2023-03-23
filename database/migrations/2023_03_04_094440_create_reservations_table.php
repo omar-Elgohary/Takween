@@ -13,9 +13,9 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('freelancer_id')->constrained('users')->cascadeOnDelete();
             $table->string('occasion');
-            $table->dateTime('date_time');
-            $table->time('from');
-            $table->time('to');
+            $table->date('date_time');
+            $table->dateTime('from');
+            $table->dateTime('to');
             $table->string('location')->nullable();
             $table->enum('status', ['Pending', 'Waiting', 'In Process', 'Finished', 'Accepted', 'Rejected', 'Completed', 'Cancel by customer', 'Cancel by freelancer'])->default('Pending');
             $table->timestamps();

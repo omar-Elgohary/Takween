@@ -190,7 +190,7 @@ class RequestController extends Controller
               'user_id'=>auth()->user()->id
             
         ]);
-        return redirect()->back()->with(['message'=>"completed","id"=>$id]);
+        return redirect()->back()->with(['message'=>"completed","id"=>$id,]);
     }
 
 

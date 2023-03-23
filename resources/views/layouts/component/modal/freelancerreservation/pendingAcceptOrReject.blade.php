@@ -52,12 +52,13 @@
                 </div>
 
                 <div class="btn-contianer d-flex flex-lg-row flex-column-reverse justify-content-evenly align-items-center my-3 gap-lg-2 gap-2">
-                    <form action="{{ route('freelanc.reservation.reject', $request->id) }}" method="GET">
+                    <form action="{{ route('freelanc.reservation.reject', $request->id) }}" method="GET" style="padding:0 ; margin:0;">
                         @csrf
-                        <input type="submit" name="status" value="Rejectd" class="btn btn-reject border-0 btn-modal rounded-pill " >
+                        <input type="submit" name="status" value="Rejected" class="btn btn-reject border-0 btn-modal rounded-pill "style=' width: 215px;' >
                     </form>
                   
-                        <input type="button" name="status"  value="Acceptd"class="btn btn-accept border-0 btn-modal rounded-pill " data-bs-toggle="modal" data-bs-target="#sendofferforreservation{{$request->id}}">
+                        <input type="button" name="status"  value="Accepted"class="btn btn-accept border-0 btn-modal rounded-pill " 
+                        style=' width:215px'data-bs-toggle="modal"data-bs-target="#sendofferforreservation{{$request->id}}">
                  
                     
                     

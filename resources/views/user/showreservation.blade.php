@@ -62,11 +62,9 @@ notification
  <a href="#reservpending{{ $request->id }}" data-bs-toggle="modal" role="button"class="request d-flex flex-column px-3 py-3 position-relative mb-5">
 
 
- @elseif($request->status=='Waiting'  )
+ @elseif($request->status=='Waiting')
  <a  href="#userreservationwaitandinprogress{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
  
-
-
 
  @elseif($request->status =='Cancel by customer' ||  $request->status =='reject' )
 
@@ -79,17 +77,15 @@ notification
  <a  href="#userfinishedreservation{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
 
 
- @elseif($request->status == 'Completed'  )
- <a  href="#usercompletedreservation{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" > --}}
+ @elseif($request->status == 'Completed' )
+ <a  href="#usercompletedreservation{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
 
  @else
 
 <a  href="#"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
 
 @endif
-
-
-   
+ 
         <div class="d-flex justify-content-between align-items-baseline" style="margin-bottom: 35px;">
             <div class="d-flex justify-content-between align-items-baseline">
                 <h3 class="reservation-id">{{ $request->random_id}} </h3>
@@ -97,7 +93,7 @@ notification
             @if($request->status == 'Pending')
                             <p class="status gray" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
             
-                        @elseif($request->status == 'Waiting' && $request->date_time <=time())
+                        @elseif($request->status == 'Waiting' && $request->date_time == time() &&  ($request->from <=now() || $request->to >= now()))
                             <p class=" status inprogress " data-color="C4C3C3">In process<i class="fa-solid fa-circle px-2 "></i></p>
 
                             @elseif($request->status == 'Waiting' )
@@ -154,8 +150,6 @@ notification
 
      {{-- @elseif($request->status=="Pending" && $request->date_time< now()) --}}
 
-     
-
      @elseif($request->status=="Pending")
      @include("layouts.component.modal.userresrvationrequest.reservpending")
      @include("layouts.component.modal.userresrvationrequest.surdeletereservation")
@@ -168,14 +162,19 @@ notification
      @include("layouts.component.modal.userresrvationrequest.surdeletereservation")
 
      
-     @elseif($request->status=='Cancel by customer' || $request->status=='reject'  )
+     @elseif($request->status=='Cancel by customer' || $request->status=='reject' )
      @include("layouts.component.modal.userresrvationrequest.canceled")
-
      @include("layouts.component.modal.userRequests.chat")
+
      @elseif($request->status=='Finished' )
-  
+     @include("layouts.component.modal.userresrvationrequest.finished")
      {{-- @elseif($request->status == 'Cancel by customer'|| $request->status == 'cancel by freelancer')
      @include("layouts.component.modal.userresrvationrequest.canceled") --}}
+    
+     
+     @elseif($request->status=='Completed' )
+     @include("layouts.component.modal.userresrvationrequest.review")
+     @include("layouts.component.modal.userresrvationrequest.completed") 
     
      @else
     
@@ -365,6 +364,15 @@ $(document).ready(function() {
      
 });
 @endif
+
+@if(Session::has('state') && Session::get('state')=="completed")
+$(document).ready(function() {
+
+    $('#usercompletedreservation{{Session::get('id')}}').modal('show');
+     
+});
+@endif
+
 
  </script>
 @endsection

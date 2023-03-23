@@ -1,4 +1,4 @@
-<div class="modal offers fade" id="freelancerreservationfinished{{ $reservation->id }}" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" tabindex="-1">
+<div class="modal offers fade" id="freelancerreservationfinished{{ $request->id }}" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -9,7 +9,7 @@
             <div class="div d-flex justify-content-start px-4">
                 <div class="d-flex flex-column">
                     <h3 class="mb-0 font-bold">{{ $request->random_id }}</h3>
-                    <span class="finish">{{ $reservation->status }}</span>
+                    <span class="finish">{{ $request->status }}</span>
                 </div>
 
                 <div class="align-slef-end" style="flex-grow: 1;display: flex;align-items: center;justify-content: flex-end;">
@@ -22,38 +22,38 @@
             <div class="d-flex flex-column px-5">
                 <div class="d-flex justify-content-between">
                     <p class="mb-0">Customer Name</p>
-                    <p class="fw-900 mb-0 text-black">{{ App\Models\User::where('id', $reservation->user_id)->first()->name }}</p>
+                    <p class="fw-900 mb-0 text-black">{{ App\Models\User::where('id', $request->user_id)->first()->name }}</p>
                 </div>
 
                 <div class="d-flex justify-content-between">
                     <p class=" mb-0">Occasion</p>
-                    <p class="fw-900 mb-0 text-black">{{ $reservation->occasion }}</p>
+                    <p class="fw-900 mb-0 text-black">{{ $request->occasion }}</p>
                 </div>
 
                 <div class="d-flex justify-content-between">
                     <p class=" mb-0">Due Date</p>
-                    <p class="fw-900 mb-0 text-black">0000/00/00</p>
+                    <p class="fw-900 mb-0 text-black">{{date_format(new dateTime($request->date_time),'d/m/Y')}}</p>
                 </div>
 
                 <div class="d-flex justify-content-between">
                     <p class="mb-0">Time</p>
                     <div class="d-flex">
                         <span class="text-black-50 mx-1">From</span>
-                        <p class="fw-900 mb-0 text-black">{{ $reservation->from }}</p>
+                        <p class="fw-900 mb-0 text-black">{{ \Carbon\Carbon::parse($request->from)->format('h:i A') }}</p>
                         <span class="text-black-50 mx-1">To</span>
-                        <p class="fw-900 mb-0 text-black">{{ $reservation->to }}</p>
+                        <p class="fw-900 mb-0 text-black">{{ \Carbon\Carbon::parse($request->to)->format('h:i A') }}</p>
                     </div>
                 </div>
 
                 <div class="d-flex justify-content-between">
                     <p class=" mb-0">Location</p>
-                    <p class="fw-900 mb-0 text-black"><i class="fa fa-location"></i>{{ $reservation->location }}</p>
+                    <p class="fw-900 mb-0 text-black"><i class="fa fa-location"></i>{{ $request->location }}</p>
                 </div>
 
                 <h5 class="text-black border-top pt-2">Total price</h5>
                 <div class="d-flex justify-content-between">
                     <p class=" mb-0">Price</p>
-                    <p class="fw-900 mb-0 text-black">5000<span class="text-black-50 mx-1">SR</span></p>
+                    <p class="fw-900 mb-0 text-black">{{$request->offer->first()->price}}<span class="text-black-50 mx-1">SR</span></p>
                 </div>
             </div>
 

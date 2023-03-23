@@ -22,4 +22,8 @@ class Reservation extends Model
     {
         return $this->morphMany(Offer::class,'offersable');
     }
+    public function review()
+    {
+     return $this->morphMany(Review::class,'reviewsable');
+    }
 }

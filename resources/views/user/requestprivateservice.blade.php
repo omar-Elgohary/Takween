@@ -80,7 +80,7 @@ request private service
 
                 <div class="mb-4">
                     <label for="date" class="form-label mb-3">due date</label>
-                    <input type="date" class="form-control @error('due_date') is-invalid @enderror" id="due_date" name="due_date">
+                    <input type="date" class="form-control @error('due_date') is-invalid @enderror" id="due_date" name="due_date"  min="{{date_format(now(),'Y-m-d')}}">
                     @error('due_date')<div class="alert alert-danger">{{ $message }}</div>@enderror
                 </div>
                    <input type="hidden"  name="type" value="private">

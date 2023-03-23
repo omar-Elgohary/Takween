@@ -60,13 +60,13 @@ notification
  @elseif($request->status=="Pending")
  <a href="#feelancerReservationPendingAceptOrReject{{ $request->id }}" data-bs-toggle="modal" role="button"class="request d-flex flex-column px-3 py-3 position-relative mb-5">
 
- @elseif(($request->status=='In Process' && $request->due_date < now()->toDateString() ) ||$request->status=='Rejected' )
- <a  href="#inprogressenddueprivate{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
+ {{-- @elseif(($request->status=='In Process' && $request->due_date < now()->toDateString() ) ||$request->status=='Rejected' )
+ <a  href="#inprogressenddueprivate{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" > --}}
 
- @elseif($request->status=='In Process' )
- <a  href="#inprogress{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
+ {{-- @elseif($request->status=='In Process' )
+ <a  href="#inprogress{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" > --}}
 
- @elseif($request->status=='Waiting' )
+ @elseif($request->status=='Waiting' ||$request->status=='In Process'  )
  <a data-bs-toggle="modal" href="#waitingonly{{$request->id}}" role="button"class="request  d-flex flex-column px-3 py-3 position-relative mb-5">
 
  @elseif($request->status=='Cancel by customer' )
@@ -74,9 +74,9 @@ notification
  @elseif($request->status=='reject' )
  <a  href="#reject{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
  @elseif($request->status=='Finished' )
- <a  href="#userfinishedreservation{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
+ <a  href="#freelancerreservationfinished{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
  @elseif($request->status== 'Completed'  )
- <a  href="#usercompletedreservation{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
+ <a  href="#freelancerreservationcompleted{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
 
  @else
 
@@ -92,10 +92,13 @@ notification
             </div>
             @if($request->status == 'Pending')
                             <p class="status gray" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
-                        @elseif($request->status == 'Waiting')
-                            <p class="status inprogress" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
-                        @elseif($request->status == 'Waiting'  && $request->date_time<=time())
+
+
+                 @elseif( $request->status == 'Waiting'  && $request->date_time==now()->toDateString() && ($request->from<=now() ||$request->to <=now()))
                             <p class="status inprogress" data-color="C4C3C3">In process<i class="fa-solid fa-circle px-2 "></i></p>
+                        @elseif($request->status == 'Waiting')
+                     
+                            <p class="status inprogress">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
                         @elseif($request->status == 'In Process')
                             <p class="status gray text-warning" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
                         @elseif($request->status == 'Finished')
@@ -170,7 +173,9 @@ notification
      @elseif($request->status=='Cancel by customer' )
      @include("layouts.component.modal.userresrvationrequest.canceled")
      @elseif($request->status=='Finished' )
-  
+     @include("layouts.component.modal.freelancerreservation.finished")
+     @elseif($request->status=='Completed' )
+     @include("layouts.component.modal.freelancerreservation.completed")
      @elseif($request->status == 'Cancel by customer'|| $request->status == 'cancel by freelancer')
      @include("layouts.component.modal.userresrvationrequest.canceled")
     

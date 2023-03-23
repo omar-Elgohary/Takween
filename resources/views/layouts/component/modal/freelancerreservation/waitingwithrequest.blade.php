@@ -58,8 +58,9 @@
             </div>
 
             <div class="btn-contianer d-flex flex-column justify-content-center align-items-center my-3">
-
-                
+           
+                {{strtotime($request->date_time)}}
+               
                 <button class="btn-cormoz btn-modal border-0"type="button" data-bs-toggle="modal" data-bs-target="#requestdelay" >request relay</button>
             </div>
             </div>

@@ -8,7 +8,7 @@
             <div class="modal-body">
                 <div class="div d-flex justify-content-start px-4">
                     <div class="d-flex flex-column">
-                        <h3 class="mb-0 font-bold">#324234</h3>
+                        <h3 class="mb-0 font-bold">{{ $request->random_id }}</h3>
                         <span class="inprogress">{{ $request->status }}</span>
                     </div>
 
@@ -57,8 +57,23 @@
                 </div>
                 <div class="btn-contianer d-flex flex-column justify-content-center align-items-center my-3">
 
+             
+                    @if($request->date_time<=now()->toDateString() && strtotime($request->from) <= strtotime(now()) )
+    
+
+                    <form action="{{route('freelanc.reservation.finish',$request->id)}}" method="GET">
+                        <button class="btn-modal  my-3 btn-model-primary border-0"type="submit">finish</button>
+
+                    </form>
+                   
                     
+                    @else
+
+                    @if(\Carbon\Carbon::create($request->date_time)->)
+
                     <button class="btn-cormoz btn-modal border-0"type="button" data-bs-toggle="modal" data-bs-target="#requestdelay" >request relay</button>
+                    @endif
+                    
                 </div>
             </div>
 

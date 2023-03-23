@@ -5,6 +5,7 @@ use App\Models\Requests;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use  Carbon\Carbon;
 
 class ReservationController extends Controller
 {
@@ -35,6 +36,11 @@ class ReservationController extends Controller
         $data['user_id'] = Auth::User()->id;
         $data['freelancer_id'] = $request->freelancer_id;
         $data['random_id']=$random_id;
+
+        $from=$data['date_time'].' '.$data['from'];
+        $to=$data['date_time'].' '.$data['to'];
+        $data['from']= Carbon::create( $from,0);
+        $data['to']= Carbon::create( $to,0);
 
         Reservation::create($data);
         return redirect()->route('user.reservations');
@@ -180,8 +186,62 @@ if($request->paytype=='wallet'){
 
     return redirect()->back()->with(['state'=>"offersend","id"=>$id]);
 
+    }
+
+    function finish($id){
 
 
+        Reservation::findorfail($id)->update([
+          "status"=>"Finished",
+          
+        ]);
+        return  redirect()->back()->with(['message'=>"request update finished"]);
+    }
+
+    function  compelete($id){
+
+        $re=Reservation::findorfail($id);
+        $freelnacer_id=$re->first()->freelancer_id;
+        $offer_price=$re->offer->first()->price;
+          
+        $wallet=User::findOrFail($freelnacer_id)->wallet->total;
+
+        $wallet+=$offer_price;
+        $re->update([
+            "status"=>"Completed",
+            
+          ]);
+
+
+          $edit_wallet=User::findOrFail($freelnacer_id)->wallet()->update([
+            "total"=> $wallet
+           ]);
+      
+
+           $re->payment()->update([
+          'status'=>'purchase'
+           ]);
+
+          
+          return  redirect()->back()->with(['message'=>"request update finished",'state'=>"completed",'id'=>$id]);
+        
 
     }
+
+
+    
+public function review($id,Request $req)
+{
+    $res=Reservation::find($id);
+    $freelancer_id=$res->freelancer_id;
+    $s= $res->review()->create([
+          'freelancer_id'=>$freelancer_id,
+          'rate'=> $req->rate,
+          'pragraph'=> $req->pragraph,
+          'user_id'=>auth()->user()->id
+        
+    ]);
+    toastr()->success('review send successfully');
+    return redirect()->back()->with(['message'=>"completed","id"=>$id,'state'=>"completed"]);
+}
 }
