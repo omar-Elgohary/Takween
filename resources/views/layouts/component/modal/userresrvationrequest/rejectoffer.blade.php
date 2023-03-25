@@ -19,15 +19,15 @@
         
    
         <div class="btn-contianer d-flex flex-lg-row flex-column-reverse   justify-content-between  align-items-center my-3">
-            <form action="" method="GET">
+            <form action="{{route('user.reservation.cancel',$request->id)}}" method="POST">
 
 
                 <button type="submit" class="btn  btn-modal modal-color-text border-0">cancel reservation</button>
 
             </form>
-            <form action="" method="GET">
-
-                <button class="btn  btn-modal btn-model-primary" type="button">recive new offer</button>
+            <form action="{{route('user.reservation.rejectOffer',$request->id)}}" method="POST">
+            @csrf
+                <button class="btn  btn-modal btn-model-primary" type="submit">recive new offer</button>
 
             </form>
            

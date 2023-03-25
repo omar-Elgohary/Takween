@@ -151,6 +151,8 @@ z-index: 1000;
 @media(max-width:767px){
     .addrequesticon{
         top: 79%;
+        width: 50px;
+        height: 50px;
     }
 }
 .addrequesticon:hover{
@@ -3192,4 +3194,12 @@ i[class^=icon-chevron]{
   float: left;
   width:15%;
   border-radius: 50%;
+}
+
+.delay-title{
+    font-weight: 200;
+}
+textarea.delay{
+    padding: 5px;
+    border-color: #ded9d9;
 }

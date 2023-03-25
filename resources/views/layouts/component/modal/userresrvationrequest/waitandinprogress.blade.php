@@ -10,7 +10,7 @@
                     <div class="d-flex flex-column">
                     <h3 class="mb-0 font-bold">{{ $request->random_id }}</h3>
 
-                    @if ($request->date_time <= now())  
+                    @if( $request->status == 'Waiting'  && $request->date_time==now()->toDateString() && ($request->from<=now() ||$request->to <=now()))
 
                     <span class="inprogress">In process</span>
 

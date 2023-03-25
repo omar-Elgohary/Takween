@@ -142,9 +142,66 @@ if($request->paytype=='wallet'){
 }
 
 
+public function rejectOffer($id){
+
+    $reservation=Reservation::findorfail($id);
+
+    if($reservation->status=='Pending'&&  $reservation->offer->first()->status=='pending' ){
+        $reservation->update([
+            'status'=>'Rejected',
+        ]);
+
+        $reservation->offer()->first()->update([
+         'status'=>'reject',
+         
+        ]);
+
+    }
+
+
+    toastr()->success('offer reject successfully');
+   return redirect()->back()->with(["state"=>'Rejected','id'=>$id]);
+} 
+
+
+public function acceptdelay($id){
+
+ $reservation=Reservation::findorfail($id);
+ $date=$reservation->delay()->first()->delayto;
+ $delayTime = $reservation->delay()->first()->delayto;
+$to=new Carbon($reservation->to,0);
+$to=$to->toTimeString();
+ $to=$date . " ". $to;
+ $to=new Carbon($to);
+$from=new Carbon($reservation->from,0);
+$from=$from->toTimeString();
+ $from=$date . " ". $from;
+ $from=new Carbon($from);
+
+
+
+//  Carbon::create()
+ $reservation->update([
+
+    'status'=>"Waiting",
+    'date_time'=>$reservation->delay()->first()->delayto,
+    'from'=>$to,
+    'to'=>$from
+
+ ]);
+
+toastr()->success('accepted delay successfully');
+return redirect()->back()->with(["state"=>'Waiting','id'=>$id]);
+}
+
+
+
+
 
 
     // freelancer 
+
+
 
 
 
@@ -244,4 +301,84 @@ public function review($id,Request $req)
     toastr()->success('review send successfully');
     return redirect()->back()->with(['message'=>"completed","id"=>$id,'state'=>"completed"]);
 }
+
+
+public function editOffer($id){
+
+    $reservation=Reservation::findorfail($id);
+
+    if($reservation->status=='Rejected'&&  $reservation->offer->first()->status=='reject' ){
+        $reservation->update([
+            'status'=>'Pending',
+        ]);
+
+        $reservation->offer()->first()->update([
+         'status'=>'pending',
+         'price'=>request()->offer,
+         
+        ]);
+
+    }
+
+    toastr()->success('offer is edit sucessfully');
+
+    return redirect()->back()->with(['state'=>'offeredit' ,'id'=>$id]);
+
+}
+
+
+public function cancelReservation($id){
+
+    $request=Reservation::find($id);
+
+    if($request->payment()->where('freelancer_id',$request->freelancer_id)->first()){
+   
+   $total_pay=$request->payment()->where('freelancer_id',$request->freelancer_id)->first()->total;
+   $edit_pay=$request->payment()->where('freelancer_id',$request->freelancer_id)->first()->update([
+       'status'=>"refund"
+   ]);
+
+  $current_wallet= User::findOrFail(auth()->user()->id)->wallet->total;
+   $current_wallet+= $total_pay;
+   $edit_offer= Reservation::findorfail($id)->offer()->where('freelancer_id',$request->freelancer_id)->update([
+       "status"=>'reject',
+   ]);
+}
+   $edit_request= $request->update([
+       'status'=>"Cancel by freelancer"
+   ]);
+   return redirect()->back()->with(['state'=>"canceled","id"=>$id]);
+}
+
+
+
+public function postReservation( Request $request,$id){
+    $request->validate([
+        'reason'=>'required',
+        'delayto'=>'required',
+    ]);
+
+    $reservation=Reservation::findorfail($id);
+
+
+    if($reservation->status=='Waiting'){
+        $reservation->delay()->create([
+            'reason'=>$request->reason,
+            'delayto'=>$request->delayto,
+        ]);
+
+        $reservation->update([
+         'status'=>'Posted by freelancer',
+         
+        ]);
+
+    }
+
+    toastr()->success('posted  sucessfully');
+
+    return redirect()->back()->with(['state'=>'posted' ,'id'=>$id]);
+}
+
+
+
 }

@@ -254,6 +254,25 @@ return view('user.userprofile',compact('user','files_current','files_lastmonth',
 
 
 
+    public function switchToFreelancer(Request $request){
+        $user_id=auth()->user()->id;
+        $request->validate([
+            'id_number' => ['required ','digits:10'],
+            'business_register' => ['required ','numeric'],
+        ]
+    );
+
+   
+        $user = User::find($user_id);
+        if($user->type == 'customer'){
+            $user->update([
+                'id_number' => $request->id_number,
+                'business_register' => $request->business_register,
+                'type' => 'freelancer',
+            ]);
+        }
+toastr()->success('switch successfully');
+return redirect()->route('freelanc.profile');
 }
 
-
+}

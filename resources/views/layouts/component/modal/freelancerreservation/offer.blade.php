@@ -7,7 +7,14 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" arialabel="Close"></button>
               </div>
               <div class="modal-body">
-      <form action="{{route('freelanc.reservation.sendoffer',$request->id)}}" method="GET">
+                @if( $request->offer()->exists()&& $request->offer->first()->status=='reject')
+              <form action="{{route('freelanc.reservation.editoffer',$request->id)}}" method="GET">
+               
+                @else
+
+                <form action="{{route('freelanc.reservation.sendoffer',$request->id)}}" method="GET">
+
+                @endif
     @csrf
         <div class="my-3" >
             <h5 class="font-size-15 mb-3">write your offer</h5>

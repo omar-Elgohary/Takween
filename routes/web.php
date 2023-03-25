@@ -95,7 +95,14 @@ Route::middleware("is_photgrapher")->group(function() {
     Route::post('/reservation/status/{id}', [ReservationController::class, 'changeStatus'])->name('reservations.status');
 
     Route::get('/rejectResevation/{id}',[ReservationController::class,'rejectReservation'])->name('reservation.reject');
+    Route::get('/rejectResevation/{id}',[ReservationController::class,'rejectReservation'])->name('reservation.cancel');
+
+    Route::post('/cancelResevation/{id}',[ReservationController::class,'cancelReservation'])->name('reservation.cancelReservation');
+    Route::post('/postResevation/{id}',[ReservationController::class,'postReservation'])->name('reservation.postReservation');
+    
     Route::get('/sendoffer/{id}',[ReservationController::class,'sendoffer'])->name('reservation.sendoffer');
+    
+    Route::get('/editoffer/{id}',[ReservationController::class,'editOffer'])->name('reservation.editoffer');
     
     Route::get('/finish/{id}',[ReservationController::class,'finish'])->name('reservation.finish');
     
@@ -169,6 +176,9 @@ Route::prefix("user")->name("user.")->middleware('auth')->group(function(){
     Route::post('/reservationPay/{id}',[ReservationController::class,'reservationPay'])->name('reservation.pay');
     Route::post('/reservationPay/{id}',[ReservationController::class,'reservationPay'])->name('reservation.pay');
     Route::get('/reservationcempelete/{id}',[ReservationController::class,'compelete'])->name('reservation.compelete');
+    Route::post('/rejectOffer/{id}',[ReservationController::class,'rejectOffer'])->name('reservation.rejectOffer');
+    Route::post('/acceptdelay/{id}',[ReservationController::class,'acceptdelay'])->name('reservation.acceptdelay');
+
 
     Route::get('/showpublicrequest', [RequestController::class, 'publicRequests'])->name("showpublicrequest");
     Route::get('/showprivaterequest', [RequestController::class, 'privateRequests'])->name("showprivaterequest");
@@ -216,6 +226,10 @@ Route::get('/request/completed/{id}',[RequestController::class,'completeRequest'
 Route::post('/private/request/rejectoffer/{id}',[RequestController::class,'privaterejectoffer'])->name("privaterejectoffer");
 Route::post('/private/request/aceptoffer/{id}',[RequestController::class,'privateracceptoffer'])->name("privateracceptoffer");
 
+
+// switch to freelancer
+
+Route::post('/switchtofreelancer',[UserController::class,'switchToFreelancer'])->name("switchToFreelancer");
 
 });
 

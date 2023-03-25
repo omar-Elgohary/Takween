@@ -1,7 +1,8 @@
 <?php
 namespace App\Models;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\ReservationDelay;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Reservation extends Model
 {
@@ -25,5 +26,9 @@ class Reservation extends Model
     public function review()
     {
      return $this->morphMany(Review::class,'reviewsable');
+    }
+
+    public function delay(){
+        return $this->hasMany(ReservationDelay::class);
     }
 }

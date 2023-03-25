@@ -9,7 +9,15 @@
                 <div class="div d-flex justify-content-start px-4">
                     <div class="d-flex flex-column">
                         <h3 class="mb-0 font-bold">{{ $request->random_id }}</h3>
-                        <span class="inprogress">{{ $request->status }}</span>
+
+
+                       @if( $request->status == 'Waiting'  && $request->date_time==now()->toDateString() && ($request->from<=now() ||$request->to <=now()))
+
+                    <span class="inprogress">In process</span>
+
+                    @else
+                    <span class="inprogress">Waiting</span>
+                    @endif
                     </div>
 
                     <div class="align-slef-end" style="flex-grow: 1;display: flex;align-items: center;justify-content: flex-end;">
@@ -58,7 +66,7 @@
                 <div class="btn-contianer d-flex flex-column justify-content-center align-items-center my-3">
 
              
-                    @if($request->date_time<=now()->toDateString() && strtotime($request->from) <= strtotime(now()) )
+                    @if( $request->status == 'Waiting'  && $request->date_time==now()->toDateString() && ($request->from<=now() ))
     
 
                     <form action="{{route('freelanc.reservation.finish',$request->id)}}" method="GET">
@@ -69,11 +77,17 @@
                     
                     @else
 
-                    @if(\Carbon\Carbon::create($request->date_time)->)
+                    @if( now()->addDay()->toDateString() == $request->date_time)
 
-                    <button class="btn-cormoz btn-modal border-0"type="button" data-bs-toggle="modal" data-bs-target="#requestdelay" >request relay</button>
+                    <button class="btn-cormoz btn-modal border-0"type="button" data-bs-toggle="modal" data-bs-target="#requestdelay{{$request->id}}" >request relay</button>
                     @endif
+
+                    @if( now()->addDay(5)->toDateString() <= $request->date_time)
+                    <button class="btn-cormoz btn-modal border-0"type="button" data-bs-toggle="modal" data-bs-target="#suredelete{{$request->id}}" >cancel</button>
                     
+                    @endif
+                    @endif
+           
                 </div>
             </div>
 

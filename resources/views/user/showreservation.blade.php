@@ -7,7 +7,7 @@
 @section("og-image")
 @endsection
 @section("title")
-notification
+Reservations
 @endsection
 @section("header")
 @endsection
@@ -21,6 +21,46 @@ notification
 <link href="{{asset('assets/libs/@fullcalendar/daygrid/main.min.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('assets/libs/@fullcalendar/bootstrap/main.min.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('assets/libs/@fullcalendar/timegrid/main.min.css')}}" rel="stylesheet" type="text/css" />
+
+<link href="{{asset('assets/css/clndr.css')}}" rel="stylesheet">
+
+<style>
+ td{
+    border:none !important;
+ }
+
+ .header-day{
+    background-color: #fff;
+    color:#000 !important;
+    font-weight: 900 !important;
+    font-size: 14px !important;
+    text-align: center !important;
+ }
+ .header-days td{
+    border:none;
+ }
+ .clndr-controls{
+    border-radius:12px  12px  0 0 ;
+    background-color: #f26b1de8;
+    color:#fff;
+    padding:20px 10px;
+ }
+ .clndr tr{
+    margin-bottom:3px;
+ }
+ /* .clndr tbody td{
+    border-radius: 5px;
+ } */
+
+
+ .clndr-event.event1 {
+    background-color: #FF5733;
+}
+
+.day.event.event2 {
+    background-color: #337DFF;
+}
+</style>
 @endsection
 
 @section("nosearch","none !important")
@@ -38,15 +78,8 @@ notification
 
 
 
-<div id="calendar">
-    <div id="calendar_header"><i class="icon-chevron-left"></i>
-        <h1></h1><i class="icon-chevron-right"></i>
-    </div>
-    
-    <div id="calendar_weekdays"></div>
-    <div id="calendar_content"></div>
-</div>
 
+        <div class="cal1"></div>
 
     <div class="section-header ">
         <h3 class="text-black">Reservation List</h3>
@@ -80,6 +113,13 @@ notification
  @elseif($request->status == 'Completed' )
  <a  href="#usercompletedreservation{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
 
+
+ @elseif($request->status == 'Rejected' )
+ <a  href="#userRejectedreservation{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
+
+ @elseif($request->status == 'Posted by freelancer' )
+ <a  href="#posted{{$request->id}}" data-bs-toggle="modal"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
+
  @else
 
 <a  href="#"  role="button" class="request  d-flex  flex-column px-3 py-3 position-relative mb-5" >
@@ -93,7 +133,7 @@ notification
             @if($request->status == 'Pending')
                             <p class="status gray" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
             
-                        @elseif($request->status == 'Waiting' && $request->date_time == time() &&  ($request->from <=now() || $request->to >= now()))
+                            @elseif( $request->status == 'Waiting'  && $request->date_time==now()->toDateString() && ($request->from<=now() ||$request->to <=now()))
                             <p class=" status inprogress " data-color="C4C3C3">In process<i class="fa-solid fa-circle px-2 "></i></p>
 
                             @elseif($request->status == 'Waiting' )
@@ -102,20 +142,32 @@ notification
                             <p class="status gray" style="color: rgb(214, 214, 42);" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
                         @elseif($request->status == 'Completed')
                             <p class="status gray text-black" data-color="C4C3C3">{{ $request->status}}<i class="fa-solid fa-circle px-2 "></i></p>
-                        @elseif($request->status == 'Cancel by customer'||$request->status == 'reject')
+                        @elseif($request->status == 'Cancel by customer'||$request->status == 'reject' ||$request->status == 'Rejected')
                             <p class="status text-danger" >{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
+                        @elseif($request->status == 'Posted by freelancer')
+                            <p class="status text-black-50"style="word-break:keep-all" >{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
                         @endif
         </div>
 
         <div class="d-flex">
                 
+                    
+            @if($request->date_time < now()->toDateString())
             <div class="d-flex flex-column px-2">
                 <p class="m-0">Reserve date</p>
-                <span class="">{{date_format(new dateTime($request->date_time),'d/m/Y')}}</span>
+                <span class="text-danger">{{date_format(new dateTime($request->date_time),'d/m/Y')}}</span>
                 <div>
                 </div>
             </div>
-
+        @else
+            <div class="d-flex flex-column px-2">
+                <p class="m-0">Reserve date </p>
+                <span>{{date_format(new dateTime($request->date_time),'d/m/Y')}}</span>
+                <div>
+                </div>
+            </div>
+        @endif
+        
     
         
         @if($request->offer->first() !=null)
@@ -164,7 +216,10 @@ notification
      
      @elseif($request->status=='Cancel by customer' || $request->status=='reject' )
      @include("layouts.component.modal.userresrvationrequest.canceled")
-     @include("layouts.component.modal.userRequests.chat")
+
+     @elseif($request->status=='Rejected' )
+     @include("layouts.component.modal.userresrvationrequest.Rejected")
+  
 
      @elseif($request->status=='Finished' )
      @include("layouts.component.modal.userresrvationrequest.finished")
@@ -175,6 +230,9 @@ notification
      @elseif($request->status=='Completed' )
      @include("layouts.component.modal.userresrvationrequest.review")
      @include("layouts.component.modal.userresrvationrequest.completed") 
+     @elseif($request->status=='Posted by freelancer' )
+     @include("layouts.component.modal.userresrvationrequest.postedreservation")
+    
     
      @else
     
@@ -214,15 +272,20 @@ notification
 <script src="{{asset('assets/libs/waypoints/lib/jquery.waypoints.min.js')}}"></script>
 <script src="{{asset('assets/libs/jquery.counterup/jquery.counterup.min.js')}}"></script>
 <!-- plugin js -->
-<script src="{{asset('assets/libs/moment/min/moment.min.js')}}"></script>
-<script src="{{asset('assets/libs/jquery-ui-dist/jquery-ui.min.js')}}"></script>
+
+{{-- <script src="{{asset('assets/libs/jquery-ui-dist/jquery-ui.min.js')}}"></script>
 <script src="{{asset('assets/libs/@fullcalendar/core/main.min.js')}}"></script> 
  <script src="{{asset('assets/libs/@fullcalendar/bootstrap/main.min.js')}}"></script>
 <script src="{{asset('assets/libs/@fullcalendar/daygrid/main.min.js')}}"></script>
 <script src="{{asset('assets/libs/@fullcalendar/timegrid/main.min.js')}}"></script>
 <script src="{{asset('assets/libs/@fullcalendar/interaction/main.min.js')}}"></script>
 <!-- Calendar init -->
- <script src="{{asset('assets/js/pages/calendar.init.js')}}"></script>
+ <script src="{{asset('assets/js/pages/calendar.init.js')}}"></script> --}}
+
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script> --}}
+<script src="{{asset('assets/libs/moment/min/moment.min.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clndr/1.4.7/clndr.min.js"></script>
 
 
  <script>
@@ -372,7 +435,146 @@ $(document).ready(function() {
      
 });
 @endif
+@if(Session::has('state') && Session::get('state')=="Waiting")
+$(document).ready(function() {
+
+    $('#userreservationwaitandinprogress{{Session::get('id')}}').modal('show');
+     
+});
+@endif
 
 
  </script>
+
+
+<script>
+ $(document).ready( function() {
+   var calendars ={};
+   var events = [
+       @foreach ($reservations as $request)
+
+       {
+           date: '{{date_format(new dateTime($request->date_time),'Y-m-d')}}',
+           title: '{{$request->status}}',
+           color: '#777',
+           onclick: function(target) {
+               @if ($request->status=="Pending" && $request->offer->first())
+
+               $('#userReservationPendingAceptOrReject{{$request->id}}').modal('show');
+               @elseif($request->status=="Pending" && $request->date_time< now())
+               $('#penddingcancel{{$request->id}}').modal('show');
+                   
+           @elseif($request->status=="Pending")
+           $('#reservpending{{$request->id}}').modal('show');
+           
+           @elseif($request->status=='Rejected' )
+           $('#feelancerReservationposted{{$request->id}}').modal('show');
+
+           @elseif($request->status=='In Process' )
+           
+           
+           @elseif($request->status=='Waiting' )
+           $('#userreservationwaitandinprogress{{$request->id}}').modal('show');
+
+           @elseif($request->status=='reject' )
+           $('#canceleduserreservation{{$request->id}}').modal('show');
+           @elseif($request->status=='Posted by freelancer' )
+           $('#posted{{$request->id}}').modal('show');
+           
+           @elseif($request->status=='Cancel by customer' )
+           $('#canceleduserreservation{{$request->id}}').modal('show');
+           @elseif($request->status=='Finished' )
+           $('#userfinishedreservation{{$request->id}}').modal('show');
+           @elseif($request->status=='Completed' )
+           $('#usercompletedreservation{{$request->id}}').modal('show');
+           @elseif($request->status == 'Cancel by customer'|| $request->status == 'Cancel by freelancer')
+           $('#canceleduserreservation{{$request->id}}').modal('show');
+           
+           @elseif(($request->status=='In Process' && $request->due_date < now()->toDateString() ) ||$request->status=='Rejected' ) 
+           $('#userRejectedreservation{{$request->id}}').modal('show');
+
+       @endif
+           }
+       },
+       @endforeach
+      
+   ];
+
+
+   // Here's some magic to make sure the dates are happening this month.
+   var thisMonth = moment().format('YYYY-MM');
+   // Events to load into calendar
+   var eventArray = [
+       {
+           title: 'Multi-Day Event',
+           endDate: thisMonth + '-14',
+           startDate: thisMonth + '-10'
+       }, {
+           endDate: thisMonth + '-23',
+           startDate: thisMonth + '-21',
+           title: 'Another Multi-Day Event'
+       }, {
+           date: thisMonth + '-27',
+           title: 'Single Day Event'
+       }
+   ];
+
+  
+   calendars.clndr1 = $('.cal1').clndr({
+       events: events,
+       clickEvents: {
+           click: function(target) {
+               if (target.events.length) {
+                   var event = target.events[0];
+                   if (event.onclick) {
+                       event.onclick(target);
+                   }
+               }
+           }
+       },
+  
+       multiDayEvents: {
+           singleDay: 'date',
+           endDate: 'endDate',
+           startDate: 'startDate'
+       },
+       showAdjacentMonths: false,
+       adjacentDaysChangeMonth: true,
+       // eventColor: 'color',
+       classNames: function (targetDate) {
+            console.log('sdsd');
+        return events.reduce(function (classes, event) {
+          
+            if (event.date === moment(targetDate).format('YYYY-MM-DD')) {
+                classes.push('event-' + event.title);
+                
+            }
+           
+            return classes;
+        }, []);
+    }
+
+   });
+
+  
+
+
+   // Bind all clndrs to the left and right arrow keys
+   $(document).keydown( function(e) {
+       // Left arrow
+       if (e.keyCode == 37) {
+           calendars.clndr1.back();
+           calendars.clndr2.back();
+           calendars.clndr3.back();
+       }
+
+       // Right arrow
+       if (e.keyCode == 39) {
+           calendars.clndr1.forward();
+           calendars.clndr2.forward();
+           calendars.clndr3.forward();
+       }
+   });
+});
+</script>
 @endsection
