@@ -552,6 +552,7 @@ $(document).ready(function() {
            
             return classes;
         }, []);
+        
     }
 
    });

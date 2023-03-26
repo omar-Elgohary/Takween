@@ -23,6 +23,10 @@ Route::group(
 
 Route::get('/', [HomeController::class, 'index'])->name("home");
 
+route::get('frelancpro',function(){
+return view('user.freelancerprofile');
+});
+
 
 Route::get('products', [ProductController::class, 'displayAllProducts'])->name('products');
 
