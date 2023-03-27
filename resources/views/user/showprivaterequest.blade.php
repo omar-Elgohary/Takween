@@ -163,7 +163,7 @@ show private requests
                 @if($request->offer->first() !=null)
                 <div class="d-flex flex-column px-2">
                     <p class="m-0">price</p>
-                    <span >{{$request->offer->first()->price }}</span>
+                    <span >{{$request->offer->where('freelancer_id',$request->freelancer_id)->first()->price }}</span>
                     <div>
                     </div>
                 </div>

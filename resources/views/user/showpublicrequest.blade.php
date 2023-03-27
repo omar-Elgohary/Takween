@@ -105,6 +105,17 @@ show public request
                         <div>
                         </div>
                     </div>
+                     
+                @if($request->offer->first() !=null)
+                <div class="d-flex flex-column px-2">
+                    <p class="m-0">price</p>
+                    <span >{{$request->offer->where('freelancer_id',$request->freelancer_id)->first()->price }}</span>
+                    <div>
+                    </div>
+                </div>
+            @else
+               
+            @endif
                 </div>
             </a>
 
@@ -160,6 +171,17 @@ show public request
                             </div>
                         </div>
                     @endif
+                     
+                @if($request->offer->first() !=null)
+                <div class="d-flex flex-column px-2">
+                    <p class="m-0">price</p>
+                    <span >{{$request->offer->where('freelancer_id',$request->freelancer_id)->first()->price }}</span>
+                    <div>
+                    </div>
+                </div>
+            @else
+               
+            @endif
             </div>
         </a>
         @include("layouts.component.modal.userRequests.review")
@@ -207,6 +229,17 @@ show public request
                             </div>
                         </div>
                     @endif
+                     
+                @if($request->offer->first() !=null)
+                <div class="d-flex flex-column px-2">
+                    <p class="m-0">price</p>
+                    <span >{{$request->offer->where('freelancer_id',$request->freelancer_id)->first()->price }}</span>
+                    <div>
+                    </div>
+                </div>
+            @else
+               
+            @endif
             </div>
         </a>
         
@@ -255,6 +288,17 @@ show public request
                             </div>
                         </div>
                     @endif
+                     
+                @if($request->offer->first() !=null)
+                <div class="d-flex flex-column px-2">
+                    <p class="m-0">price</p>
+                    <span >{{$request->offer->where('freelancer_id',$request->freelancer_id)->first()->price }}</span>
+                    <div>
+                    </div>
+                </div>
+            @else
+               
+            @endif
             </div>
         </a>
         @include("layouts.component.modal.userRequests.chat")
@@ -302,6 +346,17 @@ show public request
                             </div>
                         </div>
                     @endif
+                     
+                @if($request->offer->first() !=null)
+                <div class="d-flex flex-column px-2">
+                    <p class="m-0">price</p>
+                    <span >{{$request->offer->where('freelancer_id',$request->freelancer_id)->first()->price }}</span>
+                    <div>
+                    </div>
+                </div>
+            @else
+               
+            @endif
                 </div>
             </a>
             @include("layouts.component.modal.userRequests.complete")
@@ -316,7 +371,7 @@ show public request
 
                     <div class="freelanereq mx-2">
                         <h3 class="fw-600">{{ App\Models\User::where('id', $request->freelancer_id)->first()->name }}</h3>
-                        <span class="text-black-50">#123123</span>
+                        <span class="text-black-50">{{$request->random_id}}</span>
                     </div>
                 </div>
 
@@ -354,6 +409,17 @@ show public request
                             </div>
                         </div>
                     @endif
+                     
+                @if($request->offer->first() !=null)
+                <div class="d-flex flex-column px-2">
+                    <p class="m-0">price</p>
+                    <span >{{$request->offer->where('freelancer_id',$request->freelancer_id)->first()->price }}</span>
+                    <div>
+                    </div>
+                </div>
+            @else
+               
+            @endif
                 </div>
             </a>
             @include("layouts.component.modal.userRequests.complete")
@@ -449,7 +515,7 @@ show public request
         <div class="modal-body">
             <div class="div d-flex justify-content-start px-4">
                 <div class="d-flex flex-column">
-                    <h3 class="mb-0 font-bold">#324234</h3>
+                    <h3 class="mb-0 font-bold">{{$request->random_id}}</h3>
                     <span class="text-warning">{{ $request->status }}</span>
                 </div>
 
