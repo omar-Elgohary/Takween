@@ -18,14 +18,15 @@ class ProductRequest extends FormRequest
         return [
             "name"=>['required'],
             "category"=>['required'],
-            "service"=>['required'],
+            "service"=>['nullable'],
             "name"=>['required'],
             "price"=>['required', "numeric"],
             "description"=>['required'],
-            "attachment"=>['required', "max:200", "file"],
+             "attachment"=>['required', "max:200", "file"],
             "img1"=>['required', 'image'],
             "img2"=>['nullable', 'image'],
             "img3"=>['nullable', 'image'],
+            // "group-a"=>['required','min:1']
         ];
     }
 }

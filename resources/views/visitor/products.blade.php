@@ -76,19 +76,25 @@
                     </button>
                     <span class="px-2">
                         @foreach ( $filter as  $f )
-                            {{ $f }} ,
+
+                            {{ $f }} 
+                            @if(!$loop->last)
+                            ,
+                            @endif
                         @endforeach
                     </span>
                 </div>
 
             <div class="filter-items">
-                @if (isset($cat_id) && isset($subcat_id))
-                <form action="{{route('products',['cat_id'=>$cat_id,'subcat_id'=>$subcat_id]) }}">
-
+               
+                <form action="{{route('products') }}">
+                    @if (isset($cat_id) && isset($subcat_id))
+                    <input type="hidden" name="cat_id" value="{{$cat_id}}">
+                    <input type="hidden" name="subcat_id" value="{{$subcat_id}}">
+                   
                     @elseif (isset($cat_id))
-                    <form action="{{route('products',['cat_id'=>$cat_id]) }}">
-                        @else
-                    <form action="{{route('products')}}">
+                    <input type="hidden" name="cat_id" value="{{$cat_id}}">
+                     
                     @endif
                 <div>
                     <input type="checkbox" name="productsearch[]"
@@ -125,7 +131,7 @@
         </div>
 
         <div class="products">
-            @foreach ($products as $product)
+            @forelse ($products as $product)
             
                 <div class="card" >
                     <div class="image-product">
@@ -166,7 +172,7 @@
 
                     <div class="card-body" >
                         <h5 class="card-title">{{ $product->name }}</h5>
-                        <a class="freelancer-info d-flex align-items-center " href="{{ route('showFreelancerDetails', $product->id) }}">
+                        <a class="freelancer-info d-flex align-items-center " href="{{ route('showFreelancerDetails', $product->freelancer_id) }}">
                             <div class="image">
                                 <img src="{{ asset("Admin3/assets/images/users/".App\Models\User::where('id', $product->freelancer_id)->first()->profile_image) }}" alt="">
                             </div>
@@ -180,7 +186,10 @@
                     </div>
                 </div> 
            <!-- card -->
-                @endforeach
+           @empty
+
+          <div class="text-center w-100"> no product </div> 
+                @endforelse
             </div>
 
             <div class="text-end p-4">

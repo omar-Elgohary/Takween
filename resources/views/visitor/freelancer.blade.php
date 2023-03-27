@@ -14,6 +14,7 @@
 @endsection
 
 @section("content")
+@auth
 
 @if($freelancer->is_photographer == 0)
     <a href="{{ route('user.requestprivate', $freelancer->id) }}" class="addrequesticon">
@@ -24,6 +25,13 @@
         <i class="fa-solid fa-plus"></i>
     </a>
 @endif
+
+    @else
+    <a class="addrequesticon" href="#login2" data-bs-toggle="modal">
+        <i class="fa-solid fa-plus"></i>
+    </a>
+@endauth
+
 
 <div class="products-page py-5">
     <div class="container">

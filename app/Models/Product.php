@@ -1,6 +1,7 @@
 <?php
 namespace App\Models;
 use App\Models\User;
+use App\Models\ProductProprity;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -23,6 +24,14 @@ class Product extends Model
     } 
     public function sells(){
         return $this->morphMany(Selled::class,"selledsable");
+    }
+
+    public function proprity(){
+        return  $this->hasMany(ProductProprity::class);
+    }
+    public function file()
+    {
+        return $this->morphMany(File::class,'filesable');
     }
     
 }

@@ -7,14 +7,33 @@
 @section("og-image")
 @endsection
 @section("title")
-edit product
+add product
 @endsection
 @section("header")
 @endsection
 
 
 @section("css")
+<style>
+    .requestservice .container .form form button[type="submit"] {
+    position: relative;
+    left: 120%;
+}
 
+@media(max-width:767px){
+    .requestservice .container .form form button[type="submit"] {
+    position: relative;
+    left: 30%;
+} 
+}
+
+@media(max-width:400px){
+    .requestservice .container .form form button[type="submit"] {
+    position: relative;
+    left: 0%;
+} 
+}
+</style>
 @endsection
 
 @section("nosearch","none !important")
@@ -29,32 +48,32 @@ edit product
         <h2>add product</h2>
     </div>
 
-    <form action="{{route('freelanc.product.store')}}" method="POST" enctype="multipart/form-data">
+    <form class="repeater" action="{{route('freelanc.product.store')}}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="mb-4">
-            <label for="category_id"> category</label>
-            <select name="category_id" id="category_id" class="form-control @error('service_id') is-invalid @enderror">
-                <option value="">Select categroy</option>
-                @forelse ( $categories as $category )
-                    <option value="{{$category->id}}">{{$category->title_en}}</option>
-                @empty
-                    <option value="">no data</option>
-                @endforelse
-            </select>
-                @error('category_id')
-                    <span class="text-red">{{$message}}</span>
-                @enderror
-        </div>
+            <label for="inputName">Category</label>
+            <select name="category_id" id="category_id" class="form-control SlectBox @error('category_id') is-invalid @enderror" onclick="console.log($(this).val())"
+                onchange="console.log('change is firing')">
+                <option value="" selected disabled>Choose Category</option>
+                @foreach ($categories as $category)
+                @if(app()->getLocale()=='ar')
+                    <option value="{{ $category->id }}"> {{ $category->title_ar }}</option>
 
-        <div class="mb-4">
-            <label for="service_id" class="pb-2">service</label>
-            <select name="service_id" id="service_id" name="service"class="form-control @error('service_id') is-invalid @enderror">
-            <option value="">select service</option>
+                    @else
+                    <option value="{{ $category->id }}"> {{ $category->title_en }}</option>
+
+                    @endif
+                @endforeach
             </select>
-            @error('service_id')
-                <span class="text-red">{{$message}}</span>
-            @enderror
+            @error('category_id')<div class="alert alert-danger fs-small">{{ $message }}</div>@enderror
+        </div>
+        <div class="mb-4">
+            <label for="inputName" class="pb-2">Service</label>
+            <select name="service_id" id="service_id" class="form-control @error('service_id') is-invalid @enderror">
+
+            </select>
+            @error('service_id')<div class="alert alert-danger">{{ $message }}</div>@enderror
         </div>
 
         <div class="mb-4">
@@ -75,19 +94,69 @@ edit product
 
         <div class="mb-4">
             <label for="description" class="form-label mb-3">description</label>
-            <input  class="form-control @error('description') is-invalid @enderror " id="description" placeholder="Write product description" value='{{old('discription')}}' name="discription">
+            <input  class="form-control @error('description') is-invalid @enderror " id="description" placeholder="Write product description" value='{{old('description')}}' name="description">
             @error('description')
             <span class="text-red">{{$message}}</span>
             @enderror
         </div>
-
-        <div class="mb-4">
+{{-- proprity --}}
+        {{-- <div class="mb-4">
             <label for="proprety" class="form-label mb-3 " id>properties</label>
             <div id="properties">
                 <input  class="form-control " id="proprety" placeholder="Write product proprets"  name="property">
             </div>
-        </div>
+        </div> --}}
 
+        
+
+                
+                 
+                       
+                            
+                                <div class="propritys mb-3" style="width:100%">
+                                    <label for="proprety" class="form-label mb-3 " id>properties</label>
+                                    
+                                        <div data-repeater-list="group-a" class="proprity">
+                                            <div data-repeater-item class="row ">
+                                               
+                                                <div class="mb-3 col-10 d-flex flex-column justify-content-center">
+
+                                                   
+                                                       
+                                                        <div class="prop-key">
+                                                            <input  class="form-control "  placeholder="e.g File size, programs used"  name="prop_key">
+                                                        </div>
+                                                        <div class="prop-value">
+                                                            <input  class="form-control "  placeholder="values"  name="prop_value">
+                                                        </div>
+
+                                                </div>
+
+                                             
+
+                                                <div class="col-2 align-self-center">
+                                                    <div class="d-grid">
+                                                        {{-- <input data-repeater-delete type="button" class="btn btn-primary delete-propity" value="delete"/> --}}
+                                                        <button data-repeater-delete type="button" class="btn delete-propity" >
+                                                            <i class="fa-solid fa-minus fa-lg" style="color: #e82517;"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                        <input data-repeater-create type="button" class="btn add-propity btn-success   border-0 mt-3 mt-lg-0" value="Add"/>
+                                        @error('group-a')
+                                        <span class="text-red">{{$message}}</span>
+                                    @enderror
+
+                                </div>
+                            
+                      
+                    
+              
+           
+{{-- proprity --}}
         <div class="mb-4">
             <h5  class="form-label pd-2">attachment</h5>
             <div class="d-flex flex-column flex-nowrap ">
@@ -95,7 +164,7 @@ edit product
                 <div class="d-flex">
                     <label for="attachment" class="download">
                     <i class="fa-solid fa-arrow-down"></i></label>
-                    <input type="file" @error('file') is-invalid @enderror class="form-control" id="attachment" name="file" value='{{old('file')}}'placeholder="persentation title">
+                    <input type="file" @error('attachment') is-invalid @enderror class="form-control" id="attachment" name="attachment" value='{{old('attachment')}}'placeholder="persentation title">
                     @error('file')
                         <span class="text-red">{{$message}}</span>
                     @enderror
@@ -134,7 +203,43 @@ edit product
 @endsection
 
 @section("js")
-<script >
+<script src="{{asset('assets/libs/jquery.repeater/jquery.repeater.min.js')}}"></script>
+<script src="{{asset('assets/js/pages/form-repeater.int.js')}}"></script>
+<script src="{{asset('assets/libs/jquery.counterup/jquery.counterup.min.js')}}"></script>
+{{-- <script src="{{asset('assets/js/app.js')}}"></script> --}}
+
+
+
+<script>
+    $(document).ready(function() {
+        $('#category_id').on('change', function() {
+            var CategoryId = $(this).val();
+            if (CategoryId) {
+                $.ajax({
+                    url: "{{ URL('user/category') }}/" + CategoryId,
+                    type: "GET",
+                    dataType: "json",
+                    success: function(data) {
+                        $('#service_id').empty();
+                        if(data!='[]'){
+                            console.log(data);
+                        $.each(data, function(key, value) {
+                            $('#service_id').append('<option value="' +
+                                key + '">' + value + '</option>');
+                        });}else{
+
+                           
+                            $('#service_id').append('<option value=""> on service </option>'); 
+                        }
+                    },
+                });
+            } else {
+                console.log('AJAX load did not work');
+            }
+        });
+    });
+</script>
+{{-- <script >
     $(document).ready(function() {
         $('#category_id').on('change', function() {
             var catId = $(this).val();
@@ -164,17 +269,51 @@ edit product
             }
         });
     });
-</script>
+</script> --}}
 
 
 <script>
-    var i = 0;
-    $("#add").click(function(){
-        ++i;
-        $("#properties").append(' <input class="form-control" name="addMore['+i+']"[proprity]">');
-    });
-    $(document).on('click', '.remove-tr', function(){
-        $(this).parents('tr').remove();
-    });
+$(document).ready(function() {
+  // Get all the .proprity elements
+  var newProprityCount = $('.proprity').length;
+  var count=1;
+  // Check if there is only one .proprity element on page load
+  if (newProprityCount === 1) {
+    // Hide the delete button
+    $('.proprity .delete-propity').hide();
+  }
+
+  // Add a click event listener to the "add property" button
+  $('.propritys').on('click', '.add-propity', function() {
+  // Get the new count of .proprity elements
+  
+  // Check if there is more than three .proprity elements
+  
+  count++;
+  if (count >= 4) {
+    // Hide the add button
+    $('.propritys .add-propity').hide();
+  }
+});
+
+  // Add a click event listener to the "delete property" button
+  $('.proprity').on('click', '.delete-propity', function() {
+    // Get the new count of .proprity elements
+    count--;
+
+    if (count <= 4) {
+    // Hide the add button
+    $('.propritys .add-propity').show();
+  }
+
+    var newProprityCount = $('.proprity').length;
+    // Check if there is only one .proprity element
+    console.log(newProprityCount);
+    if (newProprityCount === 1) {
+      // Hide the delete button
+      $('.proprity:last-child .delete-propity').hide();
+    }
+  });
+});
 </script>
 @endsection

@@ -7,14 +7,15 @@ use App\Models\Service;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::all();
-        return view("freelancer.product", compact("products"));
+        $products = Product::where("freelancer_id" ,auth()->user()->id)->get();
+        return view("freelancer.showproducts", compact("products"));
     }
 
 
@@ -25,40 +26,63 @@ class ProductController extends Controller
     }
 
 
-    public function store(ProductRequest $request)
+    public function store(Request $request)
     {
-        dd($request);
-        $file_extention=$request->file("file")->getCLientOriginalExtension();
-        $file_name=time(). ".".$file_extention;
-        $request->file->move(public_path('front/upload/product/files'),$file_name);
+
+        $name= explode(".",$request->file("attachment")->getCLientOriginalName())[0];
+        $size=number_format($request->file("attachment")->getSize()/ 1024,2);
+        $type=$request->file("attachment")->getCLientOriginalExtension();
+        $file_extention = $request->file("attachment")->getCLientOriginalExtension();
+        $attachment_name=time(). ".".$file_extention;
+        $request->file("attachment")->move(public_path('front/upload/files/'),$attachment_name);
 
         $file_extention=$request->file("img1")->getCLientOriginalExtension();
         $img1=time(). ".".$file_extention;
-        $request->img1->move(public_path('front/upload/product/images'),$img1);
+        $request->img1->move(public_path('assets/images/product/'),$img1);
 
         $file_extention=$request->file("img2")->getCLientOriginalExtension();
         $img2=time(). ".".$file_extention;
-        $request->img2->move(public_path('front/upload/product/images'),$img2);
+        $request->img2->move(public_path('assets/images/product/'),$img2);
 
         $file_extention=$request->file("img3")->getCLientOriginalExtension();
         $img3=time(). ".".$file_extention;
-        $request->img3->move(public_path('front/upload/product/images'),$img3);
+        $request->img3->move(public_path('assets/images/product/'),$img3);
 
         $product= Product::create([
             'name'=> $request->name,
-            "freelancer_id" =>Auth::user()->id,
-            'category_id'=> $request->category,
-            'service_id'=> $request->service,
+            "freelancer_id" =>auth()->user()->id,
+            'cat_id'=> $request->category_id,
+            'service_id'=> $request->service_id,
             'price'=> $request->price,
             'description'=> $request->description,
-            'file' => $request->file("file"),
-            'img1' => $request->file("img1"),
-            'img2' => $request->file("img2"),
-            'img3' => $request->file("img3"),
+            'attachment' =>  $attachment_name,
+            'img1' => $img1,
+            'img2' => $img2,
+            'img3' => $img3,
         ]);
 
-        $product->id;
-        return redirect()->back();
+
+    foreach($request['group-a'] as $proprity){
+        $product->proprity()->create([
+            'key'=>$proprity['prop_key'],
+            'value'=>$proprity['prop_value'],
+        ]);
+    }
+
+    $product->file()->create([
+        'name'=> $name,
+        'user_id'=>auth()->user()->id,
+        'type'=>$type,
+        'url'=> $attachment_name,
+        'size'=>$size,
+    ]);
+       
+
+
+      
+       toastr()->success("created susseccfully");
+
+        return redirect()->route('freelanc.product.index'); 
     }
 
 
@@ -101,7 +125,7 @@ class ProductController extends Controller
     public function displayAllProducts()
     {
            $filter=[];
-
+// dd(request('productsearch'));
         if(request()->cat_id && request()->subcat_id){
             $products = Product::where('cat_id',request()->cat_id)->where('service_id',request()
             ->subcat_id)->get();
@@ -129,35 +153,42 @@ class ProductController extends Controller
 
            array_push($filter,'All');
         }
+        // $products->paginate(20);
             return view('visitor.products', ['products'=>$products, 'categories'=>$categories,'cat_id'=>request()->cat_id,'subcat_id'=>request()->subcat_id,'filter'=>$filter]);
 
         }elseif(request()->cat_id ){
             $products = Product::where('cat_id',request()->cat_id)->get();
             $categories = Category::all();
+            
             if(request('productsearch')!=null){
 
 
                 if(in_array('newest',request('productsearch'))){
                     $products=$products->sortBy('created_at');
+                    array_push($filter,'newest');
                 }
                 if(in_array('highestrating',request('productsearch'))){
                     $products=$products->sortBy(function($item){
                         return $item->likes()->count();
                     });
+                    array_push($filter,'highestrating');
                 }
                 if(in_array('pricelowtoheight',request('productsearch'))){
-                    $products=$products->sortByDesc('price');
+                    $products=$products->sortBy('price');
+                    array_push($filter,'pricelowtoheight');
                 }
-
+               
             }else{
                 array_push($filter,'All');
             }
 
+            // $products->paginate(20);
             return view('visitor.products', ['products'=>$products, 'categories'=>$categories,'cat_id'=>request()->cat_id,'filter'=>$filter]);
 
         }else{
-            $products = Product::all();
+            $products = Product::get();
             $categories = Category::all();
+          
             if(request('productsearch')!=null){
 
                 if(in_array('newest',request('productsearch'))){
@@ -169,12 +200,14 @@ class ProductController extends Controller
                     });
                 }
                 if(in_array('pricelowtoheight',request('productsearch'))){
-                    $products=$products->sortByDesc('price');
+                    $products=$products->sortBy('price');
                 }
 
             }else{
                 array_push($filter,'All');
             }
+
+            // $products->paginate(20);
             return view('visitor.products', compact('products', 'categories' ,'filter'));
         }
     }
