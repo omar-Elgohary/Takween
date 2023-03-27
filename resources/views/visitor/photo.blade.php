@@ -72,9 +72,28 @@
                                       </span>
                                   </div>
     
-                                  <form action="">
+                                  {{-- <form action="">
                                     <button type="button" data-bs-toggle="modal" data-bs-target="#addcart"class="btn  btn-modal  my-3 btn-model-primary">add to chart</button>
-                                  </form>
+                                  </form> --}}
+
+                                  @auth
+
+                                  @if(!$photo->sells()->where('user_id',auth()->user()->id)->exists())
+                                     @if ($photo->carts()->where('user_id',auth()->user()->id)->exists())
+                                     <button class="btn  btn-modal  my-3 btn-model-primary"  data-id="{{$photo->id}}" onclick="addcart(this)"data-type='photo'>in cart</button>  
+                                     @else
+                                     <button class="btn  btn-modal  my-3 btn-model-primary"  data-id="{{$photo->id}}" onclick="addcart(this)"data-type='photo'>add to cart</button>
+                                     @endif
+                            
+                                  @else
+                                  <button class="btn  btn-modal  my-3 btn-model-primary" > you paid</button>
+                                  @endif
+    
+                                    
+                                  @else
+                                  <button class="btn  btn-modal  my-3 btn-model-primary" data-bs-target="#login2" data-bs-toggle="modal" >add to cart</button>
+                                  @endauth
+    
                     </div>
                     
                  </div>
@@ -186,12 +205,12 @@
 
                 @forelse ( $similar as $s )
 
-                    <div class="card col-xs-12 col-sm-12 col-md-4 col-lg-3" style="max-width: 300px">
+                    <div class="card col-xs-12 col-sm-12 col-md-6 col-lg-4" style="max-width: 300px">
                       <div class="image-product  im-product" >
                         <img src="{{asset('assets/images/photo/'.$s->photo) }}" class="card-img-top" alt="product image">
                         @auth
                         <button type="button" data-type="photo" data-id="{{$s->id}}"
-                            
+
                             onclick="likes(this)"
                         class="hart   @if ($s->likes->where("user_id",auth()->user()->id)->count())
                                 active
@@ -200,13 +219,24 @@
                                <button  class="hart" type="button" data-bs-target="#login2" data-bs-toggle="modal"><i class="fa fa-heart"></i></button>
                               @endauth
 
-
                               @auth
-                                  
-                              <button class="addtochart"  data-id="{{$s->id}}" onclick="addcart(this)">add to cart</button>
+
+                              @if(!$s->sells()->where('user_id',auth()->user()->id)->exists())
+                                 @if ($s->carts()->where('user_id',auth()->user()->id)->exists())
+                                 <button class="addtochart active"  data-id="{{$s->id}}" onclick="addcart(this)"data-type='photo'>in cart</button>  
+                                 @else
+                                 <button class="addtochart"  data-id="{{$s->id}}" onclick="addcart(this)"data-type='photo'>add to cart</button>
+                                 @endif
+                        
+                              @else
+                              <button class="addtochart active" > you paid</button>
+                              @endif
+
+                                
                               @else
                               <button class="addtochart" data-bs-target="#login2" data-bs-toggle="modal" >add to cart</button>
                               @endauth
+
                           
                        
                         </div>
@@ -257,4 +287,90 @@
 <!-- lightbox init js-->
 <script src="{{asset('assets/js/pages/lightbox.init.js')}}"></script>
 
+
+
+
+
+<script>
+    $(".filter-button").click(function(){
+        $(".filter-items").toggle();
+    });
+
+
+
+function likes(e){
+// $(this).toggleClass("active");
+var id =$(e).attr('data-id');
+ var  type =$(e).attr('data-type');
+var token= $('meta[name="csrf_token"]').attr('content');
+$.ajax({
+ type: "GET",
+  url: "{{ URL::to('user/addorremovelikes')}}/" + id,
+  data:{'type':type},
+  headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+  dataType: "json",
+  success: function(data) {
+    
+    if(data['action']=="add"){
+        $(e).addClass("active");
+    }else if(data['action']=="delete"){
+        $(e).removeClass("active");
+
+    }
+  }
+
+  });
+
+
+}
+
+function addcart(e){
+    var id =$(e).attr('data-id');
+    var  type =$(e).attr('data-type');
+    var token= $('meta[name="csrf_token"]').attr('content');
+    $.ajax({
+ type: "GET",
+  url: "{{ URL::to('user/addtocart')}}/" + id,
+  data:{'type':type},
+  headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+  dataType: "json",
+  success: function(data) {
+    console.log(data);
+    if(data['status']){
+        $(e).addClass("active");
+        $(e).text('in cart');
+
+        $('#cart-count').html(parseInt($('#cart-count').html())+1);
+        $(document).ready(function(){
+            $('#addcart').modal('show');
+        });
+        
+    }else{
+
+        toastr.warning(data['message']); // Debugging statement
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log(xhr.responseText); // Debugging statement
+        }
+
+  });
+}
+
+$(document).ready(function () {
+    $(".category a.linktosubcategory").click(function(e){
+    e.preventDefault();
+    var id=$(this).attr('data-id');
+    $("#subcategorys"+id).toggle();
+
+    $('.subcategorys').not($("#subcategorys"+id)).hide();
+    })
+
+    $('.closesubcategory').click(function(e){
+        var id=$(this).attr('data-id');
+    $("#subcategorys"+id).hide();
+
+    });
+});
+    </script>
 @endsection

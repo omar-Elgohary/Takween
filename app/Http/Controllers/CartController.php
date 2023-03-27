@@ -107,7 +107,7 @@ class CartController extends Controller
         
               }else{
         
-                $Photo= Photo::findorfail($id);
+                $photo= Photo::findorfail($id);
                     $photo->carts()->create([
                       'name'=>$photo->name, 
                       'user_id'=>auth()->user()->id, 

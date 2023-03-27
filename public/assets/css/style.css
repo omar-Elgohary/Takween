@@ -1334,7 +1334,7 @@ justify-content: center;
 }
 .card .image-product  .hart  i{
  font-size: 20px;
- color:#777;
+ color:#4a4a4cc2;
 }
 .card .image-product  .hart.active  i{
  color:var(--orange-color);

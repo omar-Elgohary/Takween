@@ -24,6 +24,7 @@ carts
 
     .chartitem img{
         width:220px;
+        height: 250px;
     }
 </style>
 @endsection
@@ -61,7 +62,7 @@ carts
                     <div class="col">
                         <form action="{{route('user.cart.destroy',$cartitems->id)}}"  method="POST">
                             @csrf
-                          @method('delete')
+                          @method('delete') 
                             <button type="submit" class="bg-white border-0"><i class="fa-solid fa-trash-can"></i></button>
                         </form>
                        

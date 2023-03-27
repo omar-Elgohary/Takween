@@ -149,11 +149,23 @@
     
     
                                   @auth
-                                      
-                                  <button class="addtochart"  data-id="{{$product->id}}" onclick="addcart(this)">add to cart</button>
+
+                                  @if(!$product->sells()->where('user_id',auth()->user()->id)->exists())
+                                     @if ($product->carts()->where('user_id',auth()->user()->id)->exists())
+                                     <button class="addtochart active"  data-id="{{$product->id}}" onclick="addcart(this)"data-type='product'>in cart</button>  
+                                     @else
+                                     <button class="addtochart"  data-id="{{$product->id}}" onclick="addcart(this)"data-type='product'>add to cart</button>
+                                     @endif
+                            
+                                  @else
+                                  <button class="addtochart active" > you paid</button>
+                                  @endif
+    
+                                    
                                   @else
                                   <button class="addtochart" data-bs-target="#login2" data-bs-toggle="modal" >add to cart</button>
                                   @endauth
+    
                         </div>
 
                         <div class="card-body">
@@ -190,7 +202,7 @@
         <button class="nxt-btn"><i class="fa fa-arrow-right"></i></button>
         <div class="products productscroll  scrollable">
             @foreach ($photos as $photo)
-                <div class="card"  style="min-width:270px">
+                <div class="card"  style="min-width:290px">
                     <div class="image-product">
                         <a href="{{route('photo',$photo->id)}}">
                         <img src="{{ asset('assets/images/photo/'.$photo->photo) }}" class="card-img-top" alt="Photo"></a>
@@ -208,11 +220,23 @@
 
 
                               @auth
-                                  
-                              <button class="addtochart"  data-id="{{$product->id}}" onclick="addcart(this)">add to cart</button>
+
+                              @if(!$photo->sells()->where('user_id',auth()->user()->id)->exists())
+                                 @if ($photo->carts()->where('user_id',auth()->user()->id)->exists())
+                                 <button class="addtochart active"  data-id="{{$photo->id}}" onclick="addcart(this)"data-type='photo'>in cart</button>  
+                                 @else
+                                 <button class="addtochart"  data-id="{{$photo->id}}" onclick="addcart(this)"data-type='photo'>add to cart</button>
+                                 @endif
+                        
+                              @else
+                              <button class="addtochart active" > you paid</button>
+                              @endif
+
+                                
                               @else
                               <button class="addtochart" data-bs-target="#login2" data-bs-toggle="modal" >add to cart</button>
                               @endauth
+
                     </div>
 
                     <div class="card-body d-flex justify-content-between">
@@ -274,68 +298,6 @@
     @empty
         
     @endforelse
-    {{-- <div class="review freelanc ">
-
-            <div class="image">
-                <img src="{{asset("assets/images/vicky-hladynets-C8Ta0gwPbQg-unsplash.png")}}" alt="">
-            </div>
-            <div class="info">
-                <div class="name">
-                <span>ahmed</span>
-                    <div class="rate">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-
-                    </div>
-                </div>
-                <div class="txt">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam velit alias ratione eaque dolores expedita ex repellat ducimus. Ratione quisquam molestiae iusto minima obcaecati tenetur delectus ex ipsam doloribus nulla.</div>
-
-            </div>
-    </div>
-    <div class="review freelanc ">
-
-            <div class="image">
-                <img src="{{asset("assets/images/vicky-hladynets-C8Ta0gwPbQg-unsplash.png")}}" alt="">
-            </div>
-            <div class="info">
-                <div class="name">
-                <span>ahmed</span>
-                    <div class="rate">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-
-                    </div>
-                </div>
-                <div class="txt">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam velit alias ratione eaque dolores expedita ex repellat ducimus. Ratione quisquam molestiae iusto minima obcaecati tenetur delectus ex ipsam doloribus nulla.</div>
-
-            </div>
-    </div>
-    <div class="review freelanc ">
-            <div class="image">
-                <img src="{{asset("assets/images/vicky-hladynets-C8Ta0gwPbQg-unsplash.png")}}" alt="">
-            </div>
-
-            <div class="info">
-                <div class="name">
-                <span>ahmed</span>
-                    <div class="rate">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-
-                    </div>
-                </div>
-                <div class="txt">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam velit alias ratione eaque dolores expedita ex repellat ducimus. Ratione quisquam molestiae iusto minima obcaecati tenetur delectus ex ipsam doloribus nulla.</div>
-            </div>
-    </div> --}}
 
     {{$reviews->links() }}
             <a href="" class=" text-center showmore">show more</a>
@@ -378,53 +340,85 @@
 
 @section("js")
 <script>
+    $(".filter-button").click(function(){
+        $(".filter-items").toggle();
+    });
 
-        
-    function likes(e){
-    // $(this).toggleClass("active");
+
+
+function likes(e){
+// $(this).toggleClass("active");
+var id =$(e).attr('data-id');
+ var  type =$(e).attr('data-type');
+var token= $('meta[name="csrf_token"]').attr('content');
+$.ajax({
+ type: "GET",
+  url: "{{ URL::to('user/addorremovelikes')}}/" + id,
+  data:{'type':type},
+  headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+  dataType: "json",
+  success: function(data) {
+    
+    if(data['action']=="add"){
+        $(e).addClass("active");
+    }else if(data['action']=="delete"){
+        $(e).removeClass("active");
+
+    }
+  }
+
+  });
+
+
+}
+
+function addcart(e){
     var id =$(e).attr('data-id');
-     var  type =$(e).attr('data-type');
+    var  type =$(e).attr('data-type');
     var token= $('meta[name="csrf_token"]').attr('content');
     $.ajax({
-     type: "GET",
-      url: "{{ URL::to('user/addorremovelikes')}}/" + id,
-      data:{'type':type},
-      headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-      dataType: "json",
-      success: function(data) {
-        console.log(data);
-        if(data['action']=="add"){
-            $(e).addClass("active");
-        }else if(data['action']=="delete"){
-            $(e).removeClass("active");
-          
+ type: "GET",
+  url: "{{ URL::to('user/addtocart')}}/" + id,
+  data:{'type':type},
+  headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+  dataType: "json",
+  success: function(data) {
+    console.log(data);
+    if(data['status']){
+        $(e).addClass("active");
+        $(e).text('in cart');
+
+        $('#cart-count').html(parseInt($('#cart-count').html())+1);
+        $(document).ready(function(){
+            $('#addcart').modal('show');
+        });
+        
+    }else{
+
+        toastr.warning(data['message']); // Debugging statement
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log(xhr.responseText); // Debugging statement
         }
-      }
-    
-      });
-    
-    
-    }
-    
-    function addcart(e){
-        var id =$(e).attr('data-id');
-        var token= $('meta[name="csrf_token"]').attr('content');
-        $.ajax({
-     type: "GET",
-      url: "{{ URL::to('user/addcart')}}/" + id,
-      data:{'type':type},
-      headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-      dataType: "json",
-      success: function(data) {
-        console.log(data);
-        if(data['action']=="add"){
-            $(e).addClass("active");
-        }else if(data['action']=="delete"){
-            $(e).removeClass("active");
-        }
-      }
-    
-      });
-    }
-        </script>
+
+  });
+}
+
+$(document).ready(function () {
+    $(".category a.linktosubcategory").click(function(e){
+    e.preventDefault();
+    var id=$(this).attr('data-id');
+    $("#subcategorys"+id).toggle();
+
+    $('.subcategorys').not($("#subcategorys"+id)).hide();
+    })
+
+    $('.closesubcategory').click(function(e){
+        var id=$(this).attr('data-id');
+    $("#subcategorys"+id).hide();
+
+    });
+});
+    </script>
 @endsection
