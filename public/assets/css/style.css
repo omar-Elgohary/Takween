@@ -3211,3 +3211,82 @@ textarea.delay{
     padding: 5px;
     border-color: #ded9d9;
 }
+
+.search-data{
+padding: 20px 40px;
+    display: flex;
+    flex-direction: row-reverse;
+}
+.search-head  {
+    border-bottom: 1px solid #777;
+    display: flex;
+    justify-content: flex-end;
+}
+.search-head span{
+font-size: 18px;
+text-align: end;
+}
+
+.search-data .categories-search {
+
+    width:300px;
+    max-width: 100%;
+
+}
+.search-data .other-search {
+
+    flex-grow: 1;
+
+    
+}
+
+.search-data .other-search .freelancers-search{
+    display: flex;
+    flex-direction: column;
+
+}
+
+.search-data .other-search .freelanceers-search .freelancer-search{
+    display: flex;
+    align-items: center ;
+    padding-top:5px;
+
+}
+.search-data .other-search .freelancers-search .freelancer-search img{
+width: 65px;
+height: 65px;
+border-radius: 50%;
+
+}  
+.search-data .other-search .freelancers-search .freelancer-search span{
+
+    color: #636465; 
+    font-size: 16px;
+    font-weight: 300;
+    }  
+
+    .search-data .other-search .otherdata-search{
+        display: flex;
+        flex-direction: column;
+        padding-top:5px;
+    }
+    .search-data .other-search  .otherdata-search .product-search img{
+        width:100px;
+        height: 100px;
+        border-radius: 12px;
+    
+    }
+
+    .search-data .other-search .otherdata-search .product-search span{
+    
+        color: #636465; 
+        font-size: 16px;
+        font-weight: 300;
+        } 
+
+@media(max-width:767px){
+    .search-data{
+
+        flex-direction: column;
+    }
+}

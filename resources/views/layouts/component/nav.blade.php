@@ -20,6 +20,7 @@
                                 </div>
                             </div>
                         </div>
+                        
                     </form>
                 </div>
             </div>
@@ -122,8 +123,9 @@
     <div class="layout"></div>
         <div class="carve">
             <form class="search-form d-flex flex-grow-1 px-lg-3 " style="display:@yield("nosearch")" role="search">
-                <input class="form-control me-2 " type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control me-2 " type='text'  id="search" placeholder="Search" aria-label="Search" name="search">
                 <button class="btn btn-outline-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+
             </form>
         </div>
 </header>

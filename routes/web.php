@@ -5,6 +5,7 @@ use App\Http\Controllers\ChatController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -40,6 +41,7 @@ Route::get('/photo/{id}',[PhotoController::class, 'showPhoto'] )->name("photo");
 Route::get('/showFreelancerDetails/{id}', [UserController::class, 'showFreelancerDetails'])->name("showFreelancerDetails");
 
 Route::get("user/freelancers", [UserController::class, 'allFreelancers'])->name("freelancers");
+Route::get("ajax_search", [SearchController::class, 'ajax_search'])->name("search.ajax");
 
 Route::get('filter', [ProductController::class, 'filter'])->name('filter');
 
