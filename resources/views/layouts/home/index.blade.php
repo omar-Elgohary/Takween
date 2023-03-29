@@ -85,7 +85,7 @@ sadasdadasd
            dataType: "json",
            data:{'search' : $('#search').val()},
            success: function(data) {
-            console.log(data);
+           
               if(data == '0'){
                         // $('.typed-search-box').addClass('d-none');
                         $('#search-content').html(null);
@@ -104,20 +104,7 @@ sadasdadasd
            }
        
            });
-                // $.get('{{ route('search.ajax') }}', { _token: $('meta[name="csrf_token"].data'), search:searchKey}, function(data){
-                //     if(data == '0'){
-                //         // $('.typed-search-box').addClass('d-none');
-                //         $('#search-content').html(null);
-                //         $('.typed-search-box .search-nothing').removeClass('d-none').html( "Sorry, nothing found for <strong>"+searchKey+"</strong>");
-                //         $('.search-preloader').addClass('d-none');
-
-                //     }
-                //     else{
-                //         $('.typed-search-box .search-nothing').addClass('d-none').html(null);
-                //         $('#search-content').html(data);
-                //         $('.search-preloader').addClass('d-none');
-                //     }
-                // });
+               
             }
             else {
                 $('.typed-search-box').addClass('d-none');
