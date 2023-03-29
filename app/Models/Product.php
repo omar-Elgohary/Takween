@@ -1,6 +1,12 @@
 <?php
 namespace App\Models;
+use App\Models\Cart;
+use App\Models\File;
+use App\Models\Like;
 use App\Models\User;
+use App\Models\Selled;
+use App\Models\Service;
+use App\Models\Category;
 use App\Models\ProductProprity;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
