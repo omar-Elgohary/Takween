@@ -14,6 +14,7 @@ class FreelancerRequestController extends Controller
        $privates=[];
        $publics=[];
 
+
         $privatesx =  Requests::where('type','private')->where("status",'Pending')->where('freelancer_id',$user_id)->get();
 
 
@@ -36,11 +37,20 @@ class FreelancerRequestController extends Controller
 
 
         foreach( $publicsx as $p){
-
+           
             if($p->type =='public' && $p->status =='Pending' && $p->offer->where('freelancer_id',$user_id)->first()!=null){
                 if($p->type =='public' && $p->status =='Pending' && in_array($p->offer->where('freelancer_id',$user_id)->first()->status,['accept','pending'])){
                     continue;
+
                 }
+                if($p->type =='public' && $p->status =='Pending' &&$p->blacklist && $user_id==$p->blacklist->first()->freelancer_id){
+
+                 
+                    continue;
+
+                }
+               
+
               
 
          } 

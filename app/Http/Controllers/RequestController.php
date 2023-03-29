@@ -58,7 +58,7 @@ class RequestController extends Controller
         $user_id= auth()->user()->id;
         $this->validate($request, [
             'category_id' => 'required',
-            'service_id' => 'required',
+            'service_id' => 'nullable',
             'title' => 'required|string',
             'attachment' => 'required',
             // 'attachment' => 'required|mimes:pdf,word',
@@ -362,6 +362,42 @@ $data="";
     return redirect()->back()->with(['message'=>'open payment','offer_id'=> $re,'request_id'=>$id,'pay_wallet'=>$pay_wallet]);
     }
 
+
+
+
+    public function searchNewOffer($id){
+        $request=Requests::find($id);
+
+        if($request->payment()->where('freelancer_id',$request->freelancer_id)->first()){
+       
+       $total_pay=$request->payment()->where('freelancer_id',$request->freelancer_id)->first()->total;
+       $edit_pay=$request->payment()->where('freelancer_id',$request->freelancer_id)->first()->update([
+           'status'=>"refund"
+       ]);
+
+      $current_wallet= User::findOrFail(auth()->user()->id)->wallet->total;
+       $current_wallet+= $total_pay;
+       $edit_offer= Requests::findorfail($id)->offer()->where('freelancer_id',$request->freelancer_id)->update([
+           "status"=>'reject',
+       ]);
+   }
+   $request->blacklist()->create([
+    'freelancer_id'=>$request->freelancer_id
+   ]);
+       $edit_request= $request->update([
+           'status'=>"Pending",
+           'freelancer_id'=> null,
+       ]);
+
+
+      
+
+       
+       toastr()->success('edit done successfully');
+       return redirect()->back()->with(['state'=>"pending","id"=>$id]);
+
+
+    }
 
 
   

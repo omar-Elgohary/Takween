@@ -57,11 +57,13 @@
             <div class="d-flex justify-content-between">
                 <p class=" mb-0">{{__('request.service')}}</p>
                 <p class="fw-900 mb-0">
-                  @if (App::getLocale() =="ar")
-                  {{ App\Models\Service::where('id', $request->service_id)->first()->service_ar }}</p>
-                  @else
-                  {{ App\Models\Service::where('id', $request->service_id)->first()->service_en }}</p>
-                  @endif
+                    @if(App\Models\Service::where('id', $request->service_id)->exists())
+                    @if (App::getLocale() =="ar")
+                    {{ App\Models\Service::where('id', $request->service_id)->first()->service_ar }}</p>
+                    @else
+                    {{ App\Models\Service::where('id', $request->service_id)->first()->service_en }}</p>
+                    @endif
+                    @endif
   
             </div>
 
@@ -101,9 +103,7 @@
         </div>
           
         @if(empty($request->review->first()))
-        <div class="btn-contianer d-flex flex-column justify-between align-items-center my-3">
-            <button class="btn btn-modal btn-model-primary" type="button" data-bs-toggle="modal" data-bs-target="#review{{$request->id}}">Rate</button>
-        </div>
+       
         @else
         <div class="myreview flex-column py-3">
             <div class="d-flex">

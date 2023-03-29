@@ -85,11 +85,11 @@ show public request
 
 <div class="requesties d-flx flex-column pt-4">
     @foreach ($requests as $request)
-    @if(!$request->freelancer_id)
+    @if(!$request->freelancer_id )
         <div class="request offer d-flex flex-column px-3 py-3 position-relative mb-5" style="    margin-bottom: 63px !important;">
             <a href="#offerPending{{ $request->id }}" data-bs-toggle="modal" role="button">
                 <div class="d-flex justify-content-between align-items-baseline show-phone">
-                    <h3>#3412312</h3>
+                    <h3>{{$request->random_id}}</h3>
                     <p class="status gray"data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
                 </div>
 
@@ -105,7 +105,7 @@ show public request
                         <div>
                         </div>
                     </div>
-                     
+{{--                      
                 @if($request->offer->first() !=null)
                 <div class="d-flex flex-column px-2">
                     <p class="m-0">price</p>
@@ -115,7 +115,7 @@ show public request
                 </div>
             @else
                
-            @endif
+            @endif --}}
                 </div>
             </a>
 
@@ -194,7 +194,7 @@ show public request
 
                     <div class="freelanereq mx-2">
                         <h3 class="fw-600">{{ App\Models\User::where('id', $request->freelancer_id)->first()->name }}</h3>
-                        <span class="text-black-50">#123123</span>
+                        <span class="text-black-50">{{$request->random_id}}</span>
                     </div>
                 </div>
 
@@ -252,7 +252,7 @@ show public request
 
                     <div class="freelanereq mx-2">
                         <h3 class="fw-600">{{ App\Models\User::where('id', $request->freelancer_id)->first()->name }}</h3>
-                        <span class="text-black-50">#123123</span>
+                        <span class="text-black-50">{{$request->random_id}}</span>
                     </div>
                 </div>
 
@@ -310,7 +310,7 @@ show public request
 
                     <div class="freelanereq mx-2">
                         <h3 class="fw-600">{{ App\Models\User::where('id', $request->freelancer_id)->first()->name }}</h3>
-                        <span class="text-black-50">#123123</span>
+                        <span class="text-black-50">{{$request->random_id}}</span>
                     </div>
                 </div>
 
@@ -440,7 +440,7 @@ show public request
         <div class="modal-body">
             <div class="div d-flex justify-content-start px-4">
                 <div class="d-flex flex-column">
-                    <h3 class="mb-0 font-bold">#324234</h3>
+                    <h3 class="mb-0 font-bold">{{$request->random_id}}</h3>
                     <span class="text-black-50">Pending</span>
                 </div>
             </div>
@@ -453,7 +453,9 @@ show public request
 
                 <div class="d-flex justify-content-between">
                     <p class=" mb-0">service</p>
+                    @if(App\Models\Service::where('id', $request->service_id)->exists())
                     <p class="fw-900 mb-0">{{ App\Models\Service::where('id', $request->service_id)->first()->service_en }}</p>
+                    @endif
                 </div>
 
                 <div class="d-flex justify-content-between">
@@ -473,10 +475,11 @@ show public request
                 <p class="flex-grow-1">{{ $request->description }}</p>
             </div>
 
-            @foreach (App\Models\Requests::where('id', $request->id)->get() as $request)
+           
                 <div class="d-flex flex-column px-3">
                 <p class="fs-5 font-bold">attachment</p>
                 <div class="d-flex flex-column px-2 ">
+                    @foreach (  $request->file()->get() as $file)
                     <div class="file d-flex mb-2">
                         <div class="details d-flex ">
                             <div class="img">
@@ -484,15 +487,15 @@ show public request
                             </div>
 
                             <div class="info">
-                                <p class="mb-0">{{ $request->attachment }}</p>
-
-                                <div class="size">521kB .WORD</div>
+                                <p class="mb-0">{{ $file->name }}</p>
+                                <div class="size">{{ $file->size}}kB .{{ $file->type }}</div>
                             </div>
                         </div>
-                    </div>
+                    </div> <!-- end offerPending modal -->
+                    @endforeach
                 </div>
             </div>
-            @endforeach
+          
         </div>
 
         <div class="modal-footer">
@@ -537,7 +540,9 @@ show public request
 
                 <div class="d-flex justify-content-between">
                     <p class=" mb-0">service</p>
-                        {{ App\Models\Service::where('id' , $request->service_id)->first()->service_en}}
+                    @if(App\Models\Service::where('id', $request->service_id)->exists())
+                    <p class="fw-900 mb-0">{{ App\Models\Service::where('id', $request->service_id)->first()->service_en }}</p>
+                    @endif
                 </div>
 
                 <div class="d-flex justify-content-between">
@@ -579,8 +584,12 @@ show public request
             
 
                 <div class="btn-contianer d-flex flex-column justify-between align-items-center my-3">
-                    <button class="btn  btn-modal btn-model-primary" type="button" data-bs-toggle="modal" data-bs-target="#review"  >search new offer</button>
-                    <button class="btn text-black-50 border-0"type="button" data-bs-toggle="modal" data-bs-target="#suredelete"  >cancel this service</button>
+                    <form action="{{route('user.searchnewoffer',$request->id)}}" method='POST'>
+                        @csrf
+                        <button class="btn  btn-modal btn-model-primary" type="submit"  >search new offer</button>
+                    </form>
+                   
+                    <button class="btn text-black-50 border-0"type="button" data-bs-toggle="modal" data-bs-target="#suredelete{{$request->id}}"  >cancel this service</button>
                 </div>
             </div>
         </div>

@@ -8,6 +8,7 @@ use App\Models\Payment;
 use App\Models\Service;
 use App\Models\Category;
 use App\Models\Freelancer;
+use App\Models\BlackListRequest;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -57,6 +58,11 @@ class Requests extends Model
     public function payment()
     {
         return $this->morphMany(Payment::class,'paymentsable');
+    }
+
+    public function  blacklist(){
+
+        return $this->hasMany(BlackListRequest::class,'request_id');
     }
 
     

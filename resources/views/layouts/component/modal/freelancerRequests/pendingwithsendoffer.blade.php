@@ -9,7 +9,7 @@
          
           <div class="div d-flex justify-content-start px-4">
               <div class="d-flex flex-column">
-                <h3 class="mb-0 font-bold">#324234</h3>
+                <h3 class="mb-0 font-bold">{{$request->random_id}}</h3>
                 <span class="text-black-50">pending</span>
               </div>
               <div class="align-slef-end" style="
@@ -39,10 +39,12 @@
             <div class="d-flex justify-content-between">
                 <p class=" mb-0">{{__('request.service')}}</p>
                 <p class="fw-900 mb-0">
+                  @if(App\Models\Service::where('id', $request->service_id)->exists())
                   @if (App::getLocale() =="ar")
                   {{ App\Models\Service::where('id', $request->service_id)->first()->service_ar }}</p>
                   @else
                   {{ App\Models\Service::where('id', $request->service_id)->first()->service_en }}</p>
+                  @endif
                   @endif
   
             </div>

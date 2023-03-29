@@ -81,5 +81,7 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(CardOrder::class);
     }
 
-
+    public function  blacklist(){
+        return $this->hasMany(BlackListRequest::class,'freelancer_id');
+    }
 }

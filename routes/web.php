@@ -209,6 +209,9 @@ Route::prefix("user")->name("user.")->middleware('auth')->group(function(){
     Route::get('/getrequestoffer/{id}', [RequestController::class, 'getrequestoffer'])->name("getrequestoffer");
     Route::get('/rejectofferrequest', [RequestController::class, 'rejectofferrequest'])->name("rejectofferrequest");
     Route::get('/acceptoffertopay/{id}/{re}', [RequestController::class, 'acceptoffertopay'])->name("acceptoffertopay");
+
+    Route::post('/search/newoffer/{id}', [RequestController::class, 'searchNewOffer'])->name("searchnewoffer");
+
     // payment
 
 

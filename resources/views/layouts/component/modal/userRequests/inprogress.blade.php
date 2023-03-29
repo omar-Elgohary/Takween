@@ -35,7 +35,9 @@
 
                     <div class="d-flex justify-content-between">
                         <p class=" mb-0">service</p>
+                        @if(App\Models\Service::where('id', $request->service_id)->exists())
                         <p class="fw-900 mb-0">{{ App\Models\Service::where('id', $request->service_id)->first()->service_en }}</p>
+                        @endif
                     </div>
 
                     <div class="d-flex justify-content-between">

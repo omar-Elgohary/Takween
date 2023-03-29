@@ -3144,7 +3144,7 @@ margin-bottom: 10px;
   display:inline-block;
   vertical-align:top;
 }
-#calendar_content, #calendar_weekdays, #calendar_header{
+/* #calendar_content, #calendar_weekdays, #calendar_header{
   position: relative;
   width: 320px;
   overflow: hidden;
@@ -3202,7 +3202,7 @@ i[class^=icon-chevron]{
   float: left;
   width:15%;
   border-radius: 50%;
-}
+} */
 
 .delay-title{
     font-weight: 200;
@@ -3218,7 +3218,8 @@ padding: 20px 40px;
     flex-direction: row-reverse;
 }
 .search-head  {
-    border-bottom: 1px solid #777;
+    /* border-bottom: 1px solid #777; */
+    background-color:#EFEFF0; 
     display: flex;
     justify-content: flex-end;
 }
