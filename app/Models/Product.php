@@ -33,5 +33,20 @@ class Product extends Model
     {
         return $this->morphMany(File::class,'filesable');
     }
+    public function freelancer()
+    {
+        return $this->belongsTo(User::class);
+    }
+    
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'cat_id');
+    }
+    
+    
+    public function service()
+    {
+        return $this->belongsTo(Service::class);
+    }
     
 }
