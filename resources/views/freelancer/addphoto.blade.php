@@ -76,8 +76,8 @@ label span{
     <div class="section-header">
             <h2>add photo</h2>
         </div>
-    <form action="" method="">
-     
+    <form action="{{route("freelanc.photo.store")}}" method="POST"  enctype="multipart/form-data">
+     @csrf
         <div class="mb-4 hlafwidth">
 
             <h5  class="form-label pd-2">upload photo</h5>
@@ -86,55 +86,100 @@ label span{
           <div class="d-flex">
               <label for="attachment" class="download"> 
           <i class="fa-solid fa-arrow-down"></i></label>
-            <input type="file" class="form-control" id="attachment" name="attachment" placeholder="persentation title">
+            <input type="file" class="form-control" id="attachment" name="photo" placeholder="persentation title" ">
           </div>
-            
+               @error("photo")
+                   <span class="error-message">{{$message}}</span>
+               @enderror
             </div>
             
           </div>
        <div class="mb-4 hlafwidth">
   <label for="prodname" class="form-label pd-2">photo name</label>
-  <input type="text" class="form-control" id="photoname"  name="productname"placeholder="e.g wedding card">
+  <input type="text" class="form-control" id="photoname" value="{{old('name')}}" name="name" placeholder="e.g wedding card">
+  @error("name")
+                   <span class="error-message">{{$message}}</span>
+    @enderror
 </div>
 
 <div class="mb-4 fullwidth">
     <label for="description" class="form-label mb-3">description</label>
-    <input  class="form-control " id="description" placeholder="Write photo description"  name="discription">
+    <input  class="form-control " id="description" placeholder="Write photo description"  name="description" value="{{old('description')}}">
+    @error("description")
+                   <span class="error-message">{{$message}}</span>
+    @enderror
   </div> 
 
   <div class="mb-4 hlafwidth">
     <label for="camera" class="form-label pd-2">camera brand<span>(optional)</span></label>
-    <input type="text" class="form-control" id="camera"  name="camera"placeholder="e.g wedding card">
+    <input type="text" class="form-control" id="camera_brand"  name="camerabrand"placeholder="e.g wedding card" value="{{old('camerabrand')}}">
+    @error("camerabrand")
+                   <span class="error-message">{{$message}}</span>
+    @enderror
   </div>
 <div class="mb-4 hlafwidth">
     <label for="lens" class="form-label mb-3 " id>lens type <span>(optional)</span></label>
-    <input  class="form-control " id="lens" placeholder="e.g 70-200 mm"  name="lens">
+    <input  class="form-control " id="lens" placeholder="e.g 70-200 mm"  name="lens"
+    value="{{old('lens')}}">
+    @error("lens")
+    <span class="error-message">{{$message}}</span>
+@enderror
   </div> 
 <div class="mb-4 hlafwidth">
-    <label for="lens" class="form-label mb-3 " id>size</label>
+    <label for="lens" class="form-label mb-3 " >size</label>
     <div class="d-flex justify-content-between">
-        <input  class="form-control w-25" id="lenswidth" placeholder="width"  name="lens">
-        <input  class="form-control w-25" id="lensheight" placeholder="height"  name="lens">
+      <div>
+        <input  class="form-control w-100" id="sizewidth" placeholder="width"  name="sizewidth"
+        value="{{old('sizewidth')}}">
+        @error("sizewidth")
+        <span class="error-message">{{$message}}</span>
+    @enderror
+      </div>
+        <div>
+          <input  class="form-control w-100" id="sizeheight" placeholder="height"  name="sizeheight" value="{{old('sizeheight')}}"">
+          @error("sizeheight")
+          <span class="error-message">{{$message}}</span>
+          @enderror
+
+        </div>
+        
         
     </div>
+ 
   </div> 
   <div class="mb-4 hlafwidth">
     <label for="category">size type </label>
      <select name="sizetype" id="sizetype"class="form-select" aria-label="Default select example">
-         <option value=""></option>
-         <option value=""></option>
-         <option value=""></option>
+         <option value="px" @if ((old('sizetype')=='px'))
+           selected
+         @else
+           
+         @endif>px</option>
+         <option value="inc"@if ((old('sizetype')=='inc'))
+         selected
+       @else
+         
+       @endif>inc</option>
+         <option value="cm"@if ((old('sizetype')=='cm'))
+         selected
+       @else
+         
+       @endif>cm</option>
      </select>
     </div>
 
     <div class="mb-4 hlafwidth">
         <label for="lens" class="form-label mb-3 " id>location<span>(optional)</span></label>
         <div class="location" >
-            <input  class="form-control " id="lens" placeholder="Search"  name="lens">
-            <button class="search">
+            <input  class="form-control " id="lens" placeholder="Search"  name="location"value="{{old('location')}}" >
+            <button class="search" type="button">
                 <i class="fa fa-search"
                 ></i>
             </button>
+
+            @error("location")
+            <span class="error-message">{{$message}}</span>
+        @enderror
         </div>
       </div>
 

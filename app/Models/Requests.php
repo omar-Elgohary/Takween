@@ -1,6 +1,9 @@
 <?php
 namespace App\Models;
+use App\Models\Chat;
 use App\Models\User;
+use App\Models\Offer;
+use App\Models\Review;
 use App\Models\Payment;
 use App\Models\Service;
 use App\Models\Category;
@@ -34,4 +37,27 @@ class Requests extends Model
     {
         return $this->belongsTo(Service::class);
     }
+
+    public function review()
+    {
+     return $this->morphMany(Review::class,'reviewsable');
+    }
+    public function chats()
+    {
+        return $this->morphMany(Chat::class,'chatsable');
+    }
+    public function offer()
+    {
+        return $this->morphMany(Offer::class,'offersable');
+    }
+    public function file()
+    {
+        return $this->morphMany(File::class,'filesable');
+    }
+    public function payment()
+    {
+        return $this->morphMany(Payment::class,'paymentsable');
+    }
+
+    
 }

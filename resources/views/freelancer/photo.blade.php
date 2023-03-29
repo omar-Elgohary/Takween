@@ -7,7 +7,7 @@
 @section("og-image")
 @endsection
 @section("title")
-product
+photo
 @endsection
 @section("header")
 @endsection
@@ -40,7 +40,7 @@ product
                 <div class="title">
                     
                     <div class="info d-flex flex-column  ">
-                        <h2 class="bold text-black">photo name </h2>
+                        <h2 class="bold text-black">{{$photo->name}}</h2>
                        
                         <div class="rate">
                             <i class="fa fa-star" ></i>
@@ -54,7 +54,7 @@ product
              <div class="service d-flex justify-content-end  flex-1">
                 <div class="serv d-flex align-items-center">
 
-                    <a href="{{route("freelanc.editphoto")}}" style="
+                    <a href="{{route("freelanc.photo.edit",$photo->id)}}" style="
                     display: flex;
                     flex-grow: 1;
                     align-items: center;
@@ -70,7 +70,7 @@ product
 
                     <div  class="prod-likes withborder py-2 px-3 rounded-pill">
                                   <i class="fa-solid fa-heart align-self-center"></i>
-                                  <span>123</span>
+                                  <span>{{$photo->likes->count()}}</span>
                     </div>
 
                             
@@ -95,9 +95,9 @@ product
                         <div class="row">
 
                             <div class="col-12">
-                                <a href="{{asset('assets/images/Component5.png')}}" title="">
-                                    <div class="img-fluid d-flex justify-content-end">
-                                        <img src="{{asset('assets/images/Component5.png')}}" alt="" class="img-fluid d-block">
+                                <a href="{{asset('assets/images/photo/'.$photo->photo)}}" title="$photo->name">
+                                    <div class="img-fluid photo-place d-flex justify-content-end">
+                                        <img src="{{asset('assets/images/photo/'.$photo->photo)}}" alt="" class="img-fluid d-block">
                                     </div>
                                 </a>
                             </div>
@@ -120,14 +120,14 @@ product
 
                     </div>
                     <div class="body">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam culpa reprehenderit veniam sequi, exercitationem ipsum voluptates sed, soluta et voluptate perspiciatis distinctio quaerat aut. Rem autem aut illum eveniet voluptatibus.
+                        {{$photo->description}}
                     </div>
                     <div class="proprity py-4" >
                         <h2  class="bold">proprities</h2>
                         <ul >
-                            <li>camera: canon</li>
-                            <li>camra lens:14322px </li>
-                            <li>size: 1700 1200 px</li>
+                            <li>camera: {{$photo->camera_brand}}</li>
+                            <li>camra lens:{{$photo->lens_type}} </li>
+                            <li>size: {{$photo->size_width}} {{$photo->size_height}}{{$photo->size_type}}</li>
                             
                         </ul>
                     </div>

@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en"
-{{-- dir="rtl" --}}
+@if ( App::getLocale() =="ar")
+  dir="rtl"  
+
+  @else
+  dir="ltr"  
+
+@endif
 >
 
 
@@ -30,6 +36,7 @@
         @endguest
 
 @include("layouts.component.modal.login")
+@include("layouts.component.modal.login2")
 @include("layouts.component.modal.signup")
 @include("layouts.component.modal.forgetpassword")
 

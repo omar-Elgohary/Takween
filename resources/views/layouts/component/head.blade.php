@@ -8,8 +8,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="title" Content="منصة إكتمل - المتجر">
+<link rel="shortcut icon" href="{{asset('assets/images/logo.png')}}" type="image/x-icon">
 
-
+<meta name="csrf_token" content="{{ csrf_token() }}" />
 <link rel="apple-touch-icon" href="https://www.ektml.com/public/static/img/logo_ektml-2.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -44,7 +45,11 @@
 <link href="{{asset("assets/css/icons.min.css")}}" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="{{asset("assets/css/all.min.css")}}">
 <!-- App Css-->
-<link href="{{asset("assets/css/app.min.css")}}" id="app-style" rel="stylesheet" type="text/css" />
 
-<link rel="stylesheet" href="{{asset("assets/css/style.css")}}">
+<link href="{{asset("assets/css/app.min.css")}}" id="app-style" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="{{asset("assets/css/style.css")}}"> 
+@if ( App::getLocale() =="ar")
+<link rel="stylesheet" href="{{asset("assets/css/stylertl.css")}}"> 
+@endif
+
    {{-- <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"> --}}

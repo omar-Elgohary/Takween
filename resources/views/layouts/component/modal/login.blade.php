@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal fade " id="login" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+<div class="modal fade modal-uk" id="login" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -10,18 +10,18 @@
     <form method="POST" action="{{ route('login') }}">
       @csrf
 
-      <h1 class="modal-title fs-5" >Login in</h1>
+      <h1 class="modal-title fs-5" >Log in</h1>
   <!-- phone input -->
-  <div class="form-outline mb-4">
+  <div class="form-outline mb-4 halfwidthinput">
     <label class="form-label" for="phone1">Phone number</label>
     <div class="input-icon">
-        <i class="fa fa-user"></i>
+        <i class="fa fa-mobile"></i>
     <input type="text" id="phone1" class="form-control" name="phone" />
     </div>
   </div>
 
   <!-- Password input -->
-  <div class="form-outline mb-4">
+  <div class="form-outline mb-4 halfwidthinput">
     <label class="form-label" for="password1">Password</label>
     <div class="input-icon">
         <i class="fa fa-light fa-lock"></i>

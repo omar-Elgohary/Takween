@@ -64,25 +64,32 @@
                 </p>
             </div>
 
-            <form action="">
+            <form action="{{route('user.switchToFreelancer')}}" method="POST">
                 <!-- phone input -->
+                @csrf
                 <div class=" mb-4 halfwidthinput">
                 <label class="form-label" for="idnumber">ID number</label>
                 <div class="">
-                <input type="text" id="idnumber" class="form-control" name="idnumber"  placeholder="**********"/>
+                <input type="text" id="idnumber" class="form-control" name="id_number"  placeholder="**********"  value='{{old('id_number')}}'/>
+                @error('id_number')
+    <div class="alert alert-danger">{{ $message }}</div>
+@enderror
                 </div>
 
                 </div>
                 <div class=" mb-5 halfwidthinput">
                 <label class="form-label" for="br">Business register</label>
                 <div class="">
-                <input type="text" id="br" class="form-control" name="businessRegester"  placeholder="**********" />
+                <input type="text" id="br" class="form-control" name="business_register"  placeholder="**********"  value='{{old('business_register')}}' />
+                @error('business_register')
+    <div class="alert alert-danger">{{ $message }}</div>
+     @enderror
                 </div>
                 <span class="text-black-50">You can use "Ma'roof" number</span>
                 </div>
 
                 <div class="btn-contianer d-flex flex-column justify-content-center align-items-center">
-                <button type="submit" class="btn  btn-modal  my-3 btn-model-primary ">sign up</button>
+                <button type="submit" class="btn  btn-modal  my-3 btn-model-primary">sign up</button>
                 </div>
                 </form>
             </div>

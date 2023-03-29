@@ -2,7 +2,7 @@
 
 @section("og-title")
 @endsection
-@section("og-description")  
+@section("og-description")
 @endsection
 @section("og-image")
 @endsection
@@ -50,7 +50,7 @@ profile page
             </div>
         </div>
 
-        <div class="waltinfo d-flex flex-sm-wrap">
+        <div class="waltinfo d-flex flex-sm-wrap mb-5">
             <div class="flex-grow-1 cash">
                 <div class="section-header ">
                     <h2>wallet </h2>
@@ -58,8 +58,8 @@ profile page
 
                 <div class="hoverdiv d-flex justify-content-around align-items-baseline py-3" >
                     <div class="wall d-flex flex-column">
-                        <p class="total">total</p>
-                        <P class="number">127<span>
+                        <p class="total">Total</p>
+                        <P class="number">{{$user->wallet->total}}<span>
                             SR
                         </span>
                             </P>
@@ -67,71 +67,100 @@ profile page
                     <button class="btn" data-bs-target="#cashout" data-bs-toggle="modal" type="button">cashout</button>
                 </div>
             </div>
+
             <div class="flex-grow-1 hestory">
                 <div class="section-header ">
                     <h2>wallet history </h2>
                 </div>
-        <div class="hest mx-2">
-<div class="accordion" id="accordionPanelsStayOpenExample">
+
+                <div class="hest mx-2">
+                    <div class="accordion" id="accordionPanelsStayOpenExample">
+                 
+  @forelse ( $user_wallet_hestory as $wh )
+    
   <div class="accordion-item">
     <h2 class="accordion-header d-flex align-items-center justify-content-between p-2" id="panelsStayOpen-headingOne">
         <div  class= "info d-flex flex-column">
-        <p class="text-black-100 p-0 m-0">refund</p>
-        <p class="text-black-50">2/8/2202</p>
+        <p class="text-black-100 p-0 m-0">{{$wh->status}}</p>
+        <p class="text-black-50">{{ date_format($wh->created_at,'Y-m-d ')}}</p>
         </div>
-      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#refund1" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#refund{{$wh->id}}" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
         <div class="number">
+
+          @if ($wh->user_id == auth()->user()->id && $wh->status !='refund')
+             
+             -
+
+          @else
             +
-            <span>150</span>
+          @endif
+            
+            <span >{{$wh->total}}</span>
             <span>RS</span>
         </div>
       </button>
     </h2>
-    <div id="refund1" class="accordion-collapse collapse " aria-labelledby="panelsStayOpen-headingOne">
+    <div id="refund{{$wh->id}}" class="accordion-collapse collapse " aria-labelledby="panelsStayOpen-headingOne">
       <div class="accordion-body">
-        <strong>This is the first item's accordion body.</strong>  that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+        <div style="max-width:100%">
+
+
+
+        
+
+        </div>
       </div>
     </div>
   </div>
 
-
+  @empty
+    
+  @endforelse
+</div>
+</div>
+</div>
 </div>
 
 
-            {{--  --}}
-        </div>
-            </div>
+<div class="files d-flex">
+    <div class="section-header width-0 p-2">
+        <h2>Files</h2>
+    </div>
 
-        </div>
+    <div class="accordion" id="accordionPanelsStayOpenExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#newfile" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+           <span class="px-2">New</span>
+      
+            </button>
+          </h2>
 
- <div class="files d-flex">
-            <div class="section-header  p-2">
-            <h2>Files </h2>
-            </div>
+          <div id="newfile" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+            <div class="accordion-body d-flex flex-column">
 
-            {{--  --}}
-<div class="accordion" id="accordionPanelsStayOpenExample">
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#newfile" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-     <span class="px-2">New</span>
-
-      </button>
-    </h2>
-    <div id="newfile" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-      <div class="accordion-body d-flex flex-column">
-        <div class="file d-flex ">
+                
+          @foreach ($files_current as $curfile )
+          <div class="file d-flex ">
             <div class="details d-flex ">
                 <div class="img">
-<i class="fa-regular fa-file-word"></i>
+                    @if($curfile->type=='word')
+                    <i class="fa-regular fa-file-word"></i>
+                    @elseif($curfile->type=='pptx' ||$curfile->type=='ppt')
+                    <i class="fa-regular fa-file-powerpoint"></i>
+                    @elseif($curfile->type =='pdf')
+                    <i class="fa-regular fa-file-pdf"></i>
+                     @else
+                     <i class="fa-regular fa-file"></i>
+                    @endif
                 </div>
                 <div class="info">
                     <h3>
-                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod temporlorem
+                        {{$curfile->name}}
 
                     </h3>
                     <div class="size">
-                        521kB . PDF
+                        {{$curfile->size}} . {{$curfile->type}}
                     </div>
                 </div>
 
@@ -140,37 +169,97 @@ profile page
                 <i class="fa-solid fa-ellipsis-vertical"></i>
             </div>
         </div>
-
-      </div>
-    </div>
-  </div>
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#last-monthfile" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-      <span class="px-2"> Last month</span>
-      </button>
-    </h2>
-    <div id="last-monthfile" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
-      <div class="accordion-body">
-        <strong>This is the second item's accordion body.</strong> It is hidden by default, until the
-      </div>
-    </div>
-  </div>
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="panelsStayOpen-headingThree">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#oldfile" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-      <span class="px-2"> Older</span>
-      </button>
-    </h2>
-    <div id="oldfile" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
-      <div class="accordion-body">
-
-      </div>
-    </div>
-  </div>
-</div>
+          @endforeach
+             
+      
+            </div>
+          </div>
         </div>
-    </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#last-monthfile" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+            <span class="px-2"> Last month</span>
+            </button>
+          </h2>
+          <div id="last-monthfile" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+            <div class="accordion-body">
+                @foreach ($files_lastmonth as $lastfile )
+                <div class="file d-flex ">
+                  <div class="details d-flex ">
+                      <div class="img">
+                        @if($lastfile->type=='word')
+                        <i class="fa-regular fa-file-word"></i>
+                        @elseif($curfile->type=='pptx' ||$curfile->type=='ppt')
+                        <i class="fa-regular fa-file-powerpoint"></i>
+                        @elseif($lastfile->type =='pdf')
+                        <i class="fa-regular fa-file-pdf"></i>
+                         @else
+                         <i class="fa-regular fa-file"></i>
+                        @endif
+                      </div>
+                      <div class="info">
+                          <h3>
+                              {{$lastfile->name}}
+      
+                          </h3>
+                          <div class="size">
+                              {{$lastfile->size}} . {{$lastfile->type}}
+                          </div>
+                      </div>
+      
+                  </div>
+                  <div class="tool">
+                      <i class="fa-solid fa-ellipsis-vertical"></i>
+                  </div>
+              </div>
+                @endforeach
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#oldfile" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+            <span class="px-2"> Older</span>
+            </button>
+          </h2>
+          <div id="oldfile" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+            <div class="accordion-body">
+                @foreach ($files_old as $lastfile )
+                <div class="file d-flex ">
+                  <div class="details d-flex ">
+                      <div class="img">
+                      @if($lastfile->type=='word')
+                     <i class="fa-regular fa-file-word"></i>
+                     @elseif($curfile->type=='pptx' ||$curfile->type=='ppt')
+                     <i class="fa-regular fa-file-powerpoint"></i>
+                     @elseif($lastfile->type =='pdf')
+                     <i class="fa-regular fa-file-pdf"></i>
+                      @else
+                      <i class="fa-regular fa-file"></i>
+                     @endif
+                      </div>
+                      <div class="info">
+                          <h3>
+                              {{$lastfile->name}}
+      
+                          </h3>
+                          <div class="size">
+                              {{$lastfile->size}} . {{$lastfile->type}}
+                          </div>
+                      </div>
+      
+                  </div>
+                  <div class="tool">
+                      <i class="fa-solid fa-ellipsis-vertical"></i>
+                  </div>
+              </div>
+                @endforeach
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+</div>
 </div>
 
 @endsection

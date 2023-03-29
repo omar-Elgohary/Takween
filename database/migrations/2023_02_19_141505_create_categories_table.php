@@ -9,9 +9,9 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->string('title_en', 20);
-            $table->string('title_ar', 20);
-            $table->string('icon', 20);
+            $table->string('title_en', 100);
+            $table->string('title_ar', 100);
+            $table->string('icon', 100);
             $table->timestamps();
         });
     }

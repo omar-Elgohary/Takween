@@ -11,17 +11,20 @@ home
 @endsection
 @section("header")
 @endsection
-
-
 @section("css")
-
 @endsection
 
-
 @section("content")
-    <a class="addrequesticon" href="{{route('user.requestpublic')}}">
-<i class="fa-solid fa-plus"></i>
+
+@auth
+<a class="addrequesticon" href="{{route('user.requestpublic')}}">
+    <i class="fa-solid fa-plus"></i>
+</a>  
+@else
+<a class="addrequesticon" href="#login2"  data-bs-toggle="modal">
+    <i class="fa-solid fa-plus"></i>
 </a>
+@endauth
 
 <div class="messages pt-3">
     <div class="container py-3">
@@ -57,260 +60,62 @@ home
     <div class="container py-3 scrollable-container">
         <div class="section-header">
             <h2>categories</h2>
-
             <a href="#">See all</a>
         </div>
-          <button class="pre-btn"></button>
-        <button class="nxt-btn"></button>
+
+        <button class="pre-btn">
+            <i class="fa fa-arrow-left"></i>
+        </button>
+        <button class="nxt-btn"><i class="fa fa-arrow-right"></i></button>
+
         <div class="scrollable d-flex" >
-            <div class="category ">
-                <div class="image">
-                    <img src="{{asset("assets/images/Group 10827.png")}}" alt="">
+            @forelse  ($categories as $category)
+                <div class="category ">
+                    <div class="image"><i class="fa {{ $category->icon }}"></i></div>
+                    <p>{{ $category->title_en }}</p>
                 </div>
-                <p>
-                    Book Markers
-                </p>
+                @empty
 
-            </div>
-            <div class="category ">
-                <div class="image">
-                    <img src="{{asset("assets/images/Group 10827.png")}}" alt="">
-                </div>
-                <p>
-                    Book Markers
-                </p>
-
-            </div>
-            <div class="category ">
-                <div class="image">
-                    <img src="{{asset("assets/images/Group 10827.png")}}" alt="">
-                </div>
-                <p>
-                    Book Markers
-                </p>
-
-            </div>
-            <div class="category ">
-                <div class="image">
-                    <img src="{{asset("assets/images/Group 10827.png")}}" alt="">
-                </div>
-                <p>
-                    Book Markers
-                </p>
-
-            </div>
-            <div class="category ">
-                <div class="image">
-                    <img src="{{asset("assets/images/Group 10827.png")}}" alt="">
-                </div>
-                <p>
-                    Book Markers
-                </p>
-
-            </div>
-            <div class="category ">
-                <div class="image">
-                    <img src="{{asset("assets/images/Group 10827.png")}}" alt="">
-                </div>
-                <p>
-                    Book Markers
-                </p>
-
-            </div>
-            <div class="category ">
-                <div class="image">
-                    <img src="{{asset("assets/images/Group 10827.png")}}" alt="">
-                </div>
-                <p>
-                    Book Markers
-                </p>
-
-            </div>
-            <div class="category ">
-                <div class="image">
-                    <img src="{{asset("assets/images/Group 10827.png")}}" alt="">
-                </div>
-                <p>
-                    Book Markers
-                </p>
-
-            </div>
-            <div class="category ">
-                <div class="image">
-                    <img src="{{asset("assets/images/Group 10827.png")}}" alt="">
-                </div>
-                <p>
-                    Book Markers
-                </p>
-
-            </div>
-            <div class="category ">
-                <div class="image">
-                    <img src="{{asset("assets/images/Group 10827.png")}}" alt="">
-                </div>
-                <p>
-                    Book Markers
-                </p>
-
-            </div>
-            <div class="category ">
-                <div class="image">
-                    <img src="{{asset("assets/images/Group 10827.png")}}" alt="">
-                </div>
-                <p>
-                    Book Markers
-                </p>
-
-            </div>
-            <div class="category ">
-                <div class="image">
-                    <img src="{{asset("assets/images/Group 10827.png")}}" alt="">
-                </div>
-                <p>
-                    Book Markers
-                </p>
-
-            </div>
-            <div class="category ">
-                <div class="image">
-                    <img src="{{asset("assets/images/Group 10827.png")}}" alt="">
-                </div>
-                <p>
-                    Book Markers
-                </p>
-
-            </div>
-            <div class="category ">
-                <div class="image">
-                    <img src="{{asset("assets/images/Group 10827.png")}}" alt="">
-                </div>
-                <p>
-                    Book Markers
-                </p>
-
-            </div>
-
+                <p class=" w-100  text-center " style="height: 150px"> no freelancer</p>
+                @endforelse
         </div>
-
     </div>
-</div>
+</div> <!-- End Category Section -->
 
 <div class="freelancers pt-3">
     <div class="container py-3 scrollable-container">
         <div class="section-header">
             <h2>Top freelancers</h2>
-
             <a href="#">See all</a>
         </div>
 
-          <button class="pre-btn"></button>
-        <button class="nxt-btn"></button>
-        <div class="scrollable">
-            <div class="freelancer ">
-                <div class="image">
-                    <img src="{{asset("assets//images/vicky-hladynets-C8Ta0gwPbQg-unsplash.png")}}" alt="">
-                </div>
-                <div class="info">
-                    <div class="name text-capitalize">ahmed</div>
-                    <div class="rate">
-                        <i class="fa fa-star"></i>
-                        <div class="rate-precntage">3,4</div>
-                    </div>
-                </div>
-            </div>
-            <div class="freelancer ">
-                <div class="image">
-                    <img src="{{asset("assets/images/vicky-hladynets-C8Ta0gwPbQg-unsplash.png")}}" alt="">
-                </div>
-                <div class="info">
-                    <div class="name text-capitalize">ahmed</div>
-                    <div class="rate">
-                        <i class="fa fa-star"></i>
-                        <div class="rate-precntage">3,4</div>
-                    </div>
-                </div>
-            </div>
-            <div class="freelancer ">
-                <div class="image">
-                    <img src="{{asset("assets/images/vicky-hladynets-C8Ta0gwPbQg-unsplash.png")}}" alt="">
-                </div>
-                <div class="info">
-                    <div class="name text-capitalize">ahmed</div>
-                    <div class="rate">
-                        <i class="fa fa-star"></i>
-                        <div class="rate-precntage">3,4</div>
-                    </div>
-                </div>
-            </div>
-            <div class="freelancer ">
-                <div class="image">
-                    <img src="{{asset("assets/images/vicky-hladynets-C8Ta0gwPbQg-unsplash.png")}}" alt="">
-                </div>
-                <div class="info">
-                    <div class="name text-capitalize">ahmed</div>
-                    <div class="rate">
-                        <i class="fa fa-star"></i>
-                        <div class="rate-precntage">3,4</div>
-                    </div>
-                </div>
-            </div>
-            <div class="freelancer ">
-                <div class="image">
-                    <img src="{{asset("assets/images/vicky-hladynets-C8Ta0gwPbQg-unsplash.png")}}" alt="">
-                </div>
-                <div class="info">
-                    <div class="name text-capitalize">ahmed</div>
-                    <div class="rate">
-                        <i class="fa fa-star"></i>
-                        <div class="rate-precntage">3,4</div>
-                    </div>
-                </div>
-            </div>
-            <div class="freelancer ">
-                <div class="image">
-                    <img src="{{asset("assets/images/vicky-hladynets-C8Ta0gwPbQg-unsplash.png")}}" alt="">
-                </div>
-                <div class="info">
-                    <div class="name text-capitalize">ahmed</div>
-                    <div class="rate">
-                        <i class="fa fa-star"></i>
-                        <div class="rate-precntage">3,4</div>
-                    </div>
-                </div>
-            </div>
-            <div class="freelancer ">
-                <div class="image">
-                    <img src="{{asset("assets/images/vicky-hladynets-C8Ta0gwPbQg-unsplash.png")}}" alt="">
-                </div>
-                <div class="info">
-                    <div class="name text-capitalize">ahmed</div>
-                    <div class="rate">
-                        <i class="fa fa-star"></i>
-                        <div class="rate-precntage">3,4</div>
-                    </div>
-                </div>
-            </div>
-            <div class="freelancer ">
-                <div class="image">
-                    <img src="{{asset("assets/images/vicky-hladynets-C8Ta0gwPbQg-unsplash.png")}}" alt="">
-                </div>
-                <div class="info">
-                    <div class="name text-capitalize">ahmed</div>
-                    <div class="rate">
-                        <i class="fa fa-star"></i>
-                        <div class="rate-precntage">3,4</div>
-                    </div>
-                </div>
-            </div>
+        <button class="pre-btn">
+            <i class="fa fa-arrow-left"></i>
+        </button>
+        <button class="nxt-btn"><i class="fa fa-arrow-right"></i></button>
 
+        <div class="scrollable" style="gap:15px">
+            @forelse ($freelancers as $freelancer)
+                <div class="freelancer " style="align-items:flex-start;">
+                    <div class="image">
+                        <img src="{{ asset("Admin3/assets/images/users/".$freelancer->profile_image) }}" alt="">
+                    </div>
+                    <div class="info px-2" >
+                        <div class="name text-capitalize">{{ $freelancer->name }}</div>
+                        <div class="rate">
+                            <i class="fa fa-star"></i>
+                            <div class="rate-precntage">3,4</div>
+                        </div>
+                    </div>
+                </div>
+                @empty
 
-
+                <p class=" w-100  text-center " style="height: 150px"> no freelancer</p>
+                @endforelse
+            
         </div>
-
     </div>
-</div>
-
-<!-- end freelnce -->
+</div><!-- end freelnce -->
 
 <!-- start about us -->
 <div class="abouts pt-3">
@@ -319,19 +124,14 @@ home
             <h2>about us</h2>
         </div>
         <div class="about-data">
-                <img src="{{asset("assets/images/Group 10818.png")}}" alt="">
+            <img src="{{asset("assets/images/Group 10818.png")}}" alt="">
 
-              <div class="about-text ">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis a, pariatur tempora perspiciatis perferendis facilis porro illo exercitationem voluptatibus saepe quibusdam cumque ea quas dolor cum, velit in veniam voluptas. Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo veritatis, inventore quia quisquam dolorem illum molestias facere sint corrupti ullam dolores iusto! Pariatur sed laborum non earum nostrum. Recusandae, incidunt!
-              </div>
+            <div class="about-text ">
+                {{ App\Models\AboutUs::first()->paragraph }}
             </div>
-
-
         </div>
-
     </div>
-
-<!-- end about us -->
+</div><!-- end about us -->
 
 
 <!-- start contact us -->
@@ -340,38 +140,35 @@ home
         <div class="section-header">
             <h2>contact us</h2>
         </div>
+
         <div class="row">
-<div class="form-contact col-12 col-lg-6 col-md-6">
-<form action="">
-    <div class="input-group mb-3 d-flex flex-column">
-        <label for="phone">phone number</label>
-        <input class="form-control w-100" type="text" placeholder="05XXXXXXXX">
-    </div>
+            <div class="form-contact col-12 col-lg-6 col-md-6">
+                <form action="">
+                    <div class="input-group mb-3 d-flex flex-column">
+                        <label for="phone">phone number</label>
+                        <input class="form-control w-100" type="text" placeholder="05XXXXXXXX">
+                    </div>
 
-    <div class="input-group mb-3 d-flex flex-column">
-        <label for="phone">subject</label>
-        <input  class="form-control w-100" type="text"placeholder="Subject">
-    </div>
+                    <div class="input-group mb-3 d-flex flex-column">
+                        <label for="phone">subject</label>
+                        <input  class="form-control w-100" type="text"placeholder="Subject">
+                    </div>
 
-    <div class="input-group mb-3 d-flex flex-column">
-        <label for="phone" >message</label>
-        <input class="form-control w-100" place-holder="Write your message here" type="text">
-    </div>
-      <button type="submit" class="btn btn-primary rounded-pill">send</button>
-     </form>
-            </div>
-            <div class="col-6 contact-img">
-  <img src="{{asset("assets/images/Messages-rafiki.png")}}" class="w-100" alt="">
+                    <div class="input-group mb-3 d-flex flex-column">
+                        <label for="phone" >message</label>
+                        <input class="form-control w-100" place-holder="Write your message here" type="text">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary rounded-pill">send</button>
+                    </form>
+                </div>
+
+                <div class="col-6 contact-img">
+                    <img src="{{asset("assets/images/Messages-rafiki.png")}}" class="w-100" alt="">
+                </div>
             </div>
         </div>
-
-
-        </div>
-
     </div>
-
-
-
 @endsection
 
 @section("js")
