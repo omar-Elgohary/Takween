@@ -5,6 +5,7 @@ use App\Http\Controllers\ChatController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\HelperController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
@@ -241,6 +242,9 @@ Route::post('/private/request/aceptoffer/{id}',[RequestController::class,'privat
 // switch to freelancer
 
 Route::post('/switchtofreelancer',[UserController::class,'switchToFreelancer'])->name("switchToFreelancer");
+
+
+route::get('/download/{name}',[HelperController::class,'download'])->name('filedownload');
 
 });
 

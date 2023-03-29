@@ -71,45 +71,22 @@
   
           <div class="d-flex flex-column px-3 ">
               <p class="fs-5 font-bold">{{__('request.attachment')}}</p>
-  <div class="d-flex flex-column px-2 ">
-        <div class="file d-flex mb-2">
-              <div class="details d-flex ">
-                  <div class="img">
-  <i class="fa-regular fa-file-word"></i>
-                  </div>
-                  <div class="info">
-                      <p class=" mb-0">
-                          Lorem ipsum dolor sit amet, consetetur 
-                          
-                      </p>
-                      <div class="size">
-                          521kB .word
-                      </div>
-                  </div>
-               
-              </div>
-            
-          </div>
-        <div class="file d-flex mb-2">
-              <div class="details d-flex ">
-                  <div class="img">
-  <i class="fa-regular fa-file-word"></i>
-                  </div>
-                  <div class="info">
-                      <p class=" mb-0">
-                          Lorem ipsum dolor sit amet, consetetur 
-                       
-                      </p>
-                      <div class="size">
-                          521kB . word
-                      </div>
-                  </div>
-               
-              </div>
-             
-          </div>
-  
-  </div>
+              <div class="d-flex flex-column px-2 ">
+                @foreach (  $request->file()->get() as $file)
+                <a class="file d-flex mb-2" href="{{asset('front/upload/files/'.$file->url)}}" download="{{ $file->name }}">
+                    <div class="details d-flex ">
+                        <div class="img">
+                            <i class="fa-regular fa-file-word"></i>
+                        </div>
+
+                        <div class="info">
+                            <p class="mb-0">{{ $file->name }}</p>
+                            <div class="size">{{ $file->size}}kB .{{ $file->type }}</div>
+                        </div>
+                    </div>
+                </a>  <!-- end offerPending modal -->
+                @endforeach
+                </div>
   
           </div>
           <div class="btn-contianer d-flex flex-column justify-between align-items-center my-3">

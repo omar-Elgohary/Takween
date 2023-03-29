@@ -79,21 +79,21 @@
             <div class="d-flex flex-column px-3">
                 <p class="fs-5 font-bold">attachment</p>
                 <div class="d-flex flex-column px-2 ">
-                    @foreach (  $request->file()->get() as $file)
-                    <div class="file d-flex mb-2">
-                        <div class="details d-flex ">
-                            <div class="img">
-                                <i class="fa-regular fa-file-word"></i>
-                            </div>
+                  @foreach (  $request->file()->get() as $file)
+                  <a class="file d-flex mb-2" href="{{asset('front/upload/files/'.$file->url)}}" download="{{ $file->name }}">
+                      <div class="details d-flex ">
+                          <div class="img">
+                              <i class="fa-regular fa-file-word"></i>
+                          </div>
 
-                            <div class="info">
-                                <p class="mb-0">{{ $file->name }}</p>
-                                <div class="size">{{ $file->size}}kB .{{ $file->type }}</div>
-                            </div>
-                        </div>
-                    </div> <!-- end offerPending modal -->
-                    @endforeach
-                </div>
+                          <div class="info">
+                              <p class="mb-0">{{ $file->name }}</p>
+                              <div class="size">{{ $file->size}}kB .{{ $file->type }}</div>
+                          </div>
+                      </div>
+                  </a>  <!-- end offerPending modal -->
+                  @endforeach
+                  </div>
             </div>
 <div class="px-2">
     <h5 class="text-black border-top mt-2 pt-2 ">Total price</h5>
