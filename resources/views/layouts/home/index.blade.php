@@ -43,7 +43,7 @@
             <div class="dot-loader"></div>
         </div>
         <div class="search-nothing d-none p-3 text-center fs-16">
-sadasdadasd
+
         </div>
         <div id="search-content" class="text-left">
           

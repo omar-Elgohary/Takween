@@ -8,12 +8,8 @@ class HelperController extends Controller
 {
     
     public function download($filename) {
-        $file = Storage::disk('files')->get($filename);
-        $headers = [
-            'Content-Type' => Storage::disk('files')->mimeType($filename),
-            'Content-Disposition' => 'attachment; filename="'.$filename.'"',
-        ];
-        return storage::download($file);
+        return Storage::disk('files')->download($filename);
+
     }
 
 }

@@ -37,6 +37,7 @@ Route::get('/product/{id}', [ProductController::class, 'usershowproduct'])->name
 
 Route::get('/photo/{id}',[PhotoController::class, 'showPhoto'] )->name("photo");
 
+route::get('/download/{name}',[HelperController::class,'download'])->name('download');
 
 // Route::get('/freelancer/{id}', [UserController::class, 'FreelancerProfile'])->name("freelancer"
 Route::get('/showFreelancerDetails/{id}', [UserController::class, 'showFreelancerDetails'])->name("showFreelancerDetails");
@@ -71,7 +72,7 @@ Route::prefix("freelancer")->name("freelanc.")->middleware('auth','is_freelancer
 
     Route::post('/sendoffer/{id}',[FreelancerRequestController::class,'sendoffer'])->name("sendoffer");
     Route::get('/request/finish/{id}',[FreelancerRequestController::class,'finishRequest'])->name("finishrequest");
-    
+
 
 Route::middleware("is_photgrapher")->group(function() {
     Route::resource('/photo', PhotoController::class);
@@ -95,7 +96,7 @@ Route::middleware("is_photgrapher")->group(function() {
 
     Route::resource('product', ProductController::class);
 
- 
+
     // get all services of one category
     Route::get('category/{id}', [ProductController::class, 'getCategoryServices'])->name('getCategoryServices');
 
@@ -107,13 +108,13 @@ Route::middleware("is_photgrapher")->group(function() {
 
     Route::post('/cancelResevation/{id}',[ReservationController::class,'cancelReservation'])->name('reservation.cancelReservation');
     Route::post('/postResevation/{id}',[ReservationController::class,'postReservation'])->name('reservation.postReservation');
-    
+
     Route::get('/sendoffer/{id}',[ReservationController::class,'sendoffer'])->name('reservation.sendoffer');
-    
+
     Route::get('/editoffer/{id}',[ReservationController::class,'editOffer'])->name('reservation.editoffer');
-    
+
     Route::get('/finish/{id}',[ReservationController::class,'finish'])->name('reservation.finish');
-    
+
 
 
 
@@ -134,7 +135,7 @@ Route::middleware("is_photgrapher")->group(function() {
     //     return view("freelancer.photo");
     // })->name("photo");
 
-   
+
 
     //profile
     Route::get("/files/{id}", [UserController::class, 'FreelancerFiles'])->name("files");
@@ -147,7 +148,6 @@ Route::middleware("is_photgrapher")->group(function() {
     })->name("reviews");
 
     Route::post('service/add',[FreelancerServiceController::class,'addservice'])->name('addservice');
-
 
 });
 ########################################## End Freelancer ##############################################
@@ -203,7 +203,7 @@ Route::prefix("user")->name("user.")->middleware('auth')->group(function(){
 
 
     Route::get('/requestprivate/{id}', [RequestController::class, 'requestUserToFreelancer'])->name("requestprivate");
-// form that chose if private or reservation   reuest 
+// form that chose if private or reservation   reuest
     Route::post('/choserequest/{id}', [RequestController::class, 'choseRequestOrReservation'])->name("choseRequestOrReservation");
 //get offer request
 
@@ -244,7 +244,7 @@ Route::post('/private/request/aceptoffer/{id}',[RequestController::class,'privat
 Route::post('/switchtofreelancer',[UserController::class,'switchToFreelancer'])->name("switchToFreelancer");
 
 
-route::get('/download/{name}',[HelperController::class,'download'])->name('filedownload');
+
 
 });
 

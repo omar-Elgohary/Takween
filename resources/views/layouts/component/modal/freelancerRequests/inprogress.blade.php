@@ -72,7 +72,7 @@
               <p class="fs-5 font-bold">attachment</p>
               <div class="d-flex flex-column px-2 ">
                 @foreach (  $request->file()->get() as $file)
-                <a class="file d-flex mb-2" href="{{asset('front/upload/files/'.$file->url)}}" download="{{ $file->name }}">
+                <a class="file d-flex mb-2" href="{{route('download',$file->url)}}">
                     <div class="details d-flex ">
                         <div class="img">
                             <i class="fa-regular fa-file-word"></i>

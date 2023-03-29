@@ -27,27 +27,38 @@ freelancers
     <div class="container-fluid d-flex  px-0 ">
         <div class="category-table">
             <ul class="category">
-            @foreach ($categories as $category)
-                  <li><a href="#">{{ $category->title_en }}</a></li>
-
-
-
-            @endforeach
-        </ul>
-            {{-- <ul class="subcategory">
-                <li><a href="#"></a></li>
-            </ul> --}}
+                @foreach ($categories as $category)
+                @if( empty($category->services->first()))
+                <li><a href="{{route('products',['cat_id'=>$category->id])}}"
+                    @if(isset($cat_id) && $cat_id==$category->id)
+                    class="active"
+                    @endif >{{ $category->title_en }}</a></li>
+                    @else
+                    <li><a href="#" class="linktosubcategory @if(isset($cat_id) && $cat_id==$category->id)
+                    active
+                        @endif" data-id='{{$category->id}}'>{{ $category->title_en }}</a></li>
+                    @endif
+                @endforeach
+            </ul>
 
             @foreach (App\Models\Category::all() as $category)
-
             <div class="subcategorys" id="subcategorys{{$category->id}}">
-                <div class="d-flex"><button type="button" id="closesubcategory">
-                    <i class="fa fa-arrow-left"></i>
-                   </button></div>
-                @foreach ( $category->services as  $service)
-                <a href="#">{{$service->service_en}}</a>
-                @endforeach
+                <div class="d-flex px-3">
+                    <button type="button" class="closesubcategory" data-id='{{$category->id}}'>
+                        <i class="fa fa-arrow-left"></i>
+                    </button>
                 </div>
+
+                <div class="d-flex flex-column">
+                    @foreach ( $category->services as  $service)
+                    <a href="{{route('products',['cat_id'=>$category->id,'subcat_id'=>$service->id])}}"
+                        @if(isset($subcat_id)&&$subcat_id==$service->id)
+                            class="active"
+                        @endif
+                        >{{$service->service_en}}</a>
+                    @endforeach
+                </div>
+            </div>
             @endforeach
         </div>
 
@@ -222,23 +233,44 @@ freelancers
 
 @section("js")
     <script>
-        $(".filter-button").click(function(){
-            console.log("heool");
-            $(".filter-items").toggle();
-        });
+//         $(".filter-button").click(function(){
+//             console.log("heool");
+//             $(".filter-items").toggle();
+//         });
 
 
 
-$(".category a.active").click(function(e){
+// $(".category a.active").click(function(e){
 
-e.preventDefault();
+// e.preventDefault();
 
-$(".subcategorys").toggle();
-})
+// $(".subcategorys").toggle();
+// })
 
-$('#closesubcategory').click(function(){
-$(".subcategorys").hide();
+// $('#closesubcategory').click(function(){
+// $(".subcategorys").hide();
+// });
+
+
+$(document).ready(function () {
+    $(".category a.linktosubcategory").click(function(e){
+    e.preventDefault();
+    var id=$(this).attr('data-id');
+    $("#subcategorys"+id).toggle();
+
+    $('.subcategorys').not($("#subcategorys"+id)).hide();
+    })
+
+    $('.closesubcategory').click(function(e){
+        var id=$(this).attr('data-id');
+    $("#subcategorys"+id).hide();
+
+    });
 });
+
+
+
+
     </script>
 
 
