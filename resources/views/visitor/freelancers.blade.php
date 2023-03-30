@@ -129,7 +129,7 @@ freelancers
                             <i class="fa fa-star"></i>
                             <span>
                                 @if( App\Models\Review::select('rate')->where('freelancer_id',$freelancer->id)->count()>0)
-                                {{App\Models\Review::select('rate')->where('freelancer_id',$freelancer->id)->sum('rate')/  App\Models\Review::select('rate')->where('freelancer_id',$freelancer->id)->count()}}
+                                {{round(App\Models\Review::select('rate')->where('freelancer_id',$freelancer->id)->sum('rate')/  App\Models\Review::select('rate')->where('freelancer_id',$freelancer->id)->count(),1)}}
                             @else
   {{App\Models\Review::select('rate')->where('freelancer_id',$freelancer->id)->count()}}
                             @endif
@@ -213,10 +213,11 @@ freelancers
                                 <i class="fa fa-star"></i>
                                 <span>      @if( App\Models\Review::select('rate')->where('freelancer_id',$freelancer->id)->count()>0)
                                     {{round(App\Models\Review::select('rate')->where('freelancer_id',$freelancer->id)->sum('rate')/  App\Models\Review::select('rate')->where('freelancer_id',$freelancer->id)->count(),1)}}
-                                    <span class="text-black-50">({{App\Models\Review::select('rate')->where('freelancer_id',$freelancer->id)->count()}})</span>
+                                    {{-- <span class="text-black-50">({{App\Models\Review::select('rate')->where('freelancer_id',$freelancer->id)->count()}})</span> --}}
                                 @else
-      {{App\Models\Review::select('rate')->where('freelancer_id',$freelancer->id)->count()}}
-                                @endif</span>
+              {{App\Models\Review::select('rate')->where('freelancer_id',$freelancer->id)->count()}}
+                                @endif
+                            </span>
                             </div>
                         </div>
 
