@@ -1745,7 +1745,7 @@ font-size: 1rem;
     position: relative;
 
 }
-.freelanc .info .name span:first-child::after{
+.freelanc .info .name > span:first-child::after{
     content: "";
     width: 2px;
     height: 62%;

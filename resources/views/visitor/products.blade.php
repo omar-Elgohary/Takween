@@ -193,7 +193,7 @@
             </div>
 
             <div class="text-end p-4">
-                {{-- {{ $products->links() }} --}}
+                {{ $products->links() }}
             </div>
     </div>
     </div>

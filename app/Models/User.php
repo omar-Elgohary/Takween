@@ -1,8 +1,10 @@
 <?php
 namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Review;
 use App\Models\Wallet;
 use App\Models\Product;
+use App\Models\Requests;
 use App\Models\CardOrder;
 use App\Models\FreelancerService;
 use Laravel\Sanctum\HasApiTokens;
@@ -83,5 +85,12 @@ class User extends Authenticatable implements JWTSubject
 
     public function  blacklist(){
         return $this->hasMany(BlackListRequest::class,'freelancer_id');
+    }
+
+    public function review(){
+        return $this->hasMany(Review::class,'freelancer_id');
+    }
+    public function request(){
+        return $this->hasMany(Requests::class,'freelancer_id');
     }
 }

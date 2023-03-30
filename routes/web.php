@@ -42,7 +42,7 @@ route::get('/download/{name}',[HelperController::class,'download'])->name('downl
 // Route::get('/freelancer/{id}', [UserController::class, 'FreelancerProfile'])->name("freelancer"
 Route::get('/showFreelancerDetails/{id}', [UserController::class, 'showFreelancerDetails'])->name("showFreelancerDetails");
 
-Route::get("user/freelancers", [UserController::class, 'allFreelancers'])->name("freelancers");
+Route::get("freelancers", [UserController::class, 'allFreelancers'])->name("freelancers");
 Route::get("ajax_search", [SearchController::class, 'ajax_search'])->name("search.ajax");
 
 Route::get('filter', [ProductController::class, 'filter'])->name('filter');

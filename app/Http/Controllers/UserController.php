@@ -9,6 +9,8 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\File as  Files;
+use App\Models\FreelancerService;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
@@ -21,18 +23,126 @@ class UserController extends Controller
     }
 
 
+
     public function allFreelancers()
     {
-        $categories=Category::all();
-        if(request()->category){
-
-
-        }else{
-            $freelancers = User::where('type', 'freelancer')->get();
-        }
-       
-
-        return view("visitor.freelancers", compact('freelancers','categories'));
+        $filter=[];
+    
+        $categories = Category::all();
+                if(request()->cat_id && request()->subcat_id){
+                    $freelancers = FreelancerService::where('parent_id', request()->cat_id )
+                    ->where('service_id',request()->subcat_id)->get();
+                    $freelancer_detail = collect();
+                    foreach ($freelancers as $freelancer) {
+                        $data = User::find($freelancer->freelancer_id);
+                        $freelancer_detail->push($data);
+                    }
+              
+        
+                    if(request('freelancsearch')!=null){
+        
+                    if(in_array('highestrating',request('freelancsearch'))){
+                        $freelancer_detail = $freelancer_detail->sortByDesc(function ($item){
+                            
+                            if($item->review()->count()>0){
+                              return  $item->review()->sum('rate')/ $item->review()->count();
+                            }else{
+                               return  $item->review()->count();
+                            }
+                           
+                        });
+                        array_push($filter,'highestrating');
+                    }
+                    if(in_array('moreproject',request('freelancsearch'))){
+                        $freelancer_detail = $freelancer_detail->sortBy(function ($item) {
+                            return $item->request()->where('status','Completed')->count();
+                        });
+                        array_push($filter, 'moreproject');
+                    
+                    }
+                   
+        
+                }else{
+        
+                   array_push($filter,'All');
+                }
+                $freelancers = $freelancer_detail->paginate(20);
+                    return view('visitor.freelancers', ['freelancers'=>$freelancers, 'categories'=>$categories,'cat_id'=>request()->cat_id,'subcat_id'=>request()->subcat_id,'filter'=>$filter]);
+        
+                }elseif(request()->cat_id ){
+                    $freelancers = FreelancerService::where('parent_id',null)
+                    ->where('service_id',request()->cat_id)->get();
+                    $freelancer_detail = collect();
+                    foreach ($freelancers as $freelancer) {
+                        $data = User::find($freelancer->freelancer_id);
+                       $freelancer_detail->push($data);
+                    }
+              
+                
+                    if(request('freelancsearch')!=null){
+    
+                        if(in_array('highestrating',request('freelancsearch'))){
+                            $freelancer_detail = $freelancer_detail->sortByDesc(function ($item){
+                                
+                                if($item->review()->count()>0){
+                                  return  $item->review()->sum('rate')/ $item->review()->count();
+                                }else{
+                                   return  $item->review()->count();
+                                }
+                               
+                            });
+                            array_push($filter,'highestrating');
+                        }
+                        if(in_array('moreproject',request('freelancsearch'))){
+                            $freelancer_detail = $freelancer_detail->sortByDesc(function ($item) {
+                                return $item->request()->where('status','Completed')->count();
+                            });
+                            array_push($filter, 'moreproject');
+                        
+                        }
+                       
+                    }else{
+                        array_push($filter,'All');
+                    }
+                   
+                       
+                        $freelancers =$freelancer_detail->paginate(20);
+                    
+                   
+                    return view('visitor.freelancers', ['freelancers'=>$freelancers, 'categories'=>$categories,'cat_id'=>request()->cat_id,'filter'=>$filter]);
+        
+                }else{
+                    $freelancers = User::where('type', 'freelancer')->get();
+                    $categories = Category::all();
+                    $filter = [];
+                    
+                    if (request('freelancsearch') != null) {
+                    
+                        if (in_array('highestrating', request('freelancsearch'))) {
+                            $freelancers = $freelancers->sortByDesc(function ($item) {
+                                if ($item->review()->count() > 0) {
+                                    return $item->review()->sum('rate') / $item->review()->count();
+                                } else {
+                                    return $item->review()->count();
+                                }
+                            });
+                            array_push($filter, 'highestrating');
+                        }
+                    
+                        if (in_array('moreproject', request('freelancsearch'))) {
+                            $freelancers = $freelancers->sortByDesc(function ($item) {
+                                return $item->request()->where('status','Completed')->count();
+                            });
+                            array_push($filter, 'moreproject');
+                        }
+                    
+                    } else {
+                        array_push($filter, 'All');
+                    }
+                    $freelancers =  $freelancers->paginate(20);
+                    
+                    return view('visitor.freelancers', compact('freelancers', 'categories' ,'filter'));
+                }
     }
 
 

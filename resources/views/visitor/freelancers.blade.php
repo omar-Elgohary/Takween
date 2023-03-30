@@ -29,7 +29,7 @@ freelancers
             <ul class="category">
                 @foreach ($categories as $category)
                 @if( empty($category->services->first()))
-                <li><a href="{{route('products',['cat_id'=>$category->id])}}"
+                <li><a href="{{route('freelancers',['cat_id'=>$category->id])}}"
                     @if(isset($cat_id) && $cat_id==$category->id)
                     class="active"
                     @endif >{{ $category->title_en }}</a></li>
@@ -51,7 +51,7 @@ freelancers
 
                 <div class="d-flex flex-column">
                     @foreach ( $category->services as  $service)
-                    <a href="{{route('products',['cat_id'=>$category->id,'subcat_id'=>$service->id])}}"
+                    <a href="{{route('freelancers',['cat_id'=>$category->id,'subcat_id'=>$service->id])}}"
                         @if(isset($subcat_id)&&$subcat_id==$service->id)
                             class="active"
                         @endif
@@ -69,18 +69,37 @@ freelancers
                 <i class="fa-solid fa-arrow-up-wide-short"></i>
                 <span >sort by:</span>
             </button>
-            <span class="px-2">All</span>
+            <span class="px-2">
+                @foreach ( $filter as  $f )
+
+                    {{ $f }} 
+                    @if(!$loop->last)
+                    ,
+                    @endif
+                @endforeach
+            </span>
             </div>
 
             <div class="filter-items">
-            <form action="">
+            <form action="{{route('freelancers')}}">
+                @if (isset($cat_id) && isset($subcat_id))
+                <input type="hidden" name="cat_id" value="{{$cat_id}}">
+                <input type="hidden" name="subcat_id" value="{{$subcat_id}}">
+               
+                @elseif (isset($cat_id))
+                <input type="hidden" name="cat_id" value="{{$cat_id}}">
+                 
+                @endif
                 <div>
-                    <input type="checkbox" name="productsearch" value="highestrating" id="highestrating">
+                    <input type="checkbox" name="freelancsearch[]" value="highestrating" id="highestrating" @if (in_array('highestrating',$filter))
+                    checked
+                @endif>
                     <label for="highestrating"class="bold" >highest rating</label>
                 </div>
 
                 <div>
-                    <input type="checkbox" name = "productsearch" value="moreproject" id="moreproject" >
+                    <input type="checkbox" name = "freelancsearch[]" value="moreproject" id="moreproject"id="moreproject" @if (in_array('moreproject',$filter))
+                    checked @endif>
                     <label for="moreproject"class="bold">more project</label>
                 </div>
 
@@ -93,7 +112,7 @@ freelancers
         
         <div class="d-flex flex-column px-md-4 align-items-center">
 
-            @foreach ($freelancers as $freelancer)
+            @forelse ($freelancers as $freelancer)
 
             @auth
 
@@ -192,14 +211,57 @@ freelancers
                             <span>{{ $freelancer->name }}</span>
                             <div class="rate">
                                 <i class="fa fa-star"></i>
-                                <span>4,5</span>
+                                <span>      @if( App\Models\Review::select('rate')->where('freelancer_id',$freelancer->id)->count()>0)
+                                    {{round(App\Models\Review::select('rate')->where('freelancer_id',$freelancer->id)->sum('rate')/  App\Models\Review::select('rate')->where('freelancer_id',$freelancer->id)->count(),1)}}
+                                    <span class="text-black-50">({{App\Models\Review::select('rate')->where('freelancer_id',$freelancer->id)->count()}})</span>
+                                @else
+      {{App\Models\Review::select('rate')->where('freelancer_id',$freelancer->id)->count()}}
+                                @endif</span>
                             </div>
                         </div>
 
                         <div class="txt">{{ $freelancer->bio }}</div>
                         <div class="service">
-                            <p>service :</p>
-                            <p>{{ $freelancer->service_en }}</p>
+                            <div class="d-flex service-head" style="">service:</div>
+                            <div class="d-flex flex-wrap ">
+    
+    
+                                @if($freelancer->freelancerService->first() !=null)
+                                @foreach ($freelancer->freelancerService as $serv)
+        
+                                @if($serv->parent_id ==null)
+        
+                                @if ( app()->getLocale()=='ar')
+                                <p class="serv-data">  {{App\models\Category::find($serv->service_id)->title_ar}}</p>
+                                    
+                                @else
+                                <p class="serv-data"> {{App\models\Category::find($serv->service_id)->title_en}}</p>
+                                @endif
+        
+        
+                                @else
+        
+        
+                                @if ( app()->getLocale()=='ar')
+                                <p class="serv-data">  {{App\models\service::find($serv->service_id)->service_ar}}</p>
+                                    
+                                @else
+                                <p class="serv-data"> {{App\models\Service::find($serv->service_id)->service_en}}</p>
+                                    
+                                @endif
+                                @endif
+                                   
+                                @endforeach
+                             
+                                @else
+                                
+                         
+                                <p class="serv-data">{{__('translate.no data')}}</p>
+                              
+                                @endif
+                            </div>
+                       
+                           
                         </div>
                     </div>
 
@@ -222,10 +284,13 @@ freelancers
                 </a>
 
             @endauth
-
-            @endforeach
+@empty
+no freelancers 
+            @endforelse
         </div>
-
+        <div class="text-end p-4">
+            {{ $freelancers->links() }}
+        </div>
         </div>
     </div>
 </div>
@@ -233,10 +298,10 @@ freelancers
 
 @section("js")
     <script>
-//         $(".filter-button").click(function(){
-//             console.log("heool");
-//             $(".filter-items").toggle();
-//         });
+        $(".filter-button").click(function(){
+            
+            $(".filter-items").toggle();
+        });
 
 
 

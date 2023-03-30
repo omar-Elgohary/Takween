@@ -917,6 +917,6 @@ $('#review{{Session::get('request_id')}}').modal('show');
 
     </script>
 
-    <!-- jQuery library -->
+  
  
 @endsection

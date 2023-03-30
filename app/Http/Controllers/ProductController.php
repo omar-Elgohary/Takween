@@ -125,7 +125,7 @@ class ProductController extends Controller
     public function displayAllProducts()
     {
            $filter=[];
-// dd(request('productsearch'));
+
         if(request()->cat_id && request()->subcat_id){
             $products = Product::where('cat_id',request()->cat_id)->where('service_id',request()
             ->subcat_id)->get();
@@ -139,13 +139,13 @@ class ProductController extends Controller
                 array_push($filter,'newest');
             }
             if(in_array('highestrating',request('productsearch'))){
-                $products=$products->sortBy(function($item){
+                $products=$products->sortByDesc(function($item){
                     return $item->likes()->count();
                 });
                 array_push($filter,'highestrating');
             }
             if(in_array('pricelowtoheight',request('productsearch'))){
-                $products=$products->sortByDesc('price');
+                $products=$products->sortBy('price');
                 array_push($filter,'pricelowtoheight');
             }
 
@@ -153,7 +153,7 @@ class ProductController extends Controller
 
            array_push($filter,'All');
         }
-        // $products->paginate(20);
+        $products=$products->paginate(20);
             return view('visitor.products', ['products'=>$products, 'categories'=>$categories,'cat_id'=>request()->cat_id,'subcat_id'=>request()->subcat_id,'filter'=>$filter]);
 
         }elseif(request()->cat_id ){
@@ -182,7 +182,7 @@ class ProductController extends Controller
                 array_push($filter,'All');
             }
 
-            // $products->paginate(20);
+            $products=$products->paginate(20);
             return view('visitor.products', ['products'=>$products, 'categories'=>$categories,'cat_id'=>request()->cat_id,'filter'=>$filter]);
 
         }else{
@@ -207,7 +207,7 @@ class ProductController extends Controller
                 array_push($filter,'All');
             }
 
-            // $products->paginate(20);
+            $products=$products->paginate(20);
             return view('visitor.products', compact('products', 'categories' ,'filter'));
         }
     }
