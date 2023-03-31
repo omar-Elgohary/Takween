@@ -81,7 +81,7 @@ class PaymentController extends Controller
     static function walletpay2($total){
    
         if(SELF::getuserwallet()>=$total){
-            $total_wallet_after_pay=SELF::getuserwallet()-$total;
+            $total_wallet_after_pay=SELF::getuserwallet() - $total;
             $edit_wallet=User::findOrFail(auth()->user()->id)->wallet()->update([
                 "total"=>$total_wallet_after_pay,
                ]);

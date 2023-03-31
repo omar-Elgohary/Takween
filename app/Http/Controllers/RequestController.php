@@ -6,10 +6,13 @@ use App\Models\Review;
 use App\Models\Category;
 use App\Models\Requests;
 use Illuminate\Http\Request;
+use App\Models\FreelancerService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\CreateRequest;
 
 class RequestController extends Controller
 {
@@ -55,6 +58,7 @@ class RequestController extends Controller
 // store public and private  requests
     public function store(Request $request, $freelancer_id = null)
     {
+
         $user_id= auth()->user()->id;
         $this->validate($request, [
             'category_id' => 'required',
@@ -93,7 +97,10 @@ class RequestController extends Controller
                 'type'=>'public',
             ]);
 
+
             
+            
+
 
         }elseif($request->type=='private'){
             $re= Requests::create([
@@ -123,7 +130,48 @@ class RequestController extends Controller
             'url'=> $attachment_name,
             'size'=>$size,
         ]);
-        return  redirect()->back()->with( ['messsage' => 'ok'] );
+
+ $freelancer_detail = [];
+if($request->type=='public'){
+    if($request->service_id ==null){
+
+        $freelancers = FreelancerService::where('parent_id',null)
+        ->where('service_id',request()->cat_id)->where('freelancer_id','!=',auth()->user()->id)->get();
+       
+        foreach ($freelancers as $freelancer) {
+            $data = User::find($freelancer->freelancer_id);
+            array_push($freelancer_detail,$data);
+        }
+    
+    }else{
+        $freelancers = FreelancerService::where('parent_id',$request->category_id)
+        ->where('service_id',$request->service_id)->where('freelancer_id','!=',auth()->user()->id)->get();
+       
+        foreach ($freelancers as $freelancer) {
+            $data = User::find($freelancer->freelancer_id);
+        //    $freelancer_detail->push($data);
+           array_push($freelancer_detail,$data);
+        }
+    }
+    
+}else{
+
+    $freelancer_detail=User::where('id',$freelancer_id)->get();
+
+    
+}
+
+        $users = User::where('id' , '!=' , auth()->user()->id)->get();
+        $user_create = auth()->user()->name;
+        Notification::send($freelancer_detail, new CreateRequest($user_create,$re->id));
+
+        if($request->type='public'){
+            return  redirect()->route('user.showpublicrequest')->with( ['messsage' => 'ok'] );
+            
+        }else{
+            return  redirect()->route('user.showprivaterequest')->with( ['messsage' => 'ok'] );
+        }
+       
     }
 
 
