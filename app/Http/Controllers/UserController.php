@@ -322,7 +322,7 @@ class UserController extends Controller
     }
 
         }
-        
+      
 return view('user.userprofile',compact('user','files_current','files_lastmonth','files_old','user_wallet_hestory'));
 
     }

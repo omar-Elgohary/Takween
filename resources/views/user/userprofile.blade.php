@@ -189,7 +189,7 @@ profile page
                       <div class="img">
                         @if($lastfile->type=='word')
                         <i class="fa-regular fa-file-word"></i>
-                        @elseif($curfile->type=='pptx' ||$curfile->type=='ppt')
+                        @elseif($lastfile->type=='pptx' ||$lastfile->type=='ppt')
                         <i class="fa-regular fa-file-powerpoint"></i>
                         @elseif($lastfile->type =='pdf')
                         <i class="fa-regular fa-file-pdf"></i>

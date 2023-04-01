@@ -168,7 +168,7 @@ class ProductController extends Controller
                     array_push($filter,'newest');
                 }
                 if(in_array('highestrating',request('productsearch'))){
-                    $products=$products->sortBy(function($item){
+                    $products=$products->sortByDesc(function($item){
                         return $item->likes()->count();
                     });
                     array_push($filter,'highestrating');
@@ -186,21 +186,24 @@ class ProductController extends Controller
             return view('visitor.products', ['products'=>$products, 'categories'=>$categories,'cat_id'=>request()->cat_id,'filter'=>$filter]);
 
         }else{
-            $products = Product::get();
+            $products = Product::all();
             $categories = Category::all();
           
             if(request('productsearch')!=null){
 
                 if(in_array('newest',request('productsearch'))){
                     $products=$products->sortBy('created_at');
+                    array_push($filter,'newest');
                 }
                 if(in_array('highestrating',request('productsearch'))){
-                    $products=$products->sortBy(function($item){
+                    $products=$products->sortByDesc(function($item){
                         return $item->likes()->count();
                     });
+                    array_push($filter,'highestrating');
                 }
                 if(in_array('pricelowtoheight',request('productsearch'))){
                     $products=$products->sortBy('price');
+                    array_push($filter,'pricelowtoheight');
                 }
 
             }else{
