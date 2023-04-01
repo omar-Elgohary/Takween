@@ -12,6 +12,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\StripePaymentController;
 use App\Http\Controllers\FreelancerRequestController;
 use App\Http\Controllers\FreelancerServiceController;
@@ -28,6 +29,9 @@ Route::get('/', [HomeController::class, 'index'])->name("home");
 route::get('frelancpro',function(){
 return view('user.freelancerprofile');
 });
+
+Route::get('/notifications/create', [NotificationController::class, 'create']);
+Route::get('/notifications', [NotificationController::class, 'index']);
 
 
 Route::get('products', [ProductController::class, 'displayAllProducts'])->name('products');

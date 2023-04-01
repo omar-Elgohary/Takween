@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('profile_image', 100)->nullable();
             $table->enum('type', ['admin', 'customer', 'freelancer'])->default('customer');
             $table->enum('is_photographer', [0, 1])->default(0);  // 0 is not aphotographer  // 1 is photographer
+            $table->string('device_token')->nullable();
             $table->string('bio')->nullable();
             $table->rememberToken();
             $table->timestamps();
