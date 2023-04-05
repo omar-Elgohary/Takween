@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
+use  App\Notifications\Test;
 // use Kreait\Firebase\Factory;
 // use Kreait\Firebase\Messaging\CloudMessage;
 // use Kreait\Firebase\Messaging\Notification;
+use Illuminate\Http\Request;
+use Kutia\Larafirebase\Facades\Larafirebase;
 use Illuminate\Support\Facades\Notification as Notifi;
-use  App\Notifications\Test;
 
 class NotificationController extends Controller
 {
@@ -36,47 +37,34 @@ public function create(Request $request)
    
 
      $SERVER_API_KEY = env('FCM_SERVER_KEY');
+    //  $firebaseToken=User::whereNotNull('device_token')->pluck('device_token')->all();
      $firebaseToken=User::whereNotNull('device_token')->pluck('device_token')->all();
      $registrationToken = 'your-registration-token';
  
 
-    $fields = array(
-        "registration_ids"=>$firebaseToken,
-        'notification' => [
-            'body' => "sdsa",
-            'title' => "hello world",
-            'sound' => 'default' /*Default sound*/
-        ],
-        'data' => [
-            'body' => "sdsa",
-            'title' => "hello world",
-            'click_action' => 'FLUTTER_NOTIFICATION_CLICK'
-        ]
-    );
-
-    //  $dataString = json_encode($fields);
  
-     $headers = array(
-        'Authorization: key=' . env('FCM_SERVER_KEY'),
-        'Content-Type: application/json'
-    );
+    try{
+        $fcmTokens =User::whereNotNull('device_token')->pluck('device_token')->toArray();
 
-     $ch = curl_init();
-   
-     curl_setopt($ch, CURLOPT_URL,'https://fcm.googleapis.com/fcm/send');
-     curl_setopt($ch, CURLOPT_POST, true);
-     curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
-            
-     $response = curl_exec($ch);
-     curl_close($ch);
+    
 
-     dd($response);
+        $ss=  Larafirebase::withTitle($request->title)
+            ->withBody($request->body)
+            ->sendMessage($fcmTokens);
+
+        return redirect()->back()->with('success','Notification Sent Successfully!!');
+
+    }catch(\Exception $e){
+        report($e);
+        return redirect()->back()->with('error','Something goes wrong while sending notification.');
+    }
 
  }
 
   
-
+ public function storeToken(Request $request)
+ {
+     auth()->user()->update(['device_token'=>$request->token]);
+     return response()->json(['Token successfully stored.']);
+ }
 }

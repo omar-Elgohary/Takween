@@ -7,6 +7,8 @@ use App\Models\Offer;
 use App\Models\Requests;
 use Illuminate\Http\Request;
 
+use App\Http\Services\PayTabs;
+
 class PaymentController extends Controller
 {
     function walletpay( Request $request){
@@ -99,5 +101,11 @@ class PaymentController extends Controller
        return User::findOrFail(auth()->user()->id)->wallet->total;
     }
 
+
+    function visa(){
+
+
+       
+    }
  
 }

@@ -14,8 +14,10 @@ use App\Http\Controllers\RequestController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\StripePaymentController;
+use App\Http\Controllers\NotificationPageController;
 use App\Http\Controllers\FreelancerRequestController;
 use App\Http\Controllers\FreelancerServiceController;
+use App\Http\Controllers\payment\HayperpayController;
 
 
 Route::group(
@@ -26,12 +28,31 @@ Route::group(
 
 Route::get('/', [HomeController::class, 'index'])->name("home");
 
+
+// test
+
 route::get('frelancpro',function(){
 return view('user.freelancerprofile');
 });
+route::get('/pay',[PaymentController::class,'visa']);
 
-Route::get('/notifications/create', [NotificationController::class, 'create']);
+Route::post('/notifications/create', [NotificationController::class, 'create'])->name('create.noti');
+Route::get('/notificationsget', [NotificationPageController::class, 'getNotification'])->name('notification.get');
+
+
+Route::post('/store-token', [NotificationController::class, 'storeToken'])->name('store.token');
+Route::get('/test',function(){
+    return view('visitor.test');
+});
+
+
 Route::get('/notifications', [NotificationController::class, 'index']);
+// Route::get('/test', function(){
+//     return view('test');
+// });
+
+// end test
+
 
 
 Route::get('products', [ProductController::class, 'displayAllProducts'])->name('products');
@@ -250,7 +271,14 @@ Route::post('/switchtofreelancer',[UserController::class,'switchToFreelancer'])-
 
 
 
+// route::get('/checkout/{price}',[HayperpayController::class,'checkout']);
+
+Route::get('/checkout',[CartController::class,'getHayperpayVisaId'])->name('cart.checkoutid');
+
+
 });
+
+
 
 ########################################## End Customer ##############################################
 

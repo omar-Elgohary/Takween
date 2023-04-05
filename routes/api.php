@@ -31,12 +31,20 @@ Route::get('aboutUs', [MainController::class, 'aboutUs']);
 
 // Categories
 Route::get('categories', [MainController::class, 'getAllCategories']);
-Route::get('ProductsOfCategory/{cat_id}', [MainController::class, 'ProductsOfCategory']);
-Route::get('FreelancersOfCategory/{cat_id}', [MainController::class, 'FreelancersOfCategory']);
+Route::get('ProductsOfCategory/{cat_id}/{serv_id?}', [MainController::class, 'ProductsOfCategory']);
+Route::get('FreelancersOfCategory/{cat_id}/{serv_id?}', [MainController::class, 'FreelancersOfCategory']);
 
 
 //Services
 Route::get('services', [MainController::class, 'getAllServices']);
+
+
+// Get Services Of Categories
+Route::get('getServicesOfCategories/{cat_id}', [MainController::class, 'getServicesOfCategories']);
+
+
+// Cart
+Route::get('allProductsInCart',[MainController::class, 'allProductsInCart'])->middleware('auth:api');
 
 
 // Customers
@@ -56,34 +64,40 @@ Route::get('allFiles/{id}', [UserController::class, 'allFiles']);
 
 // Products
 Route::get('products', [ProductController::class, 'index']);
-Route::post('store', [ProductController::class, 'store'])->middleware('auth:api');
+Route::post('createProduct', [ProductController::class, 'createProduct'])->middleware('auth:api');
 Route::get('getProduct/{id}', [ProductController::class, 'getProduct']);
 Route::put('editProduct/{id}', [ProductController::class, 'editProduct']);
 Route::delete('delete/{id}', [ProductController::class, 'destroy'])->middleware('auth:api');
+Route::get('/addOrRemoveProductLikes/{id}',[ProductController::class, 'addOrRemoveProductLikes'])->middleware('auth:api');
+Route::get('/addProductToCart/{id}',[ProductController::class,'addProductToCart'])->middleware('auth:api');
+Route::get('/removeProductFromCart/{id}',[ProductController::class,'removeProductFromCart'])->middleware('auth:api');
 
 
 
 // Photos
 Route::get('photos', [PhotoController::class, 'index']);
-Route::post('store', [PhotoController::class, 'store'])->middleware('auth:api');
+Route::post('createPhoto', [PhotoController::class, 'createPhoto'])->middleware('auth:api');
 Route::get('show/{id}', [PhotoController::class, 'show']);
 Route::put('update/{id}', [PhotoController::class, 'update'])->middleware('auth:api');
 Route::delete('delete/{id}', [PhotoController::class, 'destroy'])->middleware('auth:api');
+Route::get('/addOrRemovePhotoLikes/{id}',[PhotoController::class, 'addOrRemovePhotoLikes'])->middleware('auth:api');
+
 
 
 // Requests
 Route::get('publicRequests', [RequestController::class, 'publicRequests']);
 Route::get('privateRequests', [RequestController::class, 'privateRequests']);
-
 Route::post('createRequest', [RequestController::class, 'createRequest']);      // Requests
-
 Route::get('getPublicRequestById/{id}', [RequestController::class, 'getPublicRequestById']);
 Route::get('getPrivateRequestById/{id}', [RequestController::class, 'getPrivateRequestById']);
+Route::post('changeStatus/{id}', [RequestController::class, 'changeStatus']);
+
 
 
 // Reservations
 Route::get('allReservations',  [ReservationController::class, 'allReservations'])->middleware('auth:api');
 Route::post('createBookingPhotoShot/{freelancer_id}', [ReservationController::class, 'createBookingPhotoShot']); // Create Reservation
 Route::get('getReservationById/{id}', [ReservationController::class, 'getReservationById'])->middleware('auth:api');
+Route::post('changeReservationStatus/{id}', [ReservationController::class, 'changeReservationStatus']);
 
 

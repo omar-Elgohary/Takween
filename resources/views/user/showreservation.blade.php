@@ -540,23 +540,26 @@ $(document).ready(function() {
        },
        showAdjacentMonths: false,
        adjacentDaysChangeMonth: true,
-       // eventColor: 'color',
-       classNames: function (targetDate) {
-            console.log('sdsd');
-        return events.reduce(function (classes, event) {
-          
-            if (event.date === moment(targetDate).format('YYYY-MM-DD')) {
-                classes.push('event-' + event.title);
+       eventColor: 'color',
+    //    classNames: function (targetDate) {
+    //         console.log('sdsd');
+    //     return events.reduce(function ( event) {
+    //     console.log(event);
+    //         if (event.date === moment(targetDate).format('YYYY-MM-DD')) {
+    //             classes.push('event-' + event.title);
                 
-            }
+    //         }
            
-            return classes;
-        }, []);
+    //         return classes;
+    //     }, []);
         
-    }
+    // }
 
    });
 
+   console.log(document.querySelectorAll('.clndr td.event'));
+
+   
   
 
 
@@ -565,17 +568,39 @@ $(document).ready(function() {
        // Left arrow
        if (e.keyCode == 37) {
            calendars.clndr1.back();
-           calendars.clndr2.back();
-           calendars.clndr3.back();
+        //    calendars.clndr2.back();
+        //    calendars.clndr3.back();
+           
        }
 
        // Right arrow
        if (e.keyCode == 39) {
            calendars.clndr1.forward();
-           calendars.clndr2.forward();
-           calendars.clndr3.forward();
+        //    calendars.clndr2.forward();
+        //    calendars.clndr3.forward();
+         
        }
+    
    });
+
+       
 });
+
+
+
+
+$(document).ready(function(){
+
+
+   
+console.log($('.clndr td.event')[0]);
+$('.clndr .event').each(function(i){
+
+console.log($(this).attr('class'));
+
+})
+
+});
+
 </script>
 @endsection

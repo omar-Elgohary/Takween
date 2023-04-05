@@ -13,14 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('discounts', function (Blueprint $table) {
+        Schema::create('used_promo_codes', function (Blueprint $table) {
             $table->id();
-            $table->string('key')->unique();
-            $table->double('value');
-            $table->enum('by',['%','$']);
-            $table->boolean('is_oneuse');
-            $table->integer('max_use');
-            $table->integer('count_use');
+            $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('discount_id')->references('id')->on('discounts')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('discounts');
+        Schema::dropIfExists('used_promo_codes');
     }
 };

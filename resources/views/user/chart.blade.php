@@ -26,7 +26,69 @@ carts
         width:220px;
         height: 250px;
     }
+
+
+
+
+    /* visa */
+
+    .wpwl-form { 
+      background:#fff;
+border:none;
+box-shadow:none;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+
+
+}
+.wpwl-label-brand {display:none}
+.wpwl-form-card { background: #fff; } 
+.wpwl-control, input.wpwl-control{
+    /* border-width:0 0 0 1px;
+    border-bottom:1px solid black; */
+    box-shadow: none;
+    border-radius: 0px;
+    font-family:"ff-good-headline-web-pro-con", "Pathway Gothic One", sans-serif;
+    text-transform:none;
+    padding:10px;
+    font-size: 18px;
+    height: 50px;
+    min-width:100%
+    
+}
+
+
+.wpwl-form input{
+  
+}
+.input-text:focus, input[type=text]:focus, input[type=tel]:focus, input[type=url]:focus, input[type=password]:focus, input[type=search]:focus, textarea:focus {background-color: white;}
+.wpwl-brand-SOFORTUEBERWEISUNG, .wpwl-brand-GIROPAY{cursor:pointer}
+.wpwl-brand, .wpwl-img { margin: 0 0 0 auto;}
+
+.wpwl-wrapper-submit{
+  display: flex;
+  align-items: center;
+  justify-content: center
+}
+.wpwl-button, .wpwl-button:hover,.wpwl-button:active{
+background-color:#F26B1D ;
+color:#fff;
+padding: 10px 12px  !important ;
+  text-align: center;
+  border:none;
+  border-radius: 20px;
+
+  width:240px;
+
+  margin-top: 15px;
+
+}
+
 </style>
+
+
 @endsection
 
 @section("nosearch","none !important")
@@ -114,7 +176,7 @@ carts
                             <span>S.R</span>
                         </div>
                     </div>
-                    <button type="button"class="btn  btn-modal  my-3 btn-model-primary chart-out" data-bs-target="#pay" data-bs-toggle="modal">checkout</button>
+                    <button type="button"class="btn  btn-modal  my-3 btn-model-primary chart-out" data-bs-target="#pay" id='paygetid'data-bs-toggle="modal">checkout</button>
                  </div>
         </div>
        
@@ -167,7 +229,7 @@ carts
      
   
         <div class="visa paycard">
-          <form action="{{route('user.cartpay')}}" method="POST">
+          {{-- <form action="{{route('user.cartpay')}}" method="POST">
             <input type="hidden" name="paytype" value="visa">
             <input type="hidden" name="disc" value=" @if(isset($discount_key)) {{$discount_key}} @endif">
       
@@ -204,7 +266,7 @@ carts
      
        </div>
          
-          </form>
+          </form> --}}
         </div>
         <div class="apay paycard">
           <form action="">
@@ -236,7 +298,7 @@ carts
       @csrf
 
       <input type="hidden" name="paytype" value="wallet">
-      <input type="hidden" name="disc" value=" @if(isset($discount_key)) {{$discount_key}} @endif
+      <input type="hidden" name="disc" value="@if(isset($discount_key)) {{$discount_key}} @endif
       ">
       <input type="hidden" name="request_id">
       
@@ -312,7 +374,38 @@ $(document).ready(function() {
     },3000);
      
 });
+@endif
+
+$(document).ready(function(){
+  $(document).on('click', '#paygetid', function (e) {
+
+// @php
+// $desc=null;
+// if(isset($discount_key)) 
+// $desc =$discount_key;
+
+// @endphp
+
+
+            e.preventDefault();
+             $.ajax({
+                type: 'get',
+                url: "{{route('user.cart.checkoutid')}}",
+                
+                success: function (data) {
+                    if (data.status == true) {
+                        $('.visa').empty().html(data.content);
+                    } else {
+                     }
+                }, error: function (reject) {
+                }
+            });
+        });
+
+});
+
+
 </script>
 
-@endif
+
 @endsection

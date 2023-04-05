@@ -41,33 +41,56 @@ show public request
                     <i class="fa-solid fa-filter px-2 fs-3"></i>
                     <span >filter by:</span>
                 </button>
-                <span class=" px-2">All</span>
+                {{-- <span class=" px-2">All</span>
+                 --}}
+
+                 @foreach ( $filter as  $f )
+
+               <span class=" px-2">{{ $f }} </span>
+                 @if(!$loop->last)
+                 ,
+                 @endif
+             @endforeach
             </div>
 
             <div class="filter-items">
-            <form action="">
+            <form action="{{route('user.showpublicrequest')}}">
                 <div>
-                    <input type="checkbox" name="productsearch" value="all" id="all">
+                    <input type="checkbox" name="search[]" value="all" id="all"
+                    @if (in_array('newest',$filter))
+                    checked
+                @endif>
                     <label for="all" class="bold">all</label>
                 </div>
 
                 <div>
-                    <input type="checkbox" name="productsearch" value="datadesending" id="datadesending">
-                    <label for="datadesending" class="bold">data desending</label>
+                    <input type="checkbox" name="search[]" value="datedesending" id="datedesending" @if (in_array('datedesending',$filter))
+                    checked
+                @endif>
+                    <label for="datedesending" class="bold">date desending</label>
                 </div>
 
                 <div>
-                    <input type="checkbox" name="productsearch" value="pendding"id="pendding" >
+                    <input type="checkbox" name="search[]" value="pendding"id="pendding" 
+                    @if (in_array('pendding',$filter))
+                    checked
+                @endif>
                     <label for="pendding" class="bold">pendding</label>
                 </div>
 
                 <div>
-                    <input type="checkbox" name="productsearch" value="active"id="active" >
+                    <input type="checkbox" name="search[]" value="active"id="active"
+                    @if (in_array('active',$filter))
+                    checked
+                @endif >
                     <label for="active" class="bold">active</label>
                 </div>
 
                 <div>
-                    <input type="checkbox" name="productsearch" value="completed"id="completed" >
+                    <input type="checkbox" name="search[]" value="completed"id="completed" 
+                    @if (in_array('completed',$filter))
+                    checked
+                @endif>
                     <label for="completed" class="bold">completed</label>
                 </div>
 
@@ -578,8 +601,11 @@ show public request
                                 </div>
                             </div>
                         </a>  <!-- end offerPending modal -->
+                       
                         @endforeach
+                      
                         </div>
+
                 </div>
             
 
@@ -613,6 +639,9 @@ show public request
 {{-- @include("layouts.component.modal.userRequests.chat") --}}
 
 @endforeach
+
+
+{{ $requests->links() }}
 </div>
 </div>
 

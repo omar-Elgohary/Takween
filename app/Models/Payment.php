@@ -8,8 +8,9 @@ class Payment extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id','freelancer_id','status','pay_type','total','discount'];
+    // protected $fillable = ['user_id','freelancer_id','status','pay_type','total','discount','visapay_id'];
 
+    protected $guarded=[];
 
     public function users()
     {

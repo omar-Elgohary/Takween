@@ -56,7 +56,7 @@ class RequestController extends Controller
     }
 
 // store public and private  requests
-    public function store(Request $request, $freelancer_id = null)
+    public function store(Request $request , $freelancer_id = null)
     {
 
         $user_id= auth()->user()->id;
@@ -188,9 +188,40 @@ if($request->type=='public'){
 
     public function publicRequests()
     {
-        $requests = Requests::where('type', 'public')->where("user_id", auth()->user()->id)->orderBy('status')->get();
 
-        return view('user.showpublicrequest', compact('requests'));
+        $filter=[];
+       
+        
+        if(isset(request()->search)){
+            $requests = Requests::where('type', 'public')->where("user_id", auth()->user()->id)->orderBy('status')->get();
+            
+                
+                if(in_array('datedesending',request()->search)){
+                    $requests =$requests->sortByDesc('due_date');
+                    array_push($filter,'datedesending');
+                }
+                if(in_array('pendding',request()->search)){
+                    $requests =$requests->where('status','Pending');
+                    array_push($filter,'pendding');
+                }
+                if(in_array('datadesending',request()->search)){
+                    $requests =$requests->sortByDesc('due_date');
+                }
+                if(in_array('datadesending',request()->search)){
+                    $requests =$requests->sortByDesc('due_date');
+                }
+
+            
+                $requests=$requests->paginate(20);
+
+        }else{
+
+            $requests = Requests::where('type', 'public')->where("user_id", auth()->user()->id)->orderBy('status')->get();
+            $requests=$requests->paginate(20);
+        }
+      
+
+        return view('user.showpublicrequest', compact('requests','filter'));
     }
 
 

@@ -17,6 +17,7 @@
     },
     "dependencies": {
         "clndr": "^1.5.1",
+        "firebase": "^9.19.1",
         "underscore": "^1.13.6",
         "v-calendar": "^2.4.1"
     }

@@ -93,4 +93,8 @@ class User extends Authenticatable implements JWTSubject
     public function request(){
         return $this->hasMany(Requests::class,'freelancer_id');
     }
+
+    public function promocodeused(){
+        return $this->hasMany(UserPromoCode::class);
+    }
 }

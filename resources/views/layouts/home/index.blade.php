@@ -22,7 +22,7 @@
     {{-- <div id="preloading"></div> --}}
     <div id="layout-wrapper">
 
-    @include("layouts.component.nav")
+    @include("layouts.component.newnav")
     @include("layouts.component.modal.login")
     @include("layouts.component.modal.login2")
     @include("layouts.component.modal.signup")

@@ -9,7 +9,9 @@ use App\Models\Product;
 use App\Models\Discount;
 use App\Models\CardOrder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\payment\HayperpayController;
 
 class CartController extends Controller
 {
@@ -25,17 +27,25 @@ class CartController extends Controller
         $price=0;
         $descount=0;
         $walletEnough=false;
+
+        if (request('id') && request('resourcePath')) {
+            $Hp = new HayperpayController();
+$payment_status =$Hp->getPaymentStatus(request('id'), request('resourcePath'));
+
+ $re = new  Request;
+ $re->paytype='visa';
+ $re->payment_status=$payment_status;
+$this->cartpay($re);
+}
     if(Cart::where('user_id',auth()->user()->id)->exists()){
 
         $cartadditems= Cart::where('user_id',auth()->user()->id)->get();
         foreach($cartadditems as $item){
-
-            $price+=$item->price;
+        $price+=$item->price;
         }
 
         
         if ($discount) {
-
             $descount = $discount->value;
             if($discount->by =="%"){
             
@@ -57,9 +67,10 @@ class CartController extends Controller
 
         }else{
 
+
             $total=$price-$descount;
 
-           if(PaymentController::getuserwallet()  >=$total){
+           if(PaymentController::getuserwallet() >= $total){
             $walletEnough=true ;
            }
          
@@ -137,7 +148,9 @@ class CartController extends Controller
                   
                 $discount=Discount::where('key',$request->code)->first();
                 
-               
+            Session::put('discount_key',$request->code);
+             
+            
       
 
             }else{
@@ -218,16 +231,23 @@ class CartController extends Controller
 
 
 
-    public function cartpay(Request $request ){
+    public function cartpay(Request $request){
     $paydata=[];
     $payed=false;
     $discount=null;
     $discount_id=null;
+    $visa_pay_id=null;
     $disvalue=0;
     if(Cart::where('user_id',auth()->user()->id)->exists()){
 
         if(Discount::where('key',$request->disc)->exists()){
             $discount=Discount::where('key',$request->disc)->first();
+            $discount_id=$discount->id;
+            $disvalue=$discount->value.$discount->by;
+        }
+
+        if(Session::has('discount_key')){
+            $discount=Discount::where('key',Session::get('discount_key'))->first();
             $discount_id=$discount->id;
             $disvalue=$discount->value.$discount->by;
         }
@@ -239,7 +259,14 @@ class CartController extends Controller
     
      }elseif($request->paytype=='visa'){
 
+
+        $visa_pay_id=$request->payment_status['id'];
         
+     $payed=true;
+            
+
+ 
+
      }elseif($request->paytype=='apay'){
 
 
@@ -249,6 +276,20 @@ class CartController extends Controller
 
 
      if($payed){
+
+        if($discount_id){
+
+            $count= Discount::where('id',$discount_id)->select('count_use')->get();
+             
+            Discount::where('id',$discount_id)->update([
+             'count_use'=> ++$count,
+            ]);
+         
+            Discount::where('id',$discount_id)->userused()->create([
+             'user_id'=>auth()->user()->id,   
+            ]);
+         
+             }
 
        $order= CardOrder::create([
        'user_id'=>auth()->user()->id,
@@ -277,12 +318,30 @@ class CartController extends Controller
 
      $order->payment()->create([
         'user_id'=>auth()->user()->id,
-        'pay_type'=>$request->paytype,
+        'pay_type'=>'bank',
         "status"=>'purchase',
         'total'=>$paydata['total'],
         'discount'=>$disvalue,
+        'visapay_id'=>$visa_pay_id,
 
     ]);
+
+
+    if($discount_id){
+
+   $count= Discount::where('id',$discount_id)->select('count_use')->get();
+    
+   Discount::where('id',$discount_id)->update([
+    'count_use'=> ++$count,
+   ]);
+
+   Discount::where('id',$discount_id)->userused()->create([
+    'user_id'=>auth()->user()->id,   
+   ]);
+
+    }
+   
+    
    
 
 
@@ -353,4 +412,31 @@ class CartController extends Controller
     }
  
     
+
+
+   
+  public function getHayperpayVisaId(){
+
+    $discount=null;
+    if(Session::has('discount_key')){
+        $discount=Discount::where('key',$request->disc)->first();
+    }
+   
+  $data =$this->calcCartTotal($discount);
+    $Hp = new HayperpayController();
+
+ $num=number_format($data['total'], 2, '.', '');
+  $res= $Hp->checkout($num);
+  
+   
+
+
+   $view = view('layouts.payment.hayperpay')->with(['responseData' => $res ])
+   ->renderSections();
+
+return response()->json([
+   'status' => true,
+   'content' => $view['main']
+]);
+  }
 }

@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Discount extends Model
 {
     use HasFactory;
+
+    public function userused(){
+        return $this->hasMany(UserPromoCode::class);
+    }
 }

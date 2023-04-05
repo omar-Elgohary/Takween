@@ -290,10 +290,13 @@ class UserController extends Controller
         $currentMonth = Carbon::now()->month;
         $lastMonth = Carbon::now()->subMonth()->month;
 
+        
 
         $files_current= Files::where('user_id', $user_id)->whereMonth('created_at', $currentMonth)
         ->whereYear('created_at', $currentYear)
         ->get();
+
+ 
         $files_lastmonth= Files::where('user_id', $user_id)->whereMonth('created_at', $lastMonth)
         ->whereYear('created_at', $currentYear)
         ->get();

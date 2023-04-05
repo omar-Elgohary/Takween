@@ -9,7 +9,10 @@ class Photo extends Model
     use HasFactory;
 
     protected $fillable=["name","photo","description","lens_type","size_width","size_height","size_type","location","photo","freelancer_id","camera_brand"];
-
+    public function freelancer()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function likes(){
         return $this->morphMany(Like::class,"likesable");

@@ -26,42 +26,20 @@ notification
             <h2>Notifications</h2>
         </div>
         <div class="row">
-               <div class="noti row col-12">
+
+            @foreach (Auth::User()->unreadNotifications as $notification)
+            <div class="noti row col-12">
             <div class="image col-4 ">
             <img src="{{asset("assets/images/vicky-hladynets-C8Ta0gwPbQg-unsplash.png")}}" alt="">
-        </div>
+            </div>
         <div class="discription col-8">
             <span class="text-black-50">3m ago</span>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita corrupti sed nam amet doloremque eum dicta fugit exercitationem nostrum. Atque inventore rerum quis dolorum placeat commodi iste cupiditate repudiandae hic.</p>
+            <p>  {{$notification->data['message']}}</p>
         </div>
-        </div>
-           <div class="noti row col-12">
-            <div class="image col-4 ">
-            <img src="{{asset("assets/images/vicky-hladynets-C8Ta0gwPbQg-unsplash.png")}}" alt="">
-        </div>
-        <div class="discription col-8">
-            <span class="text-black-50">3m ago</span>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita corrupti sed nam amet doloremque eum dicta fugit exercitationem nostrum. Atque inventore rerum quis dolorum placeat commodi iste cupiditate repudiandae hic.</p>
-        </div>
-        </div>
-           <div class="noti row col-12">
-            <div class="image col-4 ">
-            <img src="{{asset("assets/images/vicky-hladynets-C8Ta0gwPbQg-unsplash.png")}}" alt="">
-        </div>
-        <div class="discription col-8">
-            <span class="text-black-50">3m ago</span>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita corrupti sed nam amet doloremque eum dicta fugit exercitationem nostrum. Atque inventore rerum quis dolorum placeat commodi iste cupiditate repudiandae hic.</p>
-        </div>
-        </div>
-           <div class="noti row col-12">
-            <div class="image col-4 ">
-            <img src="{{asset("assets/images/vicky-hladynets-C8Ta0gwPbQg-unsplash.png")}}" alt="">
-        </div>
-        <div class="discription col-8">
-            <span class="text-black-50">3m ago</span>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita corrupti sed nam amet doloremque eum dicta fugit exercitationem nostrum. Atque inventore rerum quis dolorum placeat commodi iste cupiditate repudiandae hic.</p>
-        </div>
-        </div>
+    </div>
+        @endforeach
+       
+      
         </div>
      
         

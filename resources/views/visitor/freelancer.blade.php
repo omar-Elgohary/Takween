@@ -47,7 +47,7 @@
                         <i class="fa fa-star"></i>
                         <span>
                             @if( App\Models\Review::select('rate')->where('freelancer_id',$freelancer->id)->count()>0)
-                            {{App\Models\Review::select('rate')->where('freelancer_id',$freelancer->id)->sum('rate')/  App\Models\Review::select('rate')->where('freelancer_id',$freelancer->id)->count()}}
+                            {{round(App\Models\Review::select('rate')->where('freelancer_id',$freelancer->id)->sum('rate')/  App\Models\Review::select('rate')->where('freelancer_id',$freelancer->id)->count(),1)}}
                         @else
 {{App\Models\Review::select('rate')->where('freelancer_id',$freelancer->id)->count()}}
                         @endif
