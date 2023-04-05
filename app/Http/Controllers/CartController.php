@@ -422,14 +422,14 @@ $this->cartpay($re);
         $discount=Discount::where('key',Session::get('discount_key'))->first();
     }
    
-    dd($discount);
+   
   $data =$this->calcCartTotal($discount);
     $Hp = new HayperpayController();
 
  $num=number_format($data['total'], 2, '.', '');
   $res= $Hp->checkout($num);
   
-   
+  dd($res);
 
 
    $view = view('layouts.payment.hayperpay')->with(['responseData' => $res ])
