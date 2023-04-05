@@ -26,7 +26,7 @@ class Requests extends Model
 
     public function freelancer()
     {
-        return $this->belongsTo(Freelancer::class);
+        return $this->belongsTo(User::class,'freelancer_id');
     }
 
     public function category()

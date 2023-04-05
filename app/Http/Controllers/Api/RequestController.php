@@ -17,7 +17,6 @@ class RequestController extends Controller
     {
         try{
             
-            
             $requests = Requests::where('type', 'public')->orderBy('status')->with(['user', 'freelancer', 'category', 'service', 'file'])->get();
             
             foreach($requests as $request){
