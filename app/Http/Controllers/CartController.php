@@ -247,7 +247,7 @@ $this->cartpay($re);
         }
 
         if(Session::has('discount_key')){
-            $discount=Discount::where('key',Session::get('discount_key'))->first();
+            $discount=Discount::where('key','2')->first();
             $discount_id=$discount->id;
             $disvalue=$discount->value.$discount->by;
         }
