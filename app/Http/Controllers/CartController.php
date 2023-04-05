@@ -36,7 +36,12 @@ $payment_status =$Hp->getPaymentStatus(request('id'), request('resourcePath'));
  $re->paytype='visa';
  $re->payment_status=$payment_status;
 $this->cartpay($re);
+
+}else{
+      
+   Session::forget('discount_key');
 }
+
     if(Cart::where('user_id',auth()->user()->id)->exists()){
 
         $cartadditems= Cart::where('user_id',auth()->user()->id)->get();
@@ -429,7 +434,7 @@ $this->cartpay($re);
  $num=number_format($data['total'], 2, '.', '');
   $res= $Hp->checkout($num);
   
-  dd($res);
+
 
 
    $view = view('layouts.payment.hayperpay')->with(['responseData' => $res ])
