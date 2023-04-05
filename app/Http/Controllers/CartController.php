@@ -422,6 +422,7 @@ $this->cartpay($re);
         $discount=Discount::where('key',Session::get('discount_key'))->first();
     }
    
+    dd($discount);
   $data =$this->calcCartTotal($discount);
     $Hp = new HayperpayController();
 
