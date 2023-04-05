@@ -342,7 +342,7 @@ $this->cartpay($re);
     }
    
     
-   
+   Session::forget('discount_key');
 
 
      Cart::where('user_id',auth()->user()->id)->delete();
