@@ -16,7 +16,7 @@ class RequestController extends Controller
     public function publicRequests(Request $request)
     {
         try{
-            $price = null;
+            
             
             $requests = Requests::where('type', 'public')->orderBy('status')->with(['user', 'freelancer', 'category', 'service', 'file'])->get();
             
