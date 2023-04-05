@@ -1,7 +1,7 @@
 <div class="head">
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#"><img src="{{asset("assets/images/tkween.png")}}" alt=""></a>
+        <a class="navbar-brand" href="#"><img src="{{asset("assets/images/newlogo2.jpg")}}" alt=""></a>
         <form class="search-form can-hide d-flex flex-grow-1 px-lg-3 " style="display:@yield("nosearch")" role="search">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
