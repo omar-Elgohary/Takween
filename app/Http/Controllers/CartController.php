@@ -419,7 +419,7 @@ $this->cartpay($re);
 
     $discount=null;
     if(Session::has('discount_key')){
-        $discount=Discount::where('key',$request->disc)->first();
+        $discount=Discount::where('key',Session::get('discount_key'))->first();
     }
    
   $data =$this->calcCartTotal($discount);
