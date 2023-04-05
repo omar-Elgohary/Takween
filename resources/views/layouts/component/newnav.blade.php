@@ -116,7 +116,7 @@
 </div>
 
     <div class="logo">
-        <img src="{{asset("assets/images/logo.png")}}" alt="">
+        <img src="{{asset("assets/images/newlogo.png")}}" alt="">
     </div>
 </div>
 
