@@ -39,7 +39,15 @@ class MainController extends Controller
     }
     
     
-    
+    public function addServiceToFreelancer($cat_id,$serv_id){
+        try{
+         
+            return $this->returnData(201, 'Categories Returned Successfully', 'ok');
+        }catch(\Exception $e){
+            echo $e;
+            return $this->returnError(400, 'There Is No AboutUs Info');
+        }
+    }
     
 
     public function aboutUs()

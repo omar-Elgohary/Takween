@@ -41,6 +41,7 @@ Route::get('services', [MainController::class, 'getAllServices']);
 
 // Get Services Of Categories
 Route::get('getServicesOfCategories/{cat_id}', [MainController::class, 'getServicesOfCategories']);
+Route::get('addServiceToFreelancer/{cat_id}/{serv_id}', [MainController::class, 'addServiceToFreelancer']);
 
 
 // Cart
