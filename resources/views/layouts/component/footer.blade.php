@@ -32,7 +32,7 @@
             </div>
         </div>
 
-          <p class="text-center py-3">All copy writes saved to <span class="footer-logo">TAKWEEN</span> co.</p>
+          <p class="text-center py-3">All copy writes saved to <span class="footer-logo">WASF</span> co.</p>
 
     </div>
 </footer>

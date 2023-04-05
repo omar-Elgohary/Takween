@@ -1,22 +1,22 @@
 
 <meta name="description"
-    content="أكتمل هي المنصه الأولى في الشرق الأوسط لتنفيذ المشاريع الرقميه والبرمجيه التجاريه وغيرها">
+    content="وصف هي المنصه الأولى في الشرق الأوسط لتنفيذ المشاريع الرقميه والبرمجيه التجاريه وغيرها">
 <!-- project header -->
 <meta name="description" content="إمتلك موقع لنشر الأخبار والمقالات العامه , وإكسب المال من الزيارات التي ستزور موقعك">
-<meta name="keywords" content="تجارة الكترونية , منصة إكتمل , مشاريع ربحية">
+<meta name="keywords" content="تجارة الكترونية , منصة وصف , مشاريع ربحية">
 <title>المقالات الربحية</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="title" Content="منصة إكتمل - المتجر">
-<link rel="shortcut icon" href="{{asset('assets/images/logo.png')}}" type="image/x-icon">
+<meta name="title" Content="منصة وصف - المتجر">
+<link rel="shortcut icon" href="{{asset('assets/images/newlogo.png')}}" type="image/x-icon">
 
 <meta name="csrf_token" content="{{ csrf_token() }}" />
 <link rel="apple-touch-icon" href="https://www.ektml.com/public/static/img/logo_ektml-2.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
-<meta name="apple-mobile-web-app-title" content="منصة إكتمل - المتجر">
+<meta name="apple-mobile-web-app-title" content="منصة وصف - المتجر">
 
-<meta itemprop="name" content="منصة إكتمل - المتجر">
+<meta itemprop="name" content="منصة وصف - المتجر">
 <meta itemprop="description" content="">
 <meta name="image" itemprop="image" content="https://www.ektml.com/catalog/image/1">
 
@@ -27,7 +27,7 @@
 <meta property="og:image" content="@yield('og-image')" />
 <meta property="og:image:width" content="600" />
 <meta property="og:image:height" content="315" />
-<meta property="og:url" content="https://www.ektml.com"> <!-- Global site tag (gtag.js) - Google Analytics -->
+<meta property="og:url" content="https://wasfplatforms.com"> <!-- Global site tag (gtag.js) - Google Analytics -->
 
 {{-- <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
