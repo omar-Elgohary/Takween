@@ -101,7 +101,7 @@ class UserController extends Controller
              
                if($serv->parent_id==null){
                 
-                $freelancer_service[]=Category::find($serv->service_id);
+                $freelancer_service[]=Category::find($serv->service_id)->select('id' ,'title_en as service_en','title_ar as service_ar','icon','created_at','updated_at')->get();
 
                }else{
               
@@ -111,7 +111,7 @@ class UserController extends Controller
                }
 
             }
-          
+            return $this->returnData(200, 'Freelancer Returned Successfully',$freelancer_service);
             $freelancer['freelancer_service']=$freelancer_service;
 
             if(!$freelancer || $freelancer->type != 'freelancer'){
