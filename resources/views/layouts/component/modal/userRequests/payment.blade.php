@@ -82,7 +82,7 @@
        
         </form>
       </div>
-      <div class="wallet  paycard" style="height: 350px">
+      <div class="wallet  paycard" >
         <div class="wallet-empty" style="height:100%">
         <div class=" d-flex flex-column align-items-center justify-content-center w-100" style="height:100%" >
 
