@@ -75,8 +75,10 @@ class UserController extends Controller
     public function getFreelancerById(Request $request, $id)
     {
         try{
-            $freelancer = User::where('type', 'freelancer')->with('freelancerService', 'review')->find($id);
-
+            $freelancer_service=[];
+            $freelancer = User::where('type', 'freelancer')->with('review')->find($id);
+          
+           
             $freelancer->profile_image = asset('Admin3/assets/images/users/'.$freelancer->profile_image);
             
             $freelancer['product'] = Product::where('freelancer_id', $id)->get();
@@ -92,6 +94,26 @@ class UserController extends Controller
                 $photo->photo = asset('assets/images/photo/'.$photo->photo);
             }
     
+           
+            $freelanc_service=FreelancerService::where('freelancer_id',$id)->get();
+            $freelancer_service=[];
+            foreach($freelanc_service as $serv){
+             
+               if($serv->parent_id==null){
+                
+                $freelancer_service[]=Category::find($serv->service_id);
+
+               }else{
+              
+                $freelancer_service[]=Service::find($serv->service_id);
+                
+
+               }
+
+            }
+          
+            $freelancer['freelancer_service']=$freelancer_service;
+
             if(!$freelancer || $freelancer->type != 'freelancer'){
                 return $this->returnError('404', 'Freelancer Not Found');
             }

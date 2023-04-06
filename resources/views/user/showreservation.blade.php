@@ -540,7 +540,7 @@ $(document).ready(function() {
        },
        showAdjacentMonths: false,
        adjacentDaysChangeMonth: true,
-       eventColor: 'color',
+       eventColor:'color',
     //    classNames: function (targetDate) {
     //         console.log('sdsd');
     //     return events.reduce(function ( event) {
@@ -557,7 +557,7 @@ $(document).ready(function() {
 
    });
 
-   console.log(document.querySelectorAll('.clndr td.event'));
+ 
 
    
   
@@ -568,20 +568,23 @@ $(document).ready(function() {
        // Left arrow
        if (e.keyCode == 37) {
            calendars.clndr1.back();
-        //    calendars.clndr2.back();
-        //    calendars.clndr3.back();
-           
+         
        }
 
        // Right arrow
        if (e.keyCode == 39) {
            calendars.clndr1.forward();
-        //    calendars.clndr2.forward();
-        //    calendars.clndr3.forward();
          
        }
     
    });
+
+
+console.log($('.cal1 .day.event').css('background-color', 'red'));
+$('.clndr td.event').each(function(i){
+console.log($(this).attr('class'));
+});
+
 
        
 });
@@ -589,18 +592,7 @@ $(document).ready(function() {
 
 
 
-$(document).ready(function(){
 
-
-   
-console.log($('.clndr td.event')[0]);
-$('.clndr .event').each(function(i){
-
-console.log($(this).attr('class'));
-
-})
-
-});
 
 </script>
 @endsection
