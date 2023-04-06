@@ -26,7 +26,7 @@ privacy&policy
 </a>
 @endauth
 
-<div class="privacy">
+<div class="privacy&police">
 
 <div class="container">
     <div class="section-header">
