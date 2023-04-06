@@ -129,7 +129,7 @@ table {
 		<p>Wassef website management reserves the right to monitor any content entered by the subscriber, without being obligated to do so, so it reserves the right (without obligation) to delete, remove or edit any entered materials that violate the terms and conditions of the site without referring to the user.
             The local, international and foreign copyright laws and international treaties protect all the contents of this site, and by subscribing to it, the subscriber agrees implicitly and explicitly to abide by the copyright notices that appear on its pages.</p>
 
-            <p>
+            <p class="py-4">
                 This policy is subject to permanent change and development, with notice to subscribers and visitors, and subscribers to review these policies periodically</p>
     
 
