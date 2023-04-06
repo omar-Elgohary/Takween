@@ -111,7 +111,7 @@ class UserController extends Controller
                }
 
             }
-            return $this->returnData(200, 'Freelancer Returned Successfully',$freelancer_service);
+           
             $freelancer['freelancer_service']=$freelancer_service;
 
             if(!$freelancer || $freelancer->type != 'freelancer'){
