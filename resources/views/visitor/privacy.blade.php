@@ -44,14 +44,7 @@ h3 {
 }
 
 /* Link Styles */
-a {
-  color: #337ab7;
-  text-decoration: none;
-}
 
-a:hover {
-  text-decoration: underline;
-}
 
 /* List Styles */
 ul, ol {
