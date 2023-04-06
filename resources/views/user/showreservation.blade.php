@@ -62,75 +62,9 @@ Reservations
 
 
 
- /* .wpwl-form { 
-      background:#fff;
-border:none;
-box-shadow:none;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
 
 
-} */
-/* .wpwl-label-brand {display:none} */
-.wpwl-form-card { background-color: #c0c0c0a6 !important; } 
-.wpwl-control, input.wpwl-control{
-    /* border-width:0 0 0 1px;
-    border-bottom:1px solid black; */
-    box-shadow: none;
-    border-radius: 0px;
-    font-family:"ff-good-headline-web-pro-con", "Pathway Gothic One", sans-serif;
-    text-transform:none;
-    padding:10px;
-    font-size: 18px;
-    height: 50px;
-    min-width:100%
-    
-}
 
-
-.wpwl-form input{
-  
-}
-.input-text:focus, input[type=text]:focus, input[type=tel]:focus, input[type=url]:focus, input[type=password]:focus, input[type=search]:focus, textarea:focus {background-color: white;}
-.wpwl-brand-SOFORTUEBERWEISUNG, .wpwl-brand-GIROPAY{cursor:pointer}
-.wpwl-brand, .wpwl-img { margin: 0 0 0 auto;}
-
-.wpwl-wrapper-submit{
-  display: flex;
-  align-items: center;
-  justify-content: center
-}
-.wpwl-button, .wpwl-button:hover,.wpwl-button:active{
-background-color:#F26B1D ;
-color:#fff;
-padding: 10px 12px  !important ;
-  text-align: center;
-  border:none;
-  border-radius: 20px;
-
-  width:240px;
-
-  margin-top: 15px;
-
-}
-
-
-.visaloader {
-
-  border: 10px solid #f3f3f3; /* Light gray border */
-  border-top: 10px solid #3498db; /* Blue border */
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  animation: spin 2s linear infinite; /* Animation */
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
 </style>
 @endsection
 

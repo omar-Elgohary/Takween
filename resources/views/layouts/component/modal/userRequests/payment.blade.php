@@ -32,6 +32,8 @@
    
 
       <div class="visa paycard">
+
+        <div class="visaloader"></div>
         {{-- <form action="" method="POST">
           <input type="hidden" name="offer">
           <input type="hidden" name="request_id">
