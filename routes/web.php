@@ -55,6 +55,10 @@ Route::get('/notifications', [NotificationController::class, 'index']);
 
 
 
+Route::get('/privacy&policy', function(){
+    return view('visitor.privacy');
+})->name('privacy&poilcy');
+
 Route::get('products', [ProductController::class, 'displayAllProducts'])->name('products');
 
 

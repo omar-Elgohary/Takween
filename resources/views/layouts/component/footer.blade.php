@@ -5,15 +5,15 @@
 
             <div class="col-md-4 ">
                 <div class=" footer-links d-flex flex-column ">
-                        <a href="#" class="text-decoration-none text-capitalize">home</a>
+                        <a href="{{route('home')}}" class="text-decoration-none text-capitalize">home</a>
                         <a href="#" class="text-decoration-none text-capitalize">categories</a>
-                        <a href="#" class="text-decoration-none text-capitalize">privacy & policy</a>
+                        <a href="{{route('privacy&poilcy')}}" class="text-decoration-none text-capitalize">privacy & policy</a>
                 </div>
             </div>
             <div class="col-md-4   ">
                 <div class=" footer-links d-flex flex-column ">
-                <a href="#" class="text-decoration-none text-capitalize">product</a>
-                <a href="#" class="text-decoration-none text-capitalize">freelancers</a>
+                <a href="{{route('products')}}" class="text-decoration-none text-capitalize">product</a>
+                <a href="{{route('freelancers')}}" class="text-decoration-none text-capitalize">freelancers</a>
                 </div>
             </div>
             <div class="col-md-4  download ">
