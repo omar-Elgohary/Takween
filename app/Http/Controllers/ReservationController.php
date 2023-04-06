@@ -57,12 +57,7 @@ class ReservationController extends Controller
 
 
 
-    public function freelancerReservations(Request $request)
-    {
-        $freelancer_id = auth()->user()->id;
-        $reservations = Reservation::where('freelancer_id', $freelancer_id)->get();
-        return view("freelancer.showreservation", compact('reservations'));
-    }
+   
 
 
     
@@ -133,13 +128,15 @@ if($request->paytype=='wallet'){
      "total"=>$offer_total,
 
     ]);
-    return redirect()->back()->with(['state'=>"paydone","id"=>$id]);
+    return redirect()->route('user.res')->with(['state'=>"paydone","id"=>$id]);
    }
 
    toastr()->error('something went wronge');
    return redirect()->back();
 
 }
+
+
 
 
 public function rejectOffer($id){
@@ -202,7 +199,12 @@ return redirect()->back()->with(["state"=>'Waiting','id'=>$id]);
     // freelancer 
 
 
-
+    public function freelancerReservations(Request $request)
+    {
+        $freelancer_id = auth()->user()->id;
+        $reservations = Reservation::where('freelancer_id', $freelancer_id)->get();
+        return view("freelancer.showreservation", compact('reservations'));
+    }
 
 
     public function rejectReservation($id){

@@ -7,7 +7,7 @@
 @section("og-image")
 @endsection
 @section("title")
-home
+request reservation
 @endsection
 @section("header")
 @endsection
