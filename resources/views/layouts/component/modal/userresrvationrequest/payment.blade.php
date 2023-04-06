@@ -32,7 +32,9 @@
    
 
       <div class="visa paycard">
-        <form action="" method="POST">
+
+        <div class="visaloader"></div>
+        {{-- <form action="" method="POST">
           <input type="hidden" name="paytype" value="visa">
          
     
@@ -69,7 +71,7 @@
    
      </div>
        
-        </form>
+        </form> --}}
       </div>
       <div class="apay paycard">
         <form action="">
@@ -82,7 +84,7 @@
        
         </form>
       </div>
-      <div class="wallet  paycard" style="height: 350px">
+      <div class="wallet  paycard" >
         @if($request->offer->first()->price >App\Models\User::find(auth()->user()->id)->wallet->total)
 
         
@@ -99,7 +101,7 @@
       </div>
 @else
 <div class="wallet-pay">
-  <form action="{{route('user.reservation.pay',$request->id)}}" method="POST" class=" d-flex flex-column justify-content-end" >
+  <form action="{{route('user.reservation.pay',$request->id)}}" method="GET" class=" d-flex flex-column justify-content-end" >
     @csrf
     <input type="hidden" name="paytype" value="wallet">
   

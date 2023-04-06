@@ -918,6 +918,19 @@ $(document).ready(function() {
     $('#pay{{Session::get('request_id')}}').find('.wallet .wallet-empty').show();
         
     @endif
+
+    $.ajax({
+                type: 'get',
+                url: "{{route('user.request.checkoutid')}}",
+                data:{'request_id':{{Session::get('request_id')}} },
+                success: function (data) {
+                    if (data.status == true) {
+                        $('.visa').empty().html(data.content);
+                    } else {
+                     }
+                }, error: function (reject) {
+                }
+            });
     
 });
 @endif

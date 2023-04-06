@@ -28,11 +28,12 @@ carts
     }
 
 
+   
 
 
     /* visa */
 
-    .wpwl-form { 
+    /* .wpwl-form { 
       background:#fff;
 border:none;
 box-shadow:none;
@@ -43,8 +44,8 @@ align-items:center;
 
 
 }
-.wpwl-label-brand {display:none}
-.wpwl-form-card { background: #fff; } 
+.wpwl-label-brand {display:none} */
+.wpwl-form-card { background-color: #c0c0c0a6 !important; } 
 .wpwl-control, input.wpwl-control{
     /* border-width:0 0 0 1px;
     border-bottom:1px solid black; */
@@ -86,6 +87,23 @@ padding: 10px 12px  !important ;
 
 }
 
+
+
+
+.visaloader {
+    
+    border: 10px solid #f3f3f3; /* Light gray border */
+    border-top: 10px solid #3498db; /* Blue border */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite; /* Animation */
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 </style>
 
 
@@ -229,6 +247,7 @@ padding: 10px 12px  !important ;
      
   
         <div class="visa paycard">
+          <div class="visaloader"></div>
           {{-- <form action="{{route('user.cartpay')}}" method="POST">
             <input type="hidden" name="paytype" value="visa">
             <input type="hidden" name="disc" value=" @if(isset($discount_key)) {{$discount_key}} @endif">
@@ -279,7 +298,7 @@ padding: 10px 12px  !important ;
          
           </form>
         </div>
-        <div class="wallet  paycard" style="height: 350px">
+        <div class="wallet  paycard" >
           @if(!$walletEnough)
           <div class="wallet-empty" style="height:100%">
           <div class=" d-flex flex-column align-items-center justify-content-center w-100" style="height:100%" >

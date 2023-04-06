@@ -11,6 +11,8 @@ use App\Http\Services\PayTabs;
 
 class PaymentController extends Controller
 {
+
+    //for request only
     function walletpay( Request $request){
 
        
@@ -70,7 +72,7 @@ class PaymentController extends Controller
         
     }
 
-
+//for request only
     static function bankpay(){
         
     }

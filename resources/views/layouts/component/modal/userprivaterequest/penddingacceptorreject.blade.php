@@ -89,17 +89,21 @@
                 </div>
   
           </div>
-          <div class="btn-contianer d-flex flex-row justify-content-center align-items-center my-3">
-           <form action="{{route("user.privaterejectoffer",$request->id)}}" method="post">
+          <div class="btn-contianer flex-lg-row flex-column-reverse justify-content-center align-items-center  my-3  gap-2  gap-lg-0">
+
+
+            <form action="{{route("user.privateracceptoffer",$request->id)}}" method="post"class="d-flex py-2 justify-content-center">
+              @csrf
+               <button class=" btn-accept border-0 btn-modal rounded-pill mx-2"type="submit" >accept</button>
+  
+             </form>
+             
+           <form action="{{route("user.privaterejectoffer",$request->id)}}" class="d-flex py-2 justify-content-center" method="post">
                 @csrf
              <button class=" btn-reject border-0 btn-modal rounded-pill mx-2"type="submit" >reject</button>
             
            </form>
-           <form action="{{route("user.privateracceptoffer",$request->id)}}" method="post">
-            @csrf
-             <button class=" btn-accept border-0 btn-modal rounded-pill mx-2"type="submit" >accept</button>
-
-           </form>
+           
            
              </div>
          

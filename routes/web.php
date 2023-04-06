@@ -133,7 +133,7 @@ Route::middleware("is_photgrapher")->group(function() {
     Route::post('/reservation/status/{id}', [ReservationController::class, 'changeStatus'])->name('reservations.status');
 
     Route::get('/rejectResevation/{id}',[ReservationController::class,'rejectReservation'])->name('reservation.reject');
-    Route::get('/rejectResevation/{id}',[ReservationController::class,'rejectReservation'])->name('reservation.cancel');
+    // Route::get('/rejectResevation/{id}',[ReservationController::class,'rejectReservation'])->name('reservation.cancel');
 
     Route::post('/cancelResevation/{id}',[ReservationController::class,'cancelReservation'])->name('reservation.cancelReservation');
     Route::post('/postResevation/{id}',[ReservationController::class,'postReservation'])->name('reservation.postReservation');
@@ -206,13 +206,14 @@ Route::prefix("user")->name("user.")->middleware('auth')->group(function(){
     // Reservations
     Route::get('/requestreservation/{freelancer_id}', [ReservationController::class,'index'])->name('requestreservation');
     Route::post('/requestreservation/store/{freelancer_id}', [ReservationController::class, 'store'])->name('requestreservation.store');
+    Route::get('/reservaion/visa',[ReservationController::class, 'reservationVisaPay'])->name('reservation.visapay');
 
     Route::get('/reservations', [ReservationController::class, 'show'])->name('reservations');
     Route::post('/reviewReservation/{id}',[ReservationController::class, 'review'])->name("reservation.review");
     Route::post('/cancelReservation/{id}', [ReservationController::class, 'cancel'])->name("reservation.cancel");
 
-    Route::post('/reservationPay/{id}',[ReservationController::class,'reservationPay'])->name('reservation.pay');
-    Route::post('/reservationPay/{id}',[ReservationController::class,'reservationPay'])->name('reservation.pay');
+    Route::get('/reservationPay/{id}',[ReservationController::class,'reservationPay'])->name('reservation.pay');
+    
     Route::get('/reservationcempelete/{id}',[ReservationController::class,'compelete'])->name('reservation.compelete');
     Route::post('/rejectOffer/{id}',[ReservationController::class,'rejectOffer'])->name('reservation.rejectOffer');
     Route::post('/acceptdelay/{id}',[ReservationController::class,'acceptdelay'])->name('reservation.acceptdelay');
@@ -266,6 +267,8 @@ Route::prefix("user")->name("user.")->middleware('auth')->group(function(){
 Route::get('/request/completed/{id}',[RequestController::class,'completeRequest'])->name("completerequest");
 Route::post('/private/request/rejectoffer/{id}',[RequestController::class,'privaterejectoffer'])->name("privaterejectoffer");
 Route::post('/private/request/aceptoffer/{id}',[RequestController::class,'privateracceptoffer'])->name("privateracceptoffer");
+
+Route::get('/request/checkout',[RequestController::class,'checkoutvisaid'])->name("request.checkoutid");
 
 
 // switch to freelancer

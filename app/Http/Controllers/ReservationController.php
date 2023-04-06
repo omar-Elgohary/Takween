@@ -1,11 +1,12 @@
 <?php
 namespace App\Http\Controllers;
+use  Carbon\Carbon;
 use App\Models\User;
 use App\Models\Requests;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use  Carbon\Carbon;
+use App\Http\Controllers\payment\HayperpayController;
 
 class ReservationController extends Controller
 {
@@ -93,18 +94,31 @@ class ReservationController extends Controller
 
 
 public function reservationPay(Request $request, $id){
+
+    if (request('id') && request('resourcePath')) {
+        $Hp = new HayperpayController();
+$payment_status =$Hp->getPaymentStatus(request('id'), request('resourcePath'));
+$request->paytype='visa';
+
+
+
+}
 $reservation=Reservation::findOrFail($id);
 $offer_total=$reservation->offer->first()->price;
 $payed =false;
+$visa_pay_id=null;
 if($request->paytype=='wallet'){
     $payed = PaymentController::walletpay2($offer_total);
-  
+    $pay_type='wallet';
    }elseif($request->paytype=='visa'){
 
+    $visa_pay_id=$payment_status['id'];
+    $pay_type='bank';
+     $payed=true;
       
    }elseif($request->paytype=='apay'){
 
-
+    $pay_type='apay';
    }else{
 
    }
@@ -124,11 +138,11 @@ if($request->paytype=='wallet'){
      'user_id'=>auth()->user()->id,
      'freelancer_id'=>$reservation->freelancer_id,
      "status"=>'pending',
-     "pay_type"=>'wallet',
+     "pay_type"=>$pay_type,
      "total"=>$offer_total,
-
+     "visapay_id"=> $visa_pay_id
     ]);
-    return redirect()->route('user.res')->with(['state'=>"paydone","id"=>$id]);
+    return redirect()->route('user.reservations')->with(['state'=>"paydone","id"=>$id]);
    }
 
    toastr()->error('something went wronge');
@@ -136,7 +150,26 @@ if($request->paytype=='wallet'){
 
 }
 
+public function reservationVisaPay(){
 
+$reservation=Reservation::find(request()->res_id);
+
+   $price=$reservation->offer()->first()->price;
+    $Hp = new HayperpayController();
+
+ $num=number_format($price, 2, '.', '');
+  $res= $Hp->checkout($num);
+
+
+    $view = view('layouts.payment.ReservationHayperpay')->with(['responseData' => $res ,'res_id'=>$reservation->id])
+    ->renderSections();
+ 
+ return response()->json([
+    'status' => true,
+    'content' => $view['main']
+ ]);
+
+}
 
 
 public function rejectOffer($id){

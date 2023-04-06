@@ -32,7 +32,7 @@
    
 
       <div class="visa paycard">
-        <form action="" method="POST">
+        {{-- <form action="" method="POST">
           <input type="hidden" name="offer">
           <input type="hidden" name="request_id">
     
@@ -69,7 +69,7 @@
    
      </div>
        
-        </form>
+        </form> --}}
       </div>
       <div class="apay paycard">
         <form action="">

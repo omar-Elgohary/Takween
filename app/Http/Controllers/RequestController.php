@@ -8,11 +8,12 @@ use App\Models\Requests;
 use Illuminate\Http\Request;
 use App\Models\FreelancerService;
 use Illuminate\Support\Facades\DB;
+use App\Notifications\CreateRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Notification;
-use App\Notifications\CreateRequest;
+use App\Http\Controllers\payment\HayperpayController;
 
 class RequestController extends Controller
 {
@@ -97,11 +98,6 @@ class RequestController extends Controller
                 'type'=>'public',
             ]);
 
-
-            
-            
-
-
         }elseif($request->type=='private'){
             $re= Requests::create([
                 'title'=>$request->title,
@@ -155,12 +151,8 @@ if($request->type=='public'){
     }
     
 }else{
-
     $freelancer_detail=User::where('id',$freelancer_id)->get();
-
-    
 }
-
         $users = User::where('id' , '!=' , auth()->user()->id)->get();
         $user_create = auth()->user()->name;
         Notification::send($freelancer_detail, new CreateRequest($user_create,$re->id));
@@ -191,11 +183,8 @@ if($request->type=='public'){
 
         $filter=[];
        
-        
         if(isset(request()->search)){
-            $requests = Requests::where('type', 'public')->where("user_id", auth()->user()->id)->orderBy('status')->get();
-            
-                
+            $requests = Requests::where('type', 'public')->where("user_id", auth()->user()->id)->orderBy('status')->get();         
                 if(in_array('datedesending',request()->search)){
                     $requests =$requests->sortByDesc('due_date');
                     array_push($filter,'datedesending');
@@ -210,8 +199,6 @@ if($request->type=='public'){
                 if(in_array('datadesending',request()->search)){
                     $requests =$requests->sortByDesc('due_date');
                 }
-
-            
                 $requests=$requests->paginate(20);
 
         }else{
@@ -225,12 +212,16 @@ if($request->type=='public'){
     }
 
 
+
+
     public function privateRequests()
     {
         $requests = Requests::where('type', 'private')->where("user_id", auth()->user()->id)->orderBy('status')->get();
 
         return view('user.showprivaterequest', compact('requests'));
     }
+
+
 
 
     public function cancel($id)
@@ -255,6 +246,8 @@ if($request->type=='public'){
         ]);
         return redirect()->back()->with(['state'=>"cancel","id"=>$id]);
     }
+
+
 
 
     public function review($id,Request $req)
@@ -351,6 +344,9 @@ $data="";
 }
 
 
+
+
+
     function rejectofferrequest(Request $request){
      $flag=false;
     // $request_id=$request->request_id;
@@ -383,6 +379,27 @@ $data="";
     }
 
 
+
+   public  function checkoutvisaid(){
+
+        $request=Requests::find(request()->request_id);
+
+        $price=$request->offer()->first()->price;
+         $Hp = new HayperpayController();
+     
+      $num=number_format($price, 2, '.', '');
+       $res= $Hp->checkout($num);
+     
+     
+         $view = view('layouts.payment.privateRequestHayperpay')->with(['responseData' => $res ,'request_id'=>$request->id])
+         ->renderSections();
+      
+      return response()->json([
+         'status' => true,
+         'content' => $view['main']
+      ]);
+
+    }
 
     function  completeRequest($id){
 
@@ -425,6 +442,8 @@ $data="";
     return redirect()->back()->with(['message'=>__('reject offer message')]);
     }
 
+
+    
   function privateracceptoffer($id){
 
      $requests=Requests::findOrFail($id);
@@ -466,12 +485,7 @@ $data="";
        $edit_request= $request->update([
            'status'=>"Pending",
            'freelancer_id'=> null,
-       ]);
-
-
-      
-
-       
+       ]);       
        toastr()->success('edit done successfully');
        return redirect()->back()->with(['state'=>"pending","id"=>$id]);
 

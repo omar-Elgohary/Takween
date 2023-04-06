@@ -275,19 +275,16 @@ $this->cartpay($re);
 
      if($request->paytype=='wallet'){
       $payed = PaymentController::walletpay2($paydata['total']);
-    
+      $pay_type='wallet';
+
+
      }elseif($request->paytype=='visa'){
-
-
         $visa_pay_id=$request->payment_status['id'];
-        
-     $payed=true;
-            
-
- 
+        $pay_type='bank';
+        $payed=true;
 
      }elseif($request->paytype=='apay'){
-
+        $pay_type='apay';
 
      }else{
 
@@ -338,7 +335,7 @@ $this->cartpay($re);
 
      $order->payment()->create([
         'user_id'=>auth()->user()->id,
-        'pay_type'=>'bank',
+        'pay_type'=>$pay_type,
         "status"=>'purchase',
         'total'=>$paydata['total'],
         'discount'=>$disvalue,

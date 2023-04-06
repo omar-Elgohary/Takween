@@ -29,6 +29,14 @@ Reservations
     border:none !important;
  }
 
+
+ /* @media(max-width:767px){
+
+.modal-body p{
+  font-size: 12px;
+}
+} */
+
  .header-day{
     background-color: #fff;
     color:#000 !important;
@@ -53,12 +61,75 @@ Reservations
  } */
 
 
- .clndr-event.event1 {
-    background-color: #FF5733;
+
+ /* .wpwl-form { 
+      background:#fff;
+border:none;
+box-shadow:none;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+
+
+} */
+/* .wpwl-label-brand {display:none} */
+.wpwl-form-card { background-color: #c0c0c0a6 !important; } 
+.wpwl-control, input.wpwl-control{
+    /* border-width:0 0 0 1px;
+    border-bottom:1px solid black; */
+    box-shadow: none;
+    border-radius: 0px;
+    font-family:"ff-good-headline-web-pro-con", "Pathway Gothic One", sans-serif;
+    text-transform:none;
+    padding:10px;
+    font-size: 18px;
+    height: 50px;
+    min-width:100%
+    
 }
 
-.day.event.event2 {
-    background-color: #337DFF;
+
+.wpwl-form input{
+  
+}
+.input-text:focus, input[type=text]:focus, input[type=tel]:focus, input[type=url]:focus, input[type=password]:focus, input[type=search]:focus, textarea:focus {background-color: white;}
+.wpwl-brand-SOFORTUEBERWEISUNG, .wpwl-brand-GIROPAY{cursor:pointer}
+.wpwl-brand, .wpwl-img { margin: 0 0 0 auto;}
+
+.wpwl-wrapper-submit{
+  display: flex;
+  align-items: center;
+  justify-content: center
+}
+.wpwl-button, .wpwl-button:hover,.wpwl-button:active{
+background-color:#F26B1D ;
+color:#fff;
+padding: 10px 12px  !important ;
+  text-align: center;
+  border:none;
+  border-radius: 20px;
+
+  width:240px;
+
+  margin-top: 15px;
+
+}
+
+
+.visaloader {
+
+  border: 10px solid #f3f3f3; /* Light gray border */
+  border-top: 10px solid #3498db; /* Blue border */
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite; /* Animation */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 </style>
 @endsection
@@ -290,7 +361,32 @@ Reservations
 
  <script>
 
-    
+    $(document).ready(function(){
+
+        $(document).on('click', '#paybutton', function (e) {
+            e.preventDefault();
+             var res_id = $(this).attr('data-res');
+             $.ajax({
+                type: 'get',
+                url: "{{route('user.reservation.visapay')}}",
+                data:{
+                    'res_id':res_id,
+                },
+                success: function (data) {
+                    if (data.status == true) {
+                        $('#pay'+res_id+' .visa').empty().html(data.content);
+                    } else {
+                     }
+                }, error: function (reject) {
+                }
+            });
+        });
+
+    });
+
+
+
+
 $(document).ready(function () {
 $('.chat').on('show.bs.offcanvas',function(){
 
@@ -456,7 +552,7 @@ $(document).ready(function() {
        {
            date: '{{date_format(new dateTime($request->date_time),'Y-m-d')}}',
            title: '{{$request->status}}',
-           color: '#777',
+           color: '#0000FF',
            onclick: function(target) {
                @if ($request->status=="Pending" && $request->offer->first())
 
@@ -503,87 +599,91 @@ $(document).ready(function() {
 
    // Here's some magic to make sure the dates are happening this month.
    var thisMonth = moment().format('YYYY-MM');
-   // Events to load into calendar
-   var eventArray = [
-       {
-           title: 'Multi-Day Event',
-           endDate: thisMonth + '-14',
-           startDate: thisMonth + '-10'
-       }, {
-           endDate: thisMonth + '-23',
-           startDate: thisMonth + '-21',
-           title: 'Another Multi-Day Event'
-       }, {
-           date: thisMonth + '-27',
-           title: 'Single Day Event'
-       }
-   ];
-
-  
-   calendars.clndr1 = $('.cal1').clndr({
-       events: events,
-       clickEvents: {
-           click: function(target) {
-               if (target.events.length) {
-                   var event = target.events[0];
-                   if (event.onclick) {
-                       event.onclick(target);
-                   }
-               }
-           }
-       },
-  
-       multiDayEvents: {
-           singleDay: 'date',
-           endDate: 'endDate',
-           startDate: 'startDate'
-       },
-       showAdjacentMonths: false,
-       adjacentDaysChangeMonth: true,
-       eventColor:'color',
-    //    classNames: function (targetDate) {
-    //         console.log('sdsd');
-    //     return events.reduce(function ( event) {
-    //     console.log(event);
-    //         if (event.date === moment(targetDate).format('YYYY-MM-DD')) {
-    //             classes.push('event-' + event.title);
-                
-    //         }
-           
-    //         return classes;
-    //     }, []);
-        
-    // }
-
-   });
-
- 
-
-   
-  
+// Events to load into calendar
+var eventArray = [
+{
+title: 'Multi-Day Event',
+endDate: thisMonth + '-14',
+startDate: thisMonth + '-10'
+}, {
+endDate: thisMonth + '-23',
+startDate: thisMonth + '-21',
+title: 'Another Multi-Day Event'
+}, {
+date: thisMonth + '-27',
+title: 'Single Day Event'
+}
+];
 
 
-   // Bind all clndrs to the left and right arrow keys
-   $(document).keydown( function(e) {
-       // Left arrow
-       if (e.keyCode == 37) {
-           calendars.clndr1.back();
-         
-       }
+calendars.clndr1 = $('.cal1').clndr({
+events: events,
+clickEvents: {
+click: function(target) {
+if (target.events.length) {
+var event = target.events[0];
+if (event.onclick) {
+event.onclick(target);
+}
+}
+}
+},
 
-       // Right arrow
-       if (e.keyCode == 39) {
-           calendars.clndr1.forward();
-         
-       }
-    
-   });
+multiDayEvents: {
+singleDay: 'date',
+endDate: 'endDate',
+startDate: 'startDate'
+},
+showAdjacentMonths: false,
+adjacentDaysChangeMonth: true,
+eventColor:'color',
+// classNames: function (targetDate) {
+// console.log('sdsd');
+// return events.reduce(function ( event) {
+// console.log(event);
+// if (event.date === moment(targetDate).format('YYYY-MM-DD')) {
+// classes.push('event-' + event.title);
 
+// }
 
-console.log($('.cal1 .day.event').css('background-color', 'red'));
-$('.clndr td.event').each(function(i){
-console.log($(this).attr('class'));
+// return classes;
+// }, []);
+
+// }
+
 });
+
+
+
+
+
+
+
+// Bind all clndrs to the left and right arrow keys
+$(document).keydown( function(e) {
+// Left arrow
+if (e.keyCode == 37) {
+calendars.clndr1.back();
+
+}
+
+// Right arrow
+if (e.keyCode == 39) {
+calendars.clndr1.forward();
+
+}
+
+// console.log($('.cal1 .day.event').css('background-color', 'red'));
+// $('.clndr td.event').each(function(i){
+// console.log($(this).attr('class'));
+// });
+});
+
+
+// console.log($('.cal1 .day.event').css('background-color', 'red'));
+// $('.clndr td.event').each(function(i){
+// console.log($(this).attr('class'));
+// });
 
 
        
