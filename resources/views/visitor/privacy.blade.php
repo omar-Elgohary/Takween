@@ -31,6 +31,12 @@ privacy&policy
 <div class="container">
     <div class="section-header">
         <h2>privacy & police</h2>
+
+    </div>
+
+    <div>
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. In eaque, minima omnis quae aliquid asperiores mollitia distinctio nisi, dolores repudiandae et necessitatibus iusto harum? Aliquid consequuntur obcaecati voluptas reiciendis placeat!
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit, facere iure. Labore minus sequi blanditiis accusamus vitae autem, nisi neque esse, cumque fugiat nostrum repellendus magni fuga soluta voluptates. Accusamus.
     </div>
 
 </div>

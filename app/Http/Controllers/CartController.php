@@ -27,6 +27,7 @@ class CartController extends Controller
         $price=0;
         $descount=0;
         $walletEnough=false;
+    
 
         if (request('id') && request('resourcePath')) {
             $Hp = new HayperpayController();
@@ -52,6 +53,9 @@ $this->cartpay($re);
         
         if ($discount) {
             $descount = $discount->value;
+
+            Session::put('discount_key', $discount->key);
+            
             if($discount->by =="%"){
             
             $total= $price - ( $price * $descount)/100;
@@ -148,16 +152,11 @@ $this->cartpay($re);
         public function addPromoCode( Request $request ){
         
             $discount=null;
-            if(Discount::where('key',$request->code)->exists()){
-                   
-                  
-                $discount=Discount::where('key',$request->code)->first();
-                
-            Session::put('discount_key',$request->code);
+            if(Discount::where('key',$request->code)->exists() ){
+                $discount= Discount::find(Discount::where('key',$request->code)->first()->id);   
+                 
+            Session::put('discount_key', $discount->key);
              
-            
-      
-
             }else{
 
                 toastr()->error('promo code not work');
@@ -236,13 +235,26 @@ $this->cartpay($re);
 
 
 
-    public function cartpay(Request $request){
+    public function cartpay(Request $request ,$discount_key=null){
     $paydata=[];
     $payed=false;
     $discount=null;
     $discount_id=null;
     $visa_pay_id=null;
     $disvalue=0;
+                if (request('id') && request('resourcePath')) {
+                    $Hp = new HayperpayController();
+            $payment_status =$Hp->getPaymentStatus(request('id'), request('resourcePath'));
+            $request->paytype='visa';
+            $request->payment_status=$payment_status;
+            $request->disc=$discount_key;
+       
+
+            }
+
+
+
+
     if(Cart::where('user_id',auth()->user()->id)->exists()){
 
         if(Discount::where('key',$request->disc)->exists()){
@@ -256,6 +268,8 @@ $this->cartpay($re);
             $discount_id=$discount->id;
             $disvalue=$discount->value.$discount->by;
         }
+
+       
         $paydata=$this->calcCartTotal($discount);
 
 
@@ -284,13 +298,14 @@ $this->cartpay($re);
 
         if($discount_id){
 
-            $count= Discount::where('id',$discount_id)->select('count_use')->get();
-             
+            $count= Discount::where('id',$discount_id)->select('count_use')->first()->count_use;
+            $count+=1;
             Discount::where('id',$discount_id)->update([
-             'count_use'=> ++$count,
+             'count_use'=> $count,
             ]);
-         
-            Discount::where('id',$discount_id)->userused()->create([
+
+            
+         Discount::find($discount_id)->userused()->create([
              'user_id'=>auth()->user()->id,   
             ]);
          
@@ -332,19 +347,7 @@ $this->cartpay($re);
     ]);
 
 
-    if($discount_id){
-
-   $count= Discount::where('id',$discount_id)->select('count_use')->get();
-    
-   Discount::where('id',$discount_id)->update([
-    'count_use'=> ++$count,
-   ]);
-
-   Discount::where('id',$discount_id)->userused()->create([
-    'user_id'=>auth()->user()->id,   
-   ]);
-
-    }
+  
    
     
    Session::forget('discount_key');
@@ -382,7 +385,7 @@ $this->cartpay($re);
         }
 
         if ($discount) {
-
+            
             $descount = $discount->value;
             if($discount->by =="%"){
             
@@ -423,8 +426,10 @@ $this->cartpay($re);
   public function getHayperpayVisaId(){
 
     $discount=null;
+    $discount_key=null;
     if(Session::has('discount_key')){
         $discount=Discount::where('key',Session::get('discount_key'))->first();
+        $discount_key=Session::get('discount_key');
     }
    
    
@@ -437,7 +442,7 @@ $this->cartpay($re);
 
 
 
-   $view = view('layouts.payment.hayperpay')->with(['responseData' => $res ])
+   $view = view('layouts.payment.hayperpay')->with(['responseData' => $res ,'discount_key'=>$discount_key])
    ->renderSections();
 
 return response()->json([

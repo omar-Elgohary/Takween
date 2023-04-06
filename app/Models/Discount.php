@@ -2,14 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\UsedPromoCode;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Discount extends Model
 {
     use HasFactory;
+    protected  $guarded=[];
 
+    
     public function userused(){
-        return $this->hasMany(UserPromoCode::class);
+        return $this->hasMany(UsedPromoCode::class);
     }
 }

@@ -386,10 +386,10 @@ $(document).ready(function(){
 
 // @endphp
 
-
             e.preventDefault();
              $.ajax({
                 type: 'get',
+                
                 url: "{{route('user.cart.checkoutid')}}",
                 
                 success: function (data) {

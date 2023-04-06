@@ -43,7 +43,7 @@ class FreelancerRequestController extends Controller
                     continue;
 
                 }
-                if($p->type =='public' && $p->status =='Pending' &&$p->blacklist && $user_id==$p->blacklist->first()->freelancer_id){
+                if($p->type =='public' && $p->status =='Pending' &&$p->blacklist()->exists() && $user_id==$p->blacklist()->get()->freelancer_id){
 
                  
                     continue;
