@@ -8,6 +8,7 @@ use App\Models\Requests;
 use Illuminate\Http\Request;
 
 use App\Http\Services\PayTabs;
+use App\Http\Controllers\payment\HayperpayController;
 
 class PaymentController extends Controller
 {
@@ -73,9 +74,56 @@ class PaymentController extends Controller
     }
 
 //for request only
-    static function bankpay(){
+    static function bankpay($request_id,$offer_id){
+        $offer_id=request()->offer_id;
+        $request_id=request()->request_id;
+        $offer_price= Offer::where('id',$offer_id)->first()->price;
+        $freelancer_id= Offer::where('id',$offer_id)->first()->freelancer_id;
         
+        
+        if (request('id') && request('resourcePath')) {
+            $Hp = new HayperpayController();
+       $payment_status =$Hp->getPaymentStatus(request('id'), request('resourcePath'));
+       $visa_pay_id=$payment_status['id'];
+       $edit_offer= Requests::findorfail($request_id)->offer()->where('id',$offer_id)->update([
+            "status"=>'active',
+        ]);
+        $edit_other_offer=Requests::findorfail($request_id)->offer()->where('id',"!=",$offer_id)->update([
+            "status"=>'reject',
+        ]);
+
+
+        $edit_request=Requests::findorfail($request_id)->update([
+            'freelancer_id'=>$freelancer_id,
+            'status'=>"In Process"
+        ]);
+        $edit_pay =Requests::findorfail($request_id)->payment()->create([
+         'user_id'=>auth()->user()->id,
+         'freelancer_id'=>$freelancer_id,
+         "status"=>'purchase',
+         "pay_type"=>'bank',
+         "total"=>$offer_price,
+         "visapay_id"=> $visa_pay_id
+        ]);
+
     }
+         
+        if( $edit_offer && $edit_request && $edit_pay  ){
+  
+
+
+            return redirect()->back()->with(["state"=>'paydone']);
+
+        }else{
+            toastr()->error('some thing went wrong');
+            return redirect()->back();
+        }
+   
+      
+    }
+
+
+
 
     static function apay(){
         
@@ -104,10 +152,5 @@ class PaymentController extends Controller
     }
 
 
-    function visa(){
-
-
-       
-    }
- 
+   
 }

@@ -247,6 +247,7 @@ Route::prefix("user")->name("user.")->middleware('auth')->group(function(){
 
 
     Route::post('/walletpay', [PaymentController::class, 'walletpay'])->name("walletpay");
+    Route::get('request/walletpay/{request_id}/{offer_id}', [PaymentController::class, 'bankpay'])->name("request.bankpay");
     // end payment
 
 

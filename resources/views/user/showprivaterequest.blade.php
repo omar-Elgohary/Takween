@@ -395,7 +395,9 @@ $(document).ready(function() {
             $.ajax({
                 type: 'get',
                 url: "{{route('user.request.checkoutid')}}",
-                data:{'request_id':{{Session::get('request_id')}} },
+                data:{'request_id':{{Session::get('request_id')}} ,
+            'offer_id':{{Session::get('offer_id')}},
+            },
                 success: function (data) {
                     if (data.status == true) {
                         $('.visa').empty().html(data.content);
@@ -430,6 +432,15 @@ $('#review{{Session::get('request_id')}}').modal('show');
 });
 @endif
 
+@if(Session::has('state') && Session::get('state')=="paydone")
+$(document).ready(function() {
 
+    $('#paydone').modal('show');
+    setTimeout(function(){
+        $('#paydone').modal('hide');
+    },3000);
+     
+});
+@endif
 </script>
 @endsection

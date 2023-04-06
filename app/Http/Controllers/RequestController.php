@@ -240,11 +240,16 @@ if($request->type=='public'){
         $edit_offer= Requests::findorfail($id)->offer()->where('freelancer_id',$request->freelancer_id)->update([
             "status"=>'reject',
         ]);
+        toastr()->success('cancel successfully');
+        return redirect()->back()->with(['state'=>"cancel","id"=>$id]);
     }
         $edit_request= $request->update([
             'status'=>"Cancel by customer"
         ]);
-        return redirect()->back()->with(['state'=>"cancel","id"=>$id]);
+
+        toastr()->success('cancel successfully');
+        return redirect()->back();
+        
     }
 
 
@@ -384,14 +389,14 @@ $data="";
 
         $request=Requests::find(request()->request_id);
 
-        $price=$request->offer()->first()->price;
+        $price= Offer::find(request()->offer_id)->first()->price;
          $Hp = new HayperpayController();
      
       $num=number_format($price, 2, '.', '');
        $res= $Hp->checkout($num);
      
      
-         $view = view('layouts.payment.privateRequestHayperpay')->with(['responseData' => $res ,'request_id'=>$request->id])
+         $view = view('layouts.payment.privateRequestHayperpay')->with(['responseData' => $res ,'request_id'=>request()->request_id,'offer_id'=>request()->offer_id])
          ->renderSections();
       
       return response()->json([
