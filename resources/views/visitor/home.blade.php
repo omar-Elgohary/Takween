@@ -60,7 +60,7 @@ home
     <div class="container py-3 scrollable-container">
         <div class="section-header">
             <h2>categories</h2>
-            <a href="#">See all</a>
+            <a href="{{route('products')}}">See all</a>
         </div>
 
         <button class="pre-btn">
@@ -86,7 +86,7 @@ home
     <div class="container py-3 scrollable-container">
         <div class="section-header">
             <h2>Top freelancers</h2>
-            <a href="#">See all</a>
+            <a href="{{route('freelancers')}}">See all</a>
         </div>
 
         <button class="pre-btn">
@@ -124,7 +124,7 @@ home
             <h2>about us</h2>
         </div>
         <div class="about-data">
-            <img src="{{asset("assets/images/Group 10818.png")}}" alt="">
+            <div style=" border-image-width:10px;border-image: url('assets/images/navbg.png') 30 30 round; display:flex;align-items:center;justify-content:center;padding:20px"><img src="{{asset("assets/images/newlogo2.png")}}" alt=""></div>
 
             <div class="about-text ">
                 {{ App\Models\AboutUs::first()->paragraph }}
