@@ -6,6 +6,8 @@ use App\Models\Requests;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\reservation\AcceptOffer;
 use App\Http\Controllers\payment\HayperpayController;
 
 class ReservationController extends Controller
@@ -142,6 +144,11 @@ if($request->paytype=='wallet'){
      "total"=>$offer_total,
      "visapay_id"=> $visa_pay_id
     ]);
+
+  
+    $user_create=auth()->user()->id;
+    $request=Requests::find($request_id);
+     Notification::send($reservation->freelancer_id, new AcceptOffer($user_create,$id,'reservation', $reservation->random_id));
     return redirect()->route('user.reservations')->with(['state'=>"paydone","id"=>$id]);
    }
 

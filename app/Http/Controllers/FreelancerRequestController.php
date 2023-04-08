@@ -174,4 +174,50 @@ if($flag){
         ]);
         return  redirect()->back()->with(['message'=>"request udate finished"]);
     }
+
+
+
+
+    public function cancel($id)
+    {
+        $request=Requests::find($id);
+
+         if($request->payment()->where('freelancer_id',$request->freelancer_id)->first()){
+        
+        $total_pay=$request->payment()->where('freelancer_id',$request->freelancer_id)->first()->total;
+        $edit_pay=$request->payment()->where('freelancer_id',$request->freelancer_id)->first()->update([
+            'status'=>"refund"
+        ]);
+
+       $current_wallet= User::findOrFail($request->user_id)->wallet->total;
+        $current_wallet+= $total_pay;
+        $edit_offer= Requests::findorfail($id)->offer()->where('freelancer_id',$request->freelancer_id)->update([
+            "status"=>'reject',
+        ]);
+
+        $user= User::find($request->user_id);
+        $user_create=auth()->user()->id;
+        $request=Requests::find($request_id);
+         Notification::send($user, new CancelRequestByFreelancer($user_create,$id,'request', $request->random_id));
+
+
+        toastr()->success('cancel successfully');
+        return redirect()->back()->with(['state'=>"cancel","id"=>$id]);
+    }
+        $edit_request= $request->update([
+            'status'=>"Cancel by freealancer"
+        ]);
+
+
+        
+        $user= User::find($request->user_id);
+        $user_create=auth()->user()->id;
+        $request=Requests::find($request_id);
+         Notification::send($user, new CancelRequestByFreelancer($user_create,$id,'request', $request->random_id));
+         
+
+        toastr()->success('cancel successfully');
+        return redirect()->back();
+        
+    }
 }

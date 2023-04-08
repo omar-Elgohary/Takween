@@ -101,13 +101,18 @@ class UserController extends Controller
              
                if($serv->parent_id==null){
                 
-                $freelancer_service[]=Category::where('id',$serv->service_id)->select('id' ,'title_en as service_en','title_ar as service_ar','icon','created_at','updated_at')->first();
+               $cate= Category::where('id',$serv->service_id)->select('id' ,'title_en as service_en','title_ar as service_ar','icon as service_icon','created_at','updated_at')->first();
+               
+                $cate->category_id=null;
+                $freelancer_service[]= $cate;
+               
+              
+             
 
                }else{
               
                 $freelancer_service[]=Service::find($serv->service_id);
                 
-
                }
 
             }

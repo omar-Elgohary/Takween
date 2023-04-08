@@ -6,7 +6,8 @@ use App\Models\User;
 use App\Models\Offer;
 use App\Models\Requests;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\requests\AcceptOffer;
 use App\Http\Services\PayTabs;
 use App\Http\Controllers\payment\HayperpayController;
 
@@ -51,14 +52,14 @@ class PaymentController extends Controller
            ]);
 
         if( $edit_offer && $edit_request && $edit_pay &&$edit_wallet ){
-  
-
-
+           $freelancer= User::find($freelancer_id);
+           $user_create=auth()->user()->id;
+           $request=Requests::find($request_id);
+            Notification::send($freelancer, new AcceptOffer($user_create,$request_id,'request', $request->random_id));
             return redirect()->back()->with(["message"=>'paydone']);
 
         }else{
-            dd("therea are rong");
-            
+           
             return redirect()->back()->with(["message"=> "payfail",'content'=>'some thing went wrong']);
         }
    
@@ -110,7 +111,10 @@ class PaymentController extends Controller
          
         if( $edit_offer && $edit_request && $edit_pay  ){
   
-
+            $freelancer= User::find($freelancer_id);
+           $user_create=auth()->user()->id;
+           $request=Requests::find($request_id);
+            Notification::send($freelancer, new AcceptOffer($user_create,$request_id,'request', $request->random_id));
 
             return redirect()->back()->with(["state"=>'paydone']);
 

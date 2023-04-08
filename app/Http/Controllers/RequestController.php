@@ -8,12 +8,14 @@ use App\Models\Requests;
 use Illuminate\Http\Request;
 use App\Models\FreelancerService;
 use Illuminate\Support\Facades\DB;
-use App\Notifications\requests\CreateRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Notification;
+use App\Notifications\requests\CreateRequest;
+use App\Notifications\requests\CancelRequestByCustomer;
 use App\Http\Controllers\payment\HayperpayController;
+
 
 class RequestController extends Controller
 {
@@ -240,12 +242,26 @@ if($request->type=='public'){
         $edit_offer= Requests::findorfail($id)->offer()->where('freelancer_id',$request->freelancer_id)->update([
             "status"=>'reject',
         ]);
+
+        $freelancer= User::find($request->freelancer_id);
+        $user_create=auth()->user()->id;
+        $request=Requests::find($request_id);
+         Notification::send($freelancer, new CancelRequestByCustomer($user_create,$id,'request', $request->random_id));
+         
         toastr()->success('cancel successfully');
         return redirect()->back()->with(['state'=>"cancel","id"=>$id]);
     }
         $edit_request= $request->update([
             'status'=>"Cancel by customer"
         ]);
+
+
+        $freelancer= User::find($request->freelancer_id);
+        $user_create=auth()->user()->id;
+        $request=Requests::find($request_id);
+         Notification::send($freelancer, new CancelRequestByCustomer($user_create,$id,'request', $request->random_id));
+
+         
 
         toastr()->success('cancel successfully');
         return redirect()->back();
@@ -483,6 +499,7 @@ $data="";
        $edit_offer= Requests::findorfail($id)->offer()->where('freelancer_id',$request->freelancer_id)->update([
            "status"=>'reject',
        ]);
+
    }
    $request->blacklist()->create([
     'freelancer_id'=>$request->freelancer_id

@@ -16,10 +16,10 @@ class CancelRequestByCustomer extends Notification
     private   $type;
     private   $random_id;
 
-     public function __construct($user_create,$request,$type ,$random_id)
+     public function __construct($user_create,$request_id,$type ,$random_id)
     {
         $this->user_create=$user_create;
-        $this->request_id=$request;
+        $this->request_id=$request_id;
         $this->type=$type;
         $this->random_id=$random_id;
     }
