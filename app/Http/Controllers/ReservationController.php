@@ -8,7 +8,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\reservation\AcceptOffer;
+use App\Notifications\reservation\RejectOffer;
 use App\Http\Controllers\payment\HayperpayController;
+use App\Notifications\reservation\FreelancerPostpone;
+use App\Notifications\reservation\CancelReservationByCustomer;
+use App\Notifications\reservation\CancelReservationByFreelancer;
 
 class ReservationController extends Controller
 {
@@ -91,6 +95,10 @@ class ReservationController extends Controller
         $edit_request= $request->update([
             'status'=>"Cancel by customer"
         ]);
+
+        $to = $request->freelancer_id;
+        $user_create=auth()->user()->id;
+         Notification::send($to, new CancelReservationByCustomer($user_create,$id,'reservation',  $request->random_id));
         return redirect()->back()->with(['state'=>"canceledInfirst","id"=>$id]);
     }
 
@@ -149,6 +157,7 @@ if($request->paytype=='wallet'){
     $user_create=auth()->user()->id;
     $request=Requests::find($request_id);
      Notification::send($reservation->freelancer_id, new AcceptOffer($user_create,$id,'reservation', $reservation->random_id));
+
     return redirect()->route('user.reservations')->with(['state'=>"paydone","id"=>$id]);
    }
 
@@ -193,6 +202,10 @@ public function rejectOffer($id){
          
         ]);
 
+        $to = $reservation->freelancer_id;
+        $user_create=auth()->user()->id;
+         Notification::send($to, new RejectOffer($user_create,$id,'reservation',  $reservation->random_id));
+
     }
 
 
@@ -230,6 +243,12 @@ $from=$from->toTimeString();
 toastr()->success('accepted delay successfully');
 return redirect()->back()->with(["state"=>'Waiting','id'=>$id]);
 }
+
+
+
+
+
+
 
 
 
@@ -317,11 +336,11 @@ return redirect()->back()->with(["state"=>'Waiting','id'=>$id]);
            ]);
       
 
-           $re->payment()->update([
-          'status'=>'purchase'
-           ]);
-
+           $re->payment()->where('freelancer_id', $freelnacer_id)->update([
+            'status'=>'purchase'
+            ]);
           
+            toastr()->success('completed successfully');
           return  redirect()->back()->with(['message'=>"request update finished",'state'=>"completed",'id'=>$id]);
         
 
@@ -349,7 +368,7 @@ public function editOffer($id){
 
     $reservation=Reservation::findorfail($id);
 
-    if($reservation->status=='Rejected'&&  $reservation->offer->first()->status=='reject' ){
+    if($reservation->status=='Rejected'&& $reservation->offer->first()->status=='reject' ){
         $reservation->update([
             'status'=>'Pending',
         ]);
@@ -389,6 +408,11 @@ public function cancelReservation($id){
    $edit_request= $request->update([
        'status'=>"Cancel by freelancer"
    ]);
+
+
+   $to = $request->user_id;
+   $user_create=auth()->user()->id;
+    Notification::send($to, new CancelReservationByFreelancer($user_create,$id,'reservation',  $request->random_id));
    return redirect()->back()->with(['state'=>"canceled","id"=>$id]);
 }
 
@@ -416,6 +440,9 @@ public function postReservation( Request $request,$id){
 
     }
 
+    $to = $reservation->user_id;
+    $user_create=auth()->user()->id;
+     Notification::send($to, new FreelancerPostpone($user_create,$id,'reservation',  $reservation->random_id));
     toastr()->success('posted  sucessfully');
 
     return redirect()->back()->with(['state'=>'posted' ,'id'=>$id]);

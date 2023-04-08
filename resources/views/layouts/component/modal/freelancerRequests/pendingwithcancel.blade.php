@@ -101,7 +101,18 @@
     <p class=" mb-0">price</p>
 
     @if($request->offer->where('freelancer_id',auth()->user()->id)->first()!=null)
-    <p class="fw-900 mb-0 text-black">{{$request->offer->where('freelancer_id',auth()->user()->id)->first()->price}} <span class="text-black-50 mx-1 fs-7">SR</span></p>
+    <p class="fw-900 mb-0 text-black">
+      <button  data-bs-toggle="modal" type="button" data-bs-target="#sendofferforrequest{{$request->id}}"
+      style="
+       border-radius: 50%;
+       padding: 1px 5px;
+       background-color: #fff;
+       border: none; "
+      
+       ><i class="fa-solid fa-pen fa-bounce" style="color: #eb3d1e;"></i></button>
+       {{$request->offer->where('freelancer_id',auth()->user()->id)->first()->price}} 
+       
+       <span class="text-black-50 mx-1">SR</span></p>
     @endif
 </div>
 </div>
@@ -110,8 +121,14 @@
 @if($request->offer->where('freelancer_id',auth()->user()->id)->first()!=null)
          
           <div class="btn-contianer d-flex flex-column justify-content-center align-items-center my-3">
+            <form action="{{route('freelanc.requests.cancel',$request->id)}}" method="GET">
+              @csrf
+
+
+              <button class="btn-cormoz btn-modal border-0"type="submit" >Cancel</button>
+            </form>
           
-            <button class="btn-cormoz btn-modal border-0"type="button" data-bs-toggle="modal" data-bs-target="#suredelete" >Cancel</button>
+           
            
            
              </div>

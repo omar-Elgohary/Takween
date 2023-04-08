@@ -101,7 +101,44 @@
                 @endforeach
                 </div>
         </div>
+        @if($request->status =='Pending' || $request->status =='Reject')
+        <div class="px-2">
+            <h5 class="text-black border-top mt-2 pt-2 ">Total price</h5>
+        <div class="d-flex justify-content-between">
+            <p class=" mb-0">price</p>
+       
+            @if($request->offer->where('freelancer_id',auth()->user()->id)->first()!=null)
+        
+            <p class="fw-900 mb-0 text-black">
+                <button  data-bs-toggle="modal" type="button" data-bs-target="#sendofferforrequest{{$request->id}}"
+                style="
+                 border-radius: 50%;
+                 padding: 1px 5px;
+                 background-color: #fff;
+                 border: none; "
+                
+                 ><i class="fa-solid fa-pen fa-bounce" style="color: #eb3d1e;"></i></button>
+                 {{$request->offer->where('freelancer_id',auth()->user()->id)->first()->price}} 
+                 
+                 <span class="text-black-50 mx-1">SR</span></p>
+            @endif
+        </div>
+        </div>
+
+        <div class="btn-contianer d-flex flex-column justify-content-center align-items-center my-3">
           
+            <form action="{{route('freelanc.requests.cancel',$request->id)}}" method="GET">
+                @csrf
+    
+    
+                  <button class="btn-cormoz btn-modal border-0"type="submit" >Cancel</button>
+                </form>
+           
+           
+             </div>
+
+        @endif
+
         @if(empty($request->review->first()))
        
         @else
@@ -130,7 +167,7 @@
             </p>
         </div>
 
- @endif
+        @endif
 
        
         </div>

@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Requests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\requests\CancelRequestByFreelancer;
+
 
 class FreelancerRequestController extends Controller
 {
@@ -43,7 +47,7 @@ class FreelancerRequestController extends Controller
                     continue;
 
                 }
-                if($p->type =='public' && $p->status =='Pending' &&$p->blacklist()->exists() && $user_id==$p->blacklist()->get()->freelancer_id){
+                if($p->type =='public' && $p->status =='Pending' &&$p->blacklist()->exists() && $user_id==$p->blacklist()->where('freelancer_id',$user_id)->first()->freelancer_id){
 
                  
                     continue;
@@ -181,43 +185,105 @@ if($flag){
     public function cancel($id)
     {
         $request=Requests::find($id);
-
-         if($request->payment()->where('freelancer_id',$request->freelancer_id)->first()){
+        $freelancer_id=auth()->user()->id;
+         if($request->payment()->where('freelancer_id',$freelancer_id)->first()){
         
-        $total_pay=$request->payment()->where('freelancer_id',$request->freelancer_id)->first()->total;
-        $edit_pay=$request->payment()->where('freelancer_id',$request->freelancer_id)->first()->update([
+        $total_pay=$request->payment()->where('freelancer_id',$freelancer_id)->first()->total;
+        $edit_pay=$request->payment()->where('freelancer_id',$freelancer_id)->first()->update([
             'status'=>"refund"
         ]);
 
        $current_wallet= User::findOrFail($request->user_id)->wallet->total;
         $current_wallet+= $total_pay;
-        $edit_offer= Requests::findorfail($id)->offer()->where('freelancer_id',$request->freelancer_id)->update([
+        $edit_offer= Requests::findorfail($id)->offer()->where('freelancer_id',$freelancer_id)->update([
             "status"=>'reject',
         ]);
 
         $user= User::find($request->user_id);
         $user_create=auth()->user()->id;
-        $request=Requests::find($request_id);
          Notification::send($user, new CancelRequestByFreelancer($user_create,$id,'request', $request->random_id));
 
 
         toastr()->success('cancel successfully');
         return redirect()->back()->with(['state'=>"cancel","id"=>$id]);
     }
+
+$flag=false;
+
+    if($request->type=='private'){
         $edit_request= $request->update([
-            'status'=>"Cancel by freealancer"
+            'status'=>"Cancel by freelancer"
+        ]);
+        $flag=true;
+    }elseif($request->type=='public'){
+
+        $edit_offer= Requests::findorfail($id)->offer()->where('freelancer_id',$freelancer_id)->update([
+            "status"=>'reject',
         ]);
 
+        Requests::findorfail($id)->blacklist()->create([
+            'freelancer_id'=>auth()->user()->id,
+        ]);
 
-        
-        $user= User::find($request->user_id);
-        $user_create=auth()->user()->id;
-        $request=Requests::find($request_id);
-         Notification::send($user, new CancelRequestByFreelancer($user_create,$id,'request', $request->random_id));
-         
+        $flag=true;
+    }
 
-        toastr()->success('cancel successfully');
+
+       
+
+    if($flag){
+
+    $user= User::find($request->user_id);
+    $user_create=auth()->user()->id;
+    
+     Notification::send($user, new CancelRequestByFreelancer($user_create,$id,'request', $request->random_id));
+     
+            toastr()->success('cancel successfully');
+        }else{
+            toastr()->error('cancel fail');
+        }
+                
+            
         return redirect()->back();
         
+    }
+
+    public function editoffer($id){
+
+        $req=Requests::findorfail($id);
+        $freelancer_id=auth()->user()->id;
+
+
+        if( $req->offer()->where('freelancer_id',$freelancer_id)->exists()){
+
+            if( $req->status=='Reject' &&  $req->offer->first()->status == 'reject'){
+
+              
+                $req->update([
+                    'status'=>'Pending',
+                ]);
+    
+                $req->offer()->first()->update([
+                 'status'=>'pending',
+                 'price'=>request()->offer,
+                 
+                ]);
+        
+            }else{
+               $req->offer()->where('freelancer_id',$freelancer_id)->update([
+                    'status'=>'pending',
+                    'price'=>request()->offer,
+                   ]);
+    
+            }
+            toastr()->success('offer is edit sucessfully');
+            return redirect()->back()->with(['state'=>'offeredit' ,'id'=>$id]);
+        }
+       
+    
+        toastr()->success('offer is edit fail');
+    
+        return redirect()->back()->with(['state'=>'offeredit' ,'id'=>$id]);
+
     }
 }

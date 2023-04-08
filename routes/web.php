@@ -100,6 +100,8 @@ Route::prefix("freelancer")->name("freelanc.")->middleware('auth','is_freelancer
     Route::get("/mywork",[FreelancerRequestController::class,'getmywork'])->name("mywork");
 
     Route::post('/sendoffer/{id}',[FreelancerRequestController::class,'sendoffer'])->name("sendoffer");
+    Route::post('/editoffer/{id}',[FreelancerRequestController::class,'editoffer'])->name("requests.editoffer");
+    Route::get('/cancelRequest/{id}',[FreelancerRequestController::class,'cancel'])->name("requests.cancel");
     Route::get('/request/finish/{id}',[FreelancerRequestController::class,'finishRequest'])->name("finishrequest");
 
 

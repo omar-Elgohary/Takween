@@ -281,15 +281,8 @@ show public request
                     </div>
                 </div>
 
-                @if($request->status == 'Pending')
-                    <p class="status gray" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
-                @elseif($request->status == 'In Process')
-                    <p class="status gray text-warning" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
-                @elseif($request->status == 'Finished')
-                    <p class="status gray" style="color: rgb(54, 34, 23);" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
-                @elseif($request->status == 'Completed')
-                    <p class="status gray text-black" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
-                @endif
+                    <p class="status finish">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
+                
             </div>
 
             <div class="d-flex ">

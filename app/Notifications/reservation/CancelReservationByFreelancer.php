@@ -2,42 +2,41 @@
 
 namespace App\Notifications\reservation;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
 class CancelReservationByFreelancer extends Notification
 {
     use Queueable;
+    private $user_create;
+    private  $reservation_id;
+    private   $type;
+    private   $random_id;
+    private  $message_en=" ";
+    private  $message_ar=" ";
 
-    /**
-     * Create a new notification instance.
-     *
-     * @return void
-     */
-    public function __construct()
+     public function __construct($user_create,$reservation_id,$type ,$random_id)
     {
-        //
+        $this->user_create=$user_create;
+        $this->reservation_id=$reservation_id;
+        $this->type=$type;
+        $this->random_id=$random_id;
+        $this->message_en= "reservation " .$this->random_id.' is cancel by freelancer '.User::find($user_create)->name ;
+
+        $this->message_ar = "تم إلغاء الحجز رقم " . $this->random_id . " من قبل المستقل " . User::find($user_create)->name;
+
     }
 
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
+    
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['database'];
     }
 
-    /**
-     * Get the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
+   
     public function toMail($notifiable)
     {
         return (new MailMessage)
@@ -46,16 +45,17 @@ class CancelReservationByFreelancer extends Notification
                     ->line('Thank you for using our application!');
     }
 
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
+
     public function toArray($notifiable)
     {
+
         return [
-            //
+            'user_create'=> $this->user_create,
+            'reservation_id'=>$this->reservation_id,
+            'type'=>$this->type,
+            'random_id'=>$this->random_id,
+            "message_en"=>$this->message_en,
+            "message_ar"=>$this->message_ar,
         ];
     }
 }

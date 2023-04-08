@@ -30,11 +30,16 @@ notification
             @foreach (Auth::User()->unreadNotifications as $notification)
             <div class="noti row col-12">
             <div class="image col-4 ">
-            <img src="{{asset("assets/images/vicky-hladynets-C8Ta0gwPbQg-unsplash.png")}}" alt="">
+            <img src="{{asset('Admin3/assets/images/users/'. \App\Models\User::find($notification->data['user_create'])->profile_image ) }} " alt="">
             </div>
         <div class="discription col-8">
-            <span class="text-black-50">3m ago</span>
-            <p>  {{$notification->data['message']}}</p>
+            <span class="text-black-50">{{Carbon\Carbon::parse($notification->created_at)->diffForHumans()}}</span>
+            <p> @if(app()->getLocale()=='ar')
+                 {{$notification->data['message_ar']}}
+                @else
+                {{$notification->data['message_en']}}
+                @endif
+                </p>
         </div>
     </div>
         @endforeach

@@ -7,7 +7,7 @@
 @section("og-image")
 @endsection
 @section("title")
-notification
+my work
 @endsection
 @section("header")
 @endsection
@@ -133,6 +133,8 @@ notification
 @if($request->status=='Pending')
 @include("layouts.component.modal.freelancerRequests.allstatus")
 @include("layouts.component.modal.userRequests.chat")
+@include("layouts.component.modal.freelancerRequests.offer")
+
 @elseif($request->status=='In Process')
 
 @include("layouts.component.modal.freelancerRequests.inprogress")
@@ -148,6 +150,7 @@ notification
 @else
 @include("layouts.component.modal.freelancerRequests.allstatus")
 @include("layouts.component.modal.userRequests.chat")
+@include("layouts.component.modal.freelancerRequests.offer")
 
 @endif
 

@@ -8,7 +8,15 @@
               </div>
               <div class="modal-body">
 
-      <form  action="{{route('freelanc.sendoffer',$request->id)}}" method="POST">
+      
+        @if( $request->offer()->exists()&& $request->offer->where('freelancer_id',auth()->user()->id)->first())
+        <form action="{{route('freelanc.requests.editoffer',$request->id)}}" method="POST">
+         
+          @else
+
+          <form  action="{{route('freelanc.sendoffer',$request->id)}}" method="POST">
+
+          @endif
         @csrf
 
         <input type="hidden" name="type" value='

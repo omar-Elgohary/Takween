@@ -11,10 +11,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use App\Notifications\requests\RejectOffer;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\requests\CreateRequest;
-use App\Notifications\requests\CancelRequestByCustomer;
 use App\Http\Controllers\payment\HayperpayController;
+use App\Notifications\requests\CancelRequestByCustomer;
 
 
 class RequestController extends Controller
@@ -157,6 +158,7 @@ if($request->type=='public'){
 }
         $users = User::where('id' , '!=' , auth()->user()->id)->get();
         $user_create = auth()->user()->name;
+        
         Notification::send($freelancer_detail, new CreateRequest($user_create,$re->id,'request',$re->random_id));
 
         if($request->type='public'){
@@ -247,7 +249,7 @@ if($request->type=='public'){
         $user_create=auth()->user()->id;
         $request=Requests::find($request_id);
          Notification::send($freelancer, new CancelRequestByCustomer($user_create,$id,'request', $request->random_id));
-         
+
         toastr()->success('cancel successfully');
         return redirect()->back()->with(['state'=>"cancel","id"=>$id]);
     }
@@ -379,6 +381,11 @@ $data="";
     'status'=>'reject'
     ]);
 
+
+    $freelancer= User::find($freelancer_id);
+    $user_create=auth()->user()->id;
+   
+     Notification::send($freelancer, new RejectOffer($user_create,$request_id,'request',  $requests->random_id));
     $flag=true;
 
     return JSON_encode($flag);
@@ -424,9 +431,9 @@ $data="";
 
     function  completeRequest($id){
 
-        $re=Requests::findorfail($id);
-        $freelnacer_id=$re->first()->freelancer_id;
-        $offer_price=$re->offer->first()->price;
+        $re = Requests::findOrFail($id);
+        $freelnacer_id=$re->freelancer_id;
+        $offer_price=$re->offer()->where('freelancer_id',$freelnacer_id)->first()->price;
           
         $wallet=User::findOrFail($freelnacer_id)->wallet->total;
 
@@ -436,13 +443,16 @@ $data="";
             
           ]);
 
+        $re->payment()->where('freelancer_id', $freelnacer_id)->update([
+        'status'=>'purchase'
+        ]);
 
           $edit_wallet=User::findOrFail( $freelnacer_id)->wallet()->update([
             "total"=> $wallet
            ]);
       
 
-          
+           toastr()->success('completed successfully');
           return  redirect()->back()->with(['message'=>"request update finished",'status'=>"completed",'request_id'=>$id]);
         
 
@@ -459,6 +469,11 @@ $data="";
 
         ]);
  
+
+
+        $freelancer= User::find( $requests->offer()->first()->freelancer_id);
+        $user_create=auth()->user()->id;
+         Notification::send($freelancer, new RejectOffer($user_create,$id,'request',  $requests->random_id));
 
     return redirect()->back()->with(['message'=>__('reject offer message')]);
     }
@@ -500,6 +515,11 @@ $data="";
            "status"=>'reject',
        ]);
 
+
+       $freelancer= Requests::findorfail($id)->offer()->where('freelancer_id',$request->freelancer_id);
+       $user_create=auth()->user()->id;
+        Notification::send($freelancer, new RejectOffer($user_create,$id,'request',  $requests->random_id));
+
    }
    $request->blacklist()->create([
     'freelancer_id'=>$request->freelancer_id
@@ -515,7 +535,6 @@ $data="";
     }
 
 
-  
 }
 //onsubmit="event.preventDefault(); return rejectoffer(this)"
 

@@ -2,26 +2,35 @@
 
 namespace App\Notifications\reservation;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
-class freelancerPostpone extends Notification
+class FreelancerPostpone extends Notification
 {
     use Queueable;
 
     private $user_create;
-    private  $request_id;
+    private  $reservation_id;
     private   $type;
     private   $random_id;
+    private  $message_en=" ";
+    private  $message_ar=" ";
 
-     public function __construct($user_create,$request,$type ,$random_id)
+     public function __construct($user_create,$reservation_id,$type ,$random_id)
     {
         $this->user_create=$user_create;
-        $this->request_id=$request;
+        $this->reservation_id=$reservation_id;
         $this->type=$type;
         $this->random_id=$random_id;
+
+        $this->message_en= "Reservation " . $this->random_id . " has been requested to be postponed by freelancer " . User::find($user_create)->name;
+
+
+        $this->message_ar = "تم طلب تأجيل الحجز رقم " . $this->random_id . " من قبل المستقل " . User::find($user_create)->name;
+
     }
 
     
@@ -45,9 +54,11 @@ class freelancerPostpone extends Notification
 
         return [
             'user_create'=> $this->user_create,
-            'request_id'=>$this->request_id,
+            'reservation_id'=>$this->reservation_id,
             'type'=>$this->type,
             'random_id'=>$this->random_id,
+            "message_en"=>$this->message_en,
+            "message_ar"=>$this->message_ar,
         ];
     }
 }

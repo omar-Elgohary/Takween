@@ -2,10 +2,11 @@
 
 namespace App\Notifications\requests;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
 class RejectOffer extends Notification
 {
@@ -14,6 +15,9 @@ class RejectOffer extends Notification
     private  $request_id;
     private   $type;
     private   $random_id;
+    private  $message_en=" ";
+    private  $message_ar=" ";
+ 
 
      public function __construct($user_create,$request,$type ,$random_id)
     {
@@ -21,6 +25,13 @@ class RejectOffer extends Notification
         $this->request_id=$request;
         $this->type=$type;
         $this->random_id=$random_id;
+
+        
+            $this->message_ar = "تم رفض العرض الذي قدمته للطلب ".$this->random_id;
+        
+            $this->message_en= " your offer in " .$this->random_id.' request  is  reject  by '.User::find($user_create)->name ;
+        
+       
     }
 
     
@@ -47,6 +58,8 @@ class RejectOffer extends Notification
             'request_id'=>$this->request_id,
             'type'=>$this->type,
             'random_id'=>$this->random_id,
+            "message_en"=>$this->message_en,
+            "message_ar"=>$this->message_ar,
         ];
     }
     

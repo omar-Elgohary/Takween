@@ -2,19 +2,21 @@
 
 namespace App\Notifications\requests;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
 class CancelRequestByFreelancer extends Notification
 {
     use Queueable;
-
     private $user_create;
     private  $request_id;
     private   $type;
     private   $random_id;
+    private  $message_en=" ";
+    private  $message_ar=" ";
 
      public function __construct($user_create,$request,$type ,$random_id)
     {
@@ -22,6 +24,13 @@ class CancelRequestByFreelancer extends Notification
         $this->request_id=$request;
         $this->type=$type;
         $this->random_id=$random_id;
+
+
+        $this->message_ar = "تم إلغاء الطلب رقم " . $this->random_id . " بواسطة المستقل " . User::find($user_create)->name;
+    
+        $this->message_en= "request " .$this->random_id.' is cancel by freelancer  '.User::find($user_create)->name ;
+        
+       
     }
 
     
@@ -48,6 +57,8 @@ class CancelRequestByFreelancer extends Notification
             'request_id'=>$this->request_id,
             'type'=>$this->type,
             'random_id'=>$this->random_id,
+            "message_en"=>$this->message_en,
+            "message_ar"=>$this->message_ar,
         ];
     }
 }

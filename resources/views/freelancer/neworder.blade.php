@@ -181,7 +181,7 @@ new orders
 
   @else
   @include("layouts.component.modal.freelancerRequests.pendingwithcancel")
-  
+  @include("layouts.component.modal.freelancerRequests.offer")
   @endif
      
           

@@ -132,6 +132,8 @@ show private requests
                             <p class="status gray text-black" data-color="C4C3C3">{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
                         @elseif($request->status == 'Cancel by customer')
                             <p class="status text-danger" >{{ $request->status }}<i class="fa-solid fa-circle px-2 "></i></p>
+                            @elseif($request->status == 'Reject')
+                            <p class="status text-danger">{{$request->status}}<i class="fa-solid fa-circle px-2 "></i></p>
                         @endif
                     </div>
 
