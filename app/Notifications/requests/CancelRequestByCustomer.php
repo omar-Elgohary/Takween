@@ -1,22 +1,27 @@
 <?php
 
-namespace App\Notifications;
+namespace App\Notifications\requests;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class CreateRequest extends Notification
+class CancelRequestByCustomer extends Notification
 {
     use Queueable;
 
     private $user_create;
     private  $request_id;
-    public function __construct($user_create,$request)
+    private   $type;
+    private   $random_id;
+
+     public function __construct($user_create,$request,$type ,$random_id)
     {
         $this->user_create=$user_create;
         $this->request_id=$request;
+        $this->type=$type;
+        $this->random_id=$random_id;
     }
 
     
@@ -39,9 +44,10 @@ class CreateRequest extends Notification
     {
 
         return [
-            
             'user_create'=> $this->user_create,
             'request_id'=>$this->request_id,
+            'type'=>$this->type,
+            'random_id'=>$this->random_id,
         ];
     }
 }

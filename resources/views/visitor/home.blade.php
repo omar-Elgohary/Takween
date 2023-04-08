@@ -32,6 +32,7 @@ home
             <div class="col-lg-4 message d-flex flex-column align-items-center justify-content-center text-center mb-5">
                <img src="{{asset("assets/images/20943451.png")}}" alt="" class="w-50 mx-auto mb-3" >
                <div class="text">
+                {{now()}}
                 <h3 class="fw-bold text-uppercase"> message 1</h3>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora accusamus cum a tempore alias veritatis repudiandae in fugiat. Nemo dicta vitae aliquam, eius aperiam qui corporis enim voluptas molestias in!</p>
                </div>
@@ -127,7 +128,7 @@ home
             <div style=" border-image-width:10px;border-image: url('assets/images/navbg.png') 30 30 round; display:flex;align-items:center;justify-content:center;padding:20px"><img src="{{asset("assets/images/newlogo2.png")}}" alt=""></div>
 
             <div class="about-text ">
-                {{ App\Models\AboutUs::first()->paragraph }}
+                {{ App\Models\AboutUs::first()->paragraph}}
             </div>
         </div>
     </div>

@@ -8,7 +8,7 @@ use App\Models\Requests;
 use Illuminate\Http\Request;
 use App\Models\FreelancerService;
 use Illuminate\Support\Facades\DB;
-use App\Notifications\CreateRequest;
+use App\Notifications\requests\CreateRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -155,7 +155,7 @@ if($request->type=='public'){
 }
         $users = User::where('id' , '!=' , auth()->user()->id)->get();
         $user_create = auth()->user()->name;
-        Notification::send($freelancer_detail, new CreateRequest($user_create,$re->id));
+        Notification::send($freelancer_detail, new CreateRequest($user_create,$re->id,'request',$re->random_id));
 
         if($request->type='public'){
             return  redirect()->route('user.showpublicrequest')->with( ['messsage' => 'ok'] );
