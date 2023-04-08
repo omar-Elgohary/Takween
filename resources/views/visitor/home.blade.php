@@ -33,6 +33,7 @@ home
                <img src="{{asset("assets/images/20943451.png")}}" alt="" class="w-50 mx-auto mb-3" >
                <div class="text">
                 {{now()}}
+                {{$currentDateTime = Carbon::now('America/Los_Angeles');}}
                 <h3 class="fw-bold text-uppercase"> message 1</h3>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora accusamus cum a tempore alias veritatis repudiandae in fugiat. Nemo dicta vitae aliquam, eius aperiam qui corporis enim voluptas molestias in!</p>
                </div>
