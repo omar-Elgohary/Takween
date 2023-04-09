@@ -247,7 +247,7 @@ if($request->type=='public'){
 
         $freelancer= User::find($request->freelancer_id);
         $user_create=auth()->user()->id;
-        $request=Requests::find($request_id);
+    
          Notification::send($freelancer, new CancelRequestByCustomer($user_create,$id,'request', $request->random_id));
 
         toastr()->success('cancel successfully');
