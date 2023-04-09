@@ -25,6 +25,7 @@ carts
     .chartitem img{
         width:220px;
         height: 250px;
+        padding:12px 0;
     }
 
 
