@@ -64,7 +64,7 @@
                    @endif
 
                 @endforeach
-                    <a class="dropdown-item d-block" href="{{route("user.notification")}}"><i class="uil-bell font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">notification</span> <span class="badge  rounded-pill mt-1 ms-2">03</span></a>
+                    <a class="dropdown-item d-block" href="{{route("user.notification")}}"><i class="uil-bell font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">notification</span> <span class="badge noti-count rounded-pill mt-1 ms-2">{{auth()->user()->unreadNotifications->count()}}</span></a>
                     <a class="dropdown-item" href="{{route("user.reservations")}}"><i class="fa-regular fa-calendar font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">reservation</span></a>
                     
                     <a class="dropdown-item" href="{{route("user.showpublicrequest")}}"><i class="fa-brands fa-squarespace font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">requests</span></a>
@@ -99,7 +99,7 @@
 
                    @endif
                 @endforeach
-                    <a class="dropdown-item d-block" href="{{route("user.notification")}}"><i class="uil-bell font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">notification</span> <span class="badge  rounded-pill mt-1 ms-2">03</span></a>
+                    <a class="dropdown-item d-block" href="{{route("user.notification")}}"><i class="uil-bell font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">notification</span> <span class="badge noti-count   rounded-pill mt-1 ms-2">{{auth()->user()->unreadNotifications->count()}}</span></a>
                     <a class="dropdown-item" href="{{route('freelanc.reservation')}}"><i class="fa-regular fa-calendar font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">reservation</span></a>
                     <a class="dropdown-item" href="{{route("freelanc.neworder")}}"><i class="uil uil-lock-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">orders</span></a>
                     <form id="logout-form2" action="{{ route('logout') }}" method="POST" style="display: none;">

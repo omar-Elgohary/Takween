@@ -194,9 +194,7 @@ Route::prefix("user")->name("user.")->middleware('auth')->group(function(){
 
     Route::post('updateUserProfile/{id}', [UserController::class, 'updateUserProfile'])->name('updateUserProfile');
 
-    Route::get("/notification",function(){
-        return view("user.notification");
-    })->name("notification");
+    Route::get("/notification",[NotificationPageController::class,'getNotification'])->name("notification");
 
     Route::resource("/cart", CartController::class);
 
@@ -285,6 +283,7 @@ Route::post('/switchtofreelancer',[UserController::class,'switchToFreelancer'])-
 
 Route::get('/checkout',[CartController::class,'getHayperpayVisaId'])->name('cart.checkoutid');
 
+Route::get('/notifcation/count',[NotificationPageController::class,'getCount'])->name('notifcation.count');
 
 });
 
