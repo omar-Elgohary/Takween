@@ -7,10 +7,10 @@ use Illuminate\Http\Request;
 class NotificationPageController extends Controller
 {
     public function getNotification(){
-      $notifcations = auth()->User()->notifications;
+      $notifications = auth()->User()->notifications;
       auth()->User()->unreadNotifications->markAsRead();
 
-      return view('user.notification',compact('notifcations'));
+      return view('user.notification',compact('notifications'));
       
     }
 
