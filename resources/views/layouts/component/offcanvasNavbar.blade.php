@@ -1,8 +1,12 @@
 
         
 <div class="offcanvas 
-@if(app()->)
-offcanvas-start" tabindex="-1" id="heronav" aria-labelledby="offcanvasExampleLabel">
+@if(app()->getLocale()=='ar')
+offcanvas-end
+@else
+offcanvas-start
+@endif
+" tabindex="-1" id="heronav" aria-labelledby="offcanvasExampleLabel">
     <div class="offcanvas-header">
       {{-- <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5> --}}
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
