@@ -647,10 +647,10 @@ height:80px;
     padding-right: 10px;
 
 }
-.head .navbar-header .d-flex{
+.head .navbar-header .nav-x{
 flex-direction: row-reverse;
 }
-.head .navbar-header .d-flex .dropdown-menu{
+.head .navbar-header .nav-x .dropdown-menu{
     left: 44px !important;
 }
 
