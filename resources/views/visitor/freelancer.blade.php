@@ -11,6 +11,36 @@
 @section("header")
 @endsection
 @section("css")
+
+<style>
+
+@media(max-width:767px){
+
+    .freelanc.v2 .totals i{
+        display: none;
+    }
+
+    .freelanc.v2 .totals div p{
+        display: flex;
+        flex-direction: column;
+
+    }
+
+   
+.freelanc {
+    flex-direction: column;
+    /* margin: 0 30px; */
+    margin-top: 40px;
+    
+    margin-top: 70px;
+    width: calc(100% - 11px);
+    max-width: 880px;
+    /* width: 100%; */
+    margin-left: 14px;
+    margin-right: 68px;
+
+}
+</style>
 @endsection
 
 @section("content")
@@ -54,7 +84,7 @@
                         </span>
                     </div>
                 </div>
-                <div class="txt"  style=" min-height: 125px; ">{{ $freelancer->bio }}</div>
+                <div class="txt"  style=" min-height: 25px; ">{{ $freelancer->bio }}</div>
             </div>
 
             <div class="totals">

@@ -1,34 +1,25 @@
 @include('layouts.component.modal.switchtofreelancer')
 
 <div class="head">
-   
     <div class="navbar-header">
-        <div class="d-flex">
-            <div class="dropdown d-inline-block d-lg-none ms-2">
-                <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-search-dropdown"
-                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="uil-search"></i>
-                </button>
 
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
-                    aria-labelledby="page-header-search-dropdown">
-                    <form class="p-3">
-                        <div class="m-0">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search ..." aria-label="Recipient's username">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary" type="submit"><i class="mdi mdi-magnify"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                    </form>
-                </div>
+        <div  class="ftr">
+
+            <div class="dd">
+                <button class="btn " type="button" data-bs-toggle="offcanvas" data-bs-target="#heronav" aria-controls="offcanvasRight"><i class="fa-solid fa-bars fa-2xl" style="color: #e86e23;"></i></button>
             </div>
-
-            <a href="{{ route('home') }}" class=" d-inline-block align-self-center ms-2 px-2">Home</a>
+            
+                <div class="logo2">
+                    <img src="{{asset("assets/images/newlogo2.png")}}" alt="">
+                </div>
+            
+        </div>
+        
+        <div class="nav-x">
+        
+            <a href="{{ route('home') }}" class=" d-inline-block align-self-center ms-2 px-2{{ Request::is('home*') ? 'active' : '' }}">Home</a>
             <a href="{{ route('products') }}"class=" d-inline-block align-self-center  ms-2 px-2">products</a>
-            <a href="{{ route('freelancers') }}"class=" d-inline-block align-self-center  ms-2 px-2">freelancers</a>
+            <a href="{{ route('freelancers') }}"class=" d-inline-block align-self-center  ms-2 px-2{{ request()->is('freelancers') ? 'active' : '' }}">freelancers</a>
 
             @if (!auth()->check())
                 <a class="d-inline-block align-self-center" href="#" class="btn" data-bs-toggle="modal"
@@ -65,7 +56,7 @@
                    @endif
 
                 @endforeach
-                    <a class="dropdown-item d-block" href="{{route("user.notification")}}"><i class="uil-bell font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">notification</span> <span class="badge  rounded-pill mt-1 ms-2">4</span></a>
+                    <a class="dropdown-item d-block" href="{{route("user.notification")}}"><i class="uil-bell font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">notification</span> <span class="badge noti-count rounded-pill mt-1 ms-2">{{auth()->user()->unreadNotifications->count()}}</span></a>
                     <a class="dropdown-item" href="{{route("user.reservations")}}"><i class="fa-regular fa-calendar font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">reservation</span></a>
                     
                     <a class="dropdown-item" href="{{route("user.showpublicrequest")}}"><i class="fa-brands fa-squarespace font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">requests</span></a>
@@ -100,7 +91,7 @@
 
                    @endif
                 @endforeach
-                    <a class="dropdown-item d-block" href="{{route("user.notification")}}"><i class="uil-bell font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">notification</span> <span class="badge  rounded-pill mt-1 ms-2">03</span></a>
+                    <a class="dropdown-item d-block" href="{{route("user.notification")}}"><i class="uil-bell font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">notification</span> <span class="badge noti-count   rounded-pill mt-1 ms-2">{{auth()->user()->unreadNotifications->count()}}</span></a>
                     <a class="dropdown-item" href="{{route('freelanc.reservation')}}"><i class="fa-regular fa-calendar font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">reservation</span></a>
                     <a class="dropdown-item" href="{{route("freelanc.neworder")}}"><i class="uil uil-lock-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">orders</span></a>
                     <form id="logout-form2" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -130,3 +121,7 @@
             </form>
         </div>
 </header>
+
+
+
+

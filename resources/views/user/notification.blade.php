@@ -27,7 +27,7 @@ notification
         </div>
         <div class="row">
 
-            @foreach ($notifications as $notification)
+            @foreach ( $notifications as $notification)
             <div class="noti row col-12">
             <div class="image col-4 ">
             <img src="{{asset('Admin3/assets/images/users/'. \App\Models\User::find($notification->data['user_create'])->profile_image ) }} " alt="">
@@ -45,7 +45,7 @@ notification
   
         @endforeach
        
-       
+        {{-- {{ Auth::User()->unreadNotifications->markAsRead();}} --}}
         </div>
      
         

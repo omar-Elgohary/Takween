@@ -1,49 +1,22 @@
-@include('layouts.component.modal.switchtofreelancer')
 
-<div class="head">
-    <div class="navbar-header">
-        <div class="d-flex">
-            {{-- <div class="dropdown d-inline-block d-lg-none ms-2">
-                <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-search-dropdown"
-                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="uil-search"></i>
-                </button>
+        
+<div class="offcanvas 
+@if(app()->)
+offcanvas-start" tabindex="-1" id="heronav" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+      {{-- <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5> --}}
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="offcanvas-nav">
+          
 
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
-                    aria-labelledby="page-header-search-dropdown">
-                    <form class="p-3">
-                        <div class="m-0">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search ..." aria-label="Recipient's username">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary" type="submit"><i class="mdi mdi-magnify"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                    </form>
-                </div>
-            </div> --}}
-
-            <a href="{{ route('home') }}" class=" d-inline-block align-self-center ms-2 px-2">Home</a>
-            <a href="{{ route('products') }}"class=" d-inline-block align-self-center  ms-2 px-2">products</a>
-            <a href="{{ route('freelancers') }}"class=" d-inline-block align-self-center  ms-2 px-2">freelancers</a>
-
-            @if (!auth()->check())
-                <a class="d-inline-block align-self-center" href="#" class="btn" data-bs-toggle="modal"
-                data-bs-target="#login">login</a>
-            @else
-                <a class=" d-flex align-self-center" href="{{route("user.cart.index")}}" >
-                    <i class="fa-solid fa-cart-shopping cart-icon px-3"></i>
-                    <span id="cart-count">{{App\Models\Cart::where('user_id' ,auth()->user()->id)->count()}}</span>
-                </a>
-            @endif
 
             @if (auth()->check())
             @if (auth()->user()->type=="customer")
            
 
-            <div class="dropdown d-inline-block">
+            <div class="dropdown ">
                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img class="rounded-circle header-profile-user" src="{{ asset('Admin3/assets/images/users/'.Auth::user()->profile_image) }}"
@@ -111,21 +84,27 @@
             </div>
             @endif
     @endif
-    </div>
+
+
+    <div class="links-item">
+    <a href="{{ route('home') }}" class=" d-inline-block align-self-center ms-2 px-2{{ Request::is('home*') ? 'active' : '' }}">Home</a>
+<a href="{{ route('products') }}"class=" d-inline-block align-self-center  ms-2 px-2">products</a>
+<a href="{{ route('freelancers') }}"class=" d-inline-block align-self-center  ms-2 px-2{{ request()->is('freelancers') ? 'active' : '' }}">freelancers</a>
+
+    @if (!auth()->check())
+    <a class="d-inline-block align-self-center mb-4" href="#login" class="btn" data-bs-toggle="modal">login</a>
+@else
+    <a class=" d-flex align-self-center" href="{{route("user.cart.index")}}" >
+        <i class="fa-solid fa-cart-shopping cart-icon px-3"></i>
+        <span id="cart-count">{{App\Models\Cart::where('user_id' ,auth()->user()->id)->count()}}</span>
+    </a>
+@endif
+
 </div>
 
-    <div class="logo">
-        <img src="{{asset("assets/images/newlogo2.png")}}" alt="">
+
+
     </div>
-</div>
 
-<header id="page-topbar">
-    <div class="layout"></div>
-        <div class="carve">
-            <form class="search-form d-flex flex-grow-1 px-lg-3 " style="display:@yield("nosearch")" role="search">
-                <input class="form-control me-2 " type='text'  id="search" placeholder="Search" aria-label="Search" name="search">
-                <button class="btn btn-outline-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-
-            </form>
-        </div>
-</header>
+    </div>
+  </div>

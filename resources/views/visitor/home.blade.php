@@ -30,21 +30,21 @@ home
     <div class="container py-3">
         <div class="row">
             <div class="col-lg-4 message d-flex flex-column align-items-center justify-content-center text-center mb-5">
-               <img src="{{asset("assets/images/20943451.png")}}" alt="" class="w-50 mx-auto mb-3" >
+               <img src="{{asset("assets/images/20943451.png")}}" alt="" class=" mx-auto mb-3" >
                <div class="text">
                 <h3 class="fw-bold text-uppercase"> message 1</h3>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora accusamus cum a tempore alias veritatis repudiandae in fugiat. Nemo dicta vitae aliquam, eius aperiam qui corporis enim voluptas molestias in!</p>
                </div>
             </div>
             <div class="col-lg-4 message d-flex flex-column align-items-center justify-content-center text-center mb-5">
-               <img src="{{asset("assets/images/8055.png")}}" alt="" class="w-50 mx-auto mb-3" >
+               <img src="{{asset("assets/images/8055.png")}}" alt="" class="mx-auto mb-3" >
                <div class="text">
                 <h3 class="fw-bold text-uppercase">message 2</h3>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora accusamus cum a tempore alias veritatis repudiandae in fugiat. Nemo dicta vitae aliquam, eius aperiam qui corporis enim voluptas molestias in!</p>
                </div>
             </div>
             <div class="col-lg-4 message d-flex flex-column align-items-center justify-content-center text-center mb-5">
-               <img src="{{asset("assets/images/Wavy_Bus-15_Single-06.png")}}" alt="" class="w-50 mx-auto mb-3" >
+               <img src="{{asset("assets/images/Wavy_Bus-15_Single-06.png")}}" alt="" class=" mx-auto mb-3" >
                <div class="text">
                 <h3 class="fw-bold text-uppercase"> message 3</h3>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora accusamus cum a tempore alias veritatis repudiandae in fugiat. Nemo dicta vitae aliquam, eius aperiam qui corporis enim voluptas molestias in!</p>

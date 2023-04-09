@@ -22,7 +22,8 @@
     {{-- <div id="preloading"></div> --}}
     <div id="layout-wrapper">
 
-    @include("layouts.component.nav")
+    @include("layouts.component.newnav")
+    @include("layouts.component.offcanvasNavbar")
     @include("layouts.component.modal.login")
     @include("layouts.component.modal.login2")
     @include("layouts.component.modal.signup")
@@ -113,29 +114,31 @@
         }
 
 
-        $(document).ready(function(){
-        
-          setInterval(getnotifcationcount,20000);
-            function getnotifcationcount(){ 
-                $.ajax({
-                type: 'get',
-                url: "{{route('user.notifcation.count')}}",
-                data:{'count':parseInt($('.noti-count').html())},
-                dataType: "json",
-                success: function (data){
-                    if (data['status']) {
-                        $('.noti-count').html(data['count']);
+$(document).ready(function(){
+    @auth()     
+        setInterval(getnotifcationcount,20000);
+          function getnotifcationcount(){ 
+              $.ajax({
+              type: 'get',
+              url: "{{route('user.notifcation.count')}}",
+              data:{'count':parseInt($('.noti-count').html())},
+              dataType: "json",
+              success: function (data){
+                  if (data['status']) {
+                      $('.noti-count').html(data['count']);
+                    
+                  }else{
                       
-                    }else{
-                        
-                     }
-                }, error: function (reject) {
+                   }
+              }, error: function (reject) {
 
-                }
-            });
-            }
-            
-        })
+              }
+          });
+          }
+    @endauth  
+      })
+
+       
    </script>
 </body>
 

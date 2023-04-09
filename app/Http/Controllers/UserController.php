@@ -4,6 +4,7 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Photo;
 use App\Models\Review;
+use App\Models\Selled;
 use App\Models\Payment;
 use App\Models\Product;
 use App\Models\Category;
@@ -291,21 +292,45 @@ class UserController extends Controller
         $lastMonth = Carbon::now()->subMonth()->month;
 
         
-
-        $files_current= Files::where('user_id', $user_id)->whereMonth('created_at', $currentMonth)
+      $fc=Selled::where('user_id',$user_id)->whereMonth('created_at', $currentMonth)
+        ->whereYear('created_at', $currentYear)->get();
+        $files_current=[];
+        foreach($fc as $f){
+            $files_current[]=$f->selledsable()->first()->file()->first();
+   
+        }
+      
+        // $files_current= Files::where('user_id', $user_id)->whereMonth('created_at', $currentMonth)
+        // ->whereYear('created_at', $currentYear)
+        // ->get();
+        $files_lastmonth=[];
+        $fl=Selled::where('user_id',$user_id)->whereMonth('created_at', $lastMonth)
         ->whereYear('created_at', $currentYear)
         ->get();
+        foreach($fl as $f){
+            $files_lastmonth[]=$f->selledsable()->first()->file()->first();
 
- 
-        $files_lastmonth= Files::where('user_id', $user_id)->whereMonth('created_at', $lastMonth)
-        ->whereYear('created_at', $currentYear)
-        ->get();
-        $files_old=Files::where('user_id',$user_id)->whereNotBetween('created_at', [
-            Carbon::createFromDate($currentYear, $lastMonth,1),
-            Carbon::createFromDate($currentYear, $currentMonth,31)
+        }
+        // $files_lastmonth= Files::where('user_id', $user_id)->whereMonth('created_at', $lastMonth)
+        // ->whereYear('created_at', $currentYear)
+        // ->get();
+
+
+        $f0=Selled::where('user_id',$user_id)->whereNotBetween('created_at', [
+                Carbon::createFromDate($currentYear, $lastMonth,1),
+                Carbon::createFromDate($currentYear, $currentMonth,31)
+            ])->get();
+            $files_old=[];
+        foreach($f0 as $f){
+            $files_old[]=$f->selledsable()->first()->file()->first();
+
+        }
+        // $files_old=Files::where('user_id',$user_id)->whereNotBetween('created_at', [
+        //     Carbon::createFromDate($currentYear, $lastMonth,1),
+        //     Carbon::createFromDate($currentYear, $currentMonth,31)
             
-        ])
-        ->get();
+        // ])
+        // ->get();
 
 
 
@@ -321,7 +346,7 @@ class UserController extends Controller
 
      if($wr->freelancer_id == $user_id && ($wr->status=="purchase")){
       
-        array_push( $user_wallet_hestory,$wr);
+        array_push($user_wallet_hestory,$wr);
     }
 
         }
