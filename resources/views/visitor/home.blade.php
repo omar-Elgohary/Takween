@@ -96,6 +96,7 @@ home
 
         <div class="scrollable" style="gap:15px">
             @forelse ($freelancers as $freelancer)
+            <a href="{{route('showFreelancerDetails',$freelancer->id)}}">
                 <div class="freelancer " style="align-items:flex-start;">
                     <div class="image">
                         <img src="{{ asset("Admin3/assets/images/users/".$freelancer->profile_image) }}" alt="">
@@ -108,6 +109,7 @@ home
                         </div>
                     </div>
                 </div>
+            </a>
                 @empty
 
                 <p class=" w-100  text-center " style="height: 150px"> no freelancer</p>

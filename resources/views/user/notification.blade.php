@@ -22,38 +22,40 @@ notification
 
 <div class="notification">
     <div class="container">
-         <div class="section-header">
+        <div class="section-header">
             <h2>Notifications</h2>
         </div>
         <div class="row">
 
             @foreach ( $notifications as $notification)
             <div class="noti row col-12">
-            <div class="image col-4 ">
-            <img src="{{asset('Admin3/assets/images/users/'. \App\Models\User::find($notification->data['user_create'])->profile_image ) }} " alt="">
+                <div class="image col-4 ">
+                    <img src="{{asset('Admin3/assets/images/users/'. \App\Models\User::find($notification->data['user_create'])->profile_image ) }} "
+                        alt="">
+                </div>
+                <div class="discription col-8">
+                    <span
+                        class="text-black-50">{{Carbon\Carbon::parse($notification->created_at)->diffForHumans()}}</span>
+                    <p> @if(app()->getLocale()=='ar')
+                        {{$notification->data['message_ar']}}
+                        @else
+                        {{$notification->data['message_en']}}
+                        @endif
+                    </p>
+                </div>
             </div>
-        <div class="discription col-8">
-            <span class="text-black-50">{{Carbon\Carbon::parse($notification->created_at)->diffForHumans()}}</span>
-            <p> @if(app()->getLocale()=='ar')
-                 {{$notification->data['message_ar']}}
-                @else
-                {{$notification->data['message_en']}}
-                @endif
-                </p>
+
+            @endforeach
+
+            {{-- {{ Auth::User()->unreadNotifications->markAsRead();}} --}}
         </div>
-    </div>
-  
-        @endforeach
-       
-        {{-- {{ Auth::User()->unreadNotifications->markAsRead();}} --}}
-        </div>
-     
-        
+
+
     </div>
 </div>
 
 @endsection
 
 @section("js")
-    
+
 @endsection

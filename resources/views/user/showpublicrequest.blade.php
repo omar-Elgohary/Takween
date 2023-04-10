@@ -914,20 +914,44 @@ $(document).ready(function() {
         
     @endif
 
-    $.ajax({
-                type: 'get',
-                url: "{{route('user.request.checkoutid')}}",
-                data:{'request_id':{{Session::get('request_id')}} ,
-                   'offer_id':{{Session::get('offer_id')}},
-                    },
-                success: function (data) {
-                    if (data.status == true) {
-                        $('.visa').empty().html(data.content);
-                    } else {
-                     }
-                }, error: function (reject) {
-                }
-            });
+
+
+    Moyasar.init({
+    element: '#pay{{Session::get('request_id')}} .visa',
+  
+    amount: {{App\Models\Offer::find(Session::get('offer_id'))->price}} *100,
+    currency: '{{config('moyasar.currency')}}',
+    description: ' public request id  {{App\Models\Requests::find(Session::get('request_id'))->random_id}} ',
+    publishable_api_key:'{{config('moyasar.publishable_key')}}',
+    callback_url: '{{route('user.request.bankpay',['offer_id'=>Session::get('offer_id'),'request_id'=>Session::get('request_id')])}}',
+    methods: ['creditcard'],
+    metadata: {
+     'request_id':{{Session::get('request_id')}},
+     'offer_id':{{Session::get('offer_id')}},
+        },
+
+  on_failure: function (error) {
+    alert('fail');
+       }
+  })
+
+    // $.ajax({
+    //             type: 'get',
+    //             url: "{{route('user.request.checkoutid')}}",
+    //             data:{'request_id':{{Session::get('request_id')}} ,
+    //                'offer_id':{{Session::get('offer_id')}},
+    //                 },
+    //             success: function (data) {
+    //                 if (data.status == true) {
+    //                     $('.visa').empty().html(data.content);
+    //                 } else {
+    //                  }
+    //             }, error: function (reject) {
+    //             }
+    //         });
+
+
+
     
 });
 @endif
@@ -953,6 +977,18 @@ $('#review{{Session::get('request_id')}}').modal('show');
 
 });
 @endif
+
+@if(Session::has('state') && Session::get('state')=="paydone")
+$(document).ready(function() {
+
+    $('#paydone').modal('show');
+    setTimeout(function(){
+        $('#paydone').modal('hide');
+    },3000);
+     
+});
+@endif
+
 
 @if(Session::has('state') && Session::get('state')=="paydone")
 $(document).ready(function() {

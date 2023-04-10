@@ -81,13 +81,13 @@ carts
         </div>
          <div class="chartcheckout px-2">
             <h3 class="py-2 px-3 ">order summery</h3>
-            <div class="d-flex">
+            <div class="d-flex justify-content-center ">
             @if ($descount==0)
-            <form action="{{route('user.addPromoCode')}}"  class="copone px-3" >
+            <form action="{{route('user.addPromoCode')}}"  class="copone px-lg-3" >
                 @csrf
-                <div class="d-flex">
-                <input type="text" class="form-control" id="promo" placeholder="promo code" name="code">
-                <button type="submit" class="btn py-2 px-4 ms-3">  apply</button>
+                <div class="d-flex justify-content-center">
+                <input type="text" class="form-control" id="promo"  placeholder="promo code" name="code">
+                <button type="submit" class="btn py-2 px-lg-4 ms-3">  apply</button>
                 </div>
             </form>
 
@@ -320,34 +320,58 @@ $(document).ready(function() {
 });
 @endif
 
+// $(document).ready(function(){
+//   $(document).on('click', '#paygetid', function (e) {
+
+// // @php
+// // $desc=null;
+// // if(isset($discount_key)) 
+// // $desc =$discount_key;
+
+// // @endphp
+
+//             e.preventDefault();
+//              $.ajax({
+//                 type: 'get',
+                
+//                 url: "{{route('user.cart.checkoutid')}}",
+                
+//                 success: function (data) {
+//                     if (data.status == true) {
+//                         $('.visa').empty().html(data.content);
+//                     } else {
+//                      }
+//                 }, error: function (reject) {
+//                 }
+//             });
+//         });
+
+// });
+
+
+
 $(document).ready(function(){
-  $(document).on('click', '#paygetid', function (e) {
 
-// @php
-// $desc=null;
-// if(isset($discount_key)) 
-// $desc =$discount_key;
+  Moyasar.init({
+    element: '.visa',
+  
+    amount: {{$price}} *100,
+    currency: '{{config('moyasar.currency')}}',
+    description: 'cart Order ',
+    publishable_api_key:'{{config('moyasar.publishable_key')}}',
+    callback_url: '{{route('user.cartpay',$discount_key)}}',
+    methods: ['creditcard'],
+    metadata: {
+    
+        },
 
-// @endphp
+  on_failure: function (error) {
+    alert('fail');
+       }
+  })
 
-            e.preventDefault();
-             $.ajax({
-                type: 'get',
-                
-                url: "{{route('user.cart.checkoutid')}}",
-                
-                success: function (data) {
-                    if (data.status == true) {
-                        $('.visa').empty().html(data.content);
-                    } else {
-                     }
-                }, error: function (reject) {
-                }
-            });
-        });
 
 });
-
 
 </script>
 

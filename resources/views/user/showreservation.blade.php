@@ -204,7 +204,27 @@ Reservations
     @include("layouts.component.modal.userresrvationrequest.rejectoffer")
     @include("layouts.component.modal.userresrvationrequest.payment")
 
+    <script>
 
+        Moyasar.init({
+
+        element: '#pay{{$request->id}} .visa',  
+        amount: {{ App\Models\Reservation::findorfail($request->id)->offer()->first()->price  }}* 100,
+        currency: '{{ config('moyasar.currency') }}',
+        description: 'Reservation ID {{ App\Models\Reservation::find($request->id)-> random_id }}',
+        publishable_api_key: '{{ config('moyasar.publishable_key') }}',
+        callback_url: '{{ route('user.reservation.pay',$request->id) }}',
+        methods: ['creditcard'],
+        metadata: {
+        'reservation_id':{{$request->id}},
+        },
+        on_failure: function (error) {
+        alert('Payment failed. Please try again later.');
+        }
+        });
+
+  
+         </script>
      {{-- @elseif($request->status=="Pending" && $request->date_time< now()) --}}
 
      @elseif($request->status=="Pending")
@@ -295,28 +315,46 @@ Reservations
 
  <script>
 
-    $(document).ready(function(){
 
-        $(document).on('click', '#paybutton', function (e) {
-            e.preventDefault();
-             var res_id = $(this).attr('data-res');
-             $.ajax({
-                type: 'get',
-                url: "{{route('user.reservation.visapay')}}",
-                data:{
-                    'res_id':res_id,
-                },
-                success: function (data) {
-                    if (data.status == true) {
-                        $('#pay'+res_id+' .visa').empty().html(data.content);
-                    } else {
-                     }
-                }, error: function (reject) {
-                }
-            });
-        });
+@if(Session::has('state') && Session::get('state')=="paydone")
+$(document).ready(function() {
 
-    });
+    $('#paydone').modal('show');
+    setTimeout(function(){
+        $('#paydone').modal('hide');
+    },3000);
+     
+});
+@endif
+//     $(document).ready(function(){
+
+//         $(document).on('click', '.paybutton', function (e) {
+           
+//             var res_id = $(this).attr('data-res');
+
+// // 
+//         //      $.ajax({
+//         //         type: 'get',
+//         //         url: "{{route('user.reservation.visapay')}}",
+//         //         data:{
+//         //             'res_id':res_id,
+//         //         },
+//         //         success: function (data) {
+//         //             if (data.status == true) {
+//         //                 $('#pay'+res_id+' .visa').empty().html(data.content);
+//         //             } else {
+//         //              }
+//         //         }, error: function (reject) {
+//         //         }
+
+//         //     });
+       
+               
+//              });
+
+        
+
+//     });
 
 
 

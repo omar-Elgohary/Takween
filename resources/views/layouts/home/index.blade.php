@@ -16,6 +16,11 @@
 
     @include("layouts.component.head")
     @yield("css")
+     <link rel="stylesheet" href="https://cdn.moyasar.com/mpf/1.7.3/moyasar.css" />
+
+  <!-- Moyasar Scripts -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=fetch"></script>
+  <script src="https://cdn.moyasar.com/mpf/1.7.3/moyasar.js"></script>
     </head>
     <body>
 

@@ -62,7 +62,6 @@ class RequestController extends Controller
 // store public and private  requests
     public function store(Request $request , $freelancer_id = null)
     {
-
         $user_id= auth()->user()->id;
         $this->validate($request, [
             'category_id' => 'required',
@@ -157,7 +156,7 @@ if($request->type=='public'){
     $freelancer_detail=User::where('id',$freelancer_id)->get();
 }
         $users = User::where('id' , '!=' , auth()->user()->id)->get();
-        $user_create = auth()->user()->name;
+        $user_create = auth()->user()->id;
         
         Notification::send($freelancer_detail, new CreateRequest($user_create,$re->id,'request',$re->random_id));
 
@@ -469,8 +468,6 @@ $data="";
 
         ]);
  
-
-
         $freelancer= User::find( $requests->offer()->first()->freelancer_id);
         $user_create=auth()->user()->id;
          Notification::send($freelancer, new RejectOffer($user_create,$id,'request',  $requests->random_id));
@@ -488,14 +485,10 @@ $data="";
        $offer_price= $requests->offer->first()->price;
 
        $wallet=User::findOrFail(auth()->user()->id)->wallet->total;
-      
-       
-       $pay_wallet=( $wallet>=$offer_price)?1:0;
     
-
+       $pay_wallet=( $wallet>=$offer_price)?1:0;
     return redirect()->back()->with(['message'=>'open payment','offer_id'=> $re,'request_id'=>$id,'pay_wallet'=>$pay_wallet]);
     }
-
 
 
 
@@ -530,7 +523,6 @@ $data="";
        ]);       
        toastr()->success('edit done successfully');
        return redirect()->back()->with(['state'=>"pending","id"=>$id]);
-
 
     }
 

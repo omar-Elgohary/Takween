@@ -85,12 +85,14 @@ class PaymentController extends Controller
        $edit_pay =null;
         
         
-        if (request('id') && request('resourcePath')) {
-            $Hp = new HayperpayController();
-       $payment_status =$Hp->getPaymentStatus(request('id'), request('resourcePath'));
-       if(isset($payment_status['id'])){
+        if (request()->id && request()->status=='paid') {
+            $paymentService = new \Moyasar\Providers\PaymentService();
+            $payment = $paymentService->fetch(request()->id);
+       
+           
+       if(trim($payment->amountFormat,config('moyasar.currency'))==$offer_price){
         
-        $visa_pay_id=$payment_status['id'];
+        $visa_pay_id=$payment->id;
         $edit_offer= Requests::findorfail($request_id)->offer()->where('id',$offer_id)->update([
              "status"=>'active',
          ]);
@@ -123,7 +125,7 @@ class PaymentController extends Controller
            $user_create=auth()->user()->id;
            $request=Requests::find($request_id);
             Notification::send($freelancer, new AcceptOffer($user_create,$request_id,'request', $request->random_id));
-
+            
             return redirect()->back()->with(["state"=>'paydone']);
 
         }else{

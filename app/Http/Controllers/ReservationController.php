@@ -105,26 +105,36 @@ class ReservationController extends Controller
 
 public function reservationPay(Request $request, $id){
 
-    if (request('id') && request('resourcePath')) {
-        $Hp = new HayperpayController();
-$payment_status =$Hp->getPaymentStatus(request('id'), request('resourcePath'));
-$request->paytype='visa';
 
-
-
-}
 $reservation=Reservation::findOrFail($id);
 $offer_total=$reservation->offer->first()->price;
 $payed =false;
 $visa_pay_id=null;
+
+    if (request('id') && request('status')=='paid') {
+        $paymentService=new \Moyasar\Providers\PaymentService();
+
+        
+        $payment=$paymentService->fetch($request->id);
+
+        if(trim($payment->amountFormat,config('moyasar.currency'))==$offer_total){
+
+            $request->paytype='visa';
+
+        }
+        
+
+     }
+
 if($request->paytype=='wallet'){
     $payed = PaymentController::walletpay2($offer_total);
     $pay_type='wallet';
    }elseif($request->paytype=='visa'){
 
-    $visa_pay_id=$payment_status['id'];
+    $visa_pay_id=$payment->id;
     $pay_type='bank';
      $payed=true;
+     
       
    }elseif($request->paytype=='apay'){
 
@@ -155,9 +165,11 @@ if($request->paytype=='wallet'){
 
   
     $user_create=auth()->user()->id;
-    $request=Requests::find($request_id);
-     Notification::send($reservation->freelancer_id, new AcceptOffer($user_create,$id,'reservation', $reservation->random_id));
+    $freelancer=User::findorfail($reservation->freelancer_id);
+    
+     Notification::send($freelancer, new AcceptOffer($user_create,$id,'reservation', $reservation->random_id));
 
+     toastr()->success('payment done');
     return redirect()->route('user.reservations')->with(['state'=>"paydone","id"=>$id]);
    }
 

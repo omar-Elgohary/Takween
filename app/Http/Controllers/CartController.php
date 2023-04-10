@@ -27,21 +27,9 @@ class CartController extends Controller
         $price=0;
         $descount=0;
         $walletEnough=false;
-    
+        $discount_key=null;
 
-        if (request('id') && request('resourcePath')) {
-            $Hp = new HayperpayController();
-$payment_status =$Hp->getPaymentStatus(request('id'), request('resourcePath'));
-
- $re = new  Request;
- $re->paytype='visa';
- $re->payment_status=$payment_status;
-$this->cartpay($re);
-
-}else{
-      
-   Session::forget('discount_key');
-}
+     
 
     if(Cart::where('user_id',auth()->user()->id)->exists()){
 
@@ -94,7 +82,7 @@ $this->cartpay($re);
         
 
 
-        return view('user.chart',compact('cartadditems','total','descount','price','walletEnough'));
+        return view('user.chart',compact('cartadditems','total','descount','price','walletEnough','discount_key'));
     }
 
 
@@ -242,14 +230,26 @@ $this->cartpay($re);
     $discount_id=null;
     $visa_pay_id=null;
     $disvalue=0;
-                if (request('id') && request('resourcePath')) {
-                    $Hp = new HayperpayController();
-            $payment_status =$Hp->getPaymentStatus(request('id'), request('resourcePath'));
-            $request->paytype='visa';
-            $request->payment_status=$payment_status;
-            $request->disc=$discount_key;
-       
+    $payment_fail=false;
 
+    
+                if (request('id') && request('status')=='paid') {
+                    $paymentService = new \Moyasar\Providers\PaymentService();
+                    $payment = $paymentService->fetch($request->id);
+
+                    //culc discount and get  price
+                    $discount=Discount::where('key',$discount_key)->first();
+                    $paydata=$this->calcCartTotal($discount);
+                    if(trim($payment->amountFormat,config('moyasar.currency'))==$paydata['total']){
+                        $request->paytype='visa';
+                        $request->disc=$discount_key;
+                    }else{
+                        $payment_fail=true;
+                    }
+
+    
+            }elseif(request('status')=='failed'){
+                $payment_fail=true;
             }
 
 
@@ -279,7 +279,7 @@ $this->cartpay($re);
 
 
      }elseif($request->paytype=='visa'){
-        $visa_pay_id=$request->payment_status['id'];
+        $visa_pay_id= $payment->id;
         $pay_type='bank';
         $payed=true;
 
@@ -315,9 +315,7 @@ $this->cartpay($re);
        'total'=>$paydata['total'],
         ]);
     foreach($paydata['cartadditems'] as $data ){
-       $item= $data->cartsable;
-     
- 
+       $item =$data->cartsable;
       $item->sells()->create([
        "user_id"=>auth()->user()->id,
        "type"=>$data->type,
@@ -343,25 +341,32 @@ $this->cartpay($re);
 
     ]);
 
+    if($request->paytype=='visa'){
+
+        $payment->update('order is '.$order->id);
+
+        
+    }
+
 
   
-   
-    
+
    Session::forget('discount_key');
 
 
      Cart::where('user_id',auth()->user()->id)->delete();
 
-  
+     return redirect()->route('user.cart.index')->with(['state'=>"paydone"]);
 
-
-
-
-   
-    
     } 
 
-    return redirect()->route('user.cart.index')->with(['state'=>"paydone"]);
+   
+}
+
+if($payment_fail){
+    toastr()->error('payment fail');
+    return redirect()->back();
+
 }
        toastr()->error('you dont have product in cart');
         return redirect()->back();
