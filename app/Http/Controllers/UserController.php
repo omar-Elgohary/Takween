@@ -291,7 +291,7 @@ class UserController extends Controller
         ->whereYear('created_at', $currentYear)->get();
         $files_current=[];
         foreach($fc as $f){
-            $files_current[]=$f->selledsable()->first()->file()->first();
+            $files_current[]=$f->selledsable()->withTrashed()->first()->file()->first();
    
         }
       
@@ -303,7 +303,7 @@ class UserController extends Controller
         ->whereYear('created_at', $currentYear)
         ->get();
         foreach($fl as $f){
-            $files_lastmonth[]=$f->selledsable()->first()->file()->first();
+            $files_lastmonth[]=$f->selledsable()->withTrashed()->first()->file()->first();
 
         }
         // $files_lastmonth= Files::where('user_id', $user_id)->whereMonth('created_at', $lastMonth)
@@ -317,7 +317,7 @@ class UserController extends Controller
             ])->get();
             $files_old=[];
         foreach($f0 as $f){
-            $files_old[]=$f->selledsable()->first()->file()->first();
+            $files_old[]=$f->selledsable()->withTrashed()->first()->file()->first();
 
         }
         // $files_old=Files::where('user_id',$user_id)->whereNotBetween('created_at', [

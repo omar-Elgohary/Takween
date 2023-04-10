@@ -541,7 +541,7 @@ nav .container-fluid {
   
 }
 #heronav .dropdown{
- display: flex;
+display:flex !important;
  flex-direction: column;
 }
 #heronav .dropdown-menu{
@@ -1788,17 +1788,17 @@ color:#303030;
     border-style: solid;
     border-radius: 0;
 }
-.requestservice .container .form form button[type="submit"] {
+/* .requestservice .container .form form button[type="submit"] {
     position: relative;
     left: 120%;
-}
+} */
 
-@media(max-width:767px){
+/* @media(max-width:767px){
     .requestservice .container .form form button[type="submit"] {
     position: relative;
     left: 30%;
 } 
-}
+} */
 
 @media(max-width:400px){
     .requestservice .container .form form button[type="submit"] {

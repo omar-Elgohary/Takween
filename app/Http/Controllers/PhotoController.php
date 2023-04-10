@@ -68,7 +68,7 @@ class PhotoController extends Controller
     public function update(Request $request, Photo $photo)
     {
 
-        dd("sds");
+      
         $request->validate([
             "photo"=>['nullable',"image","max:200"],
             "name"=>['required'],
@@ -98,9 +98,10 @@ class PhotoController extends Controller
             "size_height"=>$request->sizeheight,
             "size_type"=>$request->sizetype,
             "location"=>$request->location,
-            "photo"=>$photo_name
+            "photo"=>$photo_name,
         ]);
 
+        
         return redirect()->route("freelanc.photo.show",compact("photo"));
     }
 

@@ -43,8 +43,8 @@ photo
                         <h2 class="bold text-black">{{$photo->name}}</h2>
                        
                         <div class="rate">
-                            <i class="fa fa-star" ></i>
-                            <span>4,5</span>
+                            <i class="fa fa-star"></i>
+                            <span>3,4</span>
                           </div> 
                                 
                               
@@ -114,7 +114,7 @@ photo
       </div>
     </div>
                 <div class="description  col-lg-7 col-md-6 col-sm-12  d-flex flex-column ">
-                    <div class="price bold fs-3">53<span class="curancy fs-6">
+                    <div class="price bold fs-3">{{$photo->price}}<span class="curancy fs-6">
                         S.R
                     </span>
 

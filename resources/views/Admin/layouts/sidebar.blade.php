@@ -4,19 +4,19 @@
 <div class="navbar-brand-box">
 <a href="{{ route('dashboard') }}" class="logo logo-dark">
     <span class="logo-sm">
-        <img src="Admin3/assets/images/logo-sm.png" alt="" height="22">
+        <img src="{{asset('assets/images/newlogo.png')}}" alt="" height="22">
     </span>
     <span class="logo-lg">
-        <img src="Admin3/assets/images/logo-dark.png" alt="" height="20">
+        <img src="{{asset('assets/images/newlogo.png')}}" alt="" height="20">
     </span>
 </a>
 
 <a href="{{ route('dashboard') }}" class="logo logo-light">
     <span class="logo-sm">
-        <img src="Admin3/assets/images/logo-sm.png" alt="" height="22">
+        <img src="{{asset('assets/images/newlogo.png')}}" alt="" height="22">
     </span>
     <span class="logo-lg">
-        <img src="Admin3/assets/images/logo-light.png" alt="" height="20">
+        <img src="{{asset('assets/images/newlogo.png')}}" alt="" height="20">
     </span>
 </a>
 </div>
@@ -117,7 +117,7 @@
             </a>
         </li>
 
-        <li class="menu-title">Apps</li>
+        {{-- <li class="menu-title">Apps</li>
 
         <li>
             <a href="calendar.html" class="waves-effect">
@@ -345,7 +345,7 @@
                     </ul>
                 </li>
             </ul>
-        </li>
+        </li> --}}
 
     </ul>
 </div>

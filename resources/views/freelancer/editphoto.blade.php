@@ -76,7 +76,7 @@ label span{
     <div class="section-header">
             <h2>edit photo</h2>
         </div>
-    <form action="{{route("freelanc.photo.update",$photo->id)}}" method="POST"enctype="multipart/form-data">
+    <form action="{{route('freelanc.photo.update',$photo->id)}}" method="POST"enctype="multipart/form-data">
      @csrf
      @method("PUT")
      <div class="mb-4 hlafwidth">
@@ -189,7 +189,7 @@ value="{{$photo->lens_type}}">
 
         <button type="submit" class="btn  btn-modal  my-3 px-5  btn-model-primary position-none ">edit photo</button>
      
-        <button type="button" class="btn  modal-color-text  d-block my-3 px-5 "  data-bs-toggle="modal" data-bs-target="#suredeletephoto">delete photo</button>
+        <button type="button"  class="btn  modal-color-text  d-block my-3 px-5 "  data-bs-toggle="modal" data-bs-target="#suredeletephoto">delete photo</button>
 
 
       </div>

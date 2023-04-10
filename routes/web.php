@@ -83,7 +83,7 @@ Route::prefix("freelancer")->name("freelanc.")->middleware('auth','is_freelancer
 
     Route::post('updateFreelancerProfile/{id}', [UserController::class, 'updateFreelancerProfile'])->name('updateFreelancerProfile');
 
-    Route::get("/product",function(){
+    Route::get("/products",function(){
         return view("freelancer.products");
     });
 
@@ -106,26 +106,12 @@ Route::prefix("freelancer")->name("freelanc.")->middleware('auth','is_freelancer
     Route::get('/request/finish/{id}',[FreelancerRequestController::class,'finishRequest'])->name("finishrequest");
 
 
-Route::middleware("is_photgrapher")->group(function() {
-    Route::resource('/photo', PhotoController::class);
-});
+// Route::middleware("is_photgrapher")->group(function() {
+    
+// });
 
-    // Route::get("/showproducts",function(){
-    //     return view("freelancer.showproducts");
-    // })->name("showproducts");
-
-    // Route::get("/addproduct",function(){
-    //     return view("freelancer.addproduct");
-    // })->name("addproduct");
-
-    // Route::get("/editproduct",function(){
-    //     return view("freelancer.editproduct");
-    // })->name("editproduct");
-
-    // Route::get("/product",function(){
-    //     return view("freelancer.product");
-    //     })->name("product");
-
+   
+    Route::resource('photo', PhotoController::class);
     Route::resource('product', ProductController::class);
 
 
@@ -149,24 +135,6 @@ Route::middleware("is_photgrapher")->group(function() {
 
 
 
-
-// start photo
-    // Route::get("/showphotos",function(){
-    //     return view("freelancer.showphotos");
-    // })->name("showphotos");
-
-    // Route::get("/addphoto",function(){
-    //     return view("freelancer.addphoto");
-    //     })->name("addphoto");
-
-    // Route::get("/editphoto",function(){
-    // return view("freelancer.editphoto");
-    // })->name("editphoto");
-
-    // Route::get("/photo",function(){
-    //     return view("freelancer.photo");
-    // })->name("photo");
- Route::resource("/photo",PhotoController::class);
 
 
     //profile

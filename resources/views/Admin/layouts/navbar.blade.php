@@ -5,19 +5,19 @@
 <div class="navbar-brand-box">
     <a href="index.html" class="logo logo-dark">
         <span class="logo-sm">
-            <img src="Admin3/assets/images/logo-sm.png" alt="" height="22">
+            <img src="{{asset('assets/images/newlogo.png')}}" alt="" height="22">
         </span>
         <span class="logo-lg">
-            <img src="Admin3/assets/images/logo-dark.png" alt="" height="20">
+            <img src="{{asset('assets/images/newlogo.png')}}" alt="" height="20">
         </span>
     </a>
 
     <a href="index.html" class="logo logo-light">
         <span class="logo-sm">
-            <img src="Admin3/assets/images/logo-sm.png" alt="" height="22">
+            <img src="{{asset('assets/images/newlogo.png')}}" alt="" height="22">
         </span>
         <span class="logo-lg">
-            <img src="Admin3/assets/images/logo-light.png" alt="" height="20">
+            <img src="{{asset('assets/images/newlogo.png')}}" alt="" height="20">
         </span>
     </a>
 </div>
@@ -63,7 +63,7 @@
     </button>
 </div>
 
-<div class="dropdown d-inline-block">
+{{-- <div class="dropdown d-inline-block">
     <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-notifications-dropdown"
         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i class="uil-bell"></i>
@@ -156,17 +156,17 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
 <div class="dropdown d-inline-block">
     <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <img class="rounded-circle header-profile-user" src="Admin3/assets/images/users/avatar-4.jpg"
+        <img class="rounded-circle header-profile-user" src="{{asset('Admin3/assets/images/users/'.auth()->user()->profile_image)}}"
             alt="Header Avatar">
-        <span class="d-none d-xl-inline-block ms-1 fw-medium font-size-15">Marcus</span>
+        <span class="d-none d-xl-inline-block ms-1 fw-medium font-size-15">{{auth()->user()->name}}</span>
         <i class="uil-angle-down d-none d-xl-inline-block font-size-15"></i>
     </button>
-    <div class="dropdown-menu dropdown-menu-end">
+    {{-- <div class="dropdown-menu dropdown-menu-end">
         <!-- item-->
         <a class="dropdown-item" href="#"><i class="uil uil-user-circle font-size-18 align-middle text-muted me-1"></i> <span class="align-middle">View Profile</span></a>
         <a class="dropdown-item" href="#"><i class="uil uil-wallet font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">My Wallet</span></a>
@@ -178,7 +178,7 @@
         <a class="dropdown-item  logout" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             <i class="uil uil-sign-out-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Sign out</span></a>
         
-    </div>
+    </div> --}}
 </div>
 
 <div class="dropdown d-inline-block">

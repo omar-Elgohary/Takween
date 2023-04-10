@@ -94,7 +94,8 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-        
+        $categories=Category::all();
+        return view('freelancer.editproduct',compact('product','categories'));
     }
 
 
@@ -250,6 +251,8 @@ class ProductController extends Controller
                 $products = Product::orderBy('price', 'desc')->get();       // تصاعدي من الصغير للكبير
             }
         }
+
+
 
         return view('visitor.filter', compact('categories', 'products'));
     }
