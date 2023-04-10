@@ -97,10 +97,10 @@
                         <div class="mt-1">
                             <ul class="list-inline main-chart mb-0">
                                 <li class="list-inline-item chart-border-left me-0 border-0">
-                                    <h3 class="text-primary">$<span data-plugin="counterup">2,371</span><span class="text-muted d-inline-block font-size-15 ms-3">Income</span></h3>
+                                    <h3 class="text-primary">SAR  <span data-plugin="counterup">{{App\Models\Payment::all()->sum('total')}}</span><span class="text-muted d-inline-block font-size-15 ms-3">Income</span></h3>
                                 </li>
                                 <li class="list-inline-item chart-border-left me-0">
-                                    <h3><span data-plugin="counterup">258</span><span class="text-muted d-inline-block font-size-15 ms-3">Sales</span>
+                                    <h3><span data-plugin="counterup">{{App\Models\Selled::all()->count()}}</span><span class="text-muted d-inline-block font-size-15 ms-3">Sales</span>
                                     </h3>
                                 </li>
                                 <li class="list-inline-item chart-border-left me-0">
@@ -158,7 +158,7 @@
 
                         <div class="row align-items-center g-0 mt-3">
                             <div class="col-sm-3">
-                                <p class="text-truncate mt-1 mb-0"><i class="mdi mdi-circle-medium text-primary me-2"></i> Desktops </p>
+                                <p class="text-truncate mt-1 mb-0"><i class="mdi mdi-circle-medium text-primary me-2"></i> Reservation </p>
                             </div>
 
                             <div class="col-sm-9">
@@ -173,7 +173,7 @@
 
                         <div class="row align-items-center g-0 mt-3">
                             <div class="col-sm-3">
-                                <p class="text-truncate mt-1 mb-0"><i class="mdi mdi-circle-medium text-info me-2"></i> iPhones </p>
+                                <p class="text-truncate mt-1 mb-0"><i class="mdi mdi-circle-medium text-info me-2"></i> Requests </p>
                             </div>
                             <div class="col-sm-9">
                                 <div class="progress mt-1" style="height: 6px;">
@@ -187,7 +187,7 @@
 
                         <div class="row align-items-center g-0 mt-3">
                             <div class="col-sm-3">
-                                <p class="text-truncate mt-1 mb-0"><i class="mdi mdi-circle-medium text-success me-2"></i> Android </p>
+                                <p class="text-truncate mt-1 mb-0"><i class="mdi mdi-circle-medium text-success me-2"></i> product </p>
                             </div>
                             <div class="col-sm-9">
                                 <div class="progress mt-1" style="height: 6px;">
@@ -256,69 +256,22 @@
                             <div class="table-responsive">
                                 <table class="table table-borderless table-centered table-nowrap">
                                     <tbody>
+
+                                        @foreach ( App\Models\User::where('type','!=','admin')->get()  as $user )
+                                            
+                                     
                                         <tr>
-                                            <td style="width: 20px;"><img src="assets/images/users/avatar-4.jpg" class="avatar-xs rounded-circle " alt="..."></td>
+                                            <td style="width: 20px;"><img src="{{asset("Admin3/assets/images/users/".$user->profile_image)}}" class="avatar-xs rounded-circle " alt="..."></td>
                                             <td>
-                                                <h6 class="font-size-15 mb-1 fw-normal">Glenn Holden</h6>
-                                                <p class="text-muted font-size-13 mb-0"><i class="mdi mdi-map-marker"></i> Nevada</p>
-                                            </td>
-                                            <td><span class="badge bg-soft-danger font-size-12">Cancel</span></td>
-                                            <td class="text-muted fw-semibold text-end"><i class="icon-xs icon me-2 text-success" data-feather="trending-up"></i>$250.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td><img src="assets/images/users/avatar-5.jpg" class="avatar-xs rounded-circle " alt="..."></td>
-                                            <td>
-                                                <h6 class="font-size-15 mb-1 fw-normal">Lolita Hamill</h6>
-                                                <p class="text-muted font-size-13 mb-0"><i class="mdi mdi-map-marker"></i> Texas</p>
+                                                <h6 class="font-size-15 mb-1 fw-normal">{{$user->name}}</h6>
+                                                <p class="text-muted font-size-13 mb-0"><i class="mdi mdi-map-marker"></i> {{$user->phone}}</p>
                                             </td>
                                             <td><span class="badge bg-soft-success font-size-12">Success</span></td>
-                                            <td class="text-muted fw-semibold text-end"><i class="icon-xs icon me-2 text-danger" data-feather="trending-down"></i>$110.00</td>
+                                            <td class="text-muted fw-semibold text-end"><i class="icon-xs icon me-2 text-success" data-feather="trending-up"></i></td>
                                         </tr>
+                                        @endforeach
                                         <tr>
-                                            <td><img src="assets/images/users/avatar-6.jpg" class="avatar-xs rounded-circle " alt="..."></td>
-                                            <td>
-                                                <h6 class="font-size-15 mb-1 fw-normal">Robert Mercer</h6>
-                                                <p class="text-muted font-size-13 mb-0"><i class="mdi mdi-map-marker"></i> California</p>
-                                            </td>
-                                            <td><span class="badge bg-soft-info font-size-12">Active</span></td>
-                                            <td class="text-muted fw-semibold text-end"><i class="icon-xs icon me-2 text-success" data-feather="trending-up"></i>$420.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td><img src="assets/images/users/avatar-7.jpg" class="avatar-xs rounded-circle " alt="..."></td>
-                                            <td>
-                                                <h6 class="font-size-15 mb-1 fw-normal">Marie Kim</h6>
-                                                <p class="text-muted font-size-13 mb-0"><i class="mdi mdi-map-marker"></i> Montana</p>
-                                            </td>
-                                            <td><span class="badge bg-soft-warning font-size-12">Pending</span></td>
-                                            <td class="text-muted fw-semibold text-end"><i class="icon-xs icon me-2 text-danger" data-feather="trending-down"></i>$120.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td><img src="assets/images/users/avatar-8.jpg" class="avatar-xs rounded-circle " alt="..."></td>
-                                            <td>
-                                                <h6 class="font-size-15 mb-1 fw-normal">Sonya Henshaw</h6>
-                                                <p class="text-muted font-size-13 mb-0"><i class="mdi mdi-map-marker"></i> Colorado</p>
-                                            </td>
-                                            <td><span class="badge bg-soft-info font-size-12">Active</span></td>
-                                            <td class="text-muted fw-semibold text-end"><i class="icon-xs icon me-2 text-success" data-feather="trending-up"></i>$112.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td><img src="assets/images/users/avatar-2.jpg" class="avatar-xs rounded-circle " alt="..."></td>
-                                            <td>
-                                                <h6 class="font-size-15 mb-1 fw-normal">Marie Kim</h6>
-                                                <p class="text-muted font-size-13 mb-0"><i class="mdi mdi-map-marker"></i> Australia</p>
-                                            </td>
-                                            <td><span class="badge bg-soft-success font-size-12">Success</span></td>
-                                            <td class="text-muted fw-semibold text-end"><i class="icon-xs icon me-2 text-danger" data-feather="trending-down"></i>$120.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td><img src="assets/images/users/avatar-1.jpg" class="avatar-xs rounded-circle " alt="..."></td>
-                                            <td>
-                                                <h6 class="font-size-15 mb-1 fw-normal">Sonya Henshaw</h6>
-                                                <p class="text-muted font-size-13 mb-0"><i class="mdi mdi-map-marker"></i> India</p>
-                                            </td>
-                                            <td><span class="badge bg-soft-danger font-size-12">Cancel</span></td>
-                                            <td class="text-muted fw-semibold text-end"><i class="icon-xs icon me-2 text-success" data-feather="trending-up"></i>$112.00</td>
-                                        </tr>
+                                            
                                     </tbody>
                                 </table>
                             </div> <!-- enbd table-responsive-->
@@ -482,7 +435,7 @@
                                             </div>
                                         </th>
                                         <th>Order ID</th>
-                                        <th>Billing Name</th>
+                                        <th>user Name</th> 
                                         <th>Date</th>
                                         <th>Total</th>
                                         <th>Payment Status</th>
@@ -491,6 +444,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+
+                                    @foreach ( App\Models\Payment::limit(10)->get() as  $payment )
+                                       
+                                    
                                     <tr>
                                         <td>
                                             <div class="form-check font-size-16">
@@ -498,156 +455,29 @@
                                                 <label class="form-check-label" for="customCheck2">&nbsp;</label>
                                             </div>
                                         </td>
-                                        <td><a href="javascript: void(0);" class="text-body fw-bold">#MB2540</a> </td>
-                                        <td>Neal Matthews</td>
+                                        <td><a href="javascript: void(0);" class="text-body fw-bold">#{{$payment->id}}</a> </td>
+                                        <td>{{App\Models\User::find($payment->user_id)->name}}</td>
+                                       
+                                       
                                         <td>
-                                            07 Oct, 2019
+                                           {{$payment->created_at}}
                                         </td>
                                         <td>
-                                            $400
+                                           {{$payment->total}}
                                         </td>
                                         <td>
-                                            <span class="badge rounded-pill bg-soft-success font-size-12">Paid</span>
-                                        </td>
-                                        <td>
-                                            <i class="fab fa-cc-mastercard me-1"></i> Mastercard
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light">
-                                                View Details
-                                            </button>
-                                        </td>
-                                    </tr>
+                                            @if($payment->status=='pending')
+                                            <span class="badge rounded-pill bg-soft-warning font-size-12">pending</span>
+                                            @elseif ($payment->status=='purchase')
+                                            <span class="badge rounded-pill bg-soft-success font-size-12">purchase</span>
 
-                                    <tr>
-                                        <td>
-                                            <div class="form-check font-size-16">
-                                                <input type="checkbox" class="form-check-input" id="customCheck3">
-                                                <label class="form-check-label" for="customCheck3">&nbsp;</label>
-                                            </div>
-                                        </td>
-                                        <td><a href="javascript: void(0);" class="text-body fw-bold">#MB2541</a> </td>
-                                        <td>Jamal Burnett</td>
-                                        <td>
-                                            07 Oct, 2019
-                                        </td>
-                                        <td>
-                                            $380
-                                        </td>
-                                        <td>
-                                            <span class="badge rounded-pill bg-soft-danger font-size-12">Chargeback</span>
-                                        </td>
-                                        <td>
-                                            <i class="fab fa-cc-visa me-1"></i> Visa
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light">
-                                                View Details
-                                            </button>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>
-                                            <div class="form-check font-size-16">
-                                                <input type="checkbox" class="form-check-input" id="customCheck4">
-                                                <label class="form-check-label" for="customCheck4">&nbsp;</label>
-                                            </div>
-                                        </td>
-                                        <td><a href="javascript: void(0);" class="text-body fw-bold">#MB2542</a> </td>
-                                        <td>Juan Mitchell</td>
-                                        <td>
-                                            06 Oct, 2019
-                                        </td>
-                                        <td>
-                                            $384
-                                        </td>
-                                        <td>
-                                            <span class="badge rounded-pill bg-soft-success font-size-12">Paid</span>
-                                        </td>
-                                        <td>
-                                            <i class="fab fa-cc-paypal me-1"></i> Paypal
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light">
-                                                View Details
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="form-check font-size-16">
-                                                <input type="checkbox" class="form-check-input" id="customCheck5">
-                                                <label class="form-check-label" for="customCheck5">&nbsp;</label>
-                                            </div>
-                                        </td>
-                                        <td><a href="javascript: void(0);" class="text-body fw-bold">#MB2543</a> </td>
-                                        <td>Barry Dick</td>
-                                        <td>
-                                            05 Oct, 2019
-                                        </td>
-                                        <td>
-                                            $412
-                                        </td>
-                                        <td>
-                                            <span class="badge rounded-pill bg-soft-success font-size-12">Paid</span>
-                                        </td>
-                                        <td>
-                                            <i class="fab fa-cc-mastercard me-1"></i> Mastercard
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light">
-                                                View Details
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="form-check font-size-16">
-                                                <input type="checkbox" class="form-check-input" id="customCheck6">
-                                                <label class="form-check-label" for="customCheck6">&nbsp;</label>
-                                            </div>
-                                        </td>
-                                        <td><a href="javascript: void(0);" class="text-body fw-bold">#MB2544</a> </td>
-                                        <td>Ronald Taylor</td>
-                                        <td>
-                                            04 Oct, 2019
-                                        </td>
-                                        <td>
-                                            $404
-                                        </td>
-                                        <td>
+                                            @elseif ($payment->status=='refund')
                                             <span class="badge rounded-pill bg-soft-warning font-size-12">Refund</span>
+                                            @endif
+                                           
                                         </td>
                                         <td>
-                                            <i class="fab fa-cc-visa me-1"></i> Visa
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light">
-                                                View Details
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="form-check font-size-16">
-                                                <input type="checkbox" class="form-check-input" id="customCheck7">
-                                                <label class="form-check-label" for="customCheck7">&nbsp;</label>
-                                            </div>
-                                        </td>
-                                        <td><a href="javascript: void(0);" class="text-body fw-bold">#MB2545</a> </td>
-                                        <td>Jacob Hunter</td>
-                                        <td>
-                                            04 Oct, 2019
-                                        </td>
-                                        <td>
-                                            $392
-                                        </td>
-                                        <td>
-                                            <span class="badge rounded-pill bg-soft-success font-size-12">Paid</span>
-                                        </td>
-                                        <td>
-                                            <i class="fab fa-cc-paypal me-1"></i> Paypal
+                                            <i class="fab fa-cc-mastercard me-1"></i>{{$payment->pay_type}}
                                         </td>
                                         <td>
                                             <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light">
@@ -655,6 +485,10 @@
                                             </button>
                                         </td>
                                     </tr>
+                                    @endforeach
+                                 
+
+                                    
                                 </tbody>
                             </table>
                         </div>
