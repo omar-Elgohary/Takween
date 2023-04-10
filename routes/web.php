@@ -11,6 +11,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RequestController;
+use App\Http\Controllers\FreelancerController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\StripePaymentController;
@@ -165,11 +166,11 @@ Route::middleware("is_photgrapher")->group(function() {
     // Route::get("/photo",function(){
     //     return view("freelancer.photo");
     // })->name("photo");
-
+ Route::resource("/photo",PhotoController::class);
 
 
     //profile
-    Route::get("/files/{id}", [UserController::class, 'FreelancerFiles'])->name("files");
+    Route::get("/files", [FreelancerController::class, 'FreelancerFiles'])->name("files");
 
     Route::get("/wallet",[UserController::class,'freelancerwallet'])->name("wallet");
 

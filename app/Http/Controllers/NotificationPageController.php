@@ -22,7 +22,6 @@ class NotificationPageController extends Controller
        
         if($count > request()->count){
         
-            toastr()->info('new notification');
             return JSON_encode(['status'=>true,'count'=>$count]);
         }else{
             return JSON_encode(['status'=>false]);

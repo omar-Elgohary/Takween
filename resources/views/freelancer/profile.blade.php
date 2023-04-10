@@ -7,7 +7,7 @@
 @section("og-image")
 @endsection
 @section("title")
-freelanser name
+profile
 @endsection
 @section("header")
 @endsection
@@ -57,7 +57,7 @@ freelanser name
                     <p>Wallet</p>
                 </a>
 
-                <a class="productstotal" href="{{ route('freelanc.files', 'test') }}">
+                <a class="productstotal" href="{{ route('freelanc.files') }}">
                     <p>My files</p>
                 </a>
 

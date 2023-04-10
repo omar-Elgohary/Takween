@@ -7,7 +7,7 @@
 @section("og-image")
 @endsection
 @section("title")
-product
+all photo
 @endsection
 @section("header")
 @endsection

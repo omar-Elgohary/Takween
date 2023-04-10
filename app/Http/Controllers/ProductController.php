@@ -94,7 +94,7 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-        //
+        
     }
 
 
@@ -104,9 +104,11 @@ class ProductController extends Controller
     }
 
 
-    public function destroy(Product $product)
+    public function destroy($id)
     {
-        //
+        Product::where('freelancer_id',auth()->user()->id)->where('id',$id)->delete();
+        toastr()->success('product deleted successfully');
+        return redirect()->route('freelanc.product.index');
     }
 
 

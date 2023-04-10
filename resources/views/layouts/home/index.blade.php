@@ -21,6 +21,7 @@
   <!-- Moyasar Scripts -->
   <script src="https://polyfill.io/v3/polyfill.min.js?features=fetch"></script>
   <script src="https://cdn.moyasar.com/mpf/1.7.3/moyasar.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </head>
     <body>
 
@@ -131,7 +132,14 @@ $(document).ready(function(){
               success: function (data){
                   if (data['status']) {
                       $('.noti-count').html(data['count']);
-                    
+                      Swal.fire({
+                          position: 'top-end',
+                          icon: 'info',
+                          title: 'Your have new notification',
+                          showConfirmButton: false,
+                          timer: 3500,
+                          toast: true,
+                        })
                   }else{
                       
                    }

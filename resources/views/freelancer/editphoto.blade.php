@@ -7,7 +7,7 @@
 @section("og-image")
 @endsection
 @section("title")
-home
+edit photo
 @endsection
 @section("header")
 @endsection

@@ -49,7 +49,7 @@ class PhotoController extends Controller
             "photo"=>$photo_name
         ]);
 
-        session()->flash('Create' , "created susseccfully");
+        toastr()->success("create susseccfully");
         return redirect()->route('freelanc.photo.index'); 
        }
 
@@ -67,6 +67,8 @@ class PhotoController extends Controller
 
     public function update(Request $request, Photo $photo)
     {
+
+        dd("sds");
         $request->validate([
             "photo"=>['nullable',"image","max:200"],
             "name"=>['required'],
@@ -79,12 +81,9 @@ class PhotoController extends Controller
             "location"=>['nullable'],
         ]);
 
+
         $photo_name=$photo->photo;
         if($request->hasFile("photo")) {
-            if($photo->photo!=null){
-                File::delete("assets/images/photo/".$photo->photo);
-            }
-
             $file_extention=$request->file("photo")->getCLientOriginalExtension();
             $photo_name=time(). ".".$file_extention;
             $request->file("photo")->move(public_path('assets/images/photo/'),$photo_name);
@@ -101,15 +100,22 @@ class PhotoController extends Controller
             "location"=>$request->location,
             "photo"=>$photo_name
         ]);
+
         return redirect()->route("freelanc.photo.show",compact("photo"));
     }
 
 
-    public function destroy(Photo $photo)
+    public function destroy($id)
     {
-        File::delete("assets/images/photo/".$photo->photo);
+
+        $photo=Photo::where('freelancer_id',auth()->user()->id)->where('id',$id);
+        $f=$photo->delete();
+        if(!$f){
+            toastr()->error("Photo Not Found");
+            return redirect()->back();
+        }
         $photo->delete();
-        session()->flash('Delete' , "deleted susseccfully");
+        toastr()->success("deleted susseccfully");
         return redirect()->route("freelanc.photo.index");
     }
 

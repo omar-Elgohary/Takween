@@ -197,7 +197,7 @@ show public request
                         </div>
                     @endif
                      
-                @if($request->offer->first() !=null)
+                @if($request->offer->where('freelancer_id',$request->freelancer_id)->first() !=null)
                 <div class="d-flex flex-column px-2">
                     <p class="m-0">price</p>
                     <span >{{$request->offer->where('freelancer_id',$request->freelancer_id)->first()->price }}</span>
@@ -255,7 +255,7 @@ show public request
                         </div>
                     @endif
                      
-                @if($request->offer->first() !=null)
+                @if($request->offer->where('freelancer_id',$request->freelancer_id)->first() !=null)
                 <div class="d-flex flex-column px-2">
                     <p class="m-0">price</p>
                     <span >{{$request->offer->where('freelancer_id',$request->freelancer_id)->first()->price }}</span>
@@ -307,7 +307,7 @@ show public request
                         </div>
                     @endif
                      
-                @if($request->offer->first() !=null)
+                @if($request->offer->where('freelancer_id',$request->freelancer_id)->first()  !=null)
                 <div class="d-flex flex-column px-2">
                     <p class="m-0">price</p>
                     <span >{{$request->offer->where('freelancer_id',$request->freelancer_id)->first()->price }}</span>
@@ -365,7 +365,7 @@ show public request
                         </div>
                     @endif
                      
-                @if($request->offer->first() !=null)
+                @if($request->offer->where('freelancer_id',$request->freelancer_id)->first()  !=null)
                 <div class="d-flex flex-column px-2">
                     <p class="m-0">price</p>
                     <span >{{$request->offer->where('freelancer_id',$request->freelancer_id)->first()->price }}</span>
@@ -428,7 +428,7 @@ show public request
                         </div>
                     @endif
                      
-                @if($request->offer->first() !=null)
+                @if($request->offer->where('freelancer_id',$request->freelancer_id)->first()  !=null)
                 <div class="d-flex flex-column px-2">
                     <p class="m-0">price</p>
                     <span >{{$request->offer->where('freelancer_id',$request->freelancer_id)->first()->price }}</span>

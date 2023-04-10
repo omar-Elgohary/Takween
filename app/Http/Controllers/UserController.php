@@ -158,12 +158,7 @@ class UserController extends Controller
 
 
    
-// show user files
-    public function FreelancerFiles($id)
-    {
-        $freelancer = User::find($id);
-        return view("freelancer.files", compact('freelancer'));
-    }
+
 
 
     public function destroy(Request $request, $id)
@@ -412,5 +407,7 @@ return view('user.userprofile',compact('user','files_current','files_lastmonth',
 toastr()->success('switch successfully');
 return redirect()->route('freelanc.profile');
 }
+
+
 
 }

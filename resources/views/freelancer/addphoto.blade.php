@@ -112,7 +112,7 @@ label span{
 
   <div class="mb-4 hlafwidth">
     <label for="camera" class="form-label pd-2">camera brand<span>(optional)</span></label>
-    <input type="text" class="form-control" id="camera_brand"  name="camerabrand"placeholder="e.g wedding card" value="{{old('camerabrand')}}">
+    <input type="text" class="form-control" id="camera_brand"  name="camerabrand"placeholder="e.g cannon" value="{{old('camerabrand')}}">
     @error("camerabrand")
                    <span class="error-message">{{$message}}</span>
     @enderror

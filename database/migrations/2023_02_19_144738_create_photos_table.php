@@ -12,7 +12,7 @@ return new class extends Migration
             $table->foreignId('freelancer_id')->constrained('users')->cascadeOnDelete();
             $table->string('photo', 100);
             $table->string('name', 20);
-            $table->double('price');
+            $table->double('price')->default(0);
             $table->text('description');
             $table->string('camera_brand', 20)->nullable();
             $table->string('lens_type', 20)->nullable();
@@ -20,6 +20,7 @@ return new class extends Migration
             $table->double('size_height');
             $table->enum('size_type', ['px', 'rem', 'inch'])->default('px');
             $table->string('location')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
