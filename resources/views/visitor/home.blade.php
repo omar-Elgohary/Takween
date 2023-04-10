@@ -105,7 +105,13 @@ home
                         <div class="name text-capitalize">{{ $freelancer->name }}</div>
                         <div class="rate">
                             <i class="fa fa-star"></i>
-                            <div class="rate-precntage">3,4</div>
+                            <div class="rate-precntage">
+                                @if( App\Models\Review::select('rate')->where('freelancer_id',$freelancer->id)->count()>0)
+                                {{round(App\Models\Review::select('rate')->where('freelancer_id',$freelancer->id)->sum('rate')/  App\Models\Review::select('rate')->where('freelancer_id',$freelancer->id)->count(),1)}}
+                            @else
+  {{App\Models\Review::select('rate')->where('freelancer_id',$freelancer->id)->count()}}
+                            @endif
+                            </div>
                         </div>
                     </div>
                 </div>
